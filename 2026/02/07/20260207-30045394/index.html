@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题目大意题目总结：H. Hybrid Search（混合搜索）问题描述给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：  策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。  策略 B (DF">
+  <meta name="description" content="¶题目大意 ¶题目总结：H. Hybrid Search（混合搜索） 问题描述 给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：   策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。   策">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——H. Hybrid Search（混合搜索）">
 <meta property="og:url" content="https://znzryb.com/2026/02/07/20260207-30045394/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
-<meta property="og:description" content="题目大意题目总结：H. Hybrid Search（混合搜索）问题描述给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：  策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。  策略 B (DF">
+<meta property="og:description" content="¶题目大意 ¶题目总结：H. Hybrid Search（混合搜索） 问题描述 给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：   策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。   策">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-07T08:11:00.000Z">
 <meta property="article:modified_time" content="2026-02-08T15:22:35.797Z">
@@ -229,52 +229,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><h3 id="题目总结：H-Hybrid-Search（混合搜索）"><a href="#题目总结：H-Hybrid-Search（混合搜索）" class="headerlink" title="题目总结：H. Hybrid Search（混合搜索）"></a>题目总结：H. Hybrid Search（混合搜索）</h3><p><strong>问题描述</strong><br>给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：</p>
+        <h2 id="题目大意"><a class="header-anchor" href="#题目大意">¶</a>题目大意</h2>
+<h3 id="题目总结：H-Hybrid-Search（混合搜索）"><a class="header-anchor" href="#题目总结：H-Hybrid-Search（混合搜索）">¶</a>题目总结：H. Hybrid Search（混合搜索）</h3>
+<p><strong>问题描述</strong><br>
+给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：</p>
 <ol>
-<li><p><strong>策略 A (BFS DFS)</strong>：从根节点开始进行 <strong>广度优先搜索 (BFS)</strong>，在某一节点 处切换为 <strong>深度优先搜索 (DFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
+<li>
+<p><strong>策略 A (BFS DFS)</strong>：从根节点开始进行 <strong>广度优先搜索 (BFS)</strong>，在某一节点 处切换为 <strong>深度优先搜索 (DFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
 </li>
-<li><p><strong>策略 B (DFS BFS)</strong>：从根节点开始进行 <strong>深度优先搜索 (DFS)</strong>，在某一节点 处切换为 <strong>广度优先搜索 (BFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
+<li>
+<p><strong>策略 B (DFS BFS)</strong>：从根节点开始进行 <strong>深度优先搜索 (DFS)</strong>，在某一节点 处切换为 <strong>广度优先搜索 (BFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
 </li>
 </ol>
 <p><strong>规则说明</strong></p>
 <ul>
-<li><p>*切换点 **：可以是路径上的任意节点（包括根节点 或节点 本身）。切换时 必须已被第一阶段搜索访问。</p>
+<li>
+<p>*切换点 **：可以是路径上的任意节点（包括根节点 或节点 本身）。切换时 必须已被第一阶段搜索访问。</p>
 </li>
-<li><p><strong>搜索范围限制</strong>：一旦切换搜索类型，后续只能访问 的子树节点。这意味着为了能访问到 ，切换点 必须是 的祖先（或 本身）。</p>
+<li>
+<p><strong>搜索范围限制</strong>：一旦切换搜索类型，后续只能访问 的子树节点。这意味着为了能访问到 ，切换点 必须是 的祖先（或 本身）。</p>
 </li>
-<li><p><strong>邻居访问顺序</strong>：在任何搜索中，节点子树的访问顺序严格遵循输入中边出现的先后顺序。</p>
+<li>
+<p><strong>邻居访问顺序</strong>：在任何搜索中，节点子树的访问顺序严格遵循输入中边出现的先后顺序。</p>
 </li>
-<li><p><strong>计算目标</strong>：分别输出在策略 A 和策略 B 下，节点 可能出现的最小位次。</p>
+<li>
+<p><strong>计算目标</strong>：分别输出在策略 A 和策略 B 下，节点 可能出现的最小位次。</p>
 </li>
 </ul>
 <hr>
-<h3 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h3><h3 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 1 ()"></a>样例 1 ()</h3><ul>
-<li><p><strong>BFS DFS</strong>：最优选择是在节点 处切换。BFS 首先访问第一层及第二层部分节点，到达 后切换为 DFS 进入其子树，此时 是第 个被访问的节点。</p>
+<h3 id="样例解释"><a class="header-anchor" href="#样例解释">¶</a>样例解释</h3>
+<h3 id="样例-1"><a class="header-anchor" href="#样例-1">¶</a>样例 1 ()</h3>
+<ul>
+<li>
+<p><strong>BFS DFS</strong>：最优选择是在节点 处切换。BFS 首先访问第一层及第二层部分节点，到达 后切换为 DFS 进入其子树，此时 是第 个被访问的节点。</p>
 </li>
-<li><p><strong>DFS BFS</strong>：最优选择是在节点 或 处切换，最小位次为 。</p>
-</li>
-</ul>
-<h3 id="样例-2"><a href="#样例-2" class="headerlink" title="样例 2 ()"></a>样例 2 ()</h3><ul>
-<li><p><strong>BFS DFS</strong>：最小位次为 。</p>
-</li>
-<li><p><strong>DFS BFS</strong>：即使不切换（一直使用 DFS），最小位次也可以达到 。</p>
+<li>
+<p><strong>DFS BFS</strong>：最优选择是在节点 或 处切换，最小位次为 。</p>
 </li>
 </ul>
-<h3 id="样例-3"><a href="#样例-3" class="headerlink" title="样例 3 ()"></a>样例 3 ()</h3><ul>
+<h3 id="样例-2"><a class="header-anchor" href="#样例-2">¶</a>样例 2 ()</h3>
+<ul>
+<li>
+<p><strong>BFS DFS</strong>：最小位次为 。</p>
+</li>
+<li>
+<p><strong>DFS BFS</strong>：即使不切换（一直使用 DFS），最小位次也可以达到 。</p>
+</li>
+</ul>
+<h3 id="样例-3"><a class="header-anchor" href="#样例-3">¶</a>样例 3 ()</h3>
+<ul>
 <li>无论哪种混合搜索，最优答案均为 。注意，如果仅使用纯 BFS 或纯 DFS，节点 的位次都是 。混合搜索通过在特定节点（如 的祖先）切换策略，跳过了其他非必要的分支，从而提前了 的访问顺序。</li>
 </ul>
 <hr>
 <p><strong>输入输出要求</strong></p>
 <ul>
-<li><p><strong>输入</strong>：第一行 ；接下来 行描述边。</p>
+<li>
+<p><strong>输入</strong>：第一行 ；接下来 行描述边。</p>
 </li>
-<li><p><strong>输出</strong>：第一行输出策略 A 的最小值，第二行输出策略 B 的最小值。</p>
+<li>
+<p><strong>输出</strong>：第一行输出策略 A 的最小值，第二行输出策略 B 的最小值。</p>
 </li>
-<li><p><strong>数据范围</strong>：。</p>
+<li>
+<p><strong>数据范围</strong>：。</p>
 </li>
 </ul>
-<h2 id="思路讲解"><a href="#思路讲解" class="headerlink" title="思路讲解"></a>思路讲解</h2><h2 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h2><p><strong>源代码</strong></p>
-<h2 id="心路历程（WA，TLE，MLE……）"><a href="#心路历程（WA，TLE，MLE……）" class="headerlink" title="心路历程（WA，TLE，MLE……）"></a>心路历程（WA，TLE，MLE……）</h2>
+<h2 id="思路讲解"><a class="header-anchor" href="#思路讲解">¶</a>思路讲解</h2>
+<h2 id="AC代码"><a class="header-anchor" href="#AC代码">¶</a>AC代码</h2>
+<p><strong>源代码</strong></p>
+<h2 id="心路历程（WA，TLE，MLE……）"><a class="header-anchor" href="#心路历程（WA，TLE，MLE……）">¶</a>心路历程（WA，TLE，MLE……）</h2>
+
     </div>
 
     
