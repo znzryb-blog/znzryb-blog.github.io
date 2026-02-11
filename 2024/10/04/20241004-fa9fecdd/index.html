@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题目大意  题目总结：H. Hybrid Search（混合搜索） 问题描述 给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：   策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。   策">
+  <meta name="description" content="题目大意 这篇笔记对应的是「set 自定义 cmp 排序」：讲的是在 C++ 里如何为 set（以及类似容器）自定义比较器 cmp，从而改变元素的排序规则（例如从大到小排序），以及与默认比较方式的区别。 123456789101112131415161718192021#include &lt;iostream&gt;#include &lt;set&gt;#include &lt;iterat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——H. Hybrid Search（混合搜索）">
-<meta property="og:url" content="https://znzryb.com/2026/02/07/20260207-30045394/index.html">
+<meta property="og:title" content="Compare函数&#x2F;类的使用">
+<meta property="og:url" content="https://znzryb.com/2024/10/04/20241004-fa9fecdd/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
-<meta property="og:description" content="题目大意  题目总结：H. Hybrid Search（混合搜索） 问题描述 给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：   策略 A (BFS DFS)：从根节点开始进行 广度优先搜索 (BFS)，在某一节点 处切换为 深度优先搜索 (DFS)。切换后，搜索将仅限于 的子树内部。   策">
+<meta property="og:description" content="题目大意 这篇笔记对应的是「set 自定义 cmp 排序」：讲的是在 C++ 里如何为 set（以及类似容器）自定义比较器 cmp，从而改变元素的排序规则（例如从大到小排序），以及与默认比较方式的区别。 123456789101112131415161718192021#include &lt;iostream&gt;#include &lt;set&gt;#include &lt;iterat">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-07T08:11:00.000Z">
-<meta property="article:modified_time" content="2026-02-08T15:22:35.797Z">
+<meta property="article:published_time" content="2024-10-03T23:25:00.000Z">
+<meta property="article:modified_time" content="2026-02-11T07:03:49.397Z">
 <meta property="article:author" content="znzryb">
-<meta property="article:tag" content="bfs 广搜">
-<meta property="article:tag" content="dfs">
+<meta property="article:tag" content="tutorial">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://znzryb.com/2026/02/07/20260207-30045394/">
+<link rel="canonical" href="https://znzryb.com/2024/10/04/20241004-fa9fecdd/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——H. Hybrid Search（混合搜索） | Znzryb's Blog</title>
+  <title>Compare函数/类的使用 | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -198,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/07/20260207-30045394/">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/04/20241004-fa9fecdd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -211,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——H. Hybrid Search（混合搜索）
+          Compare函数/类的使用
         </h1>
 
         <div class="post-meta">
@@ -221,14 +220,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-02-07 16:11:00" itemprop="dateCreated datePublished" datetime="2026-02-07T16:11:00+08:00">2026-02-07</time>
+              <time title="Created: 2024-10-04 07:25:00" itemprop="dateCreated datePublished" datetime="2024-10-04T07:25:00+08:00">2024-10-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-08 23:22:35" itemprop="dateModified" datetime="2026-02-08T23:22:35+08:00">2026-02-08</time>
+                <time title="Modified: 2026-02-11 15:03:49" itemprop="dateModified" datetime="2026-02-11T15:03:49+08:00">2026-02-11</time>
               </span>
 
           
@@ -243,74 +242,13 @@
 
       
         <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<h3 id="题目总结h-hybrid-search混合搜索"><a class="markdownIt-Anchor" href="#题目总结h-hybrid-search混合搜索"></a> 题目总结：H. Hybrid Search（混合搜索）</h3>
-<p><strong>问题描述</strong><br />
-给定一棵以  为根、包含  个节点的树。对于树上的特定目标节点 ，你需要计算在以下两种“混合搜索”策略下， 被访问到的最小可能位置（从  开始计数）：</p>
-<ol>
-<li>
-<p><strong>策略 A (BFS DFS)</strong>：从根节点开始进行 <strong>广度优先搜索 (BFS)</strong>，在某一节点 处切换为 <strong>深度优先搜索 (DFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
-</li>
-<li>
-<p><strong>策略 B (DFS BFS)</strong>：从根节点开始进行 <strong>深度优先搜索 (DFS)</strong>，在某一节点 处切换为 <strong>广度优先搜索 (BFS)</strong>。切换后，搜索将仅限于 的子树内部。</p>
-</li>
-</ol>
-<p><strong>规则说明</strong></p>
-<ul>
-<li>
-<p>*切换点 **：可以是路径上的任意节点（包括根节点 或节点 本身）。切换时 必须已被第一阶段搜索访问。</p>
-</li>
-<li>
-<p><strong>搜索范围限制</strong>：一旦切换搜索类型，后续只能访问 的子树节点。这意味着为了能访问到 ，切换点 必须是 的祖先（或 本身）。</p>
-</li>
-<li>
-<p><strong>邻居访问顺序</strong>：在任何搜索中，节点子树的访问顺序严格遵循输入中边出现的先后顺序。</p>
-</li>
-<li>
-<p><strong>计算目标</strong>：分别输出在策略 A 和策略 B 下，节点 可能出现的最小位次。</p>
-</li>
-</ul>
-<hr />
-<h3 id="样例解释"><a class="markdownIt-Anchor" href="#样例解释"></a> 样例解释</h3>
-<h3 id="样例-1"><a class="markdownIt-Anchor" href="#样例-1"></a> 样例 1 ()</h3>
-<ul>
-<li>
-<p><strong>BFS DFS</strong>：最优选择是在节点 处切换。BFS 首先访问第一层及第二层部分节点，到达 后切换为 DFS 进入其子树，此时 是第 个被访问的节点。</p>
-</li>
-<li>
-<p><strong>DFS BFS</strong>：最优选择是在节点 或 处切换，最小位次为 。</p>
-</li>
-</ul>
-<h3 id="样例-2"><a class="markdownIt-Anchor" href="#样例-2"></a> 样例 2 ()</h3>
-<ul>
-<li>
-<p><strong>BFS DFS</strong>：最小位次为 。</p>
-</li>
-<li>
-<p><strong>DFS BFS</strong>：即使不切换（一直使用 DFS），最小位次也可以达到 。</p>
-</li>
-</ul>
-<h3 id="样例-3"><a class="markdownIt-Anchor" href="#样例-3"></a> 样例 3 ()</h3>
-<ul>
-<li>无论哪种混合搜索，最优答案均为 。注意，如果仅使用纯 BFS 或纯 DFS，节点 的位次都是 。混合搜索通过在特定节点（如 的祖先）切换策略，跳过了其他非必要的分支，从而提前了 的访问顺序。</li>
-</ul>
-<hr />
-<p><strong>输入输出要求</strong></p>
-<ul>
-<li>
-<p><strong>输入</strong>：第一行 ；接下来 行描述边。</p>
-</li>
-<li>
-<p><strong>输出</strong>：第一行输出策略 A 的最小值，第二行输出策略 B 的最小值。</p>
-</li>
-<li>
-<p><strong>数据范围</strong>：。</p>
-</li>
-</ul>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><strong>源代码</strong></p>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+<p>这篇笔记对应的是「set 自定义 cmp 排序」：讲的是在 C++ 里如何为 <code>set</code>（以及类似容器）自定义比较器 <code>cmp</code>，从而改变元素的排序规则（例如从大到小排序），以及与默认比较方式的区别。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> p[<span class="number">7</span>]=&#123;<span class="number">0</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span>&#123;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(a!=b) <span class="keyword">return</span> p[a]&lt;p[b];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">set&lt;<span class="type">int</span>,cmp &gt; g; <span class="comment">// 一般来说像set，priority_queue都是传入cmp，less&lt;int&gt; 这样的结构体</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	g.<span class="built_in">insert</span>(<span class="number">1</span>);g.<span class="built_in">insert</span>(<span class="number">2</span>);g.<span class="built_in">insert</span>(<span class="number">3</span>);g.<span class="built_in">insert</span>(<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">for</span>(set&lt;<span class="type">int</span>&gt;::iterator it=g.<span class="built_in">begin</span>();it!=g.<span class="built_in">end</span>();it++)</span><br><span class="line">		cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">	set&lt;<span class="type">int</span>&gt;::iterator it=g.<span class="built_in">end</span>();</span><br><span class="line">	<span class="built_in">advance</span>(it,<span class="number">-1</span>);</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;back: &quot;</span>&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">	g.<span class="built_in">clear</span>();</span><br><span class="line">	cout&lt;&lt;g.<span class="built_in">empty</span>()&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">back: <span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>** 优先队列的比较符号是反的，解释详情见**</p>
+<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/353157988535967744">https://www.nowcoder.com/discuss/353157988535967744</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span> &#123;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; a,  pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; b)</span>  </span>&#123;</span><br><span class="line">		<span class="comment">// 如果第二个元素不同，则按照第二个元素比较</span></span><br><span class="line">		<span class="keyword">if</span> (a.second != b.second)</span><br><span class="line">			<span class="keyword">return</span> a.second &gt; b.second;  <span class="comment">// 如果想要最小堆，这里使用 &gt;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> a[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">492</span>,<span class="number">412</span>,<span class="number">3</span>&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span> <span class="number">6</span></span><br><span class="line"><span class="number">3</span> <span class="number">9</span></span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">412</span> <span class="number">492</span> </span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
     </div>
 
     
@@ -319,8 +257,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/dfs/" rel="tag"># dfs</a>
-              <a href="/tags/bfs-%E5%B9%BF%E6%90%9C/" rel="tag"># bfs 广搜</a>
+              <a href="/tags/tutorial/" rel="tag"># tutorial</a>
           </div>
 
         
@@ -329,12 +266,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/02/07/20260207-50756bd8/" rel="prev" title="2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——L. Last Orders">
-      <i class="fa fa-chevron-left"></i> 2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——L. Last Orders
+    <a href="/2024/10/04/20241004-bf6a926d/" rel="prev" title="wine打开CPP命令">
+      <i class="fa fa-chevron-left"></i> wine打开CPP命令
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/02/08/20260208-30145394/" rel="next" title="CF-1078-赛后总结（Codeforces Round 1078 (Div. 2)）">
-      CF-1078-赛后总结（Codeforces Round 1078 (Div. 2)） <i class="fa fa-chevron-right"></i>
+    <a href="/2024/10/04/20241004-5a7634d0/" rel="next" title="P1242 新汉诺塔">
+      P1242 新汉诺塔 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -394,7 +331,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93h-hybrid-search%E6%B7%B7%E5%90%88%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.</span> <span class="nav-text"> 题目总结：H. Hybrid Search（混合搜索）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%A7%A3%E9%87%8A"><span class="nav-number">1.2.</span> <span class="nav-text"> 样例解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B-1"><span class="nav-number">1.3.</span> <span class="nav-text"> 样例 1 ()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B-2"><span class="nav-number">1.4.</span> <span class="nav-text"> 样例 2 ()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B-3"><span class="nav-number">1.5.</span> <span class="nav-text"> 样例 3 ()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ac%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -408,14 +345,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
