@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="AC代码 时光倒流trick+floyd   注意重边处理 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ABC - 375 - F - Road Blocked">
+<meta property="og:url" content="https://znzryb.com/2024/11/02/20241102-69b1fb95/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="AC代码 时光倒流trick+floyd   注意重边处理 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-01T18:22:00.000Z">
+<meta property="article:modified_time" content="2026-02-14T02:48:36.418Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="Floyd">
+<meta property="article:tag" content="graph">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2024/11/02/20241102-69b1fb95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>ABC - 375 - F - Road Blocked | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/02/20241102-69b1fb95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ABC - 375 - F - Road Blocked
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-02 02:22:00" itemprop="dateCreated datePublished" datetime="2024-11-02T02:22:00+08:00">2024-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 10:48:36" itemprop="dateModified" datetime="2026-02-14T10:48:36+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>时光倒流trick+floyd</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc375/submissions/59449193"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/186856278"></a></p>
+<p>注意重边处理</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">310</span>,M=<span class="number">90100</span>;</span><br><span class="line">ll n,m,query,cnt,inf;                      <span class="comment">// D里存的是到该点的最短距离（目前）</span></span><br><span class="line">ll g[N][N],C[M];</span><br><span class="line">pair&lt;ll,ll&gt; road[M];</span><br><span class="line">vector&lt;ll&gt; ans;     <span class="comment">// 逆序存储答案</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">opxy</span> &#123;</span><br><span class="line">    ll op,x,y;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;opxy&gt; opp;   <span class="comment">// 就是存一下操作，实现时光倒流</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 时光倒流trick+floyd（以每个点为中间点进行的距离dp）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">floyd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==j)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(k==i)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">update</span><span class="params">(ll a,ll b)</span> </span>&#123;</span><br><span class="line">    ll i=a;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i==j)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==i)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    i=b;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;     <span class="comment">// (与上一段重复)</span></span><br><span class="line">        <span class="keyword">if</span>(i==j)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==i)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;query;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(g));   <span class="comment">// g初始化</span></span><br><span class="line">    inf=g[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        g[i][i]=<span class="number">0</span>;      <span class="comment">// 自己到自己肯定距离为0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;++i) &#123;</span><br><span class="line">        ll a,b,c;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">        g[a][b]=<span class="built_in">min</span>(c,g[a][b]);</span><br><span class="line">        g[b][a]=<span class="built_in">min</span>(c,g[b][a]);</span><br><span class="line">        road[++cnt]=<span class="built_in">make_pair</span>(a,b);</span><br><span class="line">        C[cnt]=c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=query;++_) &#123;</span><br><span class="line">        <span class="type">int</span> op;</span><br><span class="line">        cin&gt;&gt;op;</span><br><span class="line">        <span class="keyword">if</span>(op==<span class="number">1</span>) &#123;</span><br><span class="line">            ll idx;</span><br><span class="line">            cin&gt;&gt;idx;</span><br><span class="line">            ll a,b;</span><br><span class="line">            a=road[idx].first,b=road[idx].second;</span><br><span class="line">            <span class="keyword">if</span>(g[a][b]==C[idx])</span><br><span class="line">                g[a][b]=inf,g[b][a]=inf;    <span class="comment">// 删边(处理重边情况)</span></span><br><span class="line">            opxy lop; lop.op=<span class="number">1</span>,lop.x=idx;</span><br><span class="line">            opp.<span class="built_in">push_back</span>(lop);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            ll x,y;</span><br><span class="line">            cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">            opxy lop; lop.op=op,lop.x=x,lop.y=y;</span><br><span class="line">            opp.<span class="built_in">push_back</span>(lop);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">floyd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=opp.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;--i) &#123;  <span class="comment">// 哈哈，时光倒流启动！！！</span></span><br><span class="line">        ll op=opp[i].op,x=opp[i].x,y=opp[i].y;</span><br><span class="line">        <span class="keyword">if</span>(op==<span class="number">1</span>) &#123;</span><br><span class="line">            ll a=road[x].first,b=road[x].second;</span><br><span class="line">            g[a][b]=<span class="built_in">min</span>(C[x],g[a][b]),g[b][a]=<span class="built_in">min</span>(C[x],g[b][a]);</span><br><span class="line">            <span class="built_in">update</span>(a,b);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(g[x][y]!=inf)</span><br><span class="line">                ans.<span class="built_in">push_back</span>(g[x][y]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ans.<span class="built_in">push_back</span>(<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=ans.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;--i) &#123;</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不知道为什么RE了好几个 https://atcoder.jp/contests/abc375/submissions/59448981</span></span><br><span class="line"><span class="comment">// WA 未处理重边 https://atcoder.jp/contests/abc375/submissions/59449001</span></span><br><span class="line"><span class="comment">// 处理了一下重边 AC https://atcoder.jp/contests/abc375/submissions/59449193</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc375/tasks/abc375_f"></a></p>
+<p>能跑，但是TLE，我发现这题竟然是floyd算法</p>
+<p>需要时光倒流trick+floyd</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">310</span>,M=<span class="number">9010</span>;</span><br><span class="line">ll n,m,query,cnt,D[N],inf;                      <span class="comment">// D里存的是到该点的最短距离（目前）</span></span><br><span class="line">vector&lt;pair&lt;ll,ll&gt; &gt; g[N];</span><br><span class="line">pair&lt;ll,ll&gt; road[<span class="number">9010</span>];</span><br><span class="line"><span class="type">bool</span> ban[N][N];</span><br><span class="line">bitset&lt;N&gt; done;         <span class="comment">// 存的就是dij当中已经确定的点</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(pair&lt;ll,ll&gt; a,pair&lt;ll,ll&gt; b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a.second!=b.second)</span><br><span class="line">            <span class="keyword">return</span> a.second&gt;b.second;       <span class="comment">// 我们需要一个小根堆，second是存的边的长度</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">solve</span><span class="params">(ll x,ll y)</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;pair&lt;ll,ll&gt;,vector&lt;pair&lt;ll,ll&gt; &gt;, cmp&gt; q;</span><br><span class="line">    D[x]=<span class="number">0</span>;</span><br><span class="line">    q.<span class="built_in">push</span>(<span class="built_in">make_pair</span>(x,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        ll cdis=q.<span class="built_in">top</span>().second,cn=q.<span class="built_in">top</span>().first;</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(done[cn])        <span class="comment">// 这种写法是可能会有冗余，故要判断一下</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        done[cn]=<span class="literal">true</span>;</span><br><span class="line">        D[cn]=cdis;</span><br><span class="line">        <span class="keyword">if</span>(done[y])</span><br><span class="line">            <span class="keyword">return</span> D[y];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;g[cn].<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">            ll fn=g[cn][i].first,fdis=g[cn][i].second+cdis;</span><br><span class="line">            <span class="keyword">if</span>(ban[cn][fn])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            q.<span class="built_in">push</span>(<span class="built_in">make_pair</span>(fn,fdis));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(D[y]==inf)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> D[y];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;query;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) &#123;</span><br><span class="line">        ll a,b,c;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">        g[a].<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(b,c));</span><br><span class="line">        g[b].<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(a,c));</span><br><span class="line">        road[++cnt]=<span class="built_in">make_pair</span>(a,b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=query;_++) &#123;</span><br><span class="line">        <span class="type">int</span> op;</span><br><span class="line">        cin&gt;&gt;op;</span><br><span class="line">        <span class="keyword">if</span>(op==<span class="number">1</span>) &#123;</span><br><span class="line">            ll idx;</span><br><span class="line">            cin&gt;&gt;idx;</span><br><span class="line">            ll a=road[idx].first,b=road[idx].second;</span><br><span class="line">            ban[a][b]=<span class="literal">true</span>;ban[b][a]=<span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            ll x,y;</span><br><span class="line">            cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">            <span class="built_in">memset</span>(D,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(D));</span><br><span class="line">            inf=D[<span class="number">0</span>];</span><br><span class="line">            done.<span class="built_in">reset</span>();</span><br><span class="line">            cout&lt;&lt;<span class="built_in">solve</span>(x,y)&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WA了，可能是没有判别重边</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc375/submissions/59449001"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">310</span>,M=<span class="number">90100</span>;</span><br><span class="line">ll n,m,query,cnt,inf;                      <span class="comment">// D里存的是到该点的最短距离（目前）</span></span><br><span class="line">ll g[N][N],C[M];</span><br><span class="line">pair&lt;ll,ll&gt; road[M];</span><br><span class="line">vector&lt;ll&gt; ans;     <span class="comment">// 逆序存储答案</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">opxy</span> &#123;</span><br><span class="line">    ll op,x,y;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;opxy&gt; opp;   <span class="comment">// 就是存一下操作，实现时光倒流</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 时光倒流trick+floyd（以每个点为中间点进行的距离dp）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">floyd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==j)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(k==i)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">update</span><span class="params">(ll a,ll b)</span> </span>&#123;</span><br><span class="line">    ll i=a;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i==j)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==i)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    i=b;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;++j) &#123;     <span class="comment">// (与上一段重复)</span></span><br><span class="line">        <span class="keyword">if</span>(i==j)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=n;k++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==i)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            g[j][k]=<span class="built_in">min</span>(g[j][i]+g[i][k],g[j][k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;query;</span><br><span class="line">    <span class="built_in">memset</span>(g,<span class="number">0x3f</span>,<span class="built_in">sizeof</span>(g));   <span class="comment">// g初始化</span></span><br><span class="line">    inf=g[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        g[i][i]=<span class="number">0</span>;      <span class="comment">// 自己到自己肯定距离为0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;++i) &#123;</span><br><span class="line">        ll a,b,c;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">        g[a][b]=c;</span><br><span class="line">        g[b][a]=c;</span><br><span class="line">        road[++cnt]=<span class="built_in">make_pair</span>(a,b);</span><br><span class="line">        C[cnt]=c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=query;++_) &#123;</span><br><span class="line">        <span class="type">int</span> op;</span><br><span class="line">        cin&gt;&gt;op;</span><br><span class="line">        <span class="keyword">if</span>(op==<span class="number">1</span>) &#123;</span><br><span class="line">            ll idx;</span><br><span class="line">            cin&gt;&gt;idx;</span><br><span class="line">            ll a,b;</span><br><span class="line">            a=road[idx].first,b=road[idx].second;</span><br><span class="line">            g[a][b]=inf,g[b][a]=inf;    <span class="comment">// 删边</span></span><br><span class="line">            opxy lop; lop.op=<span class="number">1</span>,lop.x=idx;</span><br><span class="line">            opp.<span class="built_in">push_back</span>(lop);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            ll x,y;</span><br><span class="line">            cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">            opxy lop; lop.op=op,lop.x=x,lop.y=y;</span><br><span class="line">            opp.<span class="built_in">push_back</span>(lop);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">floyd</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=opp.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;--i) &#123;  <span class="comment">// 哈哈，时光倒流启动！！！</span></span><br><span class="line">        ll op=opp[i].op,x=opp[i].x,y=opp[i].y;</span><br><span class="line">        <span class="keyword">if</span>(op==<span class="number">1</span>) &#123;</span><br><span class="line">            ll a=road[x].first,b=road[x].second;</span><br><span class="line">            g[a][b]=C[x],g[b][a]=C[x];</span><br><span class="line">            <span class="built_in">update</span>(a,b);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(g[x][y]!=inf)</span><br><span class="line">                ans.<span class="built_in">push_back</span>(g[x][y]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ans.<span class="built_in">push_back</span>(<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=ans.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;--i) &#123;</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不知道为什么RE了好几个 https://atcoder.jp/contests/abc375/submissions/59448981</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/graph/" rel="tag"># graph</a>
+              <a href="/tags/Floyd/" rel="tag"># Floyd</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/01/20241101-6613cb35/" rel="prev" title="ABC - 370 - E - Avoid K Partition">
+      <i class="fa fa-chevron-left"></i> ABC - 370 - E - Avoid K Partition
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/11/02/20241102-9dcd1fc6/" rel="next" title="B3647 【模板】Floyd">
+      B3647 【模板】Floyd <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ac%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text"> AC代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">2.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
