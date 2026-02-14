@@ -591,114 +591,7 @@ AC<br />
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/02/12/20260212-745e513b/" class="post-title-link" itemprop="url">Leetcode 3721. 最长平衡子数组 II（最大字段和，最小字段和线段树）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-02-12 14:19:00" itemprop="dateCreated datePublished" datetime="2026-02-12T14:19:00+08:00">2026-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-13 11:26:20" itemprop="dateModified" datetime="2026-02-13T11:26:20+08:00">2026-02-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>给你一个整数数组 <code>nums</code>。</p>
-<p>如果子数组中 <strong>不同偶数</strong> 的数量等于 <strong>不同奇数</strong>的数量，则称该 **子数组 **是 **平衡的 **。</p>
-<p>返回 <strong>最长</strong> 平衡子数组的长度。</p>
-<p><strong>子数组</strong>是数组中连续且<strong>非空</strong>的一段元素序列。</p>
-<ul>
-<li>
-<p><code>1 &lt;= nums.length &lt;= 10^5</code></p>
-</li>
-<li>
-<p><code>1 &lt;= nums[i] &lt;= 10^5</code></p>
-</li>
-</ul>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-12_22.26.08_4b4fbc64.png" alt="image" /></p>
-<p>显然，暴力解法无法满足时间要求，我们需要找到一个时间复杂度较低的方法来快速找到最长平衡子数组，于是我想到了线段树，通过区间修改和快速查询，可以实现时间复杂度O(N log N)。</p>
-<p>那么如何用线段树快速找到最长平衡子数组呢，我们可以规定，如果数字是 偶数+1，反之，如果是 奇数-1。那这个问题就转换为，我们要找到 **区间和 **为0 的最长子区间长度。</p>
-<p>但题目还有一个数字去重的要求，如果数字相同，则不能重复计算贡献，那我们可以这么想：</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-12_22.56.27_1cfdea5d.png" alt="image" /></p>
-<p>换句话说，我更新区间和的时候，只从 j 点更新到上一次这个数字出现前的位置（也就是图中1的位置），再往后这个数字就不能贡献计数了。</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.42.37_13dc5933.png" alt="image" /></p>
-<p>好了，线段树构造好了，那如何快速找到 区间和 为 0 的 子区间呢？由于这个线段树没有单调性，如果用朴素的方法，我们可能需要遍历整棵树，复杂度来到了O(N)，不符合要求，解决方法是，采取Min/Max 剪枝策略，具体如下：在每个节点除了记录区间和，还要记录区间最大和 <strong>Max</strong> 和区间最小和 Min，并在寻找 区间和为 0 的时候做以下判断：</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.48.41_f258ddb9.png" alt="image" /></p>
-<p>这样，就像走迷宫有了导航，复杂度可以下降到 O(Log N) :</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.50.13_f73ce8e5.png" alt="image" /></p>
-<p>以下为具体线段树更新和查找步骤图示：</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.52.04_07f86fdb.png" alt="image" /></p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.52.33_879218e6.png" alt="image" /></p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.52.51_2885feaa.png" alt="image" /></p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.53.08_e67032b3.png" alt="image" /></p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.53.37_5e5b4864.png" alt="image" /></p>
-<p>回顾一下线段树算法的核心流程：</p>
-<p><img src="https://media.znzryb.com/20260212-745e513b/%E6%88%AA%E5%B1%8F2026-02-13_09.55.35_46144e10.png" alt="image" /></p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 线段树节点</span></span><br><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	Min <span class="type">int</span> <span class="comment">// 区间内的最小值</span></span><br><span class="line">	Max <span class="type">int</span> <span class="comment">// 区间内的最大值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局变量，避免传参过多</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	tree []Node</span><br><span class="line">	lazy []<span class="type">int</span></span><br><span class="line">	n    <span class="type">int</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化线段树</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">build</span><span class="params">(node, start, end <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> start == end &#123;</span><br><span class="line">		tree[node] = Node&#123;<span class="number">0</span>, <span class="number">0</span>&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	mid := (start + end) / <span class="number">2</span></span><br><span class="line">	build(<span class="number">2</span>*node, start, mid)</span><br><span class="line">	build(<span class="number">2</span>*node+<span class="number">1</span>, mid+<span class="number">1</span>, end)</span><br><span class="line">	tree[node] = Node&#123;<span class="number">0</span>, <span class="number">0</span>&#125; <span class="comment">// 初始全为0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下推懒标记</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pushDown</span><span class="params">(node <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> lazy[node] != <span class="number">0</span> &#123;</span><br><span class="line">		lazy[<span class="number">2</span>*node] += lazy[node]</span><br><span class="line">		tree[<span class="number">2</span>*node].Min += lazy[node]</span><br><span class="line">		tree[<span class="number">2</span>*node].Max += lazy[node]</span><br><span class="line"></span><br><span class="line">		lazy[<span class="number">2</span>*node+<span class="number">1</span>] += lazy[node]</span><br><span class="line">		tree[<span class="number">2</span>*node+<span class="number">1</span>].Min += lazy[node]</span><br><span class="line">		tree[<span class="number">2</span>*node+<span class="number">1</span>].Max += lazy[node]</span><br><span class="line"></span><br><span class="line">		lazy[node] = <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 区间更新</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">update</span><span class="params">(node, start, end, l, r, val <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> l &gt; end || r &lt; start &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> l &lt;= start &amp;&amp; end &lt;= r &#123;</span><br><span class="line">		tree[node].Min += val</span><br><span class="line">		tree[node].Max += val</span><br><span class="line">		lazy[node] += val</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	pushDown(node)</span><br><span class="line">	mid := (start + end) / <span class="number">2</span></span><br><span class="line">	update(<span class="number">2</span>*node, start, mid, l, r, val)</span><br><span class="line">	update(<span class="number">2</span>*node+<span class="number">1</span>, mid+<span class="number">1</span>, end, l, r, val)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 更新当前节点的最值</span></span><br><span class="line">	tree[node].Min = min(tree[<span class="number">2</span>*node].Min, tree[<span class="number">2</span>*node+<span class="number">1</span>].Min)</span><br><span class="line">	tree[node].Max = max(tree[<span class="number">2</span>*node].Max, tree[<span class="number">2</span>*node+<span class="number">1</span>].Max)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带有范围限制的查询</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">queryRangeZero</span><span class="params">(node, start, end, L, R <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="comment">// 区间无交集</span></span><br><span class="line">	<span class="keyword">if</span> start &gt; R || end &lt; L &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 剪枝</span></span><br><span class="line">	<span class="keyword">if</span> tree[node].Min &gt; <span class="number">0</span> || tree[node].Max &lt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> start == end &#123;</span><br><span class="line">		<span class="keyword">if</span> tree[node].Min == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> start</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	pushDown(node)</span><br><span class="line">	mid := (start + end) / <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	res := queryRangeZero(<span class="number">2</span>*node, start, mid, L, R)</span><br><span class="line">	<span class="keyword">if</span> res != <span class="number">-1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> res</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> queryRangeZero(<span class="number">2</span>*node+<span class="number">1</span>, mid+<span class="number">1</span>, end, L, R)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">longestBalanced</span><span class="params">(nums []<span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    n = <span class="built_in">len</span>(nums)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 初始化线段树大小 (4 * n)</span></span><br><span class="line">	tree = <span class="built_in">make</span>([]Node, <span class="number">4</span>*n)</span><br><span class="line">	lazy = <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">4</span>*n)</span><br><span class="line">	build(<span class="number">1</span>, <span class="number">0</span>, n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">	lastPos := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>) <span class="comment">// 记录元素上一次出现的位置</span></span><br><span class="line">	maxLen := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">		val := nums[i]</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取该元素上一次出现的位置，如果没有则视为 -1</span></span><br><span class="line">		prev, exists := lastPos[val]</span><br><span class="line">		<span class="keyword">if</span> !exists &#123;</span><br><span class="line">			prev = <span class="number">-1</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 确定更新方向：偶数+1，奇数-1</span></span><br><span class="line">		diff := <span class="number">0</span></span><br><span class="line">		<span class="keyword">if</span> val%<span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">			diff = <span class="number">1</span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			diff = <span class="number">-1</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 核心逻辑：只更新 (上一次出现位置, 当前位置] 这个范围</span></span><br><span class="line">		<span class="comment">// 这意味着对于在这个范围内的起始点 start，nums[i] 是一个新的 distinct 元素</span></span><br><span class="line">		update(<span class="number">1</span>, <span class="number">0</span>, n<span class="number">-1</span>, prev+<span class="number">1</span>, i, diff)</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 记录位置</span></span><br><span class="line">		lastPos[val] = i</span><br><span class="line">		</span><br><span class="line">		firstZeroIndex := queryRangeZero(<span class="number">1</span>, <span class="number">0</span>, n<span class="number">-1</span>, <span class="number">0</span>, i)</span><br><span class="line">		<span class="keyword">if</span> firstZeroIndex != <span class="number">-1</span> &#123;</span><br><span class="line">			currentLen := i - firstZeroIndex + <span class="number">1</span></span><br><span class="line">			<span class="keyword">if</span> currentLen &gt; maxLen &#123;</span><br><span class="line">				maxLen = currentLen</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> maxLen</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/12/20260212-745e513b%20copy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/12/20260212-745e513b%20copy/" class="post-title-link" itemprop="url">Leetcode 3721. 最长平衡子数组 II（最大后缀和，最小后缀和线段树）</a>
+            <a href="/2026/02/12/20260212-745e513b/" class="post-title-link" itemprop="url">Leetcode 3721. 最长平衡子数组 II（最大后缀和，最小后缀和线段树）</a>
         </h2>
 
         <div class="post-meta">
@@ -792,6 +685,73 @@ AC<br />
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/12/20260212-bd68308f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/12/20260212-bd68308f/" class="post-title-link" itemprop="url">Int 和 Long long 的循环变量类型性能基准测试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-02-12 10:06:00" itemprop="dateCreated datePublished" datetime="2026-02-12T10:06:00+08:00">2026-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-13 22:57:56" itemprop="dateModified" datetime="2026-02-13T22:57:56+08:00">2026-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://media.znzryb.com/20260212-bd68308f/image_f4fef3e8.png" alt="image" /></p>
+<p>使用 int integer 作为循环变量类型和使用 long long 作为循环变量类型，这个速度几乎是一模一样的。所以之后可你可以这个，之后我们就用 long long 吧，避免这个溢出风险。</p>
+<p><a target="_blank" rel="noopener" href="https://quick-bench.com/q/QWglJiYzyTVmjjHDhioI4S2UDOk">https://quick-bench.com/q/QWglJiYzyTVmjjHDhioI4S2UDOk</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;benchmark/benchmark.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;cstdint&gt;</span></span><br><span class="line"></span><br><span class="line">constexpr int N = 100000000;</span><br><span class="line"></span><br><span class="line">static void BM_loop_int(benchmark::State&amp; state) &#123;</span><br><span class="line">    <span class="keyword">for</span> (auto _ : state) &#123;</span><br><span class="line">        std::uint64_t acc = 0;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; N; ++i) &#123;</span><br><span class="line">            acc += (unsigned)i;</span><br><span class="line">        &#125;</span><br><span class="line">        benchmark::DoNotOptimize(acc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">BENCHMARK(BM_loop_int);</span><br><span class="line"></span><br><span class="line">static void BM_loop_ll(benchmark::State&amp; state) &#123;</span><br><span class="line">    <span class="keyword">for</span> (auto _ : state) &#123;</span><br><span class="line">        std::uint64_t acc = 0;</span><br><span class="line">        <span class="keyword">for</span> (long long i = 0; i &lt; (long long)N; ++i) &#123;</span><br><span class="line">            acc += (unsigned)i;</span><br><span class="line">        &#125;</span><br><span class="line">        benchmark::DoNotOptimize(acc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">BENCHMARK(BM_loop_ll);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -861,7 +821,7 @@ AC<br />
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
