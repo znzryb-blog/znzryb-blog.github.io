@@ -5233,7 +5233,7 @@ Anatoly 和 Antitoly 对资源的分配有不同的看法。Antitoly 正在开�
 <p><strong>样例 5</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">9753113579</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">9563</span><br></pre></td></tr></table></figure>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p><a href="https://www.notion.so/18e4539447bd804fb384f10db24822c7"></a></p>
+<p><a href="../2025/02/02/20250202-b24822c7.md">ABC-383-D - 9 Divisors </a></p>
 <p>使用因数个数定理，或者说是约数个数定理。</p>
 <p><img src="https://media.znzryb.com/20260215-898c91f3/image_bf4c5da8.png" alt="image" /></p>
 <p>其实使用约束个数定理不难得出如下的结论，那么 P 的 e1 次方就是我们所要枚举得出的这个数。</p>
