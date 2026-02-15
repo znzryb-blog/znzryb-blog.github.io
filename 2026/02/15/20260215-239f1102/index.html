@@ -22,16 +22,18 @@
 
   <meta name="description" content="题目大意 题目总结 实验室里悬挂着 nnn 个激光器，每个激光器的位置坐标为 xi&#x3D;ix_i &#x3D; ixi​&#x3D;i，初始距离天花板的高度为 aia_iai​。所有激光器朝向屏幕发射光线。 规则如下：   如果多个激光器处于同一高度（aia_iai​ 相同），则坐标较小的激光器发出的光线会被阻挡，只有该高度下坐标最大的那个激光器能被屏幕接收。   你可以进行操作：选定任意一个激光器，将其高度增加 1（">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing">
+<meta property="og:title" content="2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing（ 使用 dsu on next 实现未涂色点的快速查找）">
 <meta property="og:url" content="https://znzryb.com/2026/02/15/20260215-239f1102/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目总结 实验室里悬挂着 nnn 个激光器，每个激光器的位置坐标为 xi&#x3D;ix_i &#x3D; ixi​&#x3D;i，初始距离天花板的高度为 aia_iai​。所有激光器朝向屏幕发射光线。 规则如下：   如果多个激光器处于同一高度（aia_iai​ 相同），则坐标较小的激光器发出的光线会被阻挡，只有该高度下坐标最大的那个激光器能被屏幕接收。   你可以进行操作：选定任意一个激光器，将其高度增加 1（">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://media.znzryb.com/20260215-239f1102/image_eeebb88a.png">
 <meta property="article:published_time" content="2026-02-15T00:13:00.000Z">
-<meta property="article:modified_time" content="2026-02-15T10:27:32.790Z">
+<meta property="article:modified_time" content="2026-02-15T13:02:57.097Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="mex 最小排除数">
+<meta property="article:tag" content="并查集 disjointed union">
+<meta property="article:tag" content="懒操作 lazy">
 <meta property="article:tag" content="最优化 optimization">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://media.znzryb.com/20260215-239f1102/image_eeebb88a.png">
@@ -49,7 +51,7 @@
   };
 </script>
 
-  <title>2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing | Znzryb's Blog</title>
+  <title>2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing（ 使用 dsu on next 实现未涂色点的快速查找） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -213,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing
+          2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——J. Laser Balancing（ 使用 dsu on next 实现未涂色点的快速查找）
         </h1>
 
         <div class="post-meta">
@@ -224,7 +226,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-02-15 08:13:00 / Modified: 18:27:32" itemprop="dateCreated datePublished" datetime="2026-02-15T08:13:00+08:00">2026-02-15</time>
+              <time title="Created: 2026-02-15 08:13:00 / Modified: 21:02:57" itemprop="dateCreated datePublished" datetime="2026-02-15T08:13:00+08:00">2026-02-15</time>
             </span>
 
           
@@ -292,10 +294,14 @@
         <p>我感觉其实这道题目类似于 mex 类似于 mex 我们可以采用求 mex 的删除式 set 做法。<br />
 讲讲我现在的想法以及卡点：<br />
 现在想法就是，已经确定高度的地方呢，我们就把它删掉。就是求 mix 嘛，要把它删掉，把这个 set 中的这个点就删掉。就是第一次出现，<strong>如果说这个高度第一次出现</strong>，<strong>我们就把 set 中的这个点给删掉</strong>。<br />
-然后这样子我们最后就得到了一些被挡住的点，以及剩下的所有的可选高度。</p>
+然后这样子我们最后就得到了一些被挡住的点，以及剩下的所有的可选高度。<br />
+如果我不能使用删除式 set 的原因，其实是因为这样子的。原因是什么呢？其实是这个值域太大，你把所有点都塞进这个 set 里面就会出问题。</p>
 
     </div>
 </div>
+<p>由于不能够使用删除式 set 实现查找最靠近的点的这个操作。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/2694539447bd801a90a5e55faf0238b4"></a></p>
+<p>我们使用 DSU on next 实现未涂色点的快速查找。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -315,8 +321,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86-disjointed-union/" rel="tag"># 并查集 disjointed union</a>
               <a href="/tags/mex-%E6%9C%80%E5%B0%8F%E6%8E%92%E9%99%A4%E6%95%B0/" rel="tag"># mex 最小排除数</a>
               <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96-optimization/" rel="tag"># 最优化 optimization</a>
+              <a href="/tags/%E6%87%92%E6%93%8D%E4%BD%9C-lazy/" rel="tag"># 懒操作 lazy</a>
           </div>
 
         
@@ -328,7 +336,10 @@
     <a href="/2026/02/15/20260215-4114404c/" rel="prev" title="2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——G. Secret Words（区间 DP 不适合应用于计数问题？或者说你至少要想一下，不同的区间划分会不会造成同样的计数情况）">
       <i class="fa fa-chevron-left"></i> 2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——G. Secret Words（区间 DP 不适合应用于计数问题？或者说你至少要想一下，不同的区间划分会不会造成同样的计数情况）
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/02/15/20260215-ea501735/" rel="next" title="关于是否使用 pair 还是使用 struct 的建议">
+      关于是否使用 pair 还是使用 struct 的建议 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -401,14 +412,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-count">178</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-count">98</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
