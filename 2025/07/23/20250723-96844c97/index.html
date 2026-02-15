@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="通用错误  前面算还是后面算？ 一个东西，到底是在前面算，还是在后面算的，一定要搞清楚。如果是在后面算的，前面就不要算，否则会重复。    位掩码与开闭区间 这个-1非常重要。  123456789101112131415			ll cur &#x3D; sum - N + K - 1;			FOR(j, max(0ll, up), min(K, cur)) &#123;#ifdef LOCAL				d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见问题（WA）">
+<meta property="og:url" content="https://znzryb.com/2025/07/23/20250723-96844c97/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="通用错误  前面算还是后面算？ 一个东西，到底是在前面算，还是在后面算的，一定要搞清楚。如果是在后面算的，前面就不要算，否则会重复。    位掩码与开闭区间 这个-1非常重要。  123456789101112131415			ll cur &#x3D; sum - N + K - 1;			FOR(j, max(0ll, up), min(K, cur)) &#123;#ifdef LOCAL				d">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20250723-96844c97/QQ_1754928583406_59614afc.png">
+<meta property="og:image" content="https://media.znzryb.com/20250723-96844c97/QQ_1755246362866_c39edc65.png">
+<meta property="og:image" content="https://media.znzryb.com/20250723-96844c97/image_07d08fcb.png">
+<meta property="og:image" content="https://media.znzryb.com/20250723-96844c97/QQ_1754929105042_a1982ab3.png">
+<meta property="og:image" content="https://media.znzryb.com/20250723-96844c97/QQ_1755321489126_c6d9f448.png">
+<meta property="article:published_time" content="2025-07-22T18:57:00.000Z">
+<meta property="article:modified_time" content="2026-02-15T10:27:32.354Z">
+<meta property="article:author" content="znzryb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20250723-96844c97/QQ_1754928583406_59614afc.png">
+
+<link rel="canonical" href="https://znzryb.com/2025/07/23/20250723-96844c97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>常见问题（WA） | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/23/20250723-96844c97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见问题（WA）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-23 02:57:00" itemprop="dateCreated datePublished" datetime="2025-07-23T02:57:00+08:00">2025-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-15 18:27:32" itemprop="dateModified" datetime="2026-02-15T18:27:32+08:00">2026-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="通用错误"><a class="markdownIt-Anchor" href="#通用错误"></a> 通用错误</h2>
+<h3 id="前面算还是后面算"><a class="markdownIt-Anchor" href="#前面算还是后面算"></a> 前面算还是后面算？</h3>
+<p>一个东西，到底是在前面算，还是在后面算的，一定要搞清楚。如果是在后面算的，前面就不要算，否则会重复。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/24c4539447bd80ccaa4ad35344443ef0"></a></p>
+<p><img src="https://media.znzryb.com/20250723-96844c97/QQ_1754928583406_59614afc.png" alt="image" /></p>
+<h3 id="位掩码与开闭区间"><a class="markdownIt-Anchor" href="#位掩码与开闭区间"></a> 位掩码与开闭区间</h3>
+<p>这个-1非常重要。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/26a4539447bd8056a440f82962ae744e"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">			ll cur = sum - N + K - <span class="number">1</span>;</span><br><span class="line">			<span class="built_in">FOR</span>(j, <span class="built_in">max</span>(<span class="number">0ll</span>, up), <span class="built_in">min</span>(K, cur)) &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">				<span class="built_in">debug</span>(j);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">				mask[j] = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			up = cur;</span><br><span class="line">			<span class="comment">// 这一大段代码</span></span><br><span class="line">			<span class="comment">// sum-N+K&lt;=val&lt;=K</span></span><br><span class="line">			<span class="keyword">if</span> ((mask &amp; dp).<span class="built_in">any</span>()) &#123;</span><br><span class="line">				ans = i;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="re-运行时错误"><a class="markdownIt-Anchor" href="#re-运行时错误"></a> RE 运行时错误</h2>
+<h3 id="back"><a class="markdownIt-Anchor" href="#back"></a> .back()</h3>
+<p>比较常见的运行时错误有，就是这个去取这个 vector 的最后一个数（.back()），但是 vector 为空。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (it==res.<span class="built_in">end</span>() || it==<span class="built_in">prev</span>(res.<span class="built_in">end</span>())) &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">0</span>,res.<span class="built_in">back</span>()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="oj和本地结果不一致"><a class="markdownIt-Anchor" href="#oj和本地结果不一致"></a> OJ和本地结果不一致</h2>
+<p>一定是超界访问了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,<span class="number">10000</span>)&#123;</span><br><span class="line">    ll lans=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">FOR</span>(j,<span class="number">1</span>,<span class="number">5000</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==i-j) lans+=<span class="number">2</span>*<span class="built_in">min</span>(cnt[i-j],cnt[j]);</span><br><span class="line">        <span class="keyword">else</span> lans+=<span class="built_in">min</span>(cnt[i-j],cnt[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    ans=<span class="built_in">max</span>(ans,lans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="输入"><a class="markdownIt-Anchor" href="#输入"></a> 输入</h2>
+<h3 id="输入类型不匹配"><a class="markdownIt-Anchor" href="#输入类型不匹配"></a> 输入类型不匹配</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">OP</span>&#123;</span><br><span class="line">    ll <span class="type">char</span> op;ll dis;</span><br><span class="line">    <span class="keyword">friend</span> istream&amp; <span class="keyword">operator</span> &gt;&gt;(istream &amp;is,OP &amp;e)&#123;</span><br><span class="line">        cin&gt;&gt;e.op&gt;&gt;e.dis;</span><br><span class="line">        <span class="keyword">return</span> is;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="输入的时候就输入不要干其他事情"><a class="markdownIt-Anchor" href="#输入的时候就输入不要干其他事情"></a> 输入的时候就输入，不要干其他事情</h3>
+<p>忘记cin了，导致了一系列问题。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">	cin &gt;&gt; A[i];</span><br><span class="line">	res ^= A[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h2>
+<h3 id="函数返回值不能为空值"><a class="markdownIt-Anchor" href="#函数返回值不能为空值"></a> 函数返回值不能为空值</h3>
+<h2 id="指针"><a class="markdownIt-Anchor" href="#指针"></a> 指针</h2>
+<h3 id="默认构造函数初始化"><a class="markdownIt-Anchor" href="#默认构造函数初始化"></a> 默认构造函数初始化</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyString</span>&#123;</span><br><span class="line">    <span class="type">char</span> *p;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> cnt;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">GetCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyString</span>()&#123;p=<span class="literal">nullptr</span>;n=<span class="number">0</span>;++cnt;&#125;</span><br><span class="line">    <span class="built_in">MyString</span>(<span class="type">unsigned</span> n,<span class="type">char</span> c)&#123;</span><br><span class="line">        p=<span class="keyword">new</span> <span class="type">char</span>[n<span class="number">+1</span>];</span><br><span class="line">        <span class="keyword">this</span>-&gt;n=n;</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,n<span class="number">-1</span>)&#123;</span><br><span class="line">            p[i]=c;</span><br><span class="line">        &#125;</span><br><span class="line">        p[n]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        ++cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyString</span>(<span class="type">char</span> *s)&#123;</span><br><span class="line">        n=<span class="built_in">strlen</span>(s);</span><br><span class="line">        p=<span class="keyword">new</span> <span class="type">char</span>[n<span class="number">+1</span>];</span><br><span class="line">        p[n]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,n<span class="number">-1</span>)&#123;</span><br><span class="line">            p[i]=s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        ++cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">char</span> <span class="keyword">operator</span>[](<span class="type">int</span> i)<span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> p[i];</span><br><span class="line">    &#125;</span><br><span class="line">    MyString&amp; <span class="keyword">operator</span>= (<span class="type">const</span> MyString &amp;s)&#123;</span><br><span class="line">        n=s.n;</span><br><span class="line">        p=<span class="keyword">new</span> <span class="type">char</span>[n<span class="number">+1</span>];</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,n<span class="number">-1</span>)&#123;</span><br><span class="line">            p[i]=s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        p[n]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyString</span> (MyString &amp;s)&#123;</span><br><span class="line">        n=s.n;</span><br><span class="line">        p=<span class="keyword">new</span> <span class="type">char</span>[n<span class="number">+1</span>];</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,n<span class="number">-1</span>)&#123;</span><br><span class="line">            p[i]=s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        p[n]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        ++cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">MyString</span>()&#123;</span><br><span class="line">        --cnt;</span><br><span class="line">        <span class="keyword">delete</span> [] p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">ShowStr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,n<span class="number">-1</span>)&#123;</span><br><span class="line">            cout&lt;&lt;p[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="字符串"><a class="markdownIt-Anchor" href="#字符串"></a> 字符串</h2>
+<h3 id="字符串字符拼接"><a class="markdownIt-Anchor" href="#字符串字符拼接"></a> 字符串，字符拼接</h3>
+<p><img src="https://media.znzryb.com/20250723-96844c97/QQ_1755246362866_c39edc65.png" alt="image" /></p>
+<h3 id="整行读入"><a class="markdownIt-Anchor" href="#整行读入"></a> 整行读入</h3>
+<p>getline会把换行符给读掉。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="type">void</span> __()&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="built_in">getline</span>(cin,s);</span><br><span class="line">    <span class="type">char</span> c;c=cin.<span class="built_in">get</span>();</span><br><span class="line">    s.<span class="built_in">resize</span>(<span class="built_in">remove</span>(<span class="built_in">all</span>(s),c)-s.<span class="built_in">begin</span>());</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是普通的cin不会读掉换行符号，需要再cin.get()一下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    cin&gt;&gt;lT;cin.<span class="built_in">get</span>();</span><br><span class="line">    <span class="keyword">while</span>(lT--)</span><br><span class="line">        __();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> __()&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="built_in">getline</span>(cin,s);</span><br><span class="line">    <span class="built_in">reverse</span>(<span class="built_in">all</span>(s));</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;(lT!=<span class="number">0</span>?<span class="string">&quot;\n&quot;</span>:<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="统计连续的相同字符数量"><a class="markdownIt-Anchor" href="#统计连续的相同字符数量"></a> 统计连续的相同字符数量</h3>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/108300/D">https://ac.nowcoder.com/acm/contest/108300/D</a></p>
+<p>那么WA的原因在于这个有一些小问题，就是加粗部分赛时那发WA的没有加，即<strong>初始化阶段也要加上答案判断</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">	<span class="keyword">if</span>(g[S[i]-<span class="string">&#x27;0&#x27;</span>].<span class="built_in">empty</span>() || i-g[S[i]-<span class="string">&#x27;0&#x27;</span>].<span class="built_in">back</span>()!=<span class="number">1</span>)&#123;</span><br><span class="line">		cnt=<span class="number">1</span>;</span><br><span class="line">		g[S[i]-<span class="string">&#x27;0&#x27;</span>].<span class="built_in">pb</span>(i);</span><br><span class="line">		<span class="keyword">if</span>(S[i]==<span class="string">&#x27;0&#x27;</span> &amp;&amp; cnt&gt;=M<span class="number">+1</span>)&#123;</span><br><span class="line">			cout&lt;&lt;N&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(S[i]==<span class="string">&#x27;1&#x27;</span> &amp;&amp; cnt&gt;=M)&#123;</span><br><span class="line">			cout&lt;&lt;N&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		++cnt;</span><br><span class="line">		g[S[i]-<span class="string">&#x27;0&#x27;</span>].<span class="built_in">pb</span>(i);</span><br><span class="line">		<span class="keyword">if</span>(S[i]==<span class="string">&#x27;0&#x27;</span> &amp;&amp; cnt&gt;=M<span class="number">+1</span>)&#123;</span><br><span class="line">			cout&lt;&lt;N&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(S[i]==<span class="string">&#x27;1&#x27;</span> &amp;&amp; cnt&gt;=M)&#123;</span><br><span class="line">			cout&lt;&lt;N&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">cout&lt;&lt;<span class="built_in">SZ</span>(g[<span class="number">1</span>])&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="倍增"><a class="markdownIt-Anchor" href="#倍增"></a> 倍增</h2>
+<p>树上倍增，只能解决最高点，不能解决最低点，或者至少需要转化。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/2394539447bd8042a52fd8e9a28fca78"></a></p>
+<p>这个倍增还是太阴间了。就是一般来说，找到的点就是答案的情况，还是要特判一下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ll low=tr.<span class="built_in">findlow</span>(u);</span><br><span class="line"><span class="keyword">if</span>(low==u)&#123;</span><br><span class="line">	cout&lt;&lt;l&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="差分相关"><a class="markdownIt-Anchor" href="#差分相关"></a> 差分相关</h2>
+<h3 id="离散化"><a class="markdownIt-Anchor" href="#离散化"></a> 离散化</h3>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/23b4539447bd809e88a1f501a35ed8c4"></a></p>
+<p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/contest/view-code?cid=1174&amp;rid=20171">https://acm.hdu.edu.cn/contest/view-code?cid=1174&amp;rid=20171</a></p>
+<p>注意这里不能简单+1（下方的代码是对的）（简单的+1就是查lr[i].SE的idx，然后加的地方直接就是idx+1，这个是不行的，我们不能默认这两个区间是相交的）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mt19937_64 <span class="title">rng</span><span class="params">(chrono::steady_clock::now().time_since_epoch().count())</span></span>;</span><br><span class="line"><span class="function">vll <span class="title">diff</span><span class="params">(SZ(li)<span class="number">+5</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">	ll l=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(li),lr[i].FI)-li.<span class="built_in">begin</span>();</span><br><span class="line">	ll r=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(li),lr[i].SE<span class="number">+1</span>)-li.<span class="built_in">begin</span>();</span><br><span class="line">	l++,r++;</span><br><span class="line">	ll rnd=<span class="built_in">rng</span>();</span><br><span class="line">	diff[l]^=rnd;</span><br><span class="line">	diff[r]^=rnd;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">vll <span class="title">Sum</span><span class="params">(SZ(li)<span class="number">+5</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,<span class="built_in">SZ</span>(li)<span class="number">+2</span>)&#123;</span><br><span class="line">	Sum[i]=Sum[i<span class="number">-1</span>]^diff[i];</span><br><span class="line">&#125;</span><br><span class="line">set&lt;ll&gt; st;</span><br><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,<span class="built_in">SZ</span>(li)<span class="number">+2</span>)&#123;</span><br><span class="line">	st.<span class="built_in">insert</span>(Sum[i]);</span><br><span class="line">&#125;</span><br><span class="line">cout&lt;&lt;<span class="built_in">SZ</span>(st)&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="简单算术"><a class="markdownIt-Anchor" href="#简单算术"></a> 简单算术</h2>
+<p>向上取整除法可以这样写，没有精度问题，非常对呀。注意C<ins>特性，x/2实际上是往0取整的，所以x&lt;0的时候就不用我们操心了，C</ins>自动向上取整。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">chu</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x&lt;<span class="number">0</span>) <span class="keyword">return</span> x/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(x%<span class="number">2</span>==<span class="number">0</span>) <span class="keyword">return</span> x/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">return</span> x/<span class="number">2</span><span class="number">+1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="状态压缩"><a class="markdownIt-Anchor" href="#状态压缩"></a> 状态压缩</h2>
+<h3 id="差一错误"><a class="markdownIt-Anchor" href="#差一错误"></a> 差一错误</h3>
+<p>状压要特别小心差一错误。（就是加粗，下划线的地方必须要+1）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(s,<span class="number">0</span>,(<span class="number">1</span>&lt;&lt;N))&#123;</span><br><span class="line">	<span class="function">bitset&lt;25&gt; <span class="title">bi</span><span class="params">(s)</span></span>;</span><br><span class="line">	ll val=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">0</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(bi[i])&#123;</span><br><span class="line">			val+=V[i<span class="number">+1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="std"><a class="markdownIt-Anchor" href="#std"></a> std</h2>
+<h3 id="accumulate"><a class="markdownIt-Anchor" href="#accumulate"></a> accumulate</h3>
+<p>这边一定要写0ll，否则很有可能会爆炸</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll sum=<span class="built_in">accumulate</span>(<span class="built_in">all</span>(A),<span class="number">0ll</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="unique"><a class="markdownIt-Anchor" href="#unique"></a> unique</h3>
+<p>自定义结构体使用unique，<strong>需要定义==和&lt;</strong>，两者缺一不可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span>&#123;</span><br><span class="line">    ll x,y;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Point&amp; other)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x!=other.x) <span class="keyword">return</span> x&lt;other.x;</span><br><span class="line">        <span class="keyword">return</span> y&lt;other.y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">const</span> Point&amp; other)&#123;</span><br><span class="line">        <span class="keyword">return</span> x==other.x &amp;&amp; y==other.y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> __()&#123;</span><br><span class="line">    cin&gt;&gt;N;</span><br><span class="line">    <span class="function">vector&lt;Point&gt; <span class="title">stars</span><span class="params">(N)</span></span>;</span><br><span class="line">    <span class="built_in">FOR</span>(i,<span class="number">0</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">        cin&gt;&gt;stars[i].x&gt;&gt;stars[i].y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(<span class="built_in">all</span>(stars));</span><br><span class="line">    stars.<span class="built_in">resize</span>(<span class="built_in">unique</span>(<span class="built_in">all</span>(stars))-stars.<span class="built_in">begin</span>());</span><br><span class="line">    cout&lt;&lt;<span class="built_in">SZ</span>(stars)&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="双指针"><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h2>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fruit-into-baskets/submissions/649566028/?envType=daily-question&amp;envId=2025-08-04">https://leetcode.cn/problems/fruit-into-baskets/submissions/649566028/?envType=daily-question&amp;envId=2025-08-04</a></p>
+<h3 id="内层循环因为循环完退出时应该重新定向bp"><a class="markdownIt-Anchor" href="#内层循环因为循环完退出时应该重新定向bp"></a> 内层循环因为循环完退出时，应该重新定向bp</h3>
+<p><img src="https://media.znzryb.com/20250723-96844c97/image_07d08fcb.png" alt="image" /></p>
+<p>否则会被形如这样的数据卡掉。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">totalFruit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; A)</span> </span>&#123;</span><br><span class="line">        ll N=<span class="built_in">SZ</span>(A);</span><br><span class="line">        unordered_map&lt;ll,ll&gt; mp;</span><br><span class="line">        mp[A[<span class="number">0</span>]]++;</span><br><span class="line">        ll ans=<span class="number">1</span>;</span><br><span class="line">        ll bp=<span class="number">0</span>;</span><br><span class="line">        <span class="built_in">FOR</span>(i,<span class="number">0</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i!=<span class="number">0</span>)&#123;</span><br><span class="line">                mp[A[i<span class="number">-1</span>]]--;</span><br><span class="line">                <span class="keyword">if</span>(mp[A[i<span class="number">-1</span>]]&lt;=<span class="number">0</span>) mp.<span class="built_in">erase</span>(A[i<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">FOR</span>(j,<span class="built_in">max</span>(bp,i<span class="number">+1</span>),N<span class="number">-1</span>)&#123;</span><br><span class="line">                mp[A[j]]++;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">SZ</span>(mp)&gt;<span class="number">2</span>)&#123;</span><br><span class="line">                    bp=j;</span><br><span class="line">                    mp.<span class="built_in">erase</span>(A[j]);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ans=<span class="built_in">max</span>(ans,j-i<span class="number">+1</span>);</span><br><span class="line">                <span class="keyword">if</span>(j==N<span class="number">-1</span>)&#123;</span><br><span class="line">                    bp=j<span class="number">+1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="dfs递归"><a class="markdownIt-Anchor" href="#dfs递归"></a> dfs（递归）</h2>
+<h3 id="mletle递归退出条件"><a class="markdownIt-Anchor" href="#mletle递归退出条件"></a> MLE，TLE，递归退出条件</h3>
+<p>遇到这两个东西，看看是不是这个递归退出条件的问题？</p>
+<p>这个循环退出条件特别容易忘记。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function&lt;<span class="type">void</span>(ll,ll,ll,ll)&gt; dfs=[&amp;](ll a,ll b,ll c,ll d)&#123;</span><br><span class="line">    <span class="keyword">if</span>(d&gt;=b)&#123;  </span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">swap</span>(a,c);</span><br><span class="line">        <span class="built_in">swap</span>(b,d);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span> || d==<span class="number">0</span> || a==<span class="number">1</span> || c==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(b&lt;=<span class="number">1</span> &amp;&amp; d&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b==<span class="number">0</span>) a=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>) c=<span class="number">1</span>;</span><br><span class="line">        ans*=__gcd(c,a);</span><br><span class="line">        ans%=mod;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll e=__gcd(a,c);</span><br><span class="line">    ans*=<span class="built_in">binpow</span>(e, b);</span><br><span class="line">    ans%=mod;</span><br><span class="line">    ll x=a/e;</span><br><span class="line">    <span class="comment">// dfs(e*x,b,e,b-d);</span></span><br><span class="line">    <span class="built_in">dfs</span>(x,b,e,d-b);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="取余取模"><a class="markdownIt-Anchor" href="#取余取模"></a> 取余（取模）</h2>
+<p>C++是取余操作，会得到负数，进而导致错误。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">    diff[i]=<span class="built_in">abs</span>(diff[i]);</span><br><span class="line">    diff[i]%=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="序列匹配问题相同情况需要特判"><a class="markdownIt-Anchor" href="#序列匹配问题相同情况需要特判"></a> 序列匹配问题（相同情况需要特判）</h2>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78695197">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78695197</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ll ans=<span class="number">2</span>;</span><br><span class="line"><span class="built_in">FOR</span>(i,<span class="number">2</span>,<span class="number">10000</span>)&#123;</span><br><span class="line">    ll lans=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">FOR</span>(j,<span class="number">1</span>,i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(j==i-j) lans+=(cnt[j]/<span class="number">2</span>*<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">else</span> lans+=<span class="built_in">min</span>(cnt[i-j],cnt[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    ans=<span class="built_in">max</span>(ans,lans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="日期相关问题"><a class="markdownIt-Anchor" href="#日期相关问题"></a> 日期相关问题</h2>
+<p>模拟宜采用正向逻辑。</p>
+<p>0-based的话星期六星期日就是星期5，6。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(idx==<span class="number">5</span> || idx==<span class="number">6</span>)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            mp[&#123;mon,d&#125;]++;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="zkw线段树线段树"><a class="markdownIt-Anchor" href="#zkw线段树线段树"></a> zkw线段树/线段树</h2>
+<h3 id="zkw线段树节点表示范围以及线段树上二分"><a class="markdownIt-Anchor" href="#zkw线段树节点表示范围以及线段树上二分"></a> zkw线段树节点表示范围以及线段树上二分</h3>
+<p>节点表示范围是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mi>e</mi><mo separator="true">,</mo><mi>r</mi><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[le,rr]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>，然后根节点表示范围是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>s</mi><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,sz-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">dis</span><span class="params">(<span class="type">int</span> o)</span></span>&#123;<span class="keyword">return</span> dep-__lg(o);&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">len</span><span class="params">(<span class="type">int</span> o)</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>&lt;&lt;<span class="built_in">dis</span>(o);&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">le</span><span class="params">(<span class="type">int</span> o)</span></span>&#123;<span class="keyword">return</span> (o&lt;&lt;<span class="built_in">dis</span>(o))-sz;&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rr</span><span class="params">(<span class="type">int</span> o)</span></span>&#123;<span class="keyword">return</span> (o<span class="number">+1</span>&lt;&lt;<span class="built_in">dis</span>(o))-sz<span class="number">-1</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/25b4539447bd808cb23df5dff12ebcb5"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找到最靠近r的符合位置</span></span><br><span class="line"> <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> F&gt; <span class="type">int</span> <span class="title">findl</span><span class="params">(<span class="type">int</span> r,F&amp;&amp;fun)</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">findl</span>(<span class="number">1</span>,r,<span class="number">0</span>,sz<span class="number">-1</span>,fun);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 找到最靠近r的符合位置</span></span><br><span class="line"> <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> F&gt; <span class="type">int</span> <span class="title">findl</span><span class="params">(<span class="type">int</span> o,<span class="type">int</span> qr,<span class="type">int</span> l,<span class="type">int</span> r,F&amp;&amp;fun)</span></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">         <span class="keyword">return</span> l;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// pushdown(o);</span></span><br><span class="line">     ll ls=o&lt;&lt;<span class="number">1</span>,rs=ls|<span class="number">1</span>;</span><br><span class="line">     ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">     ll pos=<span class="number">-1</span>;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">fun</span>(tr[rs]) &amp;&amp; mid<span class="number">+1</span>&lt;=qr) pos=<span class="built_in">findl</span>(rs,qr,mid<span class="number">+1</span>,r,fun);</span><br><span class="line">     <span class="keyword">if</span>(pos!=<span class="number">-1</span>) <span class="keyword">return</span> pos;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">fun</span>(tr[ls])) pos=<span class="built_in">findl</span>(ls,qr,l,mid,fun);</span><br><span class="line">     <span class="keyword">return</span> pos;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 找最靠近l的符合位置</span></span><br><span class="line"> <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> F&gt; <span class="type">int</span> <span class="title">findr</span><span class="params">(<span class="type">int</span> l,F&amp;&amp;fun)</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">findr</span>(<span class="number">1</span>,l,<span class="number">0</span>,sz<span class="number">-1</span>,fun);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 找最靠近l的符合位置</span></span><br><span class="line"> <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> F&gt; <span class="type">int</span> <span class="title">findr</span><span class="params">(<span class="type">int</span> o,<span class="type">int</span> ql,<span class="type">int</span> l,<span class="type">int</span> r,F&amp;&amp;fun)</span></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">         <span class="keyword">return</span> l;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// pushdown(o);</span></span><br><span class="line">     ll ls=o&lt;&lt;<span class="number">1</span>,rs=ls|<span class="number">1</span>;</span><br><span class="line">     ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">     ll pos=<span class="number">-1</span>;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">fun</span>(tr[ls]) &amp;&amp; mid&gt;=ql) pos=<span class="built_in">findr</span>(ls,ql,l,mid,fun);</span><br><span class="line">     <span class="keyword">if</span>(pos!=<span class="number">-1</span>) <span class="keyword">return</span> pos;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">fun</span>(tr[rs])) pos=<span class="built_in">findr</span>(rs,ql,mid<span class="number">+1</span>,r,fun);</span><br><span class="line">     <span class="keyword">return</span> pos;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="线段树内部之间不要相互调用"><a class="markdownIt-Anchor" href="#线段树内部之间不要相互调用"></a> 线段树内部之间不要相互调用</h3>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/24c4539447bd8031b625f8fd22b25826"></a></p>
+<p>千万不要这么干，因为不仅更新的时候要调用，下传标记也要调用，你能保证两个线段树的懒标记状态一样吗？这个是不可能的，因为你也不可能同时更新，询问两个线段树，<strong>除非把他们合为一个。</strong></p>
+<p><img src="https://media.znzryb.com/20250723-96844c97/QQ_1754929105042_a1982ab3.png" alt="image" /></p>
+<h2 id="指针与迭代器"><a class="markdownIt-Anchor" href="#指针与迭代器"></a> 指针与迭代器</h2>
+<h3 id="lower_bound与"><a class="markdownIt-Anchor" href="#lower_bound与"></a> lower_bound与++</h3>
+<p>一定要<ins>it，不能it</ins>。</p>
+<p><img src="https://media.znzryb.com/20250723-96844c97/QQ_1755321489126_c6d9f448.png" alt="image" /></p>
+<h2 id="dp-动态规划"><a class="markdownIt-Anchor" href="#dp-动态规划"></a> dp 动态规划</h2>
+<h3 id="超范围转移"><a class="markdownIt-Anchor" href="#超范围转移"></a> 超范围转移</h3>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/2524539447bd80909c26e8257c239518"></a></p>
+<p>不要去想超范围转移哪些是正确的，而是直接给所有超范围部分赋值-INF。</p>
+<p>正难则反，去想哪些超范围转移是正确的。（一般是起始位置的转移位置）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;vll&gt; <span class="title">A</span><span class="params">(N<span class="number">+5</span>,vll(M<span class="number">+5</span>))</span></span>;</span><br><span class="line"><span class="function">vector&lt;vll&gt; <span class="title">dp</span><span class="params">(N<span class="number">+5</span>,vll(M<span class="number">+5</span>,-INF))</span></span>;</span><br><span class="line"><span class="function">vector&lt;vll&gt; <span class="title">dp2</span><span class="params">(N<span class="number">+5</span>,vll(M<span class="number">+5</span>,-INF))</span></span>;</span><br><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">    <span class="built_in">FOR</span>(j,<span class="number">1</span>,M)&#123;</span><br><span class="line">        cin&gt;&gt;A[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">dp[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">FOR</span>(y,<span class="number">1</span>,M)&#123;</span><br><span class="line">    <span class="built_in">FOR</span>(x,<span class="number">1</span>,N)&#123;</span><br><span class="line">        ll val=A[x][y];</span><br><span class="line">        dp[x][y]=<span class="built_in">max</span>(<span class="built_in">max</span>(dp2[x][y<span class="number">-1</span>],dp[x][y<span class="number">-1</span>])+val,dp[x<span class="number">-1</span>][y]+val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">ROF</span>(x,N,<span class="number">1</span>)&#123;</span><br><span class="line">        ll val=A[x][y];</span><br><span class="line">        dp2[x][y]=<span class="built_in">max</span>(<span class="built_in">max</span>(dp2[x][y<span class="number">-1</span>],dp[x][y<span class="number">-1</span>])+val,dp2[x<span class="number">+1</span>][y]+val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="计算几何"><a class="markdownIt-Anchor" href="#计算几何"></a> 计算几何</h1>
+<h2 id="检查线段交点"><a class="markdownIt-Anchor" href="#检查线段交点"></a> 检查线段交点</h2>
+<h3 id="如果发现检查器太严格可能是这道题目要求的不相交是和所有和自己不相关的线不相交"><a class="markdownIt-Anchor" href="#如果发现检查器太严格可能是这道题目要求的不相交是和所有和自己不相关的线不相交"></a> 如果发现检查器太严格，可能是这道题目要求的不相交，是和所有和自己不相关的线不相交</h3>
+<p>检查器最好检查一下两个线段的<strong>交点</strong>是不是一个线段的<strong>端点</strong>？这种情况需不需要特殊处理？</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/25d4539447bd8002b84bf88d65a5a936"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> check=[&amp;](Line a)-&gt;<span class="type">bool</span> &#123;</span><br><span class="line">    <span class="type">bool</span> ok=<span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">FOR</span>(i,<span class="number">0</span>,<span class="built_in">SZ</span>(A)<span class="number">-1</span>)&#123;</span><br><span class="line">        Line t=A[i];</span><br><span class="line">        <span class="comment">// if(t==a) continue;</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">onseg</span>(a.p, t) &amp;&amp; <span class="built_in">onseg</span>(a.q, t)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isseginterline</span>(t, a) &amp;&amp; <span class="built_in">isseginterline</span>(a, t))&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">onseg</span>(a.p, t) || <span class="built_in">onseg</span>(a.q, t)) <span class="keyword">continue</span>;</span><br><span class="line">            ok=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ok;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="图论"><a class="markdownIt-Anchor" href="#图论"></a> 图论</h1>
+<h2 id="dij"><a class="markdownIt-Anchor" href="#dij"></a> dij</h2>
+<h3 id="剪枝条件不要把现有的队列里的点给剪掉"><a class="markdownIt-Anchor" href="#剪枝条件不要把现有的队列里的点给剪掉"></a> 剪枝条件不要把现有的队列里的点给剪掉</h3>
+<p>一定要是&gt;号。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/2634539447bd80a3922bd202f07b2d9c"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!pq.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="keyword">auto</span> [node,dis]=pq.<span class="built_in">front</span>();</span><br><span class="line">    pq.<span class="built_in">pop_front</span>();</span><br><span class="line">    <span class="keyword">if</span>(dis&gt;Dis[node]) <span class="keyword">continue</span>;</span><br><span class="line">    Dis[node]=dis;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp;v:g[node])&#123;</span><br><span class="line">        <span class="keyword">if</span>(node&lt;=N)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dis<span class="number">+1</span>&gt;=Dis[v]) <span class="keyword">continue</span>;</span><br><span class="line">            Dis[v]=dis<span class="number">+1</span>;</span><br><span class="line">            pq.<span class="built_in">PB</span>(&#123;v,dis<span class="number">+1</span>&#125;);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(dis&gt;=Dis[v]) <span class="keyword">continue</span>;</span><br><span class="line">            Dis[v]=dis;</span><br><span class="line">            pq.<span class="built_in">PF</span>(&#123;v,dis&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/02/20250202-b24822c7/" rel="prev" title="ABC-383-D - 9 Divisors ">
+      <i class="fa fa-chevron-left"></i> ABC-383-D - 9 Divisors 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/02/07/20260207-50756bd8/" rel="next" title="2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——L. Last Orders">
+      2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——L. Last Orders <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%94%99%E8%AF%AF"><span class="nav-number">1.</span> <span class="nav-text"> 通用错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E9%9D%A2%E7%AE%97%E8%BF%98%E6%98%AF%E5%90%8E%E9%9D%A2%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text"> 前面算还是后面算？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E6%8E%A9%E7%A0%81%E4%B8%8E%E5%BC%80%E9%97%AD%E5%8C%BA%E9%97%B4"><span class="nav-number">1.2.</span> <span class="nav-text"> 位掩码与开闭区间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text"> RE 运行时错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#back"><span class="nav-number">2.1.</span> <span class="nav-text"> .back()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oj%E5%92%8C%E6%9C%AC%E5%9C%B0%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">3.</span> <span class="nav-text"> OJ和本地结果不一致</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text"> 输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">4.1.</span> <span class="nav-text"> 输入类型不匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%9A%84%E6%97%B6%E5%80%99%E5%B0%B1%E8%BE%93%E5%85%A5%E4%B8%8D%E8%A6%81%E5%B9%B2%E5%85%B6%E4%BB%96%E4%BA%8B%E6%83%85"><span class="nav-number">4.2.</span> <span class="nav-text"> 输入的时候就输入，不要干其他事情</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text"> 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%8D%E8%83%BD%E4%B8%BA%E7%A9%BA%E5%80%BC"><span class="nav-number">5.1.</span> <span class="nav-text"> 函数返回值不能为空值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E9%92%88"><span class="nav-number">6.</span> <span class="nav-text"> 指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text"> 默认构造函数初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">7.</span> <span class="nav-text"> 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E7%AC%A6%E6%8B%BC%E6%8E%A5"><span class="nav-number">7.1.</span> <span class="nav-text"> 字符串，字符拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E8%A1%8C%E8%AF%BB%E5%85%A5"><span class="nav-number">7.2.</span> <span class="nav-text"> 整行读入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E8%BF%9E%E7%BB%AD%E7%9A%84%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E6%95%B0%E9%87%8F"><span class="nav-number">7.3.</span> <span class="nav-text"> 统计连续的相同字符数量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%8D%E5%A2%9E"><span class="nav-number">8.</span> <span class="nav-text"> 倍增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%88%86%E7%9B%B8%E5%85%B3"><span class="nav-number">9.</span> <span class="nav-text"> 差分相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="nav-number">9.1.</span> <span class="nav-text"> 离散化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%AE%97%E6%9C%AF"><span class="nav-number">10.</span> <span class="nav-text"> 简单算术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9"><span class="nav-number">11.</span> <span class="nav-text"> 状态压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E4%B8%80%E9%94%99%E8%AF%AF"><span class="nav-number">11.1.</span> <span class="nav-text"> 差一错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std"><span class="nav-number">12.</span> <span class="nav-text"> std</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#accumulate"><span class="nav-number">12.1.</span> <span class="nav-text"> accumulate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique"><span class="nav-number">12.2.</span> <span class="nav-text"> unique</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-number">13.</span> <span class="nav-text"> 双指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%B1%82%E5%BE%AA%E7%8E%AF%E5%9B%A0%E4%B8%BA%E5%BE%AA%E7%8E%AF%E5%AE%8C%E9%80%80%E5%87%BA%E6%97%B6%E5%BA%94%E8%AF%A5%E9%87%8D%E6%96%B0%E5%AE%9A%E5%90%91bp"><span class="nav-number">13.1.</span> <span class="nav-text"> 内层循环因为循环完退出时，应该重新定向bp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dfs%E9%80%92%E5%BD%92"><span class="nav-number">14.</span> <span class="nav-text"> dfs（递归）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mletle%E9%80%92%E5%BD%92%E9%80%80%E5%87%BA%E6%9D%A1%E4%BB%B6"><span class="nav-number">14.1.</span> <span class="nav-text"> MLE，TLE，递归退出条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%96%E4%BD%99%E5%8F%96%E6%A8%A1"><span class="nav-number">15.</span> <span class="nav-text"> 取余（取模）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98%E7%9B%B8%E5%90%8C%E6%83%85%E5%86%B5%E9%9C%80%E8%A6%81%E7%89%B9%E5%88%A4"><span class="nav-number">16.</span> <span class="nav-text"> 序列匹配问题（相同情况需要特判）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">17.</span> <span class="nav-text"> 日期相关问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zkw%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%BA%BF%E6%AE%B5%E6%A0%91"><span class="nav-number">18.</span> <span class="nav-text"> zkw线段树&#x2F;线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zkw%E7%BA%BF%E6%AE%B5%E6%A0%91%E8%8A%82%E7%82%B9%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4%E4%BB%A5%E5%8F%8A%E7%BA%BF%E6%AE%B5%E6%A0%91%E4%B8%8A%E4%BA%8C%E5%88%86"><span class="nav-number">18.1.</span> <span class="nav-text"> zkw线段树节点表示范围以及线段树上二分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%86%85%E9%83%A8%E4%B9%8B%E9%97%B4%E4%B8%8D%E8%A6%81%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8"><span class="nav-number">18.2.</span> <span class="nav-text"> 线段树内部之间不要相互调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E4%B8%8E%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">19.</span> <span class="nav-text"> 指针与迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lower_bound%E4%B8%8E"><span class="nav-number">19.1.</span> <span class="nav-text"> lower_bound与++</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dp-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">20.</span> <span class="nav-text"> dp 动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E8%8C%83%E5%9B%B4%E8%BD%AC%E7%A7%BB"><span class="nav-number">20.1.</span> <span class="nav-text"> 超范围转移</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95"><span class="nav-number">21.</span> <span class="nav-text"> 计算几何</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%BA%BF%E6%AE%B5%E4%BA%A4%E7%82%B9"><span class="nav-number">21.1.</span> <span class="nav-text"> 检查线段交点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%8F%91%E7%8E%B0%E6%A3%80%E6%9F%A5%E5%99%A8%E5%A4%AA%E4%B8%A5%E6%A0%BC%E5%8F%AF%E8%83%BD%E6%98%AF%E8%BF%99%E9%81%93%E9%A2%98%E7%9B%AE%E8%A6%81%E6%B1%82%E7%9A%84%E4%B8%8D%E7%9B%B8%E4%BA%A4%E6%98%AF%E5%92%8C%E6%89%80%E6%9C%89%E5%92%8C%E8%87%AA%E5%B7%B1%E4%B8%8D%E7%9B%B8%E5%85%B3%E7%9A%84%E7%BA%BF%E4%B8%8D%E7%9B%B8%E4%BA%A4"><span class="nav-number">21.1.1.</span> <span class="nav-text"> 如果发现检查器太严格，可能是这道题目要求的不相交，是和所有和自己不相关的线不相交</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E8%AE%BA"><span class="nav-number">22.</span> <span class="nav-text"> 图论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dij"><span class="nav-number">22.1.</span> <span class="nav-text"> dij</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%AA%E6%9E%9D%E6%9D%A1%E4%BB%B6%E4%B8%8D%E8%A6%81%E6%8A%8A%E7%8E%B0%E6%9C%89%E7%9A%84%E9%98%9F%E5%88%97%E9%87%8C%E7%9A%84%E7%82%B9%E7%BB%99%E5%89%AA%E6%8E%89"><span class="nav-number">22.1.1.</span> <span class="nav-text"> 剪枝条件不要把现有的队列里的点给剪掉</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">176</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
