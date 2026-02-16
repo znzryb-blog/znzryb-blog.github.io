@@ -191,6 +191,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/22/20241122-6fa6874a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/22/20241122-6fa6874a/" class="post-title-link" itemprop="url">田地丈量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-22 15:25:00" itemprop="dateCreated datePublished" datetime="2024-11-22T15:25:00+08:00">2024-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 15:38:33" itemprop="dateModified" datetime="2026-02-14T15:38:33+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/rectangle-area/solutions/472242/223-ju-xing-mian-ji-3xing-dai-ma-by-acw_weian/"></a></p>
+<p>主要思路见此题解</p>
+<p>其实说白了就是有个公式可以算x轴投影重叠长度  y轴投影重叠长度  两个相乘就好</p>
+<p><a target="_blank" rel="noopener" href="https://oj.saikr.com/problem/detail/1891/submit"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    ll a,b;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    ll ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        ll c,d,e,f;</span><br><span class="line">        cin&gt;&gt;c&gt;&gt;d&gt;&gt;e&gt;&gt;f;</span><br><span class="line">                <span class="comment">// x 轴上投影                           // y 轴上投影</span></span><br><span class="line">        ans+=<span class="built_in">max</span>(<span class="number">0LL</span>,<span class="built_in">min</span>(a,e)-<span class="built_in">max</span>(<span class="number">0LL</span>,c))*<span class="built_in">max</span>(<span class="number">0LL</span>,<span class="built_in">min</span>(b,f)-<span class="built_in">max</span>(<span class="number">0LL</span>,d));</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/21/20241121-057602f6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/21/20241121-057602f6/" class="post-title-link" itemprop="url">684. 冗余连接</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-21 11:00:00" itemprop="dateCreated datePublished" datetime="2024-11-21T11:00:00+08:00">2024-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 15:38:32" itemprop="dateModified" datetime="2026-02-14T15:38:32+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>无向图判环模版题，做cf之前来练练手</p>
+<p><code>// 如果union函数发现根本不需要合并，那么a本来就在b的这个集合内</code></p>
+<p><code>// 说明b有两条到达a的通路即形成了环</code></p>
+<p>比较重要的两句话</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>union是保留字，建议改为add（意思反正是这个意思）；</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/redundant-connection/submissions/582206984/"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">fa</span><span class="params">(<span class="number">1010</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> n=edges.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;  <span class="comment">// 并查集初始化</span></span><br><span class="line">            fa[i]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="type">int</span> a=edges[i][<span class="number">0</span>],b=edges[i][<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 如果union函数发现根本不需要合并，本来就在这个集合内</span></span><br><span class="line">            <span class="comment">// 说明b有两条到达a的通路即形成了环</span></span><br><span class="line">            <span class="keyword">if</span>(!<span class="built_in">unionn</span>(a,b,fa))&#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;a,b&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x , vector&lt;<span class="type">int</span>&gt; &amp;fa)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(fa[x]!=x)</span><br><span class="line">            fa[x]=<span class="built_in">find</span>(fa[x],fa);</span><br><span class="line">        <span class="keyword">return</span> fa[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">unionn</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, vector&lt;<span class="type">int</span>&gt;&amp; fa)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">find</span>(a,fa)==<span class="built_in">find</span>(b,fa))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            fa[<span class="built_in">find</span>(a,fa)]=<span class="built_in">find</span>(b,fa);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>哈哈，第一次写力扣嘛，总归会遇到点问题，比如啥全角字符，什么union保留字，什么·······，不多赘述。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/20/20241120-ed685fcb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -429,172 +575,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/16/20241116-03c2e5f4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/16/20241116-03c2e5f4/" class="post-title-link" itemprop="url">Codeforces Round 986 (Div. 2)—C. Alice's Adventures in Cutting Cake</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-16 11:52:00" itemprop="dateCreated datePublished" datetime="2024-11-16T11:52:00+08:00">2024-11-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 15:38:30" itemprop="dateModified" datetime="2026-02-14T15:38:30+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路排除"><a class="markdownIt-Anchor" href="#思路排除"></a> 思路排除</h2>
-<p>这题乍一看好像是二分答案，但仔细一看好像还不太对，毕竟1600，太板了也不太好。</p>
-<p>如果这题考二分的话，题面可能是让你求这个v最大可以为多少，这个非常适合二分答案，但显然这题不是这么问的。</p>
-<p>我看见以前qq群里有人问什么时候用二分答案（牛客最近一场小白月赛出了道这个），我个人的回答是，你看到一道觉得像的题，都可以想一想能不能用二分答案，然后想一想检查器好不好写？如果检查器复杂度太高（跑一遍就超时），或者检查器所需要的算法可以直接求出该题答案，那么就不太行。</p>
-<p>有些时候你也不要对自己要求太高，什么看一眼就知道怎么做。一般来说出现这种情况要么这道题太板了，要么这道题相对于你来说太简单了，我个人认为遇到这种情况大概率这题都不太适合于你平时练习，反而是你要想一想才对于你有提升吧。</p>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>搞两个数组存一下，到该位置能有多少个蛋糕（一个从左到右，一个从右到左，以消除左向依赖以及右向依赖）</p>
-<p>具体而言是这样的</p>
-<p><img src="https://media.znzryb.com/20241116-03c2e5f4/image_e5c9ede2.png" alt="image" /></p>
-<p>那么，然后如果我们要知道Alice把 [l,r] 这块区域切给自己后，剩下的我怎么知道够不够分那？</p>
-<p>L[],R[]现在就开始发挥作用了</p>
-<p>剩下区间的蛋糕总数就是L[l-1]+R[r+1]</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 剩下区间的蛋糕总数就是L[l-1]+R[r+1]</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L[l<span class="number">-1</span>]+R[r<span class="number">+1</span>]&lt;m)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>写好 check( ) 剩下的事就简单了，就是用双指针去遍历每种可能的区间，不断更新答案就好了（用的事Acwing的模版）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,j=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">      <span class="keyword">while</span> (<span class="built_in">check</span>(i,j) &amp;&amp; j&lt;=n) &#123;</span><br><span class="line">          ans=<span class="built_in">max</span>(ans,sumA[j]-sumA[i<span class="number">-1</span>]);</span><br><span class="line">          ++j;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>AC记录</p>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2028/submission/291995395"></a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">2e5</span>)<span class="number">+15</span>;</span><br><span class="line"><span class="type">int</span> T,n,m,v,A[N],sumA[N],L[N],R[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L[l<span class="number">-1</span>]+R[r<span class="number">+1</span>]&lt;m)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin&gt;&gt;n&gt;&gt;m&gt;&gt;v;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n<span class="number">+10</span>;++i)    <span class="comment">// 初始化，因为有可能用到超范围部分，所以多初始化一道</span></span><br><span class="line">            A[i]=<span class="number">0</span>,sumA[i]=<span class="number">0</span>,L[i]=<span class="number">0</span>,R[i]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            cin&gt;&gt;A[i];</span><br><span class="line">            sumA[i]=A[i]+sumA[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> curT=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            curT+=A[i];</span><br><span class="line">            <span class="keyword">if</span>(curT&gt;=v)</span><br><span class="line">                curT=<span class="number">0</span>,L[i]=L[i<span class="number">-1</span>]<span class="number">+1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                L[i]=L[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        curT=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n;i&gt;=<span class="number">1</span>;--i) &#123;</span><br><span class="line">            curT+=A[i];</span><br><span class="line">            <span class="keyword">if</span>(curT&gt;=v)</span><br><span class="line">                curT=<span class="number">0</span>,R[i]=R[i<span class="number">+1</span>]<span class="number">+1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                R[i]=R[i<span class="number">+1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L[n]&lt;m) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,j=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">check</span>(i,j) &amp;&amp; j&lt;=n) &#123;</span><br><span class="line">                ans=<span class="built_in">max</span>(ans,sumA[j]-sumA[i<span class="number">-1</span>]);</span><br><span class="line">                ++j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// https://codeforces.com/contest/2028/submission/291995395</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p>最早我觉得是二分答案，但接着发现不对。</p>
-<p>代码我就不放了，<s>主要原因是这个分蛋糕的Alice不是这m个生物中的一个</s>，如果这题考二分的话，题目可能让你求这个v最大可以为多少。</p>
-<p>记得把数组开大点，前面提交out of bound 了</p>
-<p><img src="https://media.znzryb.com/20241116-03c2e5f4/image_8cab6216.png" alt="image" /></p>
-<p>然后不要动不动return 0;</p>
-<p>&amp;&amp; j≤n 是可以加的，虽然之后的i其实就进入不到这个while里了，但先前的i一定比之后的i更优秀在这种情况下（你想想看，r确定了，l越来越大，[l,r]越来越像，Alice份给自己的就越来越少）</p>
-<p><img src="https://media.znzryb.com/20241116-03c2e5f4/image_fb7261d4.png" alt="image" /></p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/16/20241116-6167ef22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/16/20241116-6167ef22/" class="post-title-link" itemprop="url">Codeforces Round 987 (Div. 2) — D. Penchick and Desert Rabbit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-16 02:06:00" itemprop="dateCreated datePublished" datetime="2024-11-16T02:06:00+08:00">2024-11-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 15:38:31" itemprop="dateModified" datetime="2026-02-14T15:38:31+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>不难发现，只要知道该点能够跳到的最远点，就能够顺利求出答案。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// upA[i]表示i位置之前（包括i位置）出现的最大的height。</span></span><br><span class="line"><span class="comment">// upj[i]表示i位置能跳到的最远位置</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">      cout&lt;&lt;upA[upj[i]]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">cout&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
-<p>那问题就变成了怎么求 i 位置能跳到的最远位置</p>
-<p>我们使用记忆化搜索</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">      upj[i]=<span class="built_in">max</span>(upI[upA[i]<span class="number">-1</span>],i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>upj[i]的初始化是指我们先给upj[i]赋上一个跳一次或者两次（一定往前跳）的值</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(vis[x])</span><br><span class="line">        <span class="keyword">return</span> upj[x];</span><br><span class="line">    vis[x]=<span class="literal">true</span>;</span><br><span class="line">    upj[x]=<span class="built_in">dfs</span>(upj[x]);</span><br><span class="line">    <span class="keyword">return</span> upj[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2031/submission/291771622"></a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e5</span>)<span class="number">+10</span>;</span><br><span class="line">ll n,T,A[N],upI[N],upA[N],upj[N];   <span class="comment">// upj is max idx you can jump to in this pos</span></span><br><span class="line"><span class="type">bool</span> vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(vis[x])</span><br><span class="line">        <span class="keyword">return</span> upj[x];</span><br><span class="line">    vis[x]=<span class="literal">true</span>;</span><br><span class="line">    upj[x]=<span class="built_in">dfs</span>(upj[x]);</span><br><span class="line">    <span class="keyword">return</span> upj[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin&gt;&gt;n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)   <span class="comment">// initialize</span></span><br><span class="line">            upI[i]=<span class="number">0</span>,vis[i]=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            cin&gt;&gt;A[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            <span class="comment">// upI[x] means the max index of x, in other words, farthest x&#x27;s idx</span></span><br><span class="line">            upI[A[i]]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        ll maxUpi=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            <span class="comment">// 大的点肯定能跳到小的点最远的位置</span></span><br><span class="line">            maxUpi=<span class="built_in">max</span>(upI[i],maxUpi);</span><br><span class="line">            upI[i]=maxUpi;</span><br><span class="line">        &#125;</span><br><span class="line">        ll maxA=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            <span class="comment">// upA[i]表示i位置之前（包括i位置）出现的最大的height。</span></span><br><span class="line">            maxA=<span class="built_in">max</span>(maxA,A[i]);</span><br><span class="line">            upA[i]=maxA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            upj[i]=<span class="built_in">max</span>(upI[upA[i]<span class="number">-1</span>],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            upj[i]=<span class="built_in">dfs</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">            cout&lt;&lt;upA[upj[i]]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://codeforces.com/contest/2031/submission/291771622</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -664,14 +644,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">227</span>
+          <span class="site-state-item-count">229</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">109</span>
+        <span class="site-state-item-count">110</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
