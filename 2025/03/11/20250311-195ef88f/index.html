@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="思路讲解 当发现裸的暴搜和状压不行了，这个时候就要开始想贪心了。（我怎么感觉这道题目的数据范围在误导我那） 参考以下题解，竟然是个贪心，佛了。  【Codeforces Round 1008 (Div. 2) 题目讲解 ABCDEF (CF2078)】 【精准空降到 19:54】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV13WQVYxEPC&#x2F;?share_source&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2078D. Scammy Game Ad">
+<meta property="og:url" content="https://znzryb.com/2025/03/11/20250311-195ef88f/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="思路讲解 当发现裸的暴搜和状压不行了，这个时候就要开始想贪心了。（我怎么感觉这道题目的数据范围在误导我那） 参考以下题解，竟然是个贪心，佛了。  【Codeforces Round 1008 (Div. 2) 题目讲解 ABCDEF (CF2078)】 【精准空降到 19:54】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV13WQVYxEPC&#x2F;?share_source&#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-10T20:52:00.000Z">
+<meta property="article:modified_time" content="2026-02-16T09:12:58.301Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="divide and conquer 分治">
+<meta property="article:tag" content="分块&#x2F;分块思想 decompose block">
+<meta property="article:tag" content="贪心 greedy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2025/03/11/20250311-195ef88f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>2078D. Scammy Game Ad | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/11/20250311-195ef88f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2078D. Scammy Game Ad
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-03-11 04:52:00" itemprop="dateCreated datePublished" datetime="2025-03-11T04:52:00+08:00">2025-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-16 17:12:58" itemprop="dateModified" datetime="2026-02-16T17:12:58+08:00">2026-02-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>当发现裸的暴搜和状压不行了，这个时候就要开始想贪心了。（我怎么感觉这道题目的数据范围在误导我那）</p>
+<p>参考以下题解，竟然是个贪心，佛了。</p>
+<blockquote>
+<p>【Codeforces Round 1008 (Div. 2) 题目讲解 ABCDEF (CF2078)】 【精准空降到 19:54】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13WQVYxEPC/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37&amp;t=1194">https://www.bilibili.com/video/BV13WQVYxEPC/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37&amp;t=1194</a></p>
+</blockquote>
+<p>主要思路就是可以通过贪心，+和x相比，肯定x划算，x2和x3相比，肯定x3划算，然后就可以了。注意是一段一段，因为每次增加的可以重新分配。每次增加的多了，经过重新分配，总量也就多了。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2078/submission/310089733">https://codeforces.com/contest/2078/submission/310089733</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: D. Scammy Game Ad</span></span><br><span class="line"><span class="comment">// Contest: Codeforces - Codeforces Round 1008 (Div. 2)</span></span><br><span class="line"><span class="comment">// URL: https://codeforces.com/contest/2078/problem/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 256 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 3000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (long long i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (long long i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,4&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e3</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,T;</span><br><span class="line"><span class="comment">// ll sum1[MAXN],mul1[MAXN],sum2[MAXN],mul2[MAXN];</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">OPER</span>&#123;</span><br><span class="line">	<span class="type">char</span> op1,op2;ll num1,num2;</span><br><span class="line">&#125;oper[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="comment">// sum1[0]=0;</span></span><br><span class="line">	<span class="comment">// mul1[0]=1;</span></span><br><span class="line">	<span class="comment">// sum2[0]=0;</span></span><br><span class="line">	<span class="comment">// mul2[0]=1;</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		cin&gt;&gt;oper[i].op1&gt;&gt;oper[i].num1&gt;&gt;oper[i].op2&gt;&gt;oper[i].num2;</span><br><span class="line">	&#125;</span><br><span class="line">	ll lans=<span class="number">1</span>,rans=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		<span class="type">bool</span> goLeft=<span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=i<span class="number">+1</span>;j&lt;=N;++j)&#123;</span><br><span class="line">			<span class="type">char</span> op1=oper[j].op1,op2=oper[j].op2;</span><br><span class="line">			ll num1=oper[j].num1,num2=oper[j].num2;</span><br><span class="line">			<span class="keyword">if</span>(op1==<span class="string">&#x27;+&#x27;</span> &amp;&amp; op2==<span class="string">&#x27;x&#x27;</span>)&#123;</span><br><span class="line">				goLeft=<span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1==<span class="string">&#x27;x&#x27;</span> &amp;&amp; op2==<span class="string">&#x27;x&#x27;</span> &amp;&amp; num2&gt;num1)&#123;</span><br><span class="line">				goLeft=<span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1==<span class="string">&#x27;x&#x27;</span> &amp;&amp; op2==<span class="string">&#x27;+&#x27;</span>)&#123;</span><br><span class="line">				goLeft=<span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(op1==<span class="string">&#x27;x&#x27;</span> &amp;&amp; op2==<span class="string">&#x27;x&#x27;</span> &amp;&amp; num2&lt;num1)&#123;</span><br><span class="line">				goLeft=<span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">char</span> op1=oper[i].op1,op2=oper[i].op2;</span><br><span class="line">		ll num1=oper[i].num1,num2=oper[i].num2;</span><br><span class="line">		ll t1=<span class="number">0</span>,t2=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(op1==<span class="string">&#x27;x&#x27;</span>) t1=num1*lans-lans;</span><br><span class="line">		<span class="keyword">else</span> t1=num1;</span><br><span class="line">		<span class="keyword">if</span>(op2==<span class="string">&#x27;x&#x27;</span>) t2=num2*rans-rans;</span><br><span class="line">		<span class="keyword">else</span> t2=num2;</span><br><span class="line">		<span class="keyword">if</span>(goLeft)&#123;</span><br><span class="line">			lans+=(t1+t2);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			rans+=(t1+t2);</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// cerr &lt;&lt; lans&lt;&lt;&quot; &quot;&lt;&lt;rans &lt;&lt; &#x27;\n&#x27;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;lans+rans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/contest/2078/submission/310089733</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>注意，不仅遇到goRight的要停，goLeft的也要停。</p>
+<p>这个算法其实问题在于虽然说后面乘数越多，你这个人的贡献就越大。但是问题在于如果一个人可以在比较早的时候变为多个人，然后再反哺回去，可能贡献更大？（如样例的第二个测试数据）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: D. Scammy Game Ad</span></span><br><span class="line"><span class="comment">// Contest: Codeforces - Codeforces Round 1008 (Div. 2)</span></span><br><span class="line"><span class="comment">// URL: https://codeforces.com/contest/2078/problem/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 256 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 3000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (long long i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (long long i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,4&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e3</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,T,A[MAXN];</span><br><span class="line">ll sum1[MAXN],mul1[MAXN],sum2[MAXN],mul2[MAXN];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">OPER</span>&#123;</span><br><span class="line">	<span class="type">char</span> op1,op2;ll num1,num2;</span><br><span class="line">&#125;oper[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="comment">// sum1[0]=0;</span></span><br><span class="line">	<span class="comment">// mul1[0]=1;</span></span><br><span class="line">	<span class="comment">// sum2[0]=0;</span></span><br><span class="line">	<span class="comment">// mul2[0]=1;</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		cin&gt;&gt;oper[i].op1&gt;&gt;oper[i].num1&gt;&gt;oper[i].op2&gt;&gt;oper[i].num2;</span><br><span class="line">	&#125;</span><br><span class="line">	mul1[N<span class="number">+1</span>]=<span class="number">1</span>;</span><br><span class="line">	mul2[N<span class="number">+1</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=N;i&gt;=<span class="number">1</span>;--i)&#123;</span><br><span class="line">		<span class="keyword">if</span>(oper[i].op1==<span class="string">&#x27;x&#x27;</span>)&#123;</span><br><span class="line">			mul1[i]=mul1[i<span class="number">+1</span>]*oper[i].num1;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			mul1[i]=mul1[i<span class="number">+1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(oper[i].op2==<span class="string">&#x27;x&#x27;</span>)&#123;</span><br><span class="line">			mul2[i]=mul2[i<span class="number">+1</span>]*oper[i].num2;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			mul2[i]=mul2[i<span class="number">+1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ll lans=<span class="number">1</span>,rans=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		ll num1=oper[i].num1,num2=oper[i].num2;</span><br><span class="line">		ll lres=<span class="number">0</span>,rres=<span class="number">0</span>;	<span class="comment">// 本次l和r需要增加的次数</span></span><br><span class="line">		<span class="keyword">if</span>(oper[i].op1==<span class="string">&#x27;x&#x27;</span>)&#123;</span><br><span class="line">			ll t=lans*num1-lans;</span><br><span class="line">			<span class="keyword">if</span>(mul1[i<span class="number">+1</span>]&gt;=mul2[i<span class="number">+1</span>])&#123;</span><br><span class="line">				lres+=t;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				rres+=t;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			ll t=num1;</span><br><span class="line">			<span class="keyword">if</span>(mul1[i<span class="number">+1</span>]&gt;=mul2[i<span class="number">+1</span>])&#123;</span><br><span class="line">				lres+=t;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				rres+=t;</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(oper[i].op2==<span class="string">&#x27;x&#x27;</span>)&#123;</span><br><span class="line">			ll t=rans*num2-rans;</span><br><span class="line">			<span class="keyword">if</span>(mul1[i<span class="number">+1</span>]&gt;=mul2[i<span class="number">+1</span>])&#123;</span><br><span class="line">				lres+=t;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				rres+=t;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			ll t=num2;</span><br><span class="line">			<span class="keyword">if</span>(mul1[i<span class="number">+1</span>]&gt;=mul2[i<span class="number">+1</span>])&#123;</span><br><span class="line">				lres+=t;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				rres+=t;</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">		lans+=lres;</span><br><span class="line">		rans+=rres;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;lans+rans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/divide-and-conquer-%E5%88%86%E6%B2%BB/" rel="tag"># divide and conquer 分治</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
+              <a href="/tags/%E5%88%86%E5%9D%97-%E5%88%86%E5%9D%97%E6%80%9D%E6%83%B3-decompose-block/" rel="tag"># 分块/分块思想 decompose block</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/03/10/20250310-97e71750/" rel="prev" title="1857F. Sum and Product（转化题目条件）">
+      <i class="fa fa-chevron-left"></i> 1857F. Sum and Product（转化题目条件）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/03/14/20250314-8a8abce2/" rel="next" title="CF735D. Taxes（运用哥德巴赫猜想）">
+      CF735D. Taxes（运用哥德巴赫猜想） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text"> 思路讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ac%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text"> AC代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">3.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">279</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

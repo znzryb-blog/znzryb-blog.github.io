@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="思路讲解 题意就是把一个序列三分，然后求最大种类数之和  参考题解 【AtCoder 初学者竞赛 397比赛讲解（ABC397）】 【精准空降到 30:17】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1eMQaYEEXa&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;6ca0bc05e7d6f39b07c1afd464edae37&amp;t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ABC-397-F - Variety Split Hard ">
+<meta property="og:url" content="https://znzryb.com/2025/04/03/20250403-b2773f51/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="思路讲解 题意就是把一个序列三分，然后求最大种类数之和  参考题解 【AtCoder 初学者竞赛 397比赛讲解（ABC397）】 【精准空降到 30:17】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1eMQaYEEXa&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;6ca0bc05e7d6f39b07c1afd464edae37&amp;t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20250403-b2773f51/image_e8ab622e.png">
+<meta property="og:image" content="https://media.znzryb.com/20250403-b2773f51/image_826500e9.png">
+<meta property="og:image" content="https://media.znzryb.com/20250403-b2773f51/image_aeb1796a.png">
+<meta property="og:image" content="https://media.znzryb.com/20250403-b2773f51/image_4711cfa0.png">
+<meta property="article:published_time" content="2025-04-03T06:04:00.000Z">
+<meta property="article:modified_time" content="2026-02-16T09:13:11.193Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="线段树 segmentTree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20250403-b2773f51/image_e8ab622e.png">
+
+<link rel="canonical" href="https://znzryb.com/2025/04/03/20250403-b2773f51/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>ABC-397-F - Variety Split Hard  | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/04/03/20250403-b2773f51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ABC-397-F - Variety Split Hard 
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-04-03 14:04:00" itemprop="dateCreated datePublished" datetime="2025-04-03T14:04:00+08:00">2025-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-16 17:13:11" itemprop="dateModified" datetime="2026-02-16T17:13:11+08:00">2026-02-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>题意就是把一个序列三分，然后求最大种类数之和</p>
+<p><img src="https://media.znzryb.com/20250403-b2773f51/image_e8ab622e.png" alt="image" /></p>
+<p>参考题解</p>
+<p>【AtCoder 初学者竞赛 397比赛讲解（ABC397）】 【精准空降到 30:17】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1eMQaYEEXa/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37&amp;t=1817">https://www.bilibili.com/video/BV1eMQaYEEXa/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37&amp;t=1817</a></p>
+<p>说实话，在看题解之前，我是不会想到这种方法的，毕竟就算枚举<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mtext>，</mtext><mi>j</mi></mrow><annotation encoding="application/x-tex">i，j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">i</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>也需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mtext>（</mtext><msup><mi>n</mi><mn>2</mn></msup><mtext>）</mtext></mrow><annotation encoding="application/x-tex">O（n^2）</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord cjk_fallback">（</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord cjk_fallback">）</span></span></span></span>，加快验证过程也没有什么意义。</p>
+<p>首先，我们有C题的经验，prei和sufj+1我们都知道</p>
+<p><img src="https://media.znzryb.com/20250403-b2773f51/image_826500e9.png" alt="image" /></p>
+<p>然后不能同时枚举i，j，我们不妨只枚举j（无所谓i，j）</p>
+<p><img src="https://media.znzryb.com/20250403-b2773f51/image_aeb1796a.png" alt="image" /></p>
+<p>这个怎么寻找突破口那？</p>
+<p><img src="https://media.znzryb.com/20250403-b2773f51/image_4711cfa0.png" alt="image" /></p>
+<p>容易发现，这个#[i+1,j]是否需要+1的起始位置就是aj+1上一次出现的位置，即<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>a</mi><msub><mi>s</mi><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></msub></mrow><annotation encoding="application/x-tex">las_{a_{j+1}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04176em;vertical-align:-0.34731999999999996em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2818857142857143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.34731999999999996em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<p>zkw线段树详细介绍（zkw线段树实现区间修改，区间查询最值）</p>
+<p>想着用zkw线段树解决，但还是算了，就普通线段树吧。</p>
+<p>然后一定要想清楚，按照我的编码方式j不需要现在加，因为包括在了las[j]。需要加的其实是A[j-1]，las[j-1]。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">	<span class="built_in">FOR</span>(j,<span class="number">3</span>,N)&#123;</span><br><span class="line">		<span class="comment">// 由于j是确定的，利用离线思想</span></span><br><span class="line">		<span class="comment">// 线段树里存的相当于pre[i]+#[i+1,j-1]（j为目前的j）</span></span><br><span class="line">		<span class="keyword">if</span>(las[A[j<span class="number">-1</span>]]==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">add</span>(<span class="number">1</span>,<span class="number">1</span>,j<span class="number">-2</span>,<span class="number">1</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">add</span>(<span class="number">1</span>,las[A[j<span class="number">-1</span>]],j<span class="number">-2</span>,<span class="number">1</span>);	<span class="comment">// 加到j-2就够了，j-1的时候该点以囊入pre</span></span><br><span class="line">		&#125;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,cntr[j]+<span class="built_in">query</span>(<span class="number">1</span>,<span class="number">1</span>,j<span class="number">-2</span>));</span><br><span class="line">		las[A[j<span class="number">-1</span>]]=j<span class="number">-1</span>;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">	<span class="comment">// cerr&lt;&lt;j&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">    <span class="comment">// FOR(i,1,4*N)&#123;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;i&lt;&lt;&quot;--l:&quot;&lt;&lt;tr[i].l&lt;&lt;&quot; r:&quot;&lt;&lt;tr[i].r&lt;&lt;&quot; val:&quot;&lt;&lt;tr[i].val&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc397/submissions/64623246">https://atcoder.jp/contests/abc397/submissions/64623246</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: F - Variety Split Hard</span></span><br><span class="line"><span class="comment">// Contest: AtCoder - OMRON Corporation Programming Contest 2025 (AtCoder Beginner Contest 397)</span></span><br><span class="line"><span class="comment">// URL: https://atcoder.jp/contests/abc397/tasks/abc397_f</span></span><br><span class="line"><span class="comment">// Memory Limit: 1024 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> __int128 i128;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">3e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,T,A[MAXN];</span><br><span class="line"><span class="type">bool</span> vis[MAXN];</span><br><span class="line"><span class="type">bool</span> visr[MAXN];</span><br><span class="line">ll cnt[MAXN],cntr[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TREE</span>&#123;</span><br><span class="line">	ll l=<span class="number">0</span>,r=<span class="number">0</span>,val=-INF;</span><br><span class="line">&#125;tr[MAXN*<span class="number">4</span>];</span><br><span class="line"></span><br><span class="line">ll lazy[MAXN*<span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">ls</span><span class="params">(ll x)</span></span>&#123;<span class="keyword">return</span> x&lt;&lt;<span class="number">1</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rs</span><span class="params">(ll x)</span></span>&#123;<span class="keyword">return</span> x&lt;&lt;<span class="number">1</span>|<span class="number">1</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushdown</span><span class="params">(ll node)</span></span>&#123;</span><br><span class="line">	<span class="comment">// 这句话还是重要的，防止RE</span></span><br><span class="line">	<span class="keyword">if</span>(tr[node].l==tr[node].r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(lazy[node]!=<span class="number">0</span>)&#123;</span><br><span class="line">		tr[<span class="built_in">ls</span>(node)].val+=lazy[node];</span><br><span class="line">		tr[<span class="built_in">rs</span>(node)].val+=lazy[node];</span><br><span class="line">		lazy[<span class="built_in">ls</span>(node)]+=lazy[node];</span><br><span class="line">		lazy[<span class="built_in">rs</span>(node)]+=lazy[node];</span><br><span class="line">		lazy[node]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushup</span><span class="params">(ll node)</span></span>&#123;</span><br><span class="line">	node/=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span>(node)&#123;</span><br><span class="line">		tr[node].val=<span class="built_in">max</span>(tr[<span class="built_in">ls</span>(node)].val,tr[<span class="built_in">rs</span>(node)].val);</span><br><span class="line">		node/=<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll node,ll l,ll r,ll val)</span></span>&#123; </span><br><span class="line">	<span class="keyword">if</span>(r&lt;l) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(r&lt;tr[node].l || l&gt;tr[node].r)&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pushdown</span>(node);</span><br><span class="line">	<span class="keyword">if</span>(l&lt;=tr[node].l &amp;&amp; tr[node].r&lt;=r)&#123;</span><br><span class="line">		lazy[node]+=val;</span><br><span class="line">		tr[node].val+=val;</span><br><span class="line">		<span class="built_in">pushup</span>(node);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ll mid=(tr[node].l+tr[node].r)/<span class="number">2</span>;</span><br><span class="line">	<span class="comment">// 只要不是和左节点一点关系都没有，我们都要进左节点</span></span><br><span class="line">	<span class="keyword">if</span>((r&lt;tr[node].l || l&gt;mid)==<span class="literal">false</span>) <span class="built_in">add</span>(<span class="built_in">ls</span>(node),l,r,val);</span><br><span class="line">	<span class="keyword">if</span>((r&lt;mid<span class="number">+1</span> || l&gt;tr[node].r)==<span class="literal">false</span>) <span class="built_in">add</span>(<span class="built_in">rs</span>(node),l,r,val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(ll node,ll l,ll r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l&gt;r)&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">		tr[node].l=l;</span><br><span class="line">		tr[node].r=r;</span><br><span class="line">		tr[node].val=<span class="number">0</span>;	<span class="comment">// 用来使用</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	tr[node].l=l;</span><br><span class="line">	tr[node].r=r;</span><br><span class="line">	ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">build</span>(<span class="built_in">ls</span>(node),l,mid);</span><br><span class="line">	<span class="built_in">build</span>(<span class="built_in">rs</span>(node),mid<span class="number">+1</span>,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(ll node,ll l,ll r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(r&lt;tr[node].l || l&gt;tr[node].r)&#123;</span><br><span class="line">		<span class="keyword">return</span> -INF;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pushdown</span>(node);</span><br><span class="line">	<span class="keyword">if</span>(l&lt;=tr[node].l &amp;&amp; tr[node].r&lt;=r)&#123;</span><br><span class="line">		<span class="keyword">return</span> tr[node].val;</span><br><span class="line">	&#125;</span><br><span class="line">	ll mid=(tr[node].l+tr[node].r)/<span class="number">2</span>;</span><br><span class="line">	ll res=-INF;</span><br><span class="line">	<span class="comment">// 只要不是和左节点一点关系都没有，我们都要进左节点</span></span><br><span class="line">	<span class="keyword">if</span>((r&lt;tr[node].l || l&gt;mid)==<span class="literal">false</span>) res=<span class="built_in">max</span>(res,<span class="built_in">query</span>(<span class="built_in">ls</span>(node),l,r));</span><br><span class="line">	<span class="keyword">if</span>((r&lt;mid<span class="number">+1</span> || l&gt;tr[node].r)==<span class="literal">false</span>) res=<span class="built_in">max</span>(res,<span class="built_in">query</span>(<span class="built_in">rs</span>(node),l,r));</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll las[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!vis[A[i]]) cnt[i]=cnt[i<span class="number">-1</span>]<span class="number">+1</span>;</span><br><span class="line">		<span class="keyword">else</span> cnt[i]=cnt[i<span class="number">-1</span>];</span><br><span class="line">		vis[A[i]]=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">ROF</span>(i,N,<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!visr[A[i]]) cntr[i]=cntr[i<span class="number">+1</span>]<span class="number">+1</span>;</span><br><span class="line">		<span class="keyword">else</span> cntr[i]=cntr[i<span class="number">+1</span>];</span><br><span class="line">		visr[A[i]]=<span class="literal">true</span>;		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">build</span>(<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="comment">// 初始化线段树</span></span><br><span class="line">		<span class="built_in">add</span>(<span class="number">1</span>,i,i,cnt[i]);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// FOR(i,1,N)&#123;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;cnt[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// 在该j下的最好情况是suf[j]+max(pre[i]+#[i+1,j-1]) </span></span><br><span class="line">	<span class="comment">// #[i+1,j-1]是指该闭区间内的数字种数</span></span><br><span class="line">	las[A[<span class="number">1</span>]]=<span class="number">1</span>;	<span class="comment">// 该值最后一次出现的位置</span></span><br><span class="line">	<span class="comment">// las[A[2]]=2;</span></span><br><span class="line">	<span class="built_in">FOR</span>(j,<span class="number">3</span>,N)&#123;</span><br><span class="line">		<span class="comment">// 由于j是确定的，利用离线思想</span></span><br><span class="line">		<span class="comment">// 线段树里存的相当于pre[i]+#[i+1,j-1]（j为目前的j）</span></span><br><span class="line">		<span class="keyword">if</span>(las[A[j<span class="number">-1</span>]]==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">add</span>(<span class="number">1</span>,<span class="number">1</span>,j<span class="number">-2</span>,<span class="number">1</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">add</span>(<span class="number">1</span>,las[A[j<span class="number">-1</span>]],j<span class="number">-2</span>,<span class="number">1</span>);	<span class="comment">// 加到j-2就够了，j-1的时候该点以囊入pre</span></span><br><span class="line">		&#125;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,cntr[j]+<span class="built_in">query</span>(<span class="number">1</span>,<span class="number">1</span>,j<span class="number">-2</span>));</span><br><span class="line">		las[A[j<span class="number">-1</span>]]=j<span class="number">-1</span>;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">	<span class="comment">// cerr&lt;&lt;j&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">    <span class="comment">// FOR(i,1,4*N)&#123;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;i&lt;&lt;&quot;--l:&quot;&lt;&lt;tr[i].l&lt;&lt;&quot; r:&quot;&lt;&lt;tr[i].r&lt;&lt;&quot; val:&quot;&lt;&lt;tr[i].val&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="comment">// cin&gt;&gt;T;</span></span><br><span class="line">	<span class="comment">// while(T--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc397/submissions/64623246</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">1 2 3 3 4 5 6 6 7 8</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>RE是因为没加这句话</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushdown</span><span class="params">(ll node)</span></span>&#123;</span><br><span class="line">	<span class="comment">// 这句话还是重要的，防止RE</span></span><br><span class="line">	<span class="keyword">if</span>(tr[node].l==tr[node].r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(lazy[node]!=<span class="number">0</span>)&#123;</span><br><span class="line">		tr[<span class="built_in">ls</span>(node)].val+=lazy[node];</span><br><span class="line">		tr[<span class="built_in">rs</span>(node)].val+=lazy[node];</span><br><span class="line">		lazy[<span class="built_in">ls</span>(node)]+=lazy[node];</span><br><span class="line">		lazy[<span class="built_in">rs</span>(node)]+=lazy[node];</span><br><span class="line">		lazy[node]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91-segmentTree/" rel="tag"># 线段树 segmentTree</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/02/20250402-786183f3/" rel="prev" title="ABC-397-E - Path Decomposition of a Tree">
+      <i class="fa fa-chevron-left"></i> ABC-397-E - Path Decomposition of a Tree
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/04/04/20250404-796a1d3b/" rel="next" title="307. 区域和检索 - 数组可修改（zkw线段树单点修改区间查询）">
+      307. 区域和检索 - 数组可修改（zkw线段树单点修改区间查询） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text"> 思路讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ac%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text"> AC代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">3.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">279</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

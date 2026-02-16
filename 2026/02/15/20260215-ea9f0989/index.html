@@ -22,18 +22,22 @@
 
   <meta name="description" content="题目大意 题意 给定 nnn 个二次函数 F&#x3D;{f1,f2,…,fn}F&#x3D;\{f_1, f_2, \dots, f_n\}F&#x3D;{f1​,f2​,…,fn​}，其中 fi(x)&#x3D;aix2+bix+cif_i(x) &#x3D; a_i x^2 + b_i x + c_ifi​(x)&#x3D;ai​x2+bi​x+ci​。 定义两个函数 fff 和 ggg 是 独立 的，当且仅当对于所有的实数 x∈Rx \in \m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性）">
+<meta property="og:title" content="Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性）（寻找最长链使用记忆化 dfs）">
 <meta property="og:url" content="https://znzryb.com/2026/02/15/20260215-ea9f0989/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题意 给定 nnn 个二次函数 F&#x3D;{f1,f2,…,fn}F&#x3D;\{f_1, f_2, \dots, f_n\}F&#x3D;{f1​,f2​,…,fn​}，其中 fi(x)&#x3D;aix2+bix+cif_i(x) &#x3D; a_i x^2 + b_i x + c_ifi​(x)&#x3D;ai​x2+bi​x+ci​。 定义两个函数 fff 和 ggg 是 独立 的，当且仅当对于所有的实数 x∈Rx \in \m">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260215-ea9f0989/image_91d92f55.png">
 <meta property="article:published_time" content="2026-02-15T09:17:00.000Z">
-<meta property="article:modified_time" content="2026-02-16T07:02:36.214Z">
+<meta property="article:modified_time" content="2026-02-16T10:02:48.095Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="dfs">
 <meta property="article:tag" content="graph">
+<meta property="article:tag" content="memorized search">
 <meta property="article:tag" content="set 集合类题目">
 <meta property="article:tag" content="图论建模 modelling">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260215-ea9f0989/image_91d92f55.png">
 
 <link rel="canonical" href="https://znzryb.com/2026/02/15/20260215-ea9f0989/">
 
@@ -48,7 +52,7 @@
   };
 </script>
 
-  <title>Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性） | Znzryb's Blog</title>
+  <title>Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性）（寻找最长链使用记忆化 dfs） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -212,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性）
+          Codeforces Round 1080 (Div. 3)（CF-1080）——F. Parabola Independence（寻找传递性）（寻找最长链使用记忆化 dfs）
         </h1>
 
         <div class="post-meta">
@@ -229,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-16 15:02:36" itemprop="dateModified" datetime="2026-02-16T15:02:36+08:00">2026-02-16</time>
+                <time title="Modified: 2026-02-16 18:02:48" itemprop="dateModified" datetime="2026-02-16T18:02:48+08:00">2026-02-16</time>
               </span>
 
           
@@ -305,6 +309,7 @@
 <p>对于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">f_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：集合 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>f</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>f</mi><mn>3</mn></msub><mo separator="true">,</mo><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{f_1, f_3, f_4\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span> 是有序的，大小为 3。</p>
 </li>
 </ul>
+<p><img src="https://media.znzryb.com/20260215-ea9f0989/image_91d92f55.png" alt="image" /></p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -338,7 +343,15 @@
     </div>
 </div>
 <h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        错误的使用了 bfs 求解最长链
+    </div>
+    <div class='fold-content'>
+        <p>不应该使用这个 BFS，无论你怎么样 BFS 它都不太能够求解这个最长的问题，因为毕竟 BFS 是求最短路径。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> solve=[&amp;](vector&lt;ll&gt; &amp;mx_chain,<span class="type">const</span> vector&lt;vector&lt;ll&gt;&gt; &amp;g) -&gt; <span class="type">void</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        queue&lt;pair&lt;ll,ll&gt;&gt; q;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">char</span>&gt; <span class="title">vis</span><span class="params">(N<span class="number">+2</span>)</span></span>;</span><br><span class="line">        vis[i]=<span class="literal">true</span>;</span><br><span class="line">        q.<span class="built_in">push</span>(&#123;i,<span class="number">0</span>&#125;);</span><br><span class="line">        ll ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [u,dis]=q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            ans=<span class="built_in">max</span>(ans,dis);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> to:g[u]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (vis[to]) <span class="keyword">continue</span>;</span><br><span class="line">                vis[to]=<span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(&#123;to,dis<span class="number">+1</span>&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mx_chain[i]=ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    </div>
+</div><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
     </div>
 
     
@@ -348,7 +361,9 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/graph/" rel="tag"># graph</a>
+              <a href="/tags/dfs/" rel="tag"># dfs</a>
               <a href="/tags/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1-modelling/" rel="tag"># 图论建模 modelling</a>
+              <a href="/tags/memorized-search/" rel="tag"># memorized search</a>
               <a href="/tags/set-%E9%9B%86%E5%90%88%E7%B1%BB%E9%A2%98%E7%9B%AE/" rel="tag"># set 集合类题目</a>
           </div>
 
@@ -437,14 +452,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">229</span>
+          <span class="site-state-item-count">279</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">110</span>
+        <span class="site-state-item-count">124</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
