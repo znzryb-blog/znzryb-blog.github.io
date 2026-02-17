@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="思路讲解 那么根据我的经验来说，如果说这个东西要求连续性（如距离，字母排列等等），大概率是树上dp，像这种具有超距作用的，那么大概率就是要配合DSU了。 核心代码如下，注意，先计算，后合并。 12345678910111213141516171819202122232425262728293031323334353637FOR(i,1,N)&#123;		&#x2F;&#x2F; 特判两个点的情况	for(auto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客练习赛142-D.第四次忍界大战（会被误认为树上dp）（先计算，后合并）（点分治）">
+<meta property="og:url" content="https://znzryb.com/2025/07/12/20250712-9b0b7aad/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="思路讲解 那么根据我的经验来说，如果说这个东西要求连续性（如距离，字母排列等等），大概率是树上dp，像这种具有超距作用的，那么大概率就是要配合DSU了。 核心代码如下，注意，先计算，后合并。 12345678910111213141516171819202122232425262728293031323334353637FOR(i,1,N)&#123;		&#x2F;&#x2F; 特判两个点的情况	for(auto">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-11T18:40:00.000Z">
+<meta property="article:modified_time" content="2026-02-17T13:29:19.630Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="并查集 disjointed union">
+<meta property="article:tag" content="点分治 tree-dividing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2025/07/12/20250712-9b0b7aad/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>牛客练习赛142-D.第四次忍界大战（会被误认为树上dp）（先计算，后合并）（点分治） | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/12/20250712-9b0b7aad/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          牛客练习赛142-D.第四次忍界大战（会被误认为树上dp）（先计算，后合并）（点分治）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-12 02:40:00" itemprop="dateCreated datePublished" datetime="2025-07-12T02:40:00+08:00">2025-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 21:29:19" itemprop="dateModified" datetime="2026-02-17T21:29:19+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>那么根据我的经验来说，如果说这个东西要求连续性（如距离，字母排列等等），大概率是树上dp，像这种具有超距作用的，那么大概率就是要配合DSU了。</p>
+<p>核心代码如下，注意，<strong>先计算，后合并</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;		<span class="comment">// 特判两个点的情况</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[i])&#123;</span><br><span class="line">		<span class="keyword">if</span>(A[v]==A[i]) ++ans;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 生成的这张图相当于其权值都是大于等于key的（至少是相连的图，孤立点我们不知道）</span></span><br><span class="line"><span class="comment">// 这个时候就是要看两个相同的A值点，是不是连接于这个图上面。</span></span><br><span class="line"><span class="comment">// 那么我们发现不用把问题想的非常复杂，只需要考虑key-1（即后面一个k）就行了</span></span><br><span class="line"><span class="comment">// 最重要的是遵循&quot;先计数，后合并&quot;的原则</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> it=mp.<span class="built_in">rbegin</span>();it!=mp.<span class="built_in">rend</span>();it++)&#123;</span><br><span class="line">	<span class="comment">// auto&amp; 相当于定义了一个别名</span></span><br><span class="line">	<span class="keyword">auto</span>&amp; ls=it-&gt;second;ll key=it-&gt;first;</span><br><span class="line">	map&lt;ll,ll&gt; cnt;</span><br><span class="line">	<span class="comment">// 先计数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;u:ls)&#123;</span><br><span class="line">		vector&lt;ll&gt; wp;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(A[v]&lt;=key) <span class="keyword">continue</span>; </span><br><span class="line">			wp.<span class="built_in">pb</span>(<span class="built_in">find</span>(v));</span><br><span class="line">		&#125;</span><br><span class="line">		wp.<span class="built_in">resize</span>(<span class="built_in">unique</span>(<span class="built_in">all</span>(wp))-wp.<span class="built_in">begin</span>());</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:wp)&#123;</span><br><span class="line">			++cnt[<span class="built_in">find</span>(v)];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;t:cnt)&#123;</span><br><span class="line">		ll n=t.second;</span><br><span class="line">		ans+=(n<span class="number">-1</span><span class="number">+1</span>)*(n<span class="number">-1</span>);	<span class="comment">// 2Cn * 2 在n个中选两个，然后由于先选哪个比较重要*2</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 后合并</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;u:ls)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(A[v]&lt;key) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">merge</span>(u,v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么这种复杂路径问题，点分治也能解决（应该来说更泛用）。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78161052">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78161052</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码（并查集）
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 第四次忍界大战</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/112575/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll MAXM=(ll)<span class="number">1e6</span><span class="number">+10</span>;<span class="keyword">constexpr</span> ll MAXV=(ll)<span class="number">1e6</span><span class="number">+10</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;<span class="type">const</span> <span class="type">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,T,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line">map&lt;ll, vector&lt;ll &gt; &gt; mp;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">const</span> arr2 &amp;a,<span class="type">const</span> arr2 &amp;b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">min</span>(a[<span class="number">0</span>],a[<span class="number">1</span>])&lt;<span class="built_in">min</span>(b[<span class="number">0</span>],b[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line">ll fa[MAXN];</span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x==fa[x]) <span class="keyword">return</span> fa[x];</span><br><span class="line">	<span class="keyword">return</span> fa[x]=<span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(ll a,ll b)</span></span>&#123;</span><br><span class="line">	fa[<span class="built_in">find</span>(a)]=<span class="built_in">find</span>(b);</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;ll&gt; g[MAXN];		<span class="comment">// 记得要清空</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		fa[i]=i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		mp[A[i]].<span class="built_in">pb</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// map&lt;ll, vector&lt;arr2&gt; &gt; E;</span></span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">		ll u,v;</span><br><span class="line">		cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">		<span class="comment">// E[min(A[u],A[v])].pb(&#123;u,v&#125;);</span></span><br><span class="line">		g[u].<span class="built_in">pb</span>(v);g[v].<span class="built_in">pb</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;		<span class="comment">// 特判两个点的情况</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[i])&#123;</span><br><span class="line">			<span class="keyword">if</span>(A[v]==A[i]) ++ans;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 生成的这张图相当于其权值都是大于等于key的（至少是相连的图，孤立点我们不知道）</span></span><br><span class="line">	<span class="comment">// 这个时候就是要看两个相同的A值点，是不是连接于这个图上面。</span></span><br><span class="line">	<span class="comment">// 那么我们发现不用把问题想的非常复杂，只需要考虑key-1（即后面一个k）就行了</span></span><br><span class="line">	<span class="comment">// 最重要的是遵循&quot;先计数，后合并&quot;的原则</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> it=mp.<span class="built_in">rbegin</span>();it!=mp.<span class="built_in">rend</span>();it++)&#123;</span><br><span class="line">		<span class="comment">// auto&amp; 相当于定义了一个别名</span></span><br><span class="line">		<span class="keyword">auto</span>&amp; ls=it-&gt;second;ll key=it-&gt;first;</span><br><span class="line">		map&lt;ll,ll&gt; cnt;</span><br><span class="line">		<span class="comment">// 先计数</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;u:ls)&#123;</span><br><span class="line">			vector&lt;ll&gt; wp;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">				<span class="keyword">if</span>(A[v]&lt;=key) <span class="keyword">continue</span>; </span><br><span class="line">				wp.<span class="built_in">pb</span>(<span class="built_in">find</span>(v));</span><br><span class="line">			&#125;</span><br><span class="line">			wp.<span class="built_in">resize</span>(<span class="built_in">unique</span>(<span class="built_in">all</span>(wp))-wp.<span class="built_in">begin</span>());</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:wp)&#123;</span><br><span class="line">				++cnt[<span class="built_in">find</span>(v)];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;t:cnt)&#123;</span><br><span class="line">			ll n=t.second;</span><br><span class="line">			ans+=(n<span class="number">-1</span><span class="number">+1</span>)*(n<span class="number">-1</span>);	<span class="comment">// 2Cn * 2 在n个中选两个，然后由于先选哪个比较重要*2</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 后合并</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;u:ls)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">				<span class="keyword">if</span>(A[v]&lt;key) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="built_in">merge</span>(u,v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)</span></span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">96% https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78160882</span></span><br><span class="line"><span class="comment">AC https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78161052</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78175127">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78175127</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码（点分治）
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 第四次忍界大战</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/112575/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll MAXM=(ll)<span class="number">1e6</span><span class="number">+10</span>;<span class="keyword">constexpr</span> ll MAXV=(ll)<span class="number">1e5</span><span class="number">+10</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;<span class="type">const</span> <span class="type">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,T,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	vector&lt;vector&lt;ll&gt; &gt; <span class="built_in">g</span>(N<span class="number">+5</span>);</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">		ll u,v;</span><br><span class="line">		cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">		g[u].<span class="built_in">pb</span>(v);g[v].<span class="built_in">pb</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">sz</span><span class="params">(N<span class="number">+5</span>,<span class="number">0</span>)</span></span>;ll mxTree=INF;</span><br><span class="line">	<span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">vis</span><span class="params">(N<span class="number">+5</span>,<span class="number">0</span>)</span></span>;ll root=<span class="number">0</span>;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// FOR(i,1,N)&#123;		// 特判两个点的情况</span></span><br><span class="line">		<span class="comment">// for(auto &amp;v:g[i])&#123;</span></span><br><span class="line">			<span class="comment">// if(A[v]==A[i]) ++ans;</span></span><br><span class="line">		<span class="comment">// &#125;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="comment">// ans/=2;</span></span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// debug(ans);</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	<span class="keyword">auto</span> get=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u,ll p,ll tot)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		ll val=<span class="number">0</span>;sz[u]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(v==p || vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">self</span>(self,v,u,tot);</span><br><span class="line">			sz[u]+=sz[v];</span><br><span class="line">			val=<span class="built_in">max</span>(val,sz[v]);</span><br><span class="line">		&#125;</span><br><span class="line">		val=<span class="built_in">max</span>(val,tot-sz[u]);</span><br><span class="line">		<span class="keyword">if</span>(val&lt;mxTree)&#123;</span><br><span class="line">			mxTree=val;</span><br><span class="line">			root=u;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">auto</span> cal=[&amp;](ll u)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		map&lt;ll,ll&gt; cnt;vector&lt;ll&gt; wp;</span><br><span class="line">		<span class="comment">// 那么众所周知，我们只考虑经过u的路径（点分治）</span></span><br><span class="line">		<span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u,ll p,ll mn)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(mn&gt;A[u])&#123;</span><br><span class="line">				<span class="comment">// if(cnt.count(A[u]))&#123;</span></span><br><span class="line">					<span class="comment">// ans+=cnt[A[u]];</span></span><br><span class="line">				<span class="comment">// &#125;</span></span><br><span class="line">				<span class="comment">// ++cnt[A[u]];</span></span><br><span class="line">				wp.<span class="built_in">pb</span>(A[u]);</span><br><span class="line">			&#125;</span><br><span class="line">			mn=<span class="built_in">min</span>(A[u],mn);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">				<span class="keyword">if</span>(v==p || vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="built_in">self</span>(self,v,u,mn);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">	<span class="built_in">debug</span>(root);</span><br><span class="line">   	<span class="built_in">debug</span>(ans);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">		<span class="comment">// 保证计入答案的路径是经过u点的</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v]) <span class="keyword">continue</span>;	<span class="comment">// 你不能就不判断了</span></span><br><span class="line">			<span class="built_in">dfs</span>(dfs,v,u,INF);</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// if(root==1)&#123;</span></span><br><span class="line">    	<span class="comment">// for(auto &amp;a:wp)&#123;</span></span><br><span class="line">    		<span class="comment">// debug(a);</span></span><br><span class="line">    	<span class="comment">// &#125;</span></span><br><span class="line">    	<span class="comment">// debug(ans);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:wp)&#123;</span><br><span class="line">				<span class="comment">// 跨区域合并不行，因为根节点值太低了</span></span><br><span class="line">				<span class="keyword">if</span>(a&gt;=A[u]) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">if</span>(cnt.<span class="built_in">count</span>(a))&#123;</span><br><span class="line">					ans+=cnt[a];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:wp)&#123;</span><br><span class="line">				++cnt[a];</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			wp.<span class="built_in">clear</span>();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 根节点直接和子树上的点匹配</span></span><br><span class="line">		ans+=cnt[A[u]];</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    <span class="built_in">debug</span>(ans);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 主程序</span></span><br><span class="line">	<span class="keyword">auto</span> dfz=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		vis[u]=<span class="literal">true</span>;	<span class="comment">// u一定是一个重心</span></span><br><span class="line">		<span class="built_in">cal</span>(u);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">			mxTree=INF;</span><br><span class="line">			<span class="built_in">get</span>(get,v,u,sz[v]);</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// debug(root);</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">			<span class="built_in">self</span>(self,root);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">get</span>(get,<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    <span class="built_in">debug</span>(root);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">	<span class="built_in">dfz</span>(dfz,root);</span><br><span class="line">	ans*=<span class="number">2</span>;		<span class="comment">// 该路径是考虑顺序的</span></span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)</span></span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">WA 60% https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78164958</span></span><br><span class="line"><span class="comment">hack:</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">4 4 5 3 2 5 4 4 5 5</span></span><br><span class="line"><span class="comment">5 10</span></span><br><span class="line"><span class="comment">1 3</span></span><br><span class="line"><span class="comment">5 6</span></span><br><span class="line"><span class="comment">4 6</span></span><br><span class="line"><span class="comment">9 2</span></span><br><span class="line"><span class="comment">1 7</span></span><br><span class="line"><span class="comment">8 9</span></span><br><span class="line"><span class="comment">2 3</span></span><br><span class="line"><span class="comment">10 7</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">ans:</span></span><br><span class="line"><span class="comment">6</span></span><br><span class="line"><span class="comment">AC https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78175127</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>WA了的点分治代码，过了60%，我认为错误就在这个我的这个点分治统计答案他有点问题，统计到的不一定都经过u，这是违背点分治思想的。</p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78164958">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78164958</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码（点分治）
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 第四次忍界大战</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/112575/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll MAXM=(ll)<span class="number">1e6</span><span class="number">+10</span>;<span class="keyword">constexpr</span> ll MAXV=(ll)<span class="number">1e5</span><span class="number">+10</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;<span class="type">const</span> <span class="type">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,T,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	vector&lt;vector&lt;ll&gt; &gt; <span class="built_in">g</span>(N<span class="number">+5</span>);</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">		ll u,v;</span><br><span class="line">		cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">		g[u].<span class="built_in">pb</span>(v);g[v].<span class="built_in">pb</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">sz</span><span class="params">(N<span class="number">+5</span>,<span class="number">0</span>)</span></span>;ll mxTree=INF;</span><br><span class="line">	<span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">vis</span><span class="params">(N<span class="number">+5</span>,<span class="number">0</span>)</span></span>;ll root=<span class="number">0</span>;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;		<span class="comment">// 特判两个点的情况</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[i])&#123;</span><br><span class="line">			<span class="keyword">if</span>(A[v]==A[i]) ++ans;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ans/=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">auto</span> get=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u,ll p,ll tot)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		ll val=<span class="number">0</span>;sz[u]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(v==p || vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">self</span>(self,v,u,tot);</span><br><span class="line">			sz[u]+=sz[v];</span><br><span class="line">			val=<span class="built_in">max</span>(val,sz[v]);</span><br><span class="line">		&#125;</span><br><span class="line">		val=<span class="built_in">max</span>(val,tot-sz[u]);</span><br><span class="line">		<span class="keyword">if</span>(val&lt;mxTree)&#123;</span><br><span class="line">			mxTree=val;</span><br><span class="line">			root=u;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">auto</span> cal=[&amp;](ll u)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		map&lt;ll,ll&gt; cnt;</span><br><span class="line">		<span class="comment">// 那么众所周知，我们只考虑经过u的路径（点分治）</span></span><br><span class="line">		<span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u,ll p,ll mn)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(mn&gt;A[u])&#123;</span><br><span class="line">				<span class="keyword">if</span>(cnt.<span class="built_in">count</span>(A[u]))&#123;</span><br><span class="line">					ans+=cnt[A[u]];</span><br><span class="line">				&#125;</span><br><span class="line">				++cnt[A[u]];</span><br><span class="line">			&#125;</span><br><span class="line">			mn=<span class="built_in">min</span>(A[u],mn);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">				<span class="keyword">if</span>(v==p || vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="built_in">self</span>(self,v,u,mn);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="built_in">dfs</span>(dfs,u,u,INF);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 主程序</span></span><br><span class="line">	<span class="keyword">auto</span> dfz=[&amp;](<span class="keyword">auto</span> &amp;&amp;self,ll u)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		vis[u]=<span class="literal">true</span>;	<span class="comment">// u一定是一个重心</span></span><br><span class="line">		<span class="built_in">cal</span>(u);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">			mxTree=INF;</span><br><span class="line">			<span class="built_in">get</span>(get,v,v,sz[v]);</span><br><span class="line">			<span class="built_in">self</span>(self,root);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">get</span>(get,<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line">	<span class="built_in">dfz</span>(dfz,root);</span><br><span class="line">	ans*=<span class="number">2</span>;		<span class="comment">// 该路径是考虑顺序的</span></span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)</span></span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78165041">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78165041</a></p>
+<p>然后改了统计代码以后WA的更多了</p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78165092">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78165092</a></p>
+<p>AI指出了一个不对的地方，现在正确率提升到了84%</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保证计入答案的路径是经过u点的</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">	<span class="keyword">if</span>(vis[v]) <span class="keyword">continue</span>;	<span class="comment">// 你不能就不判断了</span></span><br><span class="line">	<span class="built_in">dfs</span>(dfs,v,u,A[u]);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:wp)&#123;</span><br><span class="line">		<span class="keyword">if</span>(cnt.<span class="built_in">count</span>(a))&#123;</span><br><span class="line">			ans+=cnt[a];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:wp)&#123;</span><br><span class="line">		++cnt[a];</span><br><span class="line">	&#125;</span><br><span class="line">	wp.<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86-disjointed-union/" rel="tag"># 并查集 disjointed union</a>
+              <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB-tree-dividing/" rel="tag"># 点分治 tree-dividing</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/07/12/20250712-99ae81a6/" rel="prev" title="牛客练习赛142-C.战前准备">
+      <i class="fa fa-chevron-left"></i> 牛客练习赛142-C.战前准备
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/07/14/20250714-512d6678/" rel="next" title="P3806 【模板】点分治 1">
+      P3806 【模板】点分治 1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text"> 思路讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ac%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text"> AC代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">3.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">427</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">148</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
