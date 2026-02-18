@@ -191,6 +191,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/29/20241029-32f55d20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/29/20241029-32f55d20/" class="post-title-link" itemprop="url">ABC371-D-1D Country</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-29 11:33:00" itemprop="dateCreated datePublished" datetime="2024-10-29T11:33:00+08:00">2024-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 10:48:34" itemprop="dateModified" datetime="2026-02-14T10:48:34+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc371/submissions/59255867"></a></p>
+<p>AC</p>
+<p>相比于上一次WA，修改了这些（这没啥好多说的，idx2为-会导致一系列问题）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(idx2&lt;<span class="number">0</span>)</span><br><span class="line">       idx2=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>以及加了一个n+1（原来是n）（一般情况下不会被击穿因为如果超了我会减掉，但正巧空的默认值是0，即<br />
+<code>xp[idx2].first</code>）为0，正好我的判断条件是<code>xp[idx2].first!=r</code>，碰巧hack数据r也为0，就被击穿了，idx2没减，让我的程序WA了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">+1</span>;i++) &#123;</span><br><span class="line">        sumVil[i]=sumVil[i<span class="number">-1</span>]+xp[i].second;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AC代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">2e5</span><span class="number">+10</span>,MAXP=<span class="number">1e11</span><span class="number">+10</span>;</span><br><span class="line">pair&lt;ll,ll&gt; xp[N];</span><br><span class="line">ll n,m,sumVil[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;sumVil[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;xp[i].first&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;xp[i].second&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;xp[i].first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;xp[i].second;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(&amp;xp[<span class="number">1</span>],&amp;xp[n<span class="number">+1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">+1</span>;i++) &#123;</span><br><span class="line">        sumVil[i]=sumVil[i<span class="number">-1</span>]+xp[i].second;</span><br><span class="line">    &#125;</span><br><span class="line">    cin&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=m;_++) &#123;</span><br><span class="line">        ll l,r;</span><br><span class="line">        cin&gt;&gt;l&gt;&gt;r;</span><br><span class="line">        ll idx1=<span class="built_in">lower_bound</span>(&amp;xp[<span class="number">0</span>],&amp;xp[n<span class="number">+1</span>],<span class="built_in">make_pair</span>(l,-MAXP))-&amp;xp[<span class="number">0</span>]<span class="number">-1</span>;</span><br><span class="line">        ll idx2=<span class="built_in">upper_bound</span>(&amp;xp[<span class="number">0</span>],&amp;xp[n<span class="number">+1</span>],<span class="built_in">make_pair</span>(r, MAXP))-&amp;xp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(idx1&lt;<span class="number">0</span>)</span><br><span class="line">            idx1=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(xp[idx2].first!=r)</span><br><span class="line">            idx2--;</span><br><span class="line">        <span class="keyword">if</span>(idx2&lt;<span class="number">0</span>)</span><br><span class="line">            idx2=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;idx1&lt;&lt;&quot; &quot;&lt;&lt;idx2&lt;&lt;&quot;: &quot;;</span></span><br><span class="line">        cout&lt;&lt;sumVil[idx2]-sumVil[idx1]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// debug();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就WA了一个 https://atcoder.jp/contests/abc371/submissions/59255550</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc371/submissions/59255550"></a></p>
+<p>挺神奇的，就WA了一个点</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">2e5</span><span class="number">+10</span>,MAXP=<span class="number">1e11</span><span class="number">+10</span>;</span><br><span class="line">pair&lt;ll,ll&gt; xp[N];</span><br><span class="line">ll n,m,sumVil[N];</span><br><span class="line"><span class="comment">// bool comp(pair&lt;ll,ll&gt; a, pair&lt;ll,ll&gt; b) &#123;</span></span><br><span class="line"><span class="comment">//     if(a.first!=b.first)</span></span><br><span class="line"><span class="comment">//         return a.first&lt;b.first;</span></span><br><span class="line"><span class="comment">//     return false;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// struct cmp &#123;</span></span><br><span class="line"><span class="comment">//     bool operator()(const pair&lt;ll,ll&gt; &amp;a ,const pair&lt;ll,ll&gt; &amp;b) const&#123;</span></span><br><span class="line"><span class="comment">//         return a.first&lt;b.first;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;sumVil[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;xp[i].first&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;xp[i].second&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;xp[i].first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;xp[i].second;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(&amp;xp[<span class="number">1</span>],&amp;xp[n<span class="number">+1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        sumVil[i]=sumVil[i<span class="number">-1</span>]+xp[i].second;</span><br><span class="line">    &#125;</span><br><span class="line">    cin&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=m;_++) &#123;</span><br><span class="line">        ll l,r;</span><br><span class="line">        cin&gt;&gt;l&gt;&gt;r;</span><br><span class="line">        ll idx1=<span class="built_in">lower_bound</span>(&amp;xp[<span class="number">0</span>],&amp;xp[n<span class="number">+1</span>],<span class="built_in">make_pair</span>(l,-MAXP))-&amp;xp[<span class="number">0</span>]<span class="number">-1</span>;</span><br><span class="line">        ll idx2=<span class="built_in">upper_bound</span>(&amp;xp[<span class="number">0</span>],&amp;xp[n<span class="number">+1</span>],<span class="built_in">make_pair</span>(r, MAXP))-&amp;xp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(idx1&lt;<span class="number">0</span>)</span><br><span class="line">            idx1=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(xp[idx2].first!=r)</span><br><span class="line">            idx2--;</span><br><span class="line">        <span class="comment">//cout&lt;&lt;idx1&lt;&lt;&quot; &quot;&lt;&lt;idx2&lt;&lt;&quot;: &quot;;</span></span><br><span class="line">        cout&lt;&lt;sumVil[idx2]-sumVil[idx1]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//debug();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就WA了一个 https://atcoder.jp/contests/abc371/submissions/59255550</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/28/20241028-c92d01a5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -505,81 +582,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/21/20241021-40c0d543/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/21/20241021-40c0d543/" class="post-title-link" itemprop="url">P4933 大师</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-21 14:35:00" itemprop="dateCreated datePublished" datetime="2024-10-21T14:35:00+08:00">2024-10-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 10:48:33" itemprop="dateModified" datetime="2026-02-14T10:48:33+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>给定序列 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub><mo separator="true">,</mo><mi>d</mi><mi>o</mi><mi>t</mi><mi>s</mi><mo separator="true">,</mo><msub><mi>h</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">h_1,dots,h_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。统计所有长度至少为 1 的等差子序列的个数（对 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>998244353</mn></mrow><annotation encoding="application/x-tex">998244353</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">8</span><span class="mord">2</span><span class="mord">4</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">3</span></span></span></span> 取模）。</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>具体思路与该题解一致</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hrn3rj07">https://www.luogu.com.cn/article/hrn3rj07</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mod=<span class="number">998244353</span>,N=<span class="number">1010</span>,MAXR=<span class="number">4e4</span><span class="number">+10</span>,R=<span class="number">4e4</span>;  <span class="comment">// random</span></span><br><span class="line"><span class="type">int</span> n,h[N],dp[N][MAXR*<span class="number">2</span>],ans;     <span class="comment">// dp里存到这第i个塔时有每种公差有多少种方案  这个dp数组大约77MB 题目限制是500MB</span></span><br><span class="line"><span class="comment">// 还需要介绍的是 如 1 2 3 4 这个等差数列 在这题中有4+3+2+1种（单个+2个+3个+4个）</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;h[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        ans++;                  <span class="comment">// 这里ans统计单个</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i<span class="number">-1</span>;j&gt;=<span class="number">1</span>;j--) &#123;</span><br><span class="line">            dp[i][h[i]-h[j]+R]+=dp[j][h[i]-h[j]+R]<span class="number">+1</span>;    <span class="comment">// 这里dp统计多个（&gt;=2）所以个数为1</span></span><br><span class="line">            dp[i][h[i]-h[j]+R]%=mod;</span><br><span class="line">            ans+=dp[j][h[i]-h[j]+R]<span class="number">+1</span>;</span><br><span class="line">            ans%=mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans%=mod;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/183896339</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/97/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/97/">97</a><span class="page-number current">98</span><a class="page-number" href="/page/99/">99</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/99/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/97/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/97/">97</a><span class="page-number current">98</span><a class="page-number" href="/page/99/">99</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/99/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -647,7 +653,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">530</span>
+          <span class="site-state-item-count">531</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -191,6 +191,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/07/20250707-c3b72029/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/07/07/20250707-c3b72029/" class="post-title-link" itemprop="url">2022年度杭州未来科技城数字经济人才编程大赛—Q3. 快递中转站选址（中位数贪心）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-07 13:19:00" itemprop="dateCreated datePublished" datetime="2025-07-07T13:19:00+08:00">2025-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 21:29:16" itemprop="dateModified" datetime="2026-02-17T21:29:16+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">buildTransferStation</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; area)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; xx,yy;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;area.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;area[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(area[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    xx.<span class="built_in">push_back</span>(i);</span><br><span class="line">                    yy.<span class="built_in">push_back</span>(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(xx.<span class="built_in">begin</span>(),xx.<span class="built_in">end</span>());<span class="built_in">sort</span>(yy.<span class="built_in">begin</span>(),yy.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">int</span> x=xx[xx.<span class="built_in">size</span>()/<span class="number">2</span>],y=yy[yy.<span class="built_in">size</span>()/<span class="number">2</span>];</span><br><span class="line">cout&lt;&lt;x&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;y&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;area.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;area[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(area[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                   ans+=<span class="built_in">abs</span>(i-x)+<span class="built_in">abs</span>(j-y);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/07/20250707-fa068ee3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -534,88 +609,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/03/20250703-ce6fb4c6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/07/03/20250703-ce6fb4c6/" class="post-title-link" itemprop="url">Starters-193-Interactive MST</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-07-03 03:29:00" itemprop="dateCreated datePublished" datetime="2025-07-03T03:29:00+08:00">2025-07-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 21:29:16" itemprop="dateModified" datetime="2026-02-17T21:29:16+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>我们这里有一个很好的分离：在将每条边设置为0 的 MST 查询之后，发生变化的那些边正是权重为1 的边。可以用这种方法找到权重为1的所有边，使用M次询问。</p>
-<p>但是这有一个前提，就是这条边必须是两个联通分量的唯一连接，否则如果有其他连接，其他连接都是0，最小生成树就是0，无法判断了。</p>
-<p>那么我个人认为，其实就是能找出所有的1，然后剩余的都是0就行了。</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -683,7 +680,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">530</span>
+          <span class="site-state-item-count">531</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

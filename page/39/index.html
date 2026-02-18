@@ -191,6 +191,126 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/20/20250620-1a6f48a5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/06/20/20250620-1a6f48a5/" class="post-title-link" itemprop="url">Starters 189-Number Walks</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-06-20 13:36:00" itemprop="dateCreated datePublished" datetime="2025-06-20T13:36:00+08:00">2025-06-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 20:02:12" itemprop="dateModified" datetime="2026-02-17T20:02:12+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<h2 id="题面总结"><a class="markdownIt-Anchor" href="#题面总结"></a> 题面总结</h2>
+<p>给定一个长度为 N 的数组 A，其中 A[i] ∈ [1, K]。需要构造一个排列 B（1 到 N 的排列），使得对于所有 i ∈ [1, K]，满足 A[B[i]] = i。</p>
+<p>对于每个起始位置 i（1 ≤ i ≤ N），求出从位置 i 开始构造满足条件的排列 B 时，相邻元素差值绝对值之和的最小值。</p>
+<p>换句话说，要最小化 ∑|B[j] - B[j-1]|，其中 B[1] = i，且 A[B[j]] = j。</p>
+<p><strong>输入格式：</strong></p>
+<ul>
+<li>
+<p>第一行：测试用例数 T</p>
+</li>
+<li>
+<p>每个测试用例：</p>
+<ul>
+<li>第一行：N 和 K</li>
+<li>第二行：N 个整数表示数组 A</li>
+</ul>
+</li>
+</ul>
+<p><strong>输出格式：</strong></p>
+<p>对于每个测试用例，输出 N 个整数，第 i 个整数表示从位置 i 开始的最小代价。</p>
+<p><strong>约束条件：</strong></p>
+<ul>
+<li>
+<p>1 ≤ T ≤ 10³</p>
+</li>
+<li>
+<p>1 ≤ K ≤ N ≤ 10⁶</p>
+</li>
+<li>
+<p>1 ≤ A[i] ≤ K</p>
+</li>
+<li>
+<p>保证至少存在一个满足条件的排列 B</p>
+</li>
+</ul>
+<p>虽然不一定选择最靠近的，但是一定是选择右端最靠近或者左端最靠近点的一侧。</p>
+<p>这个如何证明那？</p>
+<p>那么我们感性的理解，如果在最优序列中，再次移动需要到 j 的各种情况。</p>
+<p><img src="https://media.znzryb.com/20250620-1a6f48a5/image_24d98b12.png" alt="从图中可以看出，l‘不优，即便是在 j 位于l’ 与 x之间的时候" /></p>
+<p>那么我们发现，这个 j 落在外面，l，r 中还是必有一个最优，落在里面那更不必多说了。</p>
+<p>okay，那我们也算是成功减小了范围，但是还是不知道怎么做呀？<s>继续读题解</s></p>
+<p>啊哈，那么我们发现那，这其实是一个前缀dp，即状态转移只和前面一个状态相关，那么前面一个状态里只有 l 和 r，那么答案就呼之欲出了，从前面这个来转移。</p>
+<p>那么我们用记忆化搜索，可能这个让人更好理解一点。</p>
+<p>那么这个正难则反思想是应用于dp的，但是这个dp也有点难写，过了就行，开摆。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://www.codechef.com/viewsolution/1167791134">https://www.codechef.com/viewsolution/1167791134</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: Number Walks</span></span><br><span class="line"><span class="comment">// Contest: CodeChef - START189</span></span><br><span class="line"><span class="comment">// URL: https://www.codechef.com/problems/NUMBERWALK</span></span><br><span class="line"><span class="comment">// Memory Limit: 256 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 1000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;<span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;<span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> LD;</span><br><span class="line"><span class="keyword">typedef</span> __int128 i128;<span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;<span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr3;<span class="keyword">typedef</span> array&lt;ll,2&gt; arr2;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;K;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">g</span>(K<span class="number">+5</span>);</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		g[A[i]].<span class="built_in">pb</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 要求A[B[i]]==i ，并且使B[i]数组中的数的差值绝对值最小</span></span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">memo</span><span class="params">(N<span class="number">+5</span>,INF)</span></span>;</span><br><span class="line">	<span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span> &amp;&amp;dfs,ll node,ll val)-&gt;ll&#123;</span><br><span class="line">		<span class="keyword">if</span>(memo[node]!=INF) <span class="keyword">return</span> memo[node];</span><br><span class="line">		<span class="keyword">if</span>(val==K)&#123;</span><br><span class="line">			memo[node]=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		ll v=node;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">   	<span class="comment">// debug(node);debug(val);</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">		<span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(g[val<span class="number">+1</span>]),v);</span><br><span class="line">		<span class="keyword">if</span>(it!=g[val<span class="number">+1</span>].<span class="built_in">begin</span>())&#123;</span><br><span class="line">			<span class="keyword">auto</span> it_=<span class="built_in">prev</span>(it);</span><br><span class="line">			ll diff=<span class="built_in">abs</span>(*it_-v);</span><br><span class="line">			ll res=<span class="built_in">dfs</span>(dfs,*it_,val<span class="number">+1</span>);</span><br><span class="line">			memo[node]=<span class="built_in">min</span>(memo[node],diff+res);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(it!=g[val<span class="number">+1</span>].<span class="built_in">end</span>())&#123;</span><br><span class="line">			ll diff=<span class="built_in">abs</span>(*it-v);</span><br><span class="line">			ll res=<span class="built_in">dfs</span>(dfs,*it,val<span class="number">+1</span>);</span><br><span class="line">			memo[node]=<span class="built_in">min</span>(memo[node],diff+res);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> memo[node];</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(g[<span class="number">1</span>]),i);</span><br><span class="line">		ll ans=INF;</span><br><span class="line">		<span class="keyword">if</span>(it!=g[<span class="number">1</span>].<span class="built_in">begin</span>())&#123;</span><br><span class="line">			<span class="keyword">auto</span> it_=<span class="built_in">prev</span>(it);</span><br><span class="line">			ll diff=<span class="built_in">abs</span>(*it_-i);</span><br><span class="line">			ll res=<span class="built_in">dfs</span>(dfs,*it_,<span class="number">1</span>);</span><br><span class="line">			ans=<span class="built_in">min</span>(diff+res,ans);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(it!=g[<span class="number">1</span>].<span class="built_in">end</span>())&#123;</span><br><span class="line">			ll diff=<span class="built_in">abs</span>(*it-i);</span><br><span class="line">			ll res=<span class="built_in">dfs</span>(dfs,*it,<span class="number">1</span>);</span><br><span class="line">			ans=<span class="built_in">min</span>(diff+res,ans);</span><br><span class="line">		&#125;</span><br><span class="line">		cout&lt;&lt;ans&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// FOR(i,1,N)&#123;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;memo[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	cin&gt;&gt;lT;</span><br><span class="line">	<span class="keyword">while</span>(lT--)&#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// solve();</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>调试的时候发现这里写错了，应该写1，我写成2了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">	<span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(g[<span class="number">1</span>]),i);</span><br><span class="line">	ll ans=INF;</span><br><span class="line">	<span class="keyword">if</span>(it!=g[<span class="number">1</span>].<span class="built_in">begin</span>())&#123;</span><br><span class="line">		<span class="keyword">auto</span> it_=<span class="built_in">prev</span>(it);</span><br><span class="line">		ll diff=<span class="built_in">abs</span>(*it_-i);</span><br><span class="line">		ll res=<span class="built_in">dfs</span>(dfs,*it_,<span class="number">1</span>);</span><br><span class="line">		ans=<span class="built_in">min</span>(diff+res,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(it!=g[<span class="number">1</span>].<span class="built_in">end</span>())&#123;</span><br><span class="line">		ll diff=<span class="built_in">abs</span>(*it-i);</span><br><span class="line">		ll res=<span class="built_in">dfs</span>(dfs,*it,<span class="number">1</span>);</span><br><span class="line">		ans=<span class="built_in">min</span>(diff+res,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/20/20250620-c7a0c10d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -550,87 +670,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/18/20250618-99b79190/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/06/18/20250618-99b79190/" class="post-title-link" itemprop="url">P5788 【模板】单调栈</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-06-18 04:26:00" itemprop="dateCreated datePublished" datetime="2025-06-18T04:26:00+08:00">2025-06-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 20:02:11" itemprop="dateModified" datetime="2026-02-17T20:02:11+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>求解右边第一个大于自己的数的下标。</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/220790487">https://www.luogu.com.cn/record/220790487</a></p>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: P5788 【模板】单调栈</span></span><br><span class="line"><span class="comment">// Contest: Luogu</span></span><br><span class="line"><span class="comment">// URL: https://www.luogu.com.cn/problem/P5788</span></span><br><span class="line"><span class="comment">// Memory Limit: 125 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 1000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;<span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;<span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> LD;</span><br><span class="line"><span class="keyword">typedef</span> __int128 i128;<span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;<span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr3;<span class="keyword">typedef</span> array&lt;ll,2&gt; arr2;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">3e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,lT,A[MAXN],Ans[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	deque&lt;ll&gt; q;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="keyword">while</span>(q.<span class="built_in">empty</span>()==<span class="literal">false</span> &amp;&amp; A[i]&gt;A[q.<span class="built_in">back</span>()])&#123;</span><br><span class="line">			Ans[q.<span class="built_in">back</span>()]=i;</span><br><span class="line">			q.<span class="built_in">pop_back</span>();</span><br><span class="line">		&#125;</span><br><span class="line">		q.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cout&lt;&lt;Ans[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://www.luogu.com.cn/record/220790487</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -698,7 +741,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">530</span>
+          <span class="site-state-item-count">531</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
