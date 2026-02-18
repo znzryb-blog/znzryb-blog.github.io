@@ -191,6 +191,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/05/20241005-57ff9fbe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/05/20241005-57ff9fbe/" class="post-title-link" itemprop="url">P3368 【模板】树状数组 2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-05 07:02:00" itemprop="dateCreated datePublished" datetime="2024-10-05T07:02:00+08:00">2024-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-11 15:38:53" itemprop="dateModified" datetime="2026-02-11T15:38:53+08:00">2026-02-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<p>维护一个长度为 n 的数组，支持两类操作：</p>
+<p>1）对区间 [l,r] 所有元素加上一个值。</p>
+<p>2）查询单点 a[x] 的当前值。</p>
+<p><strong>P3368 BIT2   区别在于区间加减和单点查询</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/1164539447bd8077a270c97989fc8553"></a></p>
+<p>视频教程</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pE41197Qj?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=4350e5f2584d2f27c848b347ea11b675">https://www.bilibili.com/video/BV1pE41197Qj?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=4350e5f2584d2f27c848b347ea11b675</a></p>
+<p>tr实际上是一个差分数组，只不过用了树状数组维护，a[ ]即原始数组就是diff的前缀和，所以甚至不需要再建一个前缀和数组</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/180209186">https://www.luogu.com.cn/record/180209186</a></p>
+<p>和这题代码基本一样，还是比较适合我复训的。</p>
+<p>我们来解释一下为什么可以这样pushup</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">invert</span><span class="params">(ll s,ll e)</span></span>&#123;</span><br><span class="line">	<span class="built_in">pushup</span>(s, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(e&lt;n)&#123;</span><br><span class="line">		<span class="built_in">pushup</span>(e<span class="number">+1</span>, <span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>众所周知，我们知道差分数组是给diff[s]+1，给diff[e+1]-1，那为什么可以直接pushup那？那是因为树状数组中遍历你上面的数组是必然遍历不到你的，这点你不用担心，所以不用担心差分连续加导致出错。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">5e5</span><span class="number">+10</span>;</span><br><span class="line">ll n,m,tr[maxn],a[maxn],x,y,k,op; <span class="comment">// tr[] is difference array</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">lowbit</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x&amp;(-x));	<span class="comment">// two&#x27;s complementary (6)x=110  (two&#x27;s..)x=001+1=010 </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(ll p,ll v)</span></span>&#123; </span><br><span class="line">	<span class="keyword">while</span>(p&lt;n<span class="number">+1</span>)&#123;</span><br><span class="line">		tr[p]+=v;</span><br><span class="line">		p+=<span class="built_in">lowbit</span>(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">search</span><span class="params">(ll p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">search</span>(p-<span class="built_in">lowbit</span>(p))+tr[p];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 这是在建树</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;			<span class="comment">// tr[] is the diff array&#x27;s BIT </span></span><br><span class="line">		tr[i]=a[i]-a[i-<span class="built_in">lowbit</span>(i)];  <span class="comment">// lowbit(i)=1 is the value of diff array</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=m;_++)&#123;</span><br><span class="line">		cin&gt;&gt;op;</span><br><span class="line">		<span class="keyword">if</span>(op==<span class="number">1</span>)&#123;</span><br><span class="line">			cin&gt;&gt;x&gt;&gt;y&gt;&gt;k;   </span><br><span class="line">			<span class="comment">// 执行了两遍add操作，模拟差分</span></span><br><span class="line">			<span class="built_in">add</span>(x,k);		<span class="comment">// walk around. convert range plus v to diff[L]+v &amp;&amp; diff[R+1]-v</span></span><br><span class="line">			<span class="keyword">if</span>(y<span class="number">+1</span>&lt;=n)</span><br><span class="line">				<span class="built_in">add</span>(y<span class="number">+1</span>,-k);</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			cin&gt;&gt;x;</span><br><span class="line">			<span class="type">int</span> ans=<span class="built_in">search</span>(x);</span><br><span class="line">			cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// cin&gt;&gt;n;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 30pts https://www.luogu.com.cn/record/180207859  add(y+1,k)-&gt;add(y+1,-k)</span></span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/180209186</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/05/20241005-89fc8553/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -475,77 +553,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/04/20241004-fa9fecdd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/04/20241004-fa9fecdd/" class="post-title-link" itemprop="url">Compare函数/类的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-04 07:25:00" itemprop="dateCreated datePublished" datetime="2024-10-04T07:25:00+08:00">2024-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:03:49" itemprop="dateModified" datetime="2026-02-11T15:03:49+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>这篇笔记对应的是「set 自定义 cmp 排序」：讲的是在 C++ 里如何为 <code>set</code>（以及类似容器）自定义比较器 <code>cmp</code>，从而改变元素的排序规则（例如从大到小排序），以及与默认比较方式的区别。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> p[<span class="number">7</span>]=&#123;<span class="number">0</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span>&#123;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(a!=b) <span class="keyword">return</span> p[a]&lt;p[b];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">set&lt;<span class="type">int</span>,cmp &gt; g; <span class="comment">// 一般来说像set，priority_queue都是传入cmp，less&lt;int&gt; 这样的结构体</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	g.<span class="built_in">insert</span>(<span class="number">1</span>);g.<span class="built_in">insert</span>(<span class="number">2</span>);g.<span class="built_in">insert</span>(<span class="number">3</span>);g.<span class="built_in">insert</span>(<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">for</span>(set&lt;<span class="type">int</span>&gt;::iterator it=g.<span class="built_in">begin</span>();it!=g.<span class="built_in">end</span>();it++)</span><br><span class="line">		cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">	set&lt;<span class="type">int</span>&gt;::iterator it=g.<span class="built_in">end</span>();</span><br><span class="line">	<span class="built_in">advance</span>(it,<span class="number">-1</span>);</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;back: &quot;</span>&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">	g.<span class="built_in">clear</span>();</span><br><span class="line">	cout&lt;&lt;g.<span class="built_in">empty</span>()&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">back: <span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>** 优先队列的比较符号是反的，解释详情见**</p>
-<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/353157988535967744">https://www.nowcoder.com/discuss/353157988535967744</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp</span> &#123;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; a,  pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; b)</span>  </span>&#123;</span><br><span class="line">		<span class="comment">// 如果第二个元素不同，则按照第二个元素比较</span></span><br><span class="line">		<span class="keyword">if</span> (a.second != b.second)</span><br><span class="line">			<span class="keyword">return</span> a.second &gt; b.second;  <span class="comment">// 如果想要最小堆，这里使用 &gt;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> a[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">492</span>,<span class="number">412</span>,<span class="number">3</span>&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span> <span class="number">6</span></span><br><span class="line"><span class="number">3</span> <span class="number">9</span></span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">412</span> <span class="number">492</span> </span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -617,7 +624,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">529</span>
+          <span class="site-state-item-count">530</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

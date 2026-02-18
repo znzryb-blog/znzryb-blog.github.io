@@ -191,6 +191,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-3d4acb6b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/06/20241006-3d4acb6b/" class="post-title-link" itemprop="url">“葡萄城杯”牛客周赛 Round 53 F 小红走矩阵</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-06 15:43:00" itemprop="dateCreated datePublished" datetime="2024-10-06T15:43:00+08:00">2024-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-11 15:38:54" itemprop="dateModified" datetime="2026-02-11T15:38:54+08:00">2026-02-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>当年用python写的代码</p>
+<p>193.18pts TLE 3/22 WA 2/22</p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=70565258">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=70565258</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入</span></span><br><span class="line">y_, x_ = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line">maze = [<span class="built_in">list</span>(<span class="built_in">input</span>()) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(y_)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 各个方向都能走  不能走上       不能走下     不能走左      不能走右</span></span><br><span class="line">qList = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)]  <span class="comment"># x, y, d, 健全, 穿墙次数</span></span><br><span class="line">direction5 = [[(-<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, -<span class="number">1</span>)], [(<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, -<span class="number">1</span>)], [(<span class="number">1</span>, <span class="number">0</span>), (-<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>)], </span><br><span class="line">              [(<span class="number">1</span>, <span class="number">0</span>), (-<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, -<span class="number">1</span>)], [(<span class="number">1</span>, <span class="number">0</span>), (-<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, -<span class="number">1</span>)]]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bfs</span>():</span><br><span class="line">    visited = [[[<span class="literal">False</span>] * <span class="number">2</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(x_)] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(y_)]</span><br><span class="line">    q = deque(qList)</span><br><span class="line">    <span class="keyword">while</span> q:</span><br><span class="line">        x0, y0, d, dI, throughAb = q.popleft()</span><br><span class="line">        <span class="keyword">if</span> visited[y0][x0][throughAb]:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        visited[y0][x0][throughAb] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> dx, dy <span class="keyword">in</span> direction5[dI]:</span><br><span class="line">            nx, ny = x0 + dx, y0 + dy</span><br><span class="line">            <span class="keyword">if</span> <span class="number">0</span> &lt;= nx &lt; x_ <span class="keyword">and</span> <span class="number">0</span> &lt;= ny &lt; y_:</span><br><span class="line">                <span class="comment"># 终点判断</span></span><br><span class="line">                <span class="keyword">if</span> nx == x_ - <span class="number">1</span> <span class="keyword">and</span> ny == y_ - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">if</span> maze[ny][nx] == <span class="string">&#x27;.&#x27;</span> <span class="keyword">or</span> (maze[ny][nx] == <span class="string">&#x27;X&#x27;</span> <span class="keyword">and</span> throughAb == <span class="number">1</span>):</span><br><span class="line">                        <span class="keyword">return</span> d + <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 走路与穿墙判断</span></span><br><span class="line">                <span class="keyword">if</span> maze[ny][nx] == <span class="string">&#x27;.&#x27;</span> <span class="keyword">and</span> <span class="keyword">not</span> visited[ny][nx][throughAb]:</span><br><span class="line">                    q.append((nx, ny, d + <span class="number">1</span>, dI, throughAb))</span><br><span class="line">                <span class="keyword">elif</span> maze[ny][nx] == <span class="string">&#x27;X&#x27;</span> <span class="keyword">and</span> throughAb == <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> visited[ny][nx][<span class="number">0</span>]:</span><br><span class="line">                    q.append((nx, ny, d + <span class="number">1</span>, dI, <span class="number">0</span>))</span><br><span class="line">                </span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(bfs())</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-acb2099b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,72 +549,6 @@ vis[i]=ovis[i];</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-5d242736/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/06/20241006-5d242736/" class="post-title-link" itemprop="url">牛客周赛 Round 56 F 不是烤串故事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-06 04:32:00" itemprop="dateCreated datePublished" datetime="2024-10-06T04:32:00+08:00">2024-10-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:55" itemprop="dateModified" datetime="2026-02-11T15:38:55+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>给定一段字符串（或若干字符串），需要按题意进行判断/构造，输出对应结果。（该页目前为空，我先补上题意标题，具体题意可后续再补充链接或样例。）</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -619,7 +620,7 @@ vis[i]=ovis[i];</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">529</span>
+          <span class="site-state-item-count">530</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
