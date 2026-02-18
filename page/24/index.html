@@ -191,6 +191,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/30/20250730-a11a7982/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/07/30/20250730-a11a7982/" class="post-title-link" itemprop="url">START197B——Expected Cost  预期成本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-30 16:25:00" itemprop="dateCreated datePublished" datetime="2025-07-30T16:25:00+08:00">2025-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-18 10:53:11" itemprop="dateModified" datetime="2026-02-18T10:53:11+08:00">2026-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>精髓在于猜这个你随机跳到其他位置以后，再跳到终点N+1的期望成本，可以设这个东西位S，用这个S算出来的S，我们叫做g(S)。那么 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>S</mi><mo stretchy="false">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">g(S)=S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> 那是必须的，但是我们猜的不等于怎么办呢？</p>
+<p>于是我们就二分。</p>
+<p>至于这个二分的收敛方向嘛，我试着推了一下，我的建议是都试试。guess嘛。</p>
+<p><img src="https://media.znzryb.com/20250730-a11a7982/image_c3795460.png" alt="image" /></p>
+<p>这个图把y=x画的太斜了，实际上在y=x的下面，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>S</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">g(S)&lt;S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>，需要向左移动（也就是even&lt;mid，r=mid）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从x到N+1的最小期望成本</span></span><br><span class="line"><span class="function">vdb <span class="title">dp</span><span class="params">(N<span class="number">+5</span>)</span></span>;</span><br><span class="line">DB l=<span class="number">0</span>,r=<span class="built_in">accumulate</span>(<span class="built_in">all</span>(A),<span class="number">0ll</span>)+<span class="built_in">accumulate</span>(<span class="built_in">all</span>(B),<span class="number">0ll</span>);</span><br><span class="line"><span class="built_in">FOR</span>(_,<span class="number">1</span>,<span class="number">100</span>)&#123;</span><br><span class="line">    DB mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    dp[N]=<span class="built_in">min</span>((DB)A[N<span class="number">-1</span>],mid+B[N<span class="number">-1</span>]);</span><br><span class="line">    <span class="built_in">ROF</span>(i,N<span class="number">-1</span>,<span class="number">1</span>)&#123;</span><br><span class="line">        dp[i]=<span class="built_in">min</span>(dp[i<span class="number">+1</span>]+A[i<span class="number">-1</span>],mid+B[i<span class="number">-1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    DB even=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">        even+=dp[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 包含位置 N+1 的 f=0（随机游走位置是包含N+1的）</span></span><br><span class="line">    even/=(N<span class="number">+1</span>);</span><br><span class="line">    <span class="comment">// 如果答案有问题，可以先换一下收敛方向</span></span><br><span class="line">    <span class="comment">// 我们要尽可能的减少这个even与这个mid之间的差</span></span><br><span class="line">    <span class="keyword">if</span>(even&gt;mid)&#123;</span><br><span class="line">        l=mid;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        r=mid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/28/20250728-3ccd1ef6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -521,70 +602,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/26/20250726-1092422a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/07/26/20250726-1092422a/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-07-26 07:12:00" itemprop="dateCreated datePublished" datetime="2025-07-26T07:12:00+08:00">2025-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-18 10:53:09" itemprop="dateModified" datetime="2026-02-18T10:53:09+08:00">2026-02-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -654,7 +671,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">526</span>
+          <span class="site-state-item-count">527</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

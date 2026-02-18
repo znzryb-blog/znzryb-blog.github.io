@@ -191,6 +191,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/08/20241008-2f75e053/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/20241008-2f75e053/" class="post-title-link" itemprop="url">AtCoder Beginner Contest 373 D - Hidden Weights</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-08 07:08:00" itemprop="dateCreated datePublished" datetime="2024-10-08T07:08:00+08:00">2024-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-12 09:26:51" itemprop="dateModified" datetime="2026-02-12T09:26:51+08:00">2026-02-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ac代码与思路"><a class="markdownIt-Anchor" href="#ac代码与思路"></a> AC代码与思路</h2>
+<p>反向建边，然后注意bfs的逻辑一定要清楚，要以什么为当前点，什么为父节点，不要混淆。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="number">2e5</span><span class="number">+10</span>;</span><br><span class="line">ll n,m,ans[MAXN];</span><br><span class="line"><span class="type">bool</span> vis[MAXN];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll u,v,w;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; e[MAXN];</span><br><span class="line"><span class="function">edge <span class="title">make_edge</span><span class="params">(ll u,ll v,ll w)</span> </span>&#123;</span><br><span class="line">    edge a;a.u=u;a.v=v;a.w=w;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line">deque &lt;edge&gt; q;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) &#123;</span><br><span class="line">        ll ui,vi,wi;</span><br><span class="line">        cin&gt;&gt;ui&gt;&gt;vi&gt;&gt;wi;</span><br><span class="line">        e[ui].<span class="built_in">push_back</span>(<span class="built_in">make_edge</span>(ui,vi,wi));   <span class="comment">// 其实这里理论上只需要存vi，wi 但因为懒得改就多存了，1024MB用不掉</span></span><br><span class="line">        e[vi].<span class="built_in">push_back</span>(<span class="built_in">make_edge</span>(vi,ui,-wi));  <span class="comment">// 反向建边，精髓</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[i])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        q.<span class="built_in">clear</span>(); <span class="comment">//         i为当前点</span></span><br><span class="line">        q.<span class="built_in">push_back</span>(<span class="built_in">make_edge</span>(<span class="number">0</span>,i,<span class="number">0</span>));  <span class="comment">// 该连通块起始点可以认为是从i（该连通块起始点）到到0点</span></span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            ll ui=q.<span class="built_in">front</span>().u,vi=q.<span class="built_in">front</span>().v,wi=q.<span class="built_in">front</span>().w;</span><br><span class="line">            q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">if</span>(vis[vi])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;e[vi].<span class="built_in">size</span>();j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!vis[e[vi][j].v])</span><br><span class="line">                    q.<span class="built_in">push_back</span>(<span class="built_in">make_edge</span>(e[vi][j].u,e[vi][j].v,e[vi][j].w));</span><br><span class="line">            &#125;</span><br><span class="line">            vis[vi]=<span class="literal">true</span>;</span><br><span class="line">            ans[vi]=ans[ui]+wi;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//AC https://atcoder.jp/contests/abc373/submissions/58587858</span></span><br><span class="line"><span class="comment">//AC https://www.luogu.com.cn/record/181055323</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程"><a class="markdownIt-Anchor" href="#心路历程"></a> 心路历程</h2>
+<p>这个代码稍微有点搞笑，样例都没过</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc373/submissions/58559275">https://atcoder.jp/contests/abc373/submissions/58559275</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="number">2e5</span><span class="number">+10</span>;</span><br><span class="line">ll n,m,ans[MAXN];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll u,v,w;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; e[MAXN];</span><br><span class="line"><span class="function">edge <span class="title">make_edge</span><span class="params">(ll u,ll v,ll w)</span> </span>&#123;</span><br><span class="line">    edge a;a.u=u;a.v=v;a.w=w;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) &#123;</span><br><span class="line">        ll ui,vi,wi;</span><br><span class="line">        cin&gt;&gt;ui&gt;&gt;vi&gt;&gt;wi;</span><br><span class="line">        e[ui].<span class="built_in">push_back</span>(<span class="built_in">make_edge</span>(ui,vi,wi));   <span class="comment">// 其实这里理论上只需要存vi，wi 但因为懒得改就多存了，1024MB用不掉</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (!e[i].<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            ll ui=e[i].<span class="built_in">back</span>().u,vi=e[i].<span class="built_in">back</span>().v,wi=e[i].<span class="built_in">back</span>().w;</span><br><span class="line">            e[i].<span class="built_in">pop_back</span>();</span><br><span class="line">            ans[vi]=ans[ui]+wi;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我仔细想了一下这个问题，发现如果不知道次序就很难解，于是我仔细开始想拓扑排序的可能性。</p>
+<p>想不到确实不是。</p>
+<p>这句第一个条件其实是没有重复路，二条件是规定有向图，没提到过无环</p>
+<p><img src="https://media.znzryb.com/20241008-2f75e053/image.png" alt="image" /></p>
+<p>而且就算知道次序也会坐牢</p>
+<p><img src="https://media.znzryb.com/20241008-2f75e053/image.png" alt="image" /></p>
+<p>可以走反边5→2→1→3→6(其中 2→1 以及 3→6 是反边)</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/07/20241007-65d16c7b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -489,76 +567,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-3e71cf75/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/06/20241006-3e71cf75/" class="post-title-link" itemprop="url">AtCoder Beginner Contest 374 D - Laser Marking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-06 05:50:00" itemprop="dateCreated datePublished" datetime="2024-10-06T05:50:00+08:00">2024-10-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:54" itemprop="dateModified" datetime="2026-02-11T15:38:54+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>给定 n 条线段，每条线段有两个端点坐标。移动时分为两种速度：移动到某条线段的起点/终点使用速度 s，沿着线段绘制使用速度 t。需要选择绘制线段的顺序及每条线段从哪一端开始，求完成全部绘制的最短总时间。</p>
-<p>Pass 10/74 WA <a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc374/submissions/58484468">https://atcoder.jp/contests/abc374/submissions/58484468</a>   赛时代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,s,t,pos[<span class="number">10</span>][<span class="number">6</span>];  <span class="comment">// s-&gt;not emitting laser &amp;&amp; t-&gt; emitting ......</span></span><br><span class="line"><span class="type">bool</span> vis[<span class="number">10</span>][<span class="number">6</span>],vis2[<span class="number">10</span>];</span><br><span class="line"><span class="type">double</span> ans=<span class="number">10000000</span>,dis;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> cnt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cnt&gt;=n)&#123;</span><br><span class="line">        ans=<span class="built_in">min</span>(dis,ans);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis2[i]) <span class="keyword">continue</span>;</span><br><span class="line">        vis2[i]=<span class="literal">true</span>;</span><br><span class="line">        <span class="type">double</span> squareS1=(pos[i][<span class="number">3</span>]-pos[i][<span class="number">1</span>])*(pos[i][<span class="number">3</span>]-pos[i][<span class="number">1</span>]);</span><br><span class="line">        <span class="type">double</span> squareS2=(pos[i][<span class="number">4</span>]-pos[i][<span class="number">2</span>])*(pos[i][<span class="number">4</span>]-pos[i][<span class="number">2</span>]);</span><br><span class="line">        <span class="type">double</span> lenSeg=<span class="built_in">sqrt</span>(squareS1+squareS2)/t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">3</span>;j+=<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="type">double</span> square1=(pos[i][j]-pos[x][y])*(pos[i][j]-pos[x][y]);</span><br><span class="line">            <span class="type">double</span> square2=(pos[i][j<span class="number">+1</span>]-pos[x][y<span class="number">+1</span>])*(pos[i][j<span class="number">+1</span>]-pos[x][y<span class="number">+1</span>]);</span><br><span class="line">            <span class="type">double</span> ldis=<span class="built_in">sqrt</span>(square1+square2)/s;</span><br><span class="line">            dis=dis+(ldis+lenSeg);</span><br><span class="line">            <span class="built_in">dfs</span>(i,j,cnt<span class="number">+1</span>);</span><br><span class="line">            dis=dis-(ldis+lenSeg);</span><br><span class="line">        &#125;</span><br><span class="line">        vis2[i]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;s&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;pos[i][<span class="number">1</span>]&gt;&gt;pos[i][<span class="number">2</span>]&gt;&gt;pos[i][<span class="number">3</span>]&gt;&gt;pos[i][<span class="number">4</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    dis=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//cin&gt;&gt;n;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// WA https://atcoder.jp/contests/abc374/submissions/58484468</span></span><br></pre></td></tr></table></figure>
-<p>只改了一个地方就AC了<br />
-<code>dfs(i</code><strong><code>,4</code></strong><code>-j</code><strong><code>,</code></strong><code>cnt+</code><strong><code>1</code></strong><code>)</code><strong><code>;   </code></strong><code>// 进入点和终止点不是一个，这条线段的终止点就是下一条线段的起始点</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,s,t,pos[<span class="number">10</span>][<span class="number">6</span>];  <span class="comment">// s-&gt;not emitting laser &amp;&amp; t-&gt; emitting ......</span></span><br><span class="line"><span class="type">bool</span> vis[<span class="number">10</span>][<span class="number">6</span>],vis2[<span class="number">10</span>];</span><br><span class="line"><span class="type">double</span> ans=<span class="number">10000000</span>,dis;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y,<span class="type">int</span> cnt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cnt&gt;=n)&#123;</span><br><span class="line">        ans=<span class="built_in">min</span>(dis,ans);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis2[i]) <span class="keyword">continue</span>;</span><br><span class="line">        vis2[i]=<span class="literal">true</span>;</span><br><span class="line">        <span class="type">double</span> squareS1=(pos[i][<span class="number">3</span>]-pos[i][<span class="number">1</span>])*(pos[i][<span class="number">3</span>]-pos[i][<span class="number">1</span>]);</span><br><span class="line">        <span class="type">double</span> squareS2=(pos[i][<span class="number">4</span>]-pos[i][<span class="number">2</span>])*(pos[i][<span class="number">4</span>]-pos[i][<span class="number">2</span>]);</span><br><span class="line">        <span class="type">double</span> lenSeg=<span class="built_in">sqrt</span>(squareS1+squareS2)/t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">3</span>;j+=<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="type">double</span> square1=(pos[i][j]-pos[x][y])*(pos[i][j]-pos[x][y]);</span><br><span class="line">            <span class="type">double</span> square2=(pos[i][j<span class="number">+1</span>]-pos[x][y<span class="number">+1</span>])*(pos[i][j<span class="number">+1</span>]-pos[x][y<span class="number">+1</span>]);</span><br><span class="line">            <span class="type">double</span> ldis=<span class="built_in">sqrt</span>(square1+square2)/s;</span><br><span class="line">            dis=dis+(ldis+lenSeg);</span><br><span class="line">            <span class="built_in">dfs</span>(i,<span class="number">4</span>-j,cnt<span class="number">+1</span>);   <span class="comment">// 进入点和终止点不是一个，这条线段的终止点就是下一条线段的起始点</span></span><br><span class="line">            dis=dis-(ldis+lenSeg);</span><br><span class="line">        &#125;</span><br><span class="line">        vis2[i]=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;s&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;pos[i][<span class="number">1</span>]&gt;&gt;pos[i][<span class="number">2</span>]&gt;&gt;pos[i][<span class="number">3</span>]&gt;&gt;pos[i][<span class="number">4</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    dis=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    cout.<span class="built_in">precision</span>(<span class="number">17</span>);   <span class="comment">// 打印double全精度</span></span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//cin&gt;&gt;n;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//AC https://atcoder.jp/contests/abc374/submissions/58506793</span></span><br><span class="line"><span class="comment">//AC https://www.luogu.com.cn/record/180435741</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -628,7 +636,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">526</span>
+          <span class="site-state-item-count">527</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

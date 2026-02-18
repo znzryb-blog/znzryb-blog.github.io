@@ -191,6 +191,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/08/20250108-a37343ca/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/08/20250108-a37343ca/" class="post-title-link" itemprop="url">CF-994-B. pspspsps</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-01-08 05:55:00" itemprop="dateCreated datePublished" datetime="2025-01-08T05:55:00+08:00">2025-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-15 11:34:13" itemprop="dateModified" datetime="2026-02-15T11:34:13+08:00">2026-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在这两个位置的s和p等价于点</span></span><br><span class="line"><span class="keyword">if</span>(S[<span class="number">1</span>]==<span class="string">&#x27;s&#x27;</span>)&#123;</span><br><span class="line">	S[<span class="number">1</span>]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(S[N]==<span class="string">&#x27;p&#x27;</span>)&#123;</span><br><span class="line">	S[N]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后就是不能有p出现在s之后，不能有s出现在p之后，非常简单吧</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="number">510</span>;</span><br><span class="line">ll N,T;</span><br><span class="line"><span class="type">char</span> S[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	std::cin&gt;&gt;N;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)&#123;</span><br><span class="line">		std::cin&gt;&gt;S[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 在这两个位置的s和p等价于点</span></span><br><span class="line">	<span class="keyword">if</span>(S[<span class="number">1</span>]==<span class="string">&#x27;s&#x27;</span>)&#123;</span><br><span class="line">		S[<span class="number">1</span>]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(S[N]==<span class="string">&#x27;p&#x27;</span>)&#123;</span><br><span class="line">		S[N]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 检查有没有类似于ps,sp的结构</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N<span class="number">-1</span>;++i)&#123;</span><br><span class="line">		<span class="keyword">if</span>(S[i]==<span class="string">&#x27;p&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=i<span class="number">+1</span>;j&lt;=N;++j)&#123;</span><br><span class="line">				<span class="keyword">if</span>(S[j]==<span class="string">&#x27;s&#x27;</span>)&#123;</span><br><span class="line">					std::cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(S[i]==<span class="string">&#x27;s&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=i<span class="number">+1</span>;j&lt;=N;++j)&#123;</span><br><span class="line">				<span class="keyword">if</span>(S[j]==<span class="string">&#x27;p&#x27;</span>)&#123;</span><br><span class="line">					std::cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;YES\n&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	std::cin.<span class="built_in">tie</span>(<span class="number">0</span>);std::cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	std::cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span> (T--) &#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC https://codeforces.com/contest/2049/submission/300115610</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/07/20250107-14571741/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -492,87 +562,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/02/20250102-47c021c3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/02/20250102-47c021c3/" class="post-title-link" itemprop="url">ABC-381-F - 1122 Subsequence</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-02 15:57:00" itemprop="dateCreated datePublished" datetime="2025-01-02T15:57:00+08:00">2025-01-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-15 11:34:11" itemprop="dateModified" datetime="2026-02-15T11:34:11+08:00">2026-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/16d4539447bd8094bceedd83b625ea71"></a></p>
-<p>就是把D的连续改成了不一定连续</p>
-<p><img src="https://media.znzryb.com/20250102-47c021c3/image_8ee37291.png" alt="image" /></p>
-<p>这个dp里存的是什么？<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pnB8YxEaR/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4350e5f2584d2f27c848b347ea11b675"></a></p>
-<p>这个具体怎么想到这个dp里存的是什么要看这个视频，这个视频这方面讲的很清楚。</p>
-<p>这个状态转移到底在干什么？其实是这样的，我们自然是枚举这个状态的最后一位是什么，这样我们才知道现在的状态是从哪里来的。</p>
-<p>那么怎么状态转移？定义去掉最后一位的状态为pre，这个最后一位的数字肯定不会出现在dp[pre]之前，因为在dp[pre]之前，必然会截断一个成形的AA序列，无法正确形成这个状态。</p>
-<p><img src="https://media.znzryb.com/20250102-47c021c3/image_f69ba57e.png" alt="image" /></p>
-<p>故就是直接在dp[pre]这个位置后直接看有没有两位B，如果有，就是第二位B的位置，如果没有，就跳过。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(((i&gt;&gt;j)&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;	<span class="comment">// 说明该位有一</span></span><br><span class="line">	ll pre=i-(<span class="number">1</span>&lt;&lt;j);</span><br><span class="line">	ll res=<span class="built_in">upper_bound</span>(pos[li[j]].<span class="built_in">begin</span>(), pos[li[j]].<span class="built_in">end</span>(), dp[pre])-pos[li[j]].<span class="built_in">begin</span>()<span class="number">+1</span>;</span><br><span class="line">	<span class="keyword">if</span>(res&gt;=pos[li[j]].<span class="built_in">size</span>())	<span class="comment">// 超界</span></span><br><span class="line">		<span class="keyword">continue</span>;</span><br><span class="line">	dp[i]=<span class="built_in">min</span>(dp[i],pos[li[j]][res]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc381/submissions/61352128">https://atcoder.jp/contests/abc381/submissions/61352128</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>,maxStatus=<span class="number">2e6</span><span class="number">+7</span>;</span><br><span class="line">ll n,T,A[N],kind;</span><br><span class="line"><span class="comment">// dp[S] 像这样的S序列需要至少多少个A序列元素（从1开始）才能组成</span></span><br><span class="line"><span class="type">int</span> dp[maxStatus];</span><br><span class="line">set&lt;ll&gt; diff; </span><br><span class="line">ll li[<span class="number">25</span>];	<span class="comment">// 类离散化数组，代表该索引数代表实际数组是什么</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; pos[<span class="number">25</span>];	<span class="comment">// 存该值的出现位置</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ll idx=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// 实现离散化(使用0-based索引，与状态存储保持一致)</span></span><br><span class="line">	<span class="keyword">for</span>(set&lt;ll&gt;::iterator it=diff.<span class="built_in">begin</span>();it!=diff.<span class="built_in">end</span>();it++)&#123;</span><br><span class="line">		li[idx++]=*it;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1</span>&lt;&lt;kind;++i)&#123;</span><br><span class="line">		dp[i]=<span class="number">9999999</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">popcount</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	ll cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x) &#123;</span><br><span class="line">		x&amp;=x<span class="number">-1</span>;</span><br><span class="line">		++cnt;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		diff.<span class="built_in">insert</span>(A[i]);</span><br><span class="line">		pos[A[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	kind=diff.<span class="built_in">size</span>();</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=(<span class="number">1</span>&lt;&lt;kind)<span class="number">-1</span>;++i)&#123;</span><br><span class="line">		<span class="comment">// </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;kind;++j)&#123;</span><br><span class="line">			<span class="keyword">if</span>(((i&gt;&gt;j)&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;	<span class="comment">// 说明该位有一</span></span><br><span class="line">				ll pre=i-(<span class="number">1</span>&lt;&lt;j);</span><br><span class="line">				ll res=<span class="built_in">upper_bound</span>(pos[li[j]].<span class="built_in">begin</span>(), pos[li[j]].<span class="built_in">end</span>(), dp[pre])-pos[li[j]].<span class="built_in">begin</span>()<span class="number">+1</span>;</span><br><span class="line">				<span class="keyword">if</span>(res&gt;=pos[li[j]].<span class="built_in">size</span>())	<span class="comment">// 超界</span></span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				dp[i]=<span class="built_in">min</span>(dp[i],pos[li[j]][res]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=(<span class="number">1</span>&lt;&lt;kind)<span class="number">-1</span>;i&gt;<span class="number">0</span>;--i)&#123;	<span class="comment">// 这个顺序不重要</span></span><br><span class="line">		<span class="keyword">if</span>(dp[i]==<span class="number">9999999</span>)</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,<span class="built_in">popcount</span>(i));</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans*<span class="number">2</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC https://atcoder.jp/contests/abc381/submissions/61352128</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">2 2</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc381/submissions/61352084">https://atcoder.jp/contests/abc381/submissions/61352084</a></p>
-<p>问题出在这个&lt;号，应该是≤</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;&lt;=(<span class="number">1</span>&lt;&lt;kind)<span class="number">-1</span>;++i)&#123;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -642,7 +631,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">526</span>
+          <span class="site-state-item-count">527</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

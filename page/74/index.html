@@ -191,6 +191,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/30/20250130-9bac7b7b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/30/20250130-9bac7b7b/" class="post-title-link" itemprop="url">ABC-386-E - Maximize XOR </a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-01-30 11:37:00" itemprop="dateCreated datePublished" datetime="2025-01-30T11:37:00+08:00">2025-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-15 22:25:49" itemprop="dateModified" datetime="2026-02-15T22:25:49+08:00">2026-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>思路其实就是组合数生成惯用套路+深度控制</p>
+<p>组合数生成其实就是从start开始，这样可以保证加入顺序都是从编号小的到编号大的，进而达到无视元素加入顺序的效果。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> dep,<span class="type">int</span> start,ull sum)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dep&gt;T)&#123;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,sum^xorSum);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i, start, N)&#123;</span><br><span class="line">		<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[i]=<span class="literal">true</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(dep<span class="number">+1</span>,i<span class="number">+1</span>,sum^A[i]);</span><br><span class="line">		vis[i]=<span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，利用异或计算的性质，我们可以控制深度，枚举不选的，而不是枚举选的，以减少计算次数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(T&gt;N-T)&#123;</span><br><span class="line">		T=N-T;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;	<span class="comment">// 正向进行不需要异或</span></span><br><span class="line">		xorSum=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>AC</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc386/submissions/62216769">https://atcoder.jp/contests/abc386/submissions/62216769</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = a; i &lt;= b; ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = a; i &gt;= b; --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(x) ((int)x.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x,size) x.begin()+1,x.begin()+size+1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all1(x) x.begin(),x.end()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,MAXval=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,T;</span><br><span class="line">ull A[MAXN];</span><br><span class="line"><span class="type">bool</span> vis[MAXN];</span><br><span class="line">ull ans,xorSum;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> dep,<span class="type">int</span> start,ull sum)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dep&gt;T)&#123;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,sum^xorSum);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i, start, N)&#123;</span><br><span class="line">		<span class="keyword">if</span>(vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[i]=<span class="literal">true</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(dep<span class="number">+1</span>,i<span class="number">+1</span>,sum^A[i]);</span><br><span class="line">		vis[i]=<span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;T;</span><br><span class="line">	<span class="built_in">FOR</span>(i, <span class="number">1</span>, N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		xorSum^=A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(T&gt;N-T)&#123;</span><br><span class="line">		T=N-T;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;	<span class="comment">// 正向进行不需要异或</span></span><br><span class="line">		xorSum=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc386/submissions/62216769</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/30/20250130-f61785ba/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -494,83 +569,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/01/27/20250127-5c6cbd48/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/27/20250127-5c6cbd48/" class="post-title-link" itemprop="url">2025牛客WC3-C-智乃的Notepad(Easy version)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-27 02:42:00" itemprop="dateCreated datePublished" datetime="2025-01-27T02:42:00+08:00">2025-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-15 22:25:47" itemprop="dateModified" datetime="2026-02-15T22:25:47+08:00">2026-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>这题代码挺简单的，这个代码看起来长，实际上全部是快读模版和一些宏定义</p>
-<p>然后我们来讲一讲，实际上就是字典树建树过程。</p>
-<p>然后其实就是字典树每次扩充新节点++ans；最后ans就是字典树的节点数量（严格来说是不包含idx=0的节点的数量），当然此时不是答案，根据观察，所有的节点都需要被回退，只有最长的字符串不需要回退，所以答案就是</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout&lt;&lt;ans*<span class="number">2</span>-maxLen&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>除了最长字符串上的节点，全部都要打一遍，然后再删除掉，故ans*2，然后最长的字符串不需要回退，-maxLen</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75219752">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75219752</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = a; i &lt;= b; ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = b; i &gt;= a; --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(x) ((int)x.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end();</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e5</span>)<span class="number">+10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> string <span class="title">reads</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="comment">//处理空格或回车 </span></span><br><span class="line">	<span class="keyword">while</span>(ch==<span class="string">&#x27; &#x27;</span> || ch==<span class="string">&#x27;\n&#x27;</span> || ch==<span class="string">&#x27;\r&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ch=<span class="built_in">getchar</span>(); </span><br><span class="line">		&#125;</span><br><span class="line">	<span class="comment">//读入</span></span><br><span class="line">	<span class="keyword">while</span>(ch!=<span class="string">&#x27; &#x27;</span> &amp;&amp; ch!=<span class="string">&#x27;\n&#x27;</span> &amp;&amp; ch!=<span class="string">&#x27;\r&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			str+=ch;</span><br><span class="line">			ch=<span class="built_in">getchar</span>();</span><br><span class="line">		&#125; </span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> x=<span class="number">0</span>,f=<span class="number">1</span>;</span><br><span class="line">	<span class="type">char</span> ch=<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">while</span>(ch&lt;<span class="string">&#x27;0&#x27;</span>||ch&gt;<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(ch==<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">				f=<span class="number">-1</span>;</span><br><span class="line">			ch=<span class="built_in">getchar</span>();</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span> &amp;&amp; ch&lt;=<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">		x=x*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> x*f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> N,T;</span><br><span class="line"><span class="type">int</span> idx;</span><br><span class="line"><span class="type">int</span> nex[MAXN*<span class="number">10</span>][<span class="number">28</span>]; <span class="comment">//wei[MAXN*10];</span></span><br><span class="line">ll ans;</span><br><span class="line"><span class="type">int</span> L,R;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">buildTree</span><span class="params">(string &amp;s)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> node=<span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> len=<span class="built_in">SZ</span>(s);</span><br><span class="line">	<span class="built_in">FOR</span>(i, <span class="number">0</span>, len<span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(nex[node][s[i]-<span class="string">&#x27;a&#x27;</span>]==<span class="number">0</span>)&#123;</span><br><span class="line">			nex[node][s[i]-<span class="string">&#x27;a&#x27;</span>]=++idx;</span><br><span class="line">			node=idx;</span><br><span class="line">			<span class="comment">// wei[idx]+=len-i;</span></span><br><span class="line">			++ans;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			node=nex[node][s[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	N=<span class="built_in">read</span>(),T=<span class="built_in">read</span>();</span><br><span class="line">	<span class="type">int</span> maxLen=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i, <span class="number">1</span>, N)&#123;</span><br><span class="line">		string s;</span><br><span class="line">		s=<span class="built_in">reads</span>();</span><br><span class="line">		maxLen=<span class="built_in">max</span>(maxLen,<span class="built_in">SZ</span>(s));</span><br><span class="line">		<span class="built_in">buildTree</span>(s);</span><br><span class="line">	&#125;</span><br><span class="line">	L=<span class="built_in">read</span>();R=<span class="built_in">read</span>();</span><br><span class="line">	cout&lt;&lt;ans*<span class="number">2</span>-maxLen&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75219747">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75219747</a></p>
-<p>段错误</p>
-<p>字典树一般要开10倍空间。</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -640,7 +638,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">526</span>
+          <span class="site-state-item-count">527</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

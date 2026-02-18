@@ -191,6 +191,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/06/20250206-240643d1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/02/06/20250206-240643d1/" class="post-title-link" itemprop="url">2025牛客WC4-C-Tokitsukaze and Balance String (hard)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-02-06 15:10:00" itemprop="dateCreated datePublished" datetime="2025-02-06T15:10:00+08:00">2025-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-15 22:25:53" itemprop="dateModified" datetime="2026-02-15T22:25:53+08:00">2026-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com/article/wa8c5zfe">https://www.luogu.com/article/wa8c5zfe</a>  还有一种差分想法，更加简洁，挺好的</p>
+<p>10就是在差分数组中有一个-1，01就是差分数组中有一个1，把差分数组加起来，就能得到01数量-10数量的值，然后根据差分的结论，我们就知道差分总值只和首项和末项有关。</p>
+<blockquote>
+<p>首先根据上题，我们需要发现两个结论：<br />
+1） 首尾相同的字符串一定是平衡的。<br />
+2） 首尾不相同的字符串一定是不平衡的。</p>
+</blockquote>
+<p>这是为什么那？</p>
+<p>直接证明这个结论比较难，可以这么想，大家可以想象一个都是0序列，将里面的0变为1（通过这一操作可以生成任何序列）会对10，01数量造成什么变化那？<s>（其实我也不是很会证明，大家就随便看看吧）</s></p>
+<p><img src="https://media.znzryb.com/20250206-240643d1/image_a26d0fcf.png" alt="image" /></p>
+<p>我们发现，只有在对空情况的操作时，才会产生不平衡这样的问题</p>
+<p>而且对空情况的左右两种镜像情况分别为一组，这两组中的任意两对都是互相抵消的（比如10++ &amp;&amp; 01++ 就会使数列平衡）</p>
+<p>那么其实就完成了，头尾都是0的情况嘛所有操作都使数列保持平衡，头尾都是1的情况对空操作也就抵消了，那么就得到了上述的结论。</p>
+<p>有了这个结论以后剩下的就简单了，剩下的就看代码吧，关键地方有注释，然后注意特判只有单个字母的情况。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>AC</p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75411197">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75411197</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: Tokitsukaze and Balance String (hard)</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/95336/C</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = a; i &lt;= b; ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = a; i &gt;= b; --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>,mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"></span><br><span class="line">ll N,T;</span><br><span class="line"><span class="type">char</span> S[MAXN];<span class="comment">//Sd[MAXN];</span></span><br><span class="line">ull ans=<span class="number">0</span>,pow2[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	ans=<span class="number">0</span>;</span><br><span class="line">	ll cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i, <span class="number">1</span>, N)&#123;</span><br><span class="line">		cin&gt;&gt;S[i];</span><br><span class="line">		<span class="keyword">if</span>(S[i]==<span class="string">&#x27;?&#x27;</span>) ++cnt;</span><br><span class="line">		<span class="comment">// Sd[i]=S[i];</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(N==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(S[<span class="number">1</span>]!=<span class="string">&#x27;?&#x27;</span>) cout&lt;&lt;<span class="number">1</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		<span class="keyword">else</span> cout&lt;&lt;<span class="number">2</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(S[<span class="number">1</span>]==<span class="string">&#x27;?&#x27;</span> &amp;&amp; S[N]==<span class="string">&#x27;?&#x27;</span>)&#123;</span><br><span class="line">		ans+=<span class="number">2</span>*pow2[cnt<span class="number">-2</span>]*(N<span class="number">-2</span>);	<span class="comment">// ?为0，0 1，1的情况</span></span><br><span class="line">		<span class="comment">//cerr&lt;&lt;ans&lt;&lt;&#x27;\n&#x27;;</span></span><br><span class="line">		ans%=mod;</span><br><span class="line">		ans+=<span class="number">4</span>*pow2[cnt<span class="number">-2</span>];	<span class="comment">// ?,? 1,0 0,1的情况(两种情况，每种情况有两种位置，所以*4)</span></span><br><span class="line">		<span class="comment">//cerr&lt;&lt;ans&lt;&lt;&#x27;\n&#x27;;</span></span><br><span class="line">		ans%=mod;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(S[<span class="number">1</span>]==<span class="string">&#x27;?&#x27;</span> || S[N]==<span class="string">&#x27;?&#x27;</span>)&#123;</span><br><span class="line">		ans+=pow2[cnt<span class="number">-1</span>]*(N<span class="number">-2</span>);</span><br><span class="line">		ans%=mod;</span><br><span class="line">		ans+=<span class="number">2</span>*pow2[cnt<span class="number">-1</span>];</span><br><span class="line">		ans%=mod;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(S[<span class="number">1</span>]!=S[N])&#123;</span><br><span class="line">			ans=<span class="number">2</span>*pow2[cnt];</span><br><span class="line">			ans%=mod;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			ans=pow2[cnt]*(N<span class="number">-2</span>);</span><br><span class="line">			ans%=mod;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans%mod&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	pow2[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,MAXN<span class="number">-5</span>)&#123;</span><br><span class="line">		pow2[i]=(pow2[i<span class="number">-1</span>]*<span class="number">2</span>)%mod;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/06/20250206-9ec08afa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -523,78 +607,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/03/20250203-37bdc0bf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/03/20250203-37bdc0bf/" class="post-title-link" itemprop="url">ABC-383-C - Humidifier 3 （多源广搜）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-02-03 13:14:00" itemprop="dateCreated datePublished" datetime="2025-02-03T13:14:00+08:00">2025-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-15 22:32:56" itemprop="dateModified" datetime="2026-02-15T22:32:56+08:00">2026-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>多源广搜经典套路，如果该点到达时间没有别的点早，就可以不用走了</p>
-<p>然后把所有点加入q，实现多源广搜</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">	<span class="built_in">FOR</span>(j,<span class="number">1</span>,M)&#123;</span><br><span class="line">		<span class="keyword">if</span>(maze[i][j]!=<span class="string">&#x27;H&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">		q.<span class="built_in">push</span>(&#123;i,j,<span class="number">0</span>&#125;);</span><br><span class="line">		vis[i][j]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">bfs</span>();</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc383/submissions/62366428">https://atcoder.jp/contests/abc383/submissions/62366428</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: C - Humidifier 3</span></span><br><span class="line"><span class="comment">// Contest: AtCoder - Daiwa Securities Co. Ltd. Programming Contest 2024（AtCoder Beginner Contest 383）</span></span><br><span class="line"><span class="comment">// URL: https://atcoder.jp/contests/abc383/tasks/abc383_c</span></span><br><span class="line"><span class="comment">// Memory Limit: 1024 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = a; i &lt;= b; ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = a; i &gt;= b; --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(x) cerr&lt;&lt;x&lt;&lt;<span class="string">&#x27; &#x27;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="type">const</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e3</span>)<span class="number">+10</span>,MAXval=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,D;</span><br><span class="line"><span class="type">char</span> maze[MAXN][MAXN];</span><br><span class="line">ll vis[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line">ll dx[<span class="number">4</span>]=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">ll dy[<span class="number">4</span>]=&#123;<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;arr&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span>&#123;	<span class="comment">// 需要对之前所有加入q的点做好vis=true的处理</span></span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">		ll x=q.<span class="built_in">front</span>()[<span class="number">0</span>],y=q.<span class="built_in">front</span>()[<span class="number">1</span>],d=q.<span class="built_in">front</span>()[<span class="number">2</span>];</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="keyword">if</span>(d&gt;=D) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">FOR</span>(i,<span class="number">0</span>,<span class="number">3</span>)&#123;</span><br><span class="line">			ll fx=x+dx[i],fy=y+dy[i];</span><br><span class="line">			<span class="keyword">if</span>(fx&lt;<span class="number">1</span> || fx&gt;N) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(fy&lt;<span class="number">1</span> || fy&gt;M) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(vis[fx][fy]&lt;d<span class="number">+1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(maze[fx][fy]==<span class="string">&#x27;#&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">			vis[fx][fy]=d<span class="number">+1</span>;</span><br><span class="line">			q.<span class="built_in">push</span>(&#123;fx,fy,d<span class="number">+1</span>&#125;);</span><br><span class="line">			<span class="comment">// cerr&lt;&lt;fx&lt;&lt;&#x27; &#x27;&lt;&lt;fy&lt;&lt;&#x27;\n&#x27;;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;M&gt;&gt;D;</span><br><span class="line">	<span class="built_in">FOR</span>(i, <span class="number">1</span>, N)&#123;</span><br><span class="line">		<span class="built_in">FOR</span>(j,<span class="number">1</span>,M)&#123;</span><br><span class="line">			cin&gt;&gt;maze[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">CLR</span>(vis,<span class="number">0x3f</span>);</span><br><span class="line">	ll stand=vis[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="built_in">FOR</span>(j,<span class="number">1</span>,M)&#123;</span><br><span class="line">			<span class="keyword">if</span>(maze[i][j]!=<span class="string">&#x27;H&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">			q.<span class="built_in">push</span>(&#123;i,j,<span class="number">0</span>&#125;);</span><br><span class="line">			vis[i][j]=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">bfs</span>();</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="built_in">FOR</span>(j,<span class="number">1</span>,M)&#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[i][j]!=stand) ++ans;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc383/submissions/62366428</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -664,7 +676,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">526</span>
+          <span class="site-state-item-count">527</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
