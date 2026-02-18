@@ -191,155 +191,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/31/20250331-60a35d7c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/31/20250331-60a35d7c/" class="post-title-link" itemprop="url">ABC-396-F - Rotated Inversions（取模结合逆序对）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-03-31 09:35:00" itemprop="dateCreated datePublished" datetime="2025-03-31T09:35:00+08:00">2025-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-16 17:13:10" itemprop="dateModified" datetime="2026-02-16T17:13:10+08:00">2026-02-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>还是要再想一会，因为洛谷标签里只有树状数组。</p>
-<p>说明理论上来说，你只要会求逆序对就会这题？但愿如此。</p>
-<p>其实还是不难的，多写吧，写下来，你自然就懂了</p>
-<p><img src="https://media.znzryb.com/20250331-60a35d7c/image_cf2f56e4.png" alt="注意，产生的逆序对是对于old序列，比他们小而且在他们后面的是对于new序列" /></p>
-<p>现在的问题就在于怎么求这两个东西了。但其实很简单，因为他们在old里是0（最小的），在new里是m-1（最大的）</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc396/submissions/64400231">https://atcoder.jp/contests/abc396/submissions/64400231</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: F - Rotated Inversions</span></span><br><span class="line"><span class="comment">// Contest: AtCoder - AtCoder Beginner Contest 396</span></span><br><span class="line"><span class="comment">// URL: https://atcoder.jp/contests/abc396/tasks/abc396_f</span></span><br><span class="line"><span class="comment">// Memory Limit: 1024 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,T,A[MAXN],B[MAXN];</span><br><span class="line">vector&lt;ll&gt; pos[MAXN];</span><br><span class="line">ll tr[MAXN];</span><br><span class="line">ll sumApos[MAXN];</span><br><span class="line">ll rsumApos[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">lowbit</span><span class="params">(<span class="type">const</span> ll &amp;x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x&amp;(-x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(ll p,ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(p&lt;=M)&#123;</span><br><span class="line">		tr[p]+=x;</span><br><span class="line">		p+=<span class="built_in">lowbit</span>(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">findBig</span><span class="params">(ll x,ll sum)</span></span>&#123;</span><br><span class="line">	ll res=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(x&gt;<span class="number">0</span>)&#123;	<span class="comment">// 先找小于x，再用总数减掉找到的</span></span><br><span class="line">		res+=tr[x];</span><br><span class="line">		x-=<span class="built_in">lowbit</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	res=sum-res;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;M;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		B[i]=(A[i]+M<span class="number">-1</span>)%M;</span><br><span class="line">		pos[A[i]].<span class="built_in">pb</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	vector&lt;ll&gt; ans;</span><br><span class="line">	<span class="comment">// 先运用树状数组+频数数组得到初始B的逆序对数量</span></span><br><span class="line">	ll lans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="comment">// 树状数组无法正确处理0，我们把映射整体提一个1</span></span><br><span class="line">		lans+=<span class="built_in">findBig</span>(B[i]<span class="number">+1</span>,i<span class="number">-1</span>);	<span class="comment">// 前面一共i-1个数</span></span><br><span class="line">		<span class="built_in">add</span>(B[i]<span class="number">+1</span>,<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL	// lans 正确运行</span></span><br><span class="line">    <span class="comment">// cerr &lt;&lt; lans &lt;&lt; &#x27;\n&#x27;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	ans.<span class="built_in">pb</span>(lans);</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">0</span>,M<span class="number">-1</span>)&#123;</span><br><span class="line">		ll cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;pos[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">			++cnt;</span><br><span class="line">			sumApos[i]+=pos[i][j]-cnt;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">0</span>,M<span class="number">-1</span>)&#123;</span><br><span class="line">		ll cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;pos[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">			rsumApos[i]+=N-pos[i][j]-cnt;</span><br><span class="line">			++cnt;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">   	<span class="comment">// FOR(i,0,M-1)&#123;</span></span><br><span class="line">   		<span class="comment">// cerr&lt;&lt;sumApos[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">   	<span class="comment">// &#125;</span></span><br><span class="line">   	<span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	ll upAns=lans;</span><br><span class="line">	<span class="built_in">ROF</span>(i,M<span class="number">-1</span>,<span class="number">1</span>)&#123;</span><br><span class="line">		ll ians=<span class="number">0</span>;</span><br><span class="line">		ll idx=M-(i);</span><br><span class="line">		ians=upAns-sumApos[idx]+rsumApos[idx];</span><br><span class="line">		ans.<span class="built_in">pb</span>(ians);</span><br><span class="line">		upAns=ians;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">reverse</span>(<span class="built_in">all</span>(ans));</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;ans.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		cout&lt;&lt;ans[i]&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="comment">// cin&gt;&gt;T;</span></span><br><span class="line">	<span class="comment">// while(T--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc396/submissions/64400231</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/30/20250330-52f26427/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/30/20250330-52f26427/" class="post-title-link" itemprop="url">AcWing 876. 快速幂求逆元</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-03-30 06:06:00" itemprop="dateCreated datePublished" datetime="2025-03-30T06:06:00+08:00">2025-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-16 17:13:08" itemprop="dateModified" datetime="2026-02-16T17:13:08+08:00">2026-02-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>我们计算机嘛，这个推导对于我来说还是有点难了，不过结论很简单，就是<strong>b^(m-2)为其乘法逆元</strong>。</p>
-<p>当然，你会说这个乘法逆元有什么用？ <a href="/2025/03/30/20250330-81995ee4">AcWing 886. 费马小定理， 快速幂， 求组合数 II  </a></p>
-<p>这不求组合数就有用了吗！</p>
-<p>参考以下题解</p>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/16482/">https://www.acwing.com/solution/content/16482/</a></p>
-<p><img src="https://media.znzryb.com/20250330-52f26427/image_62f47bfb.png" alt="image" /></p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/code_detail/40913617/">https://www.acwing.com/problem/content/submission/code_detail/40913617/</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 快速幂求逆元</span></span><br><span class="line"><span class="comment">// Contest: AcWing</span></span><br><span class="line"><span class="comment">// URL: https://www.acwing.com/problem/content/878/</span></span><br><span class="line"><span class="comment">// Memory Limit: 64 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 5000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,T,A[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">binpow</span><span class="params">(ll a,ll k,<span class="type">const</span> ll &amp;p)</span></span>&#123;</span><br><span class="line">	ll res=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(k&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>((k&amp;<span class="number">1</span>)==<span class="number">1</span>) res=a*res%p;</span><br><span class="line">		a=a*a%p;</span><br><span class="line">		k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ll a,p;</span><br><span class="line">	cin&gt;&gt;a&gt;&gt;p;</span><br><span class="line">	<span class="keyword">if</span>(a%p==<span class="number">0</span>) cout&lt;&lt;<span class="string">&quot;impossible\n&quot;</span>;</span><br><span class="line">	<span class="keyword">else</span> cout&lt;&lt;<span class="built_in">binpow</span>(a,p<span class="number">-2</span>,p)&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// solve();</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://www.acwing.com/problem/content/submission/code_detail/40913617/</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/30/20250330-e6231f60/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -554,6 +405,152 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/29/20250329-62319570/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/29/20250329-62319570/" class="post-title-link" itemprop="url">ABC-399-F - Range Power Sum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-03-29 17:17:00" itemprop="dateCreated datePublished" datetime="2025-03-29T17:17:00+08:00">2025-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-16 17:13:08" itemprop="dateModified" datetime="2026-02-16T17:13:08+08:00">2026-02-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>参考这个题解（官解看不太懂，不知道为什么可以改写成那样）</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc399/editorial/12582">https://atcoder.jp/contests/abc399/editorial/12582</a></p>
+<p>【ABC399F - Range Power Sum题解.递推】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1iZZaYiEHC/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37">https://www.bilibili.com/video/BV1iZZaYiEHC/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37</a></p>
+<p>算了，我也不尝试论述怎么想到这个思路了，这个思路还是很难想的</p>
+<p><img src="https://media.znzryb.com/20250329-62319570/image_a14457b7.png" alt="image" /></p>
+<p>我只能说多动笔吧，分析问题，特别是dp类问题，还是需要系统的分析，光空想是不够的。</p>
+<p>sum的定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//      k    i   (a1+...+ai)^k+(a2+...+ai)^k+...+(ai-1+...+ai)^k+ai^k</span></span><br><span class="line">ll sum[<span class="number">15</span>][MAXN];</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc399/submissions/64378660">https://atcoder.jp/contests/abc399/submissions/64378660</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: F - Range Power Sum</span></span><br><span class="line"><span class="comment">// Contest: AtCoder - AtCoder Beginner Contest 399</span></span><br><span class="line"><span class="comment">// URL: https://atcoder.jp/contests/abc399/tasks/abc399_f</span></span><br><span class="line"><span class="comment">// Memory Limit: 1024 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(),x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>)<span class="number">+3</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line">ll N,K,T,A[MAXN];</span><br><span class="line"><span class="comment">//      k    i   (a1+...+ai)^k+(a2+...+ai)^k+...+(ai-1+...+ai)^k+ai^k</span></span><br><span class="line">ll sum[<span class="number">15</span>][MAXN];</span><br><span class="line">ll infact[<span class="number">15</span>],fact[<span class="number">15</span>];</span><br><span class="line">ll C[<span class="number">15</span>][<span class="number">15</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">binpow</span><span class="params">(ll a,ll k,<span class="type">const</span> ll &amp;p)</span></span>&#123;	<span class="comment">// 迭代快速幂</span></span><br><span class="line">	ll res=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(k&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>((k&amp;<span class="number">1</span>)==<span class="number">1</span>) res=a*res%p;</span><br><span class="line">		a=a*a%p;</span><br><span class="line">		k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;K;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,K)&#123;</span><br><span class="line">		<span class="built_in">FOR</span>(j,<span class="number">1</span>,N)&#123;</span><br><span class="line">			<span class="comment">// ll idx=0;</span></span><br><span class="line">			<span class="built_in">FOR</span>(k,<span class="number">0</span>,i<span class="number">-1</span>)&#123;</span><br><span class="line">				sum[i][j]+=sum[i-k][j<span class="number">-1</span>]*C[k][i]%mod*<span class="built_in">binpow</span>(A[j],k,mod)%mod;</span><br><span class="line">				<span class="comment">// ++idx;</span></span><br><span class="line">			&#125;</span><br><span class="line">			sum[i][j]=(sum[i][j]+j*<span class="built_in">binpow</span>(A[j],i,mod))%mod;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// cerr &lt;&lt; i&lt;&lt;&quot; &quot;&lt;&lt; j&lt;&lt;&quot; &quot;&lt;&lt;sum[i][j]&lt;&lt; &#x27;\n&#x27;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		ans=(ans+sum[K][i])%mod;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="comment">// cin&gt;&gt;T;</span></span><br><span class="line">	<span class="comment">// while(T--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	fact[<span class="number">0</span>]=<span class="number">1</span>,infact[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,<span class="number">13</span>)&#123;</span><br><span class="line">		fact[i]=fact[i<span class="number">-1</span>]*i%mod;</span><br><span class="line">		infact[i]=<span class="built_in">binpow</span>(fact[i],mod<span class="number">-2</span>,mod);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,<span class="number">13</span>)&#123;</span><br><span class="line">		<span class="built_in">FOR</span>(j,<span class="number">0</span>,i)&#123;</span><br><span class="line">			C[j][i]=fact[i]*infact[j]%mod*infact[i-j]%mod;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// FOR(i,1,13)&#123;</span></span><br><span class="line">		<span class="comment">// FOR(j,0,i)&#123;</span></span><br><span class="line">			<span class="comment">// cerr&lt;&lt;C[j][i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">		<span class="comment">// &#125;</span></span><br><span class="line">		<span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc399/submissions/64378660</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>一种比较常见的递推思路是</p>
+<p>长度为1的区间→长度为2的区间→…→长度为n的区间（很正常的想法）</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/03/29/20250329-3fb5edab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/29/20250329-3fb5edab/" class="post-title-link" itemprop="url">ABC-399-E - Replace</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-03-29 17:14:00" itemprop="dateCreated datePublished" datetime="2025-03-29T17:14:00+08:00">2025-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-16 17:13:07" itemprop="dateModified" datetime="2026-02-16T17:13:07+08:00">2026-02-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -625,7 +622,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">530</span>
+          <span class="site-state-item-count">528</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
