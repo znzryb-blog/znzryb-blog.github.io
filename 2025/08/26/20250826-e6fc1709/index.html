@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="指针  new与delete   类  构造函数  调用顺序取决于类中声明顺序   自己的按值类型是不能够出现的。   成员对象构造函数先执行   析构函数 按照栈的方式推出。   常量&#x2F;静态  静态数据成员是可以以按值类型出现的。   常量只能在初始化列表里被初始化   静态成员的声明与定义   友元  友元不具有传递性也不对称   友元只能够在类内声明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++程序设计基础错题记录">
+<meta property="og:url" content="https://znzryb.com/2025/08/26/20250826-e6fc1709/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="指针  new与delete   类  构造函数  调用顺序取决于类中声明顺序   自己的按值类型是不能够出现的。   成员对象构造函数先执行   析构函数 按照栈的方式推出。   常量&#x2F;静态  静态数据成员是可以以按值类型出现的。   常量只能在初始化列表里被初始化   静态成员的声明与定义   友元  友元不具有传递性也不对称   友元只能够在类内声明">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756186693628.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185460674.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185766932.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756187181140.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185987126.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/20250829152149934.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756453192714.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756454910195.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/20250829153151186.png">
+<meta property="og:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756453729673.png">
+<meta property="article:published_time" content="2025-08-25T21:18:00.000Z">
+<meta property="article:modified_time" content="2026-02-18T03:42:43.955Z">
+<meta property="article:author" content="znzryb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.yunminitools.cn/znzrybPic/QQ_1756186693628.png">
+
+<link rel="canonical" href="https://znzryb.com/2025/08/26/20250826-e6fc1709/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>C++程序设计基础错题记录 | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/08/26/20250826-e6fc1709/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++程序设计基础错题记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-08-26 05:18:00" itemprop="dateCreated datePublished" datetime="2025-08-26T05:18:00+08:00">2025-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-18 11:42:43" itemprop="dateModified" datetime="2026-02-18T11:42:43+08:00">2026-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="指针"><a class="markdownIt-Anchor" href="#指针"></a> 指针</h1>
+<h2 id="new与delete"><a class="markdownIt-Anchor" href="#new与delete"></a> new与delete</h2>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756186693628.png" alt="image" /></p>
+<h1 id="类"><a class="markdownIt-Anchor" href="#类"></a> 类</h1>
+<h2 id="构造函数"><a class="markdownIt-Anchor" href="#构造函数"></a> 构造函数</h2>
+<h3 id="调用顺序取决于类中声明顺序"><a class="markdownIt-Anchor" href="#调用顺序取决于类中声明顺序"></a> 调用顺序取决于类中声明顺序</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185460674.png" alt="image" /></p>
+<h3 id="自己的按值类型是不能够出现的"><a class="markdownIt-Anchor" href="#自己的按值类型是不能够出现的"></a> 自己的按值类型是不能够出现的。</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185766932.png" alt="image" /></p>
+<h3 id="成员对象构造函数先执行"><a class="markdownIt-Anchor" href="#成员对象构造函数先执行"></a> 成员对象构造函数先执行</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756187181140.png" alt="image" /></p>
+<h2 id="析构函数"><a class="markdownIt-Anchor" href="#析构函数"></a> 析构函数</h2>
+<p>按照栈的方式推出。</p>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756185987126.png" alt="image" /></p>
+<h2 id="常量静态"><a class="markdownIt-Anchor" href="#常量静态"></a> 常量/静态</h2>
+<h3 id="静态数据成员是可以以按值类型出现的"><a class="markdownIt-Anchor" href="#静态数据成员是可以以按值类型出现的"></a> 静态数据成员是可以以按值类型出现的。</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/20250829152149934.png" alt="image" /></p>
+<h3 id="常量只能在初始化列表里被初始化"><a class="markdownIt-Anchor" href="#常量只能在初始化列表里被初始化"></a> 常量只能在初始化列表里被初始化</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756453192714.png" alt="image" /></p>
+<h3 id="静态成员的声明与定义"><a class="markdownIt-Anchor" href="#静态成员的声明与定义"></a> 静态成员的声明与定义</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756454910195.png" alt="image" /></p>
+<h2 id="友元"><a class="markdownIt-Anchor" href="#友元"></a> 友元</h2>
+<h3 id="友元不具有传递性也不对称"><a class="markdownIt-Anchor" href="#友元不具有传递性也不对称"></a> 友元<strong>不具有传递性</strong>也<strong>不对称</strong></h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/20250829153151186.png" alt="image" /></p>
+<h3 id="友元只能够在类内声明"><a class="markdownIt-Anchor" href="#友元只能够在类内声明"></a> 友元只能够在类内声明</h3>
+<p><img src="https://cdn.yunminitools.cn/znzrybPic/QQ_1756453729673.png" alt="image" /></p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/26/20250826-f12ebcb5/" rel="prev" title="2024 CCPC Liaoning Provincial Contest——G. 顾影自怜（线段树上二分）">
+      <i class="fa fa-chevron-left"></i> 2024 CCPC Liaoning Provincial Contest——G. 顾影自怜（线段树上二分）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/26/20250826-e5e6d87e/" rel="next" title="P11217 【MX-S4-T1】「yyOI R2」youyou 的垃圾桶">
+      P11217 【MX-S4-T1】「yyOI R2」youyou 的垃圾桶 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text"> 指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new%E4%B8%8Edelete"><span class="nav-number">1.1.</span> <span class="nav-text"> new与delete</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text"> 类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text"> 构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F%E5%8F%96%E5%86%B3%E4%BA%8E%E7%B1%BB%E4%B8%AD%E5%A3%B0%E6%98%8E%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 调用顺序取决于类中声明顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8C%89%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%98%AF%E4%B8%8D%E8%83%BD%E5%A4%9F%E5%87%BA%E7%8E%B0%E7%9A%84"><span class="nav-number">2.1.2.</span> <span class="nav-text"> 自己的按值类型是不能够出现的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%85%88%E6%89%A7%E8%A1%8C"><span class="nav-number">2.1.3.</span> <span class="nav-text"> 成员对象构造函数先执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text"> 析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E9%9D%99%E6%80%81"><span class="nav-number">2.3.</span> <span class="nav-text"> 常量&#x2F;静态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E6%88%90%E5%91%98%E6%98%AF%E5%8F%AF%E4%BB%A5%E4%BB%A5%E6%8C%89%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%87%BA%E7%8E%B0%E7%9A%84"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 静态数据成员是可以以按值类型出现的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%8F%AA%E8%83%BD%E5%9C%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8%E9%87%8C%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 常量只能在初始化列表里被初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.3.</span> <span class="nav-text"> 静态成员的声明与定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">2.4.</span> <span class="nav-text"> 友元</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E4%B8%8D%E5%85%B7%E6%9C%89%E4%BC%A0%E9%80%92%E6%80%A7%E4%B9%9F%E4%B8%8D%E5%AF%B9%E7%A7%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text"> 友元不具有传递性也不对称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E5%8F%AA%E8%83%BD%E5%A4%9F%E5%9C%A8%E7%B1%BB%E5%86%85%E5%A3%B0%E6%98%8E"><span class="nav-number">2.4.2.</span> <span class="nav-text"> 友元只能够在类内声明</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">518</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">162</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
