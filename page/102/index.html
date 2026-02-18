@@ -191,6 +191,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/08/20241008-9adc8b67/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/20241008-9adc8b67/" class="post-title-link" itemprop="url">P2491 [SDOI2011] 消防</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-08 07:28:00" itemprop="dateCreated datePublished" datetime="2024-10-08T07:28:00+08:00">2024-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-12 09:27:02" itemprop="dateModified" datetime="2026-02-12T09:27:02+08:00">2026-02-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<p>给定一棵树，边有边权。需要在树上选一条长度不超过 s 的路径（核心路径），使得树上所有点到这条路径的距离的最大值最小。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/178248030">https://www.luogu.com.cn/record/178248030</a>         50pts TLE</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">3e5</span><span class="number">+7</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;    <span class="comment">//                   记录路径 支路路径长度                   记录直径及其先后顺序</span></span><br><span class="line"><span class="type">int</span> n,s,u,v,w,maxDis,disNode,A,B,pa[maxn],dist[maxn],upDis,upNode,I,cnt,flag[maxn],ldis[maxn],ans=<span class="number">2e9</span><span class="number">+7</span>;</span><br><span class="line"><span class="comment">//                                                                                ldis两端路径长度（可通过直径减去其算出另外一端）</span></span><br><span class="line"><span class="type">int</span> ecc,Lcalibre,Rcalibre,lGive,rGive,L,R,mC;</span><br><span class="line"><span class="type">int</span> sDis[maxn],eDis[maxn],S,E;    <span class="comment">// 当点为start || end 时对长度的贡献</span></span><br><span class="line"><span class="type">bool</span> vis[maxn];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[maxn];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; calibre;</span><br><span class="line">deque &lt;<span class="type">int</span>&gt; q;</span><br><span class="line">unordered_map&lt;string,<span class="type">int</span>&gt; l;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> fa,<span class="type">int</span> dis)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(vector&lt;<span class="type">int</span>&gt;::iterator it=g[fa].<span class="built_in">begin</span>();it!=g[fa].<span class="built_in">end</span>();it++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[*it]==<span class="literal">false</span> &amp;&amp; flag[*it]==<span class="number">0</span>) &#123;</span><br><span class="line">            vis[*it]=<span class="literal">true</span>,pa[*it]=fa;</span><br><span class="line">            string fait=<span class="built_in">to_string</span>(fa)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(*it);</span><br><span class="line">            <span class="keyword">if</span>(dis+l[fait]&gt;maxDis)</span><br><span class="line">                disNode=*it,maxDis=dis+l[fait];</span><br><span class="line">            <span class="built_in">dfs</span>(*it,dis+l[fait]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++) &#123;</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">        string uv=<span class="built_in">to_string</span>(u)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(v);</span><br><span class="line">        string vu=<span class="built_in">to_string</span>(v)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(u);</span><br><span class="line">        l[uv]=w;</span><br><span class="line">        l[vu]=w;</span><br><span class="line">        g[u].<span class="built_in">push_back</span>(v);g[v].<span class="built_in">push_back</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    vis[<span class="number">1</span>]=<span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 复位以及存储 两遍dfs</span></span><br><span class="line">    A=disNode;</span><br><span class="line">    <span class="built_in">fill</span>(&amp;vis[<span class="number">1</span>],&amp;vis[n<span class="number">+1</span>],<span class="literal">false</span>);</span><br><span class="line">    maxDis=<span class="number">0</span>,vis[A]=<span class="literal">true</span>,pa[A]=A;</span><br><span class="line">    <span class="built_in">dfs</span>(A,<span class="number">0</span>);</span><br><span class="line">    B=disNode;</span><br><span class="line">    I=B;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">        flag[I]=++cnt;</span><br><span class="line">        string IupNode=<span class="built_in">to_string</span>(I)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(upNode);</span><br><span class="line">        ldis[I]=upDis+l[IupNode];</span><br><span class="line">        upDis=ldis[I],upNode=I;</span><br><span class="line">        calibre.<span class="built_in">push_back</span>(I);</span><br><span class="line">        <span class="keyword">if</span>(I==pa[I])</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        I=pa[I];</span><br><span class="line">    &#125;</span><br><span class="line">    mC=ldis[A]; <span class="comment">// mC即直径长度</span></span><br><span class="line">    <span class="built_in">fill</span>(&amp;vis[<span class="number">1</span>],&amp;vis[n<span class="number">+1</span>],<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;calibre.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">        maxDis=<span class="number">0</span>,vis[calibre[i]]=<span class="literal">true</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(calibre[i],<span class="number">0</span>);</span><br><span class="line">        dist[calibre[i]]=maxDis;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;calibre[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// cout&lt;&lt;endl;</span></span><br><span class="line">    <span class="comment">// 填充sdis 通过递推</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;calibre.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">        <span class="type">int</span> ci=calibre[i],ci_1= i<span class="number">+1</span>&lt;calibre.<span class="built_in">size</span>() ? calibre[i<span class="number">+1</span>]:calibre[i];</span><br><span class="line">        sDis[ci]=<span class="built_in">max</span>(dist[ci],S);</span><br><span class="line">        string ciCi_1=<span class="built_in">to_string</span>(ci)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(ci_1);</span><br><span class="line">        S=<span class="built_in">max</span>(S+l[ciCi_1],dist[ci]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 填充edis 通过递推</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=calibre.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="type">int</span> ci=calibre[i],ci_1= i<span class="number">-1</span>&gt;=<span class="number">0</span> ? calibre[i<span class="number">-1</span>]:calibre[i];</span><br><span class="line">        eDis[ci]=<span class="built_in">max</span>(dist[ci],E);</span><br><span class="line">        string ciCi_1=<span class="built_in">to_string</span>(ci)+<span class="string">&#x27;_&#x27;</span>+<span class="built_in">to_string</span>(ci_1);</span><br><span class="line">        E=<span class="built_in">max</span>(E+l[ciCi_1],dist[ci]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 双指针+单调队列(deque实现，因为要从后面出队，里面存的实际上是编号)</span></span><br><span class="line">    <span class="keyword">while</span>(L&lt;=R &amp;&amp; R&lt;calibre.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> cl=calibre[L],cr=calibre[R];</span><br><span class="line">        <span class="keyword">if</span>(ldis[cr]-ldis[cl]&gt;s) &#123;</span><br><span class="line">            <span class="keyword">if</span>(q.<span class="built_in">front</span>()&lt;L<span class="number">+1</span>)   q.<span class="built_in">pop_front</span>();  <span class="comment">// 判断队首元素是否过期</span></span><br><span class="line">            L++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>() &amp;&amp; dist[cr]&gt;dist[calibre[q.<span class="built_in">back</span>()]]) &#123;</span><br><span class="line">            q.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        q.<span class="built_in">push_back</span>(R);</span><br><span class="line">        ecc=<span class="built_in">max</span>(sDis[cl],eDis[cr]);</span><br><span class="line">        ecc=<span class="built_in">max</span>(ecc,dist[calibre[q.<span class="built_in">front</span>()]]);</span><br><span class="line">        ans=<span class="built_in">min</span>(ecc,ans);</span><br><span class="line">        <span class="comment">// cout&lt;&lt;L&lt;&lt;&quot; &quot;&lt;&lt;R&lt;&lt;&quot; &quot;&lt;&lt;ans&lt;&lt;&quot; &quot;&lt;&lt;ecc&lt;&lt;endl;</span></span><br><span class="line">        R++;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    <span class="comment">// debug</span></span><br><span class="line">    <span class="comment">// for(int i=1;i&lt;=n;i++) &#123;</span></span><br><span class="line">    <span class="comment">//     cout&lt;&lt;sDis[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cout&lt;&lt;endl;</span></span><br><span class="line">    <span class="comment">// for(int i=1;i&lt;=n;i++) &#123;</span></span><br><span class="line">    <span class="comment">//     cout&lt;&lt;eDis[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/08/20241008-2f75e053/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -503,70 +570,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-37201ccb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/06/20241006-37201ccb/" class="post-title-link" itemprop="url">789. 数的范围</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-06 07:04:00" itemprop="dateCreated datePublished" datetime="2024-10-06T07:04:00+08:00">2024-10-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:55" itemprop="dateModified" datetime="2026-02-11T15:38:55+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://www.acwing.com/problem/content/791/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">100007</span>;</span><br><span class="line"><span class="type">int</span> n,q,k,a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=q;_++) &#123;</span><br><span class="line">        cin&gt;&gt;k;</span><br><span class="line">        <span class="type">int</span> l=<span class="number">1</span>,r=n;</span><br><span class="line">        <span class="keyword">while</span> (l&lt;r) &#123;</span><br><span class="line">            <span class="type">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(a[mid]&gt;=k) r=mid;</span><br><span class="line">            <span class="keyword">else</span> l=mid<span class="number">+1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(a[l]!=k) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;-1 -1&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> l2=<span class="number">1</span>,r2=n;</span><br><span class="line">        <span class="keyword">while</span> (l2&lt;r2) &#123;</span><br><span class="line">            <span class="type">int</span> mid=l2+r2<span class="number">+1</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(a[mid]&lt;=k) l2=mid;</span><br><span class="line">            <span class="keyword">else</span> r2=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;l<span class="number">-1</span>&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;l2<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC  https://www.acwing.com/problem/content/submission/code_detail/37312161/</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -636,7 +639,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">527</span>
+          <span class="site-state-item-count">528</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
