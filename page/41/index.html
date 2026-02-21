@@ -191,85 +191,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/25/20250625-d782a881/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/06/25/20250625-d782a881/" class="post-title-link" itemprop="url">P4391 [BalticOI 2009] Radio Transmission 无线传输</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-06-25 14:04:00" itemprop="dateCreated datePublished" datetime="2025-06-25T14:04:00+08:00">2025-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 21:29:11" itemprop="dateModified" datetime="2026-02-17T21:29:11+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>给出子串，找出最短循环节。</p>
-<p>最大公共前后缀。</p>
-<p>结论就是N-pi[N]。<s>其实我也不是很懂。</s></p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/221541535">https://www.luogu.com.cn/record/221541535</a></p>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: P4391 [BalticOI 2009] Radio Transmission 无线传输</span></span><br><span class="line"><span class="comment">// Contest: Luogu</span></span><br><span class="line"><span class="comment">// URL: https://www.luogu.com.cn/problem/P4391</span></span><br><span class="line"><span class="comment">// Memory Limit: 125 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 1000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	string s;</span><br><span class="line">	cin&gt;&gt;s;</span><br><span class="line">	<span class="comment">// if(N==1) &#123;cout&lt;&lt;1&lt;&lt;&quot;\n&quot;;return;&#125;</span></span><br><span class="line">	s=<span class="string">&#x27;#&#x27;</span>+s;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">pi</span><span class="params">(N<span class="number">+5</span>)</span></span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="keyword">if</span>(i==<span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">		ll len=pi[i<span class="number">-1</span>];</span><br><span class="line">		<span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(s[i]==s[len<span class="number">+1</span>])&#123;</span><br><span class="line">				pi[i]=len<span class="number">+1</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(len==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">			len=pi[len];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// FOR(i,1,N)&#123;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;pi[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	<span class="comment">// ll ans=0;</span></span><br><span class="line">	<span class="comment">// FOR(i,1,N)&#123;</span></span><br><span class="line">		<span class="comment">// ans=max(ans,pi[i]);</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	cout&lt;&lt;N-pi[N]&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://www.luogu.com.cn/record/221541535</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/25/20250625-329020c9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -584,6 +505,84 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/06/22/20250622-eee3e656/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/06/22/20250622-eee3e656/" class="post-title-link" itemprop="url">ABC-411-D - Conflict 2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-06-22 05:07:00" itemprop="dateCreated datePublished" datetime="2025-06-22T05:07:00+08:00">2025-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 20:15:59" itemprop="dateModified" datetime="2026-02-17T20:15:59+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>通过倒序遍历，就可以提前知道这个操作是否会影响最终的服务器端字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ROF</span>(i,Q,<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(op[i]==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(idx==pos[i])&#123;</span><br><span class="line">			<span class="comment">// 那么为什么将服务器字符串赋值给电脑端的操作需要重置字符串为0？</span></span><br><span class="line">			<span class="comment">// 其实答案就藏在上面这个if条件中</span></span><br><span class="line">			idx=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(op[i]==<span class="number">2</span>)&#123;		</span><br><span class="line">		<span class="keyword">if</span>(idx==pos[i])&#123;	<span class="comment">//  那么当我们发现改变该字符串会改变最终状态</span></span><br><span class="line">			ans+=S[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">// 比较好理解，就是说当发现sever发现其是来自于pos[i]的时候将idx设置为pos[i]</span></span><br><span class="line">		<span class="keyword">if</span>(idx==<span class="number">0</span>)&#123;		</span><br><span class="line">		<span class="comment">// 这个条件就是说如果pos[i]其会改变最终状态，前面这个pos[i]必须是白板</span></span><br><span class="line">			idx=pos[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc411/submissions/66994292">https://atcoder.jp/contests/abc411/submissions/66994292</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: D - Conflict 2</span></span><br><span class="line"><span class="comment">// Contest: AtCoder - UNIQUE VISION Programming Contest 2025 Summer (AtCoder Beginner Contest 411)</span></span><br><span class="line"><span class="comment">// URL: https://atcoder.jp/contests/abc411/tasks/abc411_d</span></span><br><span class="line"><span class="comment">// Memory Limit: 1024 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;<span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;<span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> LD;</span><br><span class="line"><span class="keyword">typedef</span> __int128 i128;<span class="keyword">typedef</span> pair&lt;DB,DB&gt; pdd;<span class="keyword">typedef</span> pair&lt;ll,<span class="type">bool</span>&gt; plb;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll,3&gt; arr3;<span class="keyword">typedef</span> array&lt;ll,2&gt; arr2;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;Q;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="function">vector&lt;string&gt; <span class="title">S</span><span class="params">(Q<span class="number">+5</span>)</span></span>;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">op</span><span class="params">(Q<span class="number">+5</span>)</span></span>;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">pos</span><span class="params">(Q<span class="number">+5</span>)</span></span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,Q)&#123;</span><br><span class="line">		cin&gt;&gt;op[i]&gt;&gt;pos[i];</span><br><span class="line">		<span class="keyword">if</span>(op[i]==<span class="number">2</span>) &#123;cin&gt;&gt;S[i];<span class="built_in">reverse</span>(S[i].<span class="built_in">begin</span>(),S[i].<span class="built_in">end</span>());&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	string ans;ll idx=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">ROF</span>(i,Q,<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(op[i]==<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(idx==pos[i])&#123;</span><br><span class="line">				<span class="comment">// 那么为什么将服务器字符串赋值给电脑端的操作需要重置字符串为0？</span></span><br><span class="line">				<span class="comment">// 其实答案就藏在上面这个if条件中</span></span><br><span class="line">				idx=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(op[i]==<span class="number">2</span>)&#123;		</span><br><span class="line">			<span class="keyword">if</span>(idx==pos[i])&#123;	<span class="comment">//  那么当我们发现改变该字符串会改变最终状态</span></span><br><span class="line">				ans+=S[i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="comment">// 比较好理解，就是说当发现sever发现其是来自于pos[i]的时候将idx设置为pos[i]</span></span><br><span class="line">			<span class="keyword">if</span>(idx==<span class="number">0</span>)&#123;		</span><br><span class="line">			<span class="comment">// 这个条件就是说如果pos[i]其会改变最终状态，前面这个pos[i]必须是白板</span></span><br><span class="line">				idx=pos[i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">reverse</span>(ans.<span class="built_in">begin</span>(),ans.<span class="built_in">end</span>());</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	cout&lt;&lt;S[<span class="number">0</span>]&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)&#123;</span></span><br><span class="line">		<span class="comment">// solve();</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://atcoder.jp/contests/abc411/submissions/66994292</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -655,7 +654,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">584</span>
+          <span class="site-state-item-count">583</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
