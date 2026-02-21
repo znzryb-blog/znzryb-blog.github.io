@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-21 00:03:16" itemprop="dateModified" datetime="2026-02-21T00:03:16+08:00">2026-02-21</time>
+                <time title="Modified: 2026-02-21 12:02:58" itemprop="dateModified" datetime="2026-02-21T12:02:58+08:00">2026-02-21</time>
               </span>
 
           
@@ -517,6 +517,15 @@
 <p>我们使用 iPad 画图来说明一下我们的这个意思。</p>
 <p><img src="https://media.znzryb.com/20250726-a8b44de9/image_659bfacb.png" alt="image" /></p>
 <p>说白了就是在线段树中的 j 存储不同的逆元值，存储的 DP j 乘以不同的逆元值，进而得到乘以相同的值，达到乘以不同值的这个效果。觉得我这个图还是画的比较清楚的。</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        错误 2（虽然说都是乘法，但是实际上我们这里是涉及到除法的（即模逆元），涉及到除法就要考虑到这个0的问题）
+    </div>
+    <div class='fold-content'>
+        <p><img src="https://media.znzryb.com/20250726-a8b44de9/image_707699cd.png" alt="image" /></p>
+
+    </div>
+</div>
 <h2 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
