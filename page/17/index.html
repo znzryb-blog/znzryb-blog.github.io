@@ -191,6 +191,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/09/18/20250918-c8b4780d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/09/18/20250918-c8b4780d/" class="post-title-link" itemprop="url">START204——Perfect Matching</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-09-18 04:56:00" itemprop="dateCreated datePublished" datetime="2025-09-18T04:56:00+08:00">2025-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-18 11:43:05" itemprop="dateModified" datetime="2026-02-18T11:43:05+08:00">2026-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>我发现，这个还是要解偶，就是说，我们要得到放的种类数，但是这个“种类”，就是第 1 小的数字放在哪里，第 2 小的数字放在哪里，。。。，第 n 小的数字放在哪里。其中具体放什么数字，直接从这个他后面的数字中取就可以了。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>会算多的想法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">4</span>;i&lt;=N;i+=<span class="number">2</span>)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这个代码的问题在于不是所有的都能换</span></span><br><span class="line">    <span class="comment">// 只有处于末尾位置的节点才可以换</span></span><br><span class="line">    <span class="built_in">FOR</span>(k,<span class="number">1</span>,N)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i<span class="number">-2</span>-k&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        dp[i]+=dp[i<span class="number">-2</span>]*(i<span class="number">-2</span>-k)*<span class="number">2</span>;</span><br><span class="line">        dp[i]+=dp[i<span class="number">-2</span>];</span><br><span class="line">        dp[i]%=mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分母是 （i-1）！</span></span><br><span class="line">    ans[i]=dp[i]*inv[i<span class="number">-1</span>];</span><br><span class="line">    ans[i]%=mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是我认为总体大思路是没有问题的，其实难点就在于如何知道可以更换的末尾节点有多少个。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/09/17/20250917-fa857855/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -502,103 +581,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/09/12/20250912-6a90ad69/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/12/20250912-6a90ad69/" class="post-title-link" itemprop="url">START201——Permutation Cost Sum（排列成环，交换排序）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-09-12 05:05:00" itemprop="dateCreated datePublished" datetime="2025-09-12T05:05:00+08:00">2025-09-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-18 11:42:59" itemprop="dateModified" datetime="2026-02-18T11:42:59+08:00">2026-02-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>我们发现，即便我们选了一个这个O(1)的，解决简单问题（单组问题的方法），好像也没什么用？所以说问题难道是引导我们怎么直接计算这个东西？我只能说是无从下手呀。</p>
-<blockquote>
-<p>Cycle decomposition of permutations</p>
-</blockquote>
-<p>这个东西是什么意思那？</p>
-<p><a target="_blank" rel="noopener" href="https://nor-blog.pages.dev/posts/2023-01-09-permutations-for-beginners/">https://nor-blog.pages.dev/posts/2023-01-09-permutations-for-beginners/</a></p>
-<p>其实就是排列成环。</p>
-<p>我们发现这个无视距离的交换就非常适合用图论来分析。</p>
-<p>最后时间复杂度是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><msqrt><mi>N</mi></msqrt><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N\sqrt N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.176665em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9266650000000001em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;padding-left:0.833em;">N</span></span><span style="top:-2.886665em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.11333499999999996em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fa[i] == i) &#123;</span><br><span class="line">        ll freq = cnt[i];</span><br><span class="line">        <span class="keyword">if</span> (freq == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (memo[freq]) &#123;</span><br><span class="line">            ans += memo[freq];</span><br><span class="line">            ans %= mod;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ll lans = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 这里A的定义和题目里面反过来了，不过我认为都一样</span></span><br><span class="line">        <span class="built_in">FOR</span>(a, <span class="number">1</span>, N) &#123;</span><br><span class="line">            ll b = a - a / freq;</span><br><span class="line">            <span class="keyword">if</span> (b &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="comment">// 前面是会变化的 b 来接手</span></span><br><span class="line">                lans += (freq) * (<span class="number">1</span> + b - <span class="number">1</span>) * (b - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                lans %= mod;</span><br><span class="line">                <span class="comment">// 注意 b 的上限是 N</span></span><br><span class="line">                <span class="comment">// 而不是 a</span></span><br><span class="line">                lans += (freq - <span class="number">1</span>) * (a + a) * (N - b + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                lans %= mod;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                lans += (freq - <span class="number">1</span>) * (a + a) * (N - b + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                lans %= mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        memo[freq] = lans;</span><br><span class="line">        ans += lans;</span><br><span class="line">        ans %= mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://www.codechef.com/viewsolution/1190700079">https://www.codechef.com/viewsolution/1190700079</a></p>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// by Gospel_rock</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(), vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PB push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PF push_front</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EB emplace_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EF emplace_front</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EM emplace</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FI first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SE second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pct __builtin_popcountll</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ctz __builtin_ctzll</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long)a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; var &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr &lt;&lt; <span class="string">&quot;\n-----------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed &lt;&lt; setprecision(x)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> minn(vec) *min_element(vec.begin(), vec.end())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> maxx(vec) *max_element(vec.begin(), vec.end())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> _print(T x) &#123; cerr &lt;&lt; x; &#125;</span><br><span class="line"><span class="comment">// 可以打印多层数组，但是格式不是很好</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> _print(vector&lt;T&gt; v) &#123;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;[ &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (T i : v)</span><br><span class="line">        _print(i), cerr &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;]&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> _print(set&lt;T&gt; s) &#123;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#123; &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (T i : s)</span><br><span class="line">        _print(i), cerr &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> _print(pair&lt;T, U&gt; p) &#123;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>;</span><br><span class="line">    _print(p.first);</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;, &quot;</span>;</span><br><span class="line">    _print(p.second);</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> _print(map&lt;T, U&gt; m) &#123;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#123; &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;p : m)</span><br><span class="line">        _print(p), cerr &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 打印两层数组，格式好一些</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> _print(vector&lt;vector&lt;T&gt;&gt; v) &#123;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot;&#123;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> i : v)</span><br><span class="line">        _print(i), cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    cerr &lt;&lt; <span class="string">&quot; &#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ld = <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> LD = <span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> i128 = __int128;</span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;ld, ld&gt;;</span><br><span class="line"><span class="keyword">using</span> plb = pair&lt;ll, <span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll, ll&gt;;</span><br><span class="line"><span class="keyword">using</span> vll = vector&lt;ll&gt;;</span><br><span class="line"><span class="keyword">using</span> vb = vector&lt;<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> tll = tuple&lt;ll, ll, ll&gt;;</span><br><span class="line"><span class="keyword">using</span> vii = vector&lt;<span class="type">int</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> vpll = vector&lt;pll&gt;;</span><br><span class="line"><span class="keyword">using</span> vtll = vector&lt;tll&gt;;</span><br><span class="line"><span class="keyword">using</span> vdb = vector&lt;ld&gt;;</span><br><span class="line"><span class="keyword">using</span> vc = vector&lt;<span class="type">char</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll, <span class="number">3</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> arr2 = array&lt;ll, <span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">2e5</span> + <span class="number">10</span>,</span><br><span class="line">                    INF = (ll)<span class="number">1e17</span> + <span class="number">3</span>; <span class="comment">// 1e17+3是素数 1e18+9是素数</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line">ll N, M, Q, X, K, T, lT;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> __();</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; lT;</span><br><span class="line">    <span class="keyword">while</span> (lT--)</span><br><span class="line">        __();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">ll fa[MAXN];</span><br><span class="line">ll cnt[MAXN];</span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (fa[x] == x)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    ll fax = <span class="built_in">find</span>(x), fay = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (fax == fay)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    fa[fax] = fay;</span><br><span class="line">    cnt[fay] += cnt[fax];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> __() &#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="function">vll <span class="title">P</span><span class="params">(N + <span class="number">5</span>)</span></span>;</span><br><span class="line">    <span class="comment">// vector&lt;vll&gt; g(N + 5);</span></span><br><span class="line">    <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">        fa[i] = i;</span><br><span class="line">        cnt[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">        cin &gt;&gt; P[i];</span><br><span class="line">        <span class="comment">// g[i].PB(P[i]);</span></span><br><span class="line">        <span class="built_in">merge</span>(i, P[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vll <span class="title">memo</span><span class="params">(N + <span class="number">5</span>)</span></span>;</span><br><span class="line">    <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">        <span class="keyword">if</span> (fa[i] == i) &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">            <span class="built_in">debug</span>(i);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">            ll freq = cnt[i];</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">            <span class="built_in">debug</span>(freq);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">            <span class="keyword">if</span> (freq == <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (memo[freq]) &#123;</span><br><span class="line">                ans += memo[freq];</span><br><span class="line">                ans %= mod;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ll lans = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 这里A的定义和题目里面反过来了，不过我认为都一样</span></span><br><span class="line">            <span class="built_in">FOR</span>(a, <span class="number">1</span>, N) &#123;</span><br><span class="line">                ll b = a - a / freq;</span><br><span class="line">                <span class="keyword">if</span> (b &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">// 前面是会变化的 b 来接手</span></span><br><span class="line">                    lans += (freq) * (<span class="number">1</span> + b - <span class="number">1</span>) * (b - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                    lans %= mod;</span><br><span class="line">                    lans += (freq - <span class="number">1</span>) * (a + a) * (N - b + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                    lans %= mod;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lans += (freq - <span class="number">1</span>) * (a + a) * (N - b + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                    lans %= mod;</span><br><span class="line">                &#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line"><span class="comment">//                 debug(lans);</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">            &#125;</span><br><span class="line">            memo[freq] = lans;</span><br><span class="line">            ans += lans;</span><br><span class="line">            ans %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -670,7 +652,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">583</span>
+          <span class="site-state-item-count">584</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
