@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基本情况 打的还是挺不错的。一共做出来四道题，做出来四道题。这个 D 题是最后 A 的，D 题是最后 A 的。哎，D 题这个叫什么，稍微有点唐了，这漏了这两行有点唐了。还有这个 C 啊，读错题目了。这个 C 读错题目了，绷不住了，我自己给自己上难度啊，以为这个弹夹可以不打完就就换，这个弹夹可以不打完就换，自己给自己上难度。以后遇到这个题目啊，就是如果我们发现这道题目，就是我们还是要确定一下，就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF-1081-赛后总结（不同的值就用不同的变量，不要用同一个变量，可能会导致漏写错写，请尽量少的复用原有的变量）">
+<meta property="og:url" content="https://znzryb.com/2026/02/21/20260221-44c6d26e/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="基本情况 打的还是挺不错的。一共做出来四道题，做出来四道题。这个 D 题是最后 A 的，D 题是最后 A 的。哎，D 题这个叫什么，稍微有点唐了，这漏了这两行有点唐了。还有这个 C 啊，读错题目了。这个 C 读错题目了，绷不住了，我自己给自己上难度啊，以为这个弹夹可以不打完就就换，这个弹夹可以不打完就换，自己给自己上难度。以后遇到这个题目啊，就是如果我们发现这道题目，就是我们还是要确定一下，就是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260221-44c6d26e/image_7e9335e8.png">
+<meta property="article:published_time" content="2026-02-21T08:55:00.000Z">
+<meta property="article:modified_time" content="2026-02-22T02:01:47.558Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="赛后总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260221-44c6d26e/image_7e9335e8.png">
+
+<link rel="canonical" href="https://znzryb.com/2026/02/21/20260221-44c6d26e/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>CF-1081-赛后总结（不同的值就用不同的变量，不要用同一个变量，可能会导致漏写错写，请尽量少的复用原有的变量） | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/21/20260221-44c6d26e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF-1081-赛后总结（不同的值就用不同的变量，不要用同一个变量，可能会导致漏写错写，请尽量少的复用原有的变量）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-02-21 16:55:00" itemprop="dateCreated datePublished" datetime="2026-02-21T16:55:00+08:00">2026-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-22 10:01:47" itemprop="dateModified" datetime="2026-02-22T10:01:47+08:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本情况"><a class="markdownIt-Anchor" href="#基本情况"></a> 基本情况</h2>
+<p>打的还是挺不错的。一共做出来四道题，做出来四道题。这个 D 题是最后 A 的，D 题是最后 A 的。哎，D 题这个叫什么，稍微有点唐了，这漏了这两行有点唐了。还有这个 C 啊，读错题目了。这个 C 读错题目了，绷不住了，我自己给自己上难度啊，以为这个弹夹可以不打完就就换，这个弹夹可以不打完就换，自己给自己上难度。以后遇到这个题目啊，就是如果我们发现这道题目，就是我们还是要确定一下，就是一些限制条件，我们还是要想办法确定一下。</p>
+<p>然后这个 d 的这个情况也是比较长的，就这个 d 漏的这两行比较长吧。是这样子，我感觉呢，以后这种如果说有多个，然后需要取 max 的话，最好啊 最好就是多整几行，多整几个变量，整个 add1 add2，这样子就你你不会忘记去给它进行这么一个赋值。然后你 add 1，你写出来，你不用，编译器还会报警，IDE 还会报警，对吧？你 add 1没用，你就知道你要把它取个 max 对吧？</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2192">https://codeforces.com/contest/2192</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a.id!=b.id) &#123;</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    a=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_diff_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">    a=*mx_diff_st.<span class="built_in">rbegin</span>();</span><br><span class="line">    b=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_a_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://media.znzryb.com/20260221-44c6d26e/image_7e9335e8.png" alt="image" /></p>
+<h2 id="心得感悟"><a class="markdownIt-Anchor" href="#心得感悟"></a> 心得感悟</h2>
+<p>下面是和队友对 D 题的这个探讨。</p>
+<p>ZnZrYb: 02-22 00:36:59<br />
+首先是树上 dp</p>
+<p>ZnZrYb: 02-22 00:37:38<br />
+auto dfs2=[&amp;](auto &amp;&amp; self,ll u,ll p,ll dep) -&gt; void {<br />
+dep_ls[u]=dep;<br />
+set&lt;Dep_sub&gt; mx_diff_st;<br />
+set&lt;A_sub&gt; mx_a_st;<br />
+ll id=0;<br />
+ll add_mx=0;<br />
+for (auto to:g[u]) {<br />
+if (to==p) continue;<br />
+self(self,to,u,dep+1);<br />
+dp[u]+=dp[to];<br />
+dp[u]+=sum_a[to];<br />
+sum_a[u]+=sum_a[to];<br />
+add_mx=max(add_mx,ans_ls[to]-dp[to]);<br />
+mx_dep[u]=max(mx_dep[to],mx_dep[u]);<br />
+++id;<br />
+mx_diff_st.insert({id,mx_dep[to]-dep});<br />
+mx_a_st.insert({id,sum_a[to]});<br />
+}<br />
+if (id&gt;=2) {<br />
+Dep_sub a=<em>mx_diff_st.rbegin();<br />
+A_sub b=<em>mx_a_st.rbegin();<br />
+ll add=0;<br />
+if (</em><a target="_blank" rel="noopener" href="http://a.id/"><em>a.id</em></a></em>!=<em><a target="_blank" rel="noopener" href="http://b.id/"><em>b.id</em></a></em>) {<br />
+add=a.dep*b.suma;<br />
+add_mx=max(add,add_mx);<br />
+}else {<br />
+a=<em>prev(prev(mx_diff_st.end()));<br />
+add=a.dep</em>b.suma;<br />
+add_mx=max(add,add_mx);<br />
+a=*mx_diff_st.rbegin();<br />
+b=<em>prev(prev(mx_a_st.end()));<br />
+add=a.dep</em>b.suma;<br />
+add_mx=max(add,add_mx);<br />
+}<br />
+}<br />
+ans_ls[u]=dp[u]+add_mx;<br />
+sum_a[u]+=A[u];<br />
+mx_dep[u]=max(dep,mx_dep[u]);<br />
+};</p>
+<p>ZnZrYb: 02-22 00:37:54<br />
+答案在这个 ans</p>
+<p>鵗曦: 02-22 00:39:12<br />
+我是先枚举移动各个节点，显然移动该节点最好办法就是移动到子树外的最深节点，移完之后贡献变化是高度差乘以子树的系数和</p>
+<p>ZnZrYb: 02-22 00:39:19<br />
+具体来说就是这个增量可以从，就是子节点里面来，就是可以从子节点里面来。然后这个增量也可以就是我们自己来操作。自己来操作的话，是使用的 Max D I F F S T 和 Max A S T。其实就是把最大的 sum A 嫁接到最大的深度指数上。但如果说最大的深度指数和最大的 sum A 是同一个的话，需要稍微进行一下其他处理。</p>
+<p>鵗曦: 02-22 00:39:29<br />
+然后每个节点的答案就是子树的最大值。</p>
+<p>鵗曦: 02-22 00:40:10<br />
+我是这么想的，但是写不对。</p>
+<p>鵗曦: 02-22 00:40:48<br />
+你觉得对不对</p>
+<p>鵗曦: 02-22 00:40:51<br />
+[图片]</p>
+<p>鵗曦: 02-22 00:41:14<br />
+diffst和ast是啥玩意</p>
+<p>ZnZrYb: 02-22 00:42:13<br />
+diff_st 存的是子树深度差值。 AST 就是存的是子树权值和</p>
+<p>ZnZrYb: 02-22 00:43:01<br />
+我觉得这个思路挺对的</p>
+<p>鵗曦: 02-22 00:43:53<br />
+按我这么写，需要用的信息可以O（n）维护出来。唯一的难点就是要查子树外的最深节点</p>
+<p>鵗曦: 02-22 00:44:02<br />
+然后咱想的是上个树剖</p>
+<p>ZnZrYb: 02-22 00:44:15<br />
+啊</p>
+<p>鵗曦: 02-22 00:44:24<br />
+因为一个子树在dfn上是连续的。</p>
+<p>鵗曦: 02-22 00:44:37<br />
+所以可以查前面一整段和后面一整段，取其中的深度最大值。</p>
+<p>鵗曦: 02-22 00:44:44<br />
+但是写的不对</p>
+<p>鵗曦: 02-22 00:44:51<br />
+[图片]</p>
+<p>ZnZrYb: 02-22 00:44:55<br />
+懂了</p>
+<p>ZnZrYb: 02-22 00:45:50<br />
+那就上个 st 表都能解决</p>
+<p>ZnZrYb: 02-22 00:46:03<br />
+感觉挺对的</p>
+<p>鵗曦: 02-22 00:46:13<br />
+过不去样例</p>
+<p>鵗曦: 02-22 00:46:16<br />
+写炸了</p>
+<p>ZnZrYb: 02-22 00:46:21<br />
+[笑哭]</p>
+<p>鵗曦: 02-22 00:46:57<br />
+dfn序列用st表预处理是吧</p>
+<p>鵗曦: 02-22 00:47:14<br />
+咱的树剖板子默认写了线段树</p>
+<p>ZnZrYb: 02-22 00:47:22<br />
+哦，我知道你可能是哪里的问题了</p>
+<p>鵗曦: 02-22 00:47:41<br />
+哪里</p>
+<p>ZnZrYb: 02-22 00:48:34<br />
+不过我不确定，就是你限定了树的范围了吧，就是他求的是 i 的子树</p>
+<p>ZnZrYb: 02-22 00:48:38<br />
+的答案</p>
+<p>鵗曦: 02-22 00:49:16<br />
+不是输出每个节点对应的答案吗</p>
+<p>鵗曦: 02-22 00:49:26<br />
+每个节点的操作是可以任意选择它指数里面的一个节点进行嫁接</p>
+<p>鵗曦: 02-22 00:49:34<br />
+子树</p>
+<p>鵗曦: 02-22 00:49:57<br />
+所以每个节点的答案就是处理出来的子树里的最大值。</p>
+<p>ZnZrYb: 02-22 00:51:36<br />
+感觉好像你没有理解错啊，你也是查询的子树里深度最大值是吧</p>
+<p>鵗曦: 02-22 00:52:09<br />
+我已经枚举计算过了，假如要移动某某个节点，能产生的最大权重</p>
+<p>鵗曦: 02-22 00:52:35<br />
+所以输出答案的时候，对于一个节点的答案，只需要找这个节点所在的子数里面计算出的各个最大权重中的最大</p>
+<p>鵗曦: 02-22 00:52:47<br />
+当然也是O（n）就能弄出来的。</p>
+<p>ZnZrYb: 02-22 00:53:41<br />
+子树里面的这个点，是连到子树里面，还是连到子树外面</p>
+<p>ZnZrYb: 02-22 00:54:22<br />
+如果计算 i 的答案，子树 i 里面的点必须只能连接到子树 i 的里面的其他点</p>
+<p>鵗曦: 02-22 00:54:34<br />
+6</p>
+<p>鵗曦: 02-22 00:54:37<br />
+这里理解错了</p>
+<p>鵗曦: 02-22 00:55:15<br />
+那我这样反着做错完了。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93/" rel="tag"># 赛后总结</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/02/19/20260219-b383813a/" rel="prev" title="2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——I. Cutting Trees（这种题目呢，显然是需要你去观察得到一个结论。但是怎么样去观察呢？往往这些题目具有自相似的这个特性，因此我们可以从一层开始，先只考虑一层，然后再考虑下面一层，分层的去解决这个问题）">
+      <i class="fa fa-chevron-left"></i> 2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——I. Cutting Trees（这种题目呢，显然是需要你去观察得到一个结论。但是怎么样去观察呢？往往这些题目具有自相似的这个特性，因此我们可以从一层开始，先只考虑一层，然后再考虑下面一层，分层的去解决这个问题）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%83%85%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text"> 基本情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E6%84%9F%E6%82%9F"><span class="nav-number">2.</span> <span class="nav-text"> 心得感悟</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">583</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

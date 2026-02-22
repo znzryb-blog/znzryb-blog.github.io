@@ -191,6 +191,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/05/25/20250525-73f75a7c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/05/25/20250525-73f75a7c/" class="post-title-link" itemprop="url">【LGR-225-Div.1.5】洛谷蓝桥杯模拟赛 H P12597 穿睡衣军训</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-05-25 12:53:00" itemprop="dateCreated datePublished" datetime="2025-05-25T12:53:00+08:00">2025-05-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 20:02:01" itemprop="dateModified" datetime="2026-02-17T20:02:01+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>子序列自动机，最重要的是next数组，可以找到从i位置开始，字符下一次出现在哪个位置（下标）(包括i位置)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">seqAuto</span>&#123;	<span class="comment">// 子序列自动机 subsequence automaton </span></span><br><span class="line">	<span class="comment">// 可以处理大小写字母，数字，但是可能要改一下base以及next</span></span><br><span class="line">	vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; next;</span><br><span class="line">	<span class="comment">// 从i位置开始，字符下一次出现在哪个位置（下标）(包括i位置)</span></span><br><span class="line">	<span class="type">char</span> base=<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">	<span class="built_in">seqAuto</span>(<span class="type">const</span> string &amp;s)&#123;</span><br><span class="line">		next.<span class="built_in">assign</span>(<span class="built_in">SZ</span>(s)<span class="number">+5</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">28</span>,<span class="number">-1</span>));</span><br><span class="line">		<span class="built_in">ROF</span>(i,<span class="built_in">SZ</span>(s)<span class="number">-1</span>,<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">FOR</span>(j,<span class="number">0</span>,<span class="number">26</span>)&#123;</span><br><span class="line">				next[i][j]=next[i<span class="number">+1</span>][j];</span><br><span class="line">			&#125;</span><br><span class="line">			next[i][s[i]-base]=i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">isFind</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>&#123;	<span class="comment">// 传入substr时，必须为const属性</span></span><br><span class="line">		ll idx=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">FOR</span>(i,<span class="number">0</span>,<span class="built_in">SZ</span>(s)<span class="number">-1</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(next[idx][s[i]-base]!=<span class="number">-1</span>)&#123;</span><br><span class="line">				idx=next[idx][s[i]-base]<span class="number">+1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后用双指针方式枚举子串</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">0</span>,<span class="built_in">SZ</span>(S)<span class="number">-1</span>)&#123;	<span class="comment">// 双指针</span></span><br><span class="line">	<span class="built_in">FOR</span>(j,bp,<span class="built_in">SZ</span>(S))&#123;</span><br><span class="line">		<span class="built_in">assert</span>(j&gt;=i);</span><br><span class="line">		ll len=j-i;</span><br><span class="line">		<span class="keyword">if</span>(!sat.<span class="built_in">isFind</span>(S.<span class="built_in">substr</span>(i,len)))&#123;	<span class="comment">// pos,len</span></span><br><span class="line">			bp=j;</span><br><span class="line">			<span class="keyword">if</span>(ans.<span class="built_in">empty</span>() || len<span class="number">-1</span>&gt;<span class="built_in">SZ</span>(ans.<span class="built_in">back</span>()))&#123;</span><br><span class="line">				ans.<span class="built_in">clear</span>();</span><br><span class="line">				ans.<span class="built_in">pb</span>(S.<span class="built_in">substr</span>(i,len<span class="number">-1</span>));</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(len<span class="number">-1</span>==<span class="built_in">SZ</span>(ans.<span class="built_in">back</span>()) )&#123;</span><br><span class="line">				ans.<span class="built_in">pb</span>(S.<span class="built_in">substr</span>(i,len<span class="number">-1</span>));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/218545124">https://www.luogu.com.cn/record/218545124</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: P12597 穿睡衣军训</span></span><br><span class="line"><span class="comment">// Contest: Luogu</span></span><br><span class="line"><span class="comment">// URL: https://www.luogu.com.cn/problem/P12597</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 1000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i,a) memset(i,a,sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> getFro(vec) (vec.empty()?0:vec.front())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> getBac(vec) (vec.empty()?0:vec.front())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEBUG(variable) \</span></span><br><span class="line"><span class="meta">    do &#123; \</span></span><br><span class="line"><span class="meta">        std::cerr &lt;&lt; #variable &lt;&lt; <span class="string">&quot;:&quot;</span>; \</span></span><br><span class="line"><span class="meta">        for (const auto&amp; elem : variable) &#123; \</span></span><br><span class="line"><span class="meta">            std::cerr &lt;&lt; elem &lt;&lt; <span class="string">&quot; &quot;</span>; \</span></span><br><span class="line"><span class="meta">        &#125; \</span></span><br><span class="line"><span class="meta">        std::cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; \</span></span><br><span class="line"><span class="meta">    &#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uniVec(var) \</span></span><br><span class="line"><span class="meta">    do &#123; \</span></span><br><span class="line"><span class="meta">        sort(var.begin(),var.end());\</span></span><br><span class="line"><span class="meta">        var.resize(unique(var.begin(),var.end())-var.begin());\</span></span><br><span class="line"><span class="meta">    &#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debugN(var,N) \</span></span><br><span class="line"><span class="meta">	do&#123; \</span></span><br><span class="line"><span class="meta">		std::cerr&lt;&lt;#var&lt;&lt;<span class="string">&quot;:&quot;</span>; \</span></span><br><span class="line"><span class="meta">		FOR(i,1,N)&#123; \</span></span><br><span class="line"><span class="meta">			std::cerr&lt;&lt;var[i]&lt;&lt;<span class="string">&quot; &quot;</span>; \</span></span><br><span class="line"><span class="meta">		&#125; \</span></span><br><span class="line"><span class="meta">		std::cerr&lt;&lt;<span class="string">&quot;\n&quot;</span>; \</span></span><br><span class="line"><span class="meta">	&#125;while(0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debugMap(variable) \</span></span><br><span class="line"><span class="meta">    do &#123; \</span></span><br><span class="line"><span class="meta">        std::cerr &lt;&lt; #variable &lt;&lt; <span class="string">&quot;:\n&quot;</span>; \</span></span><br><span class="line"><span class="meta">        for (const auto&amp; pair : variable) &#123; \</span></span><br><span class="line"><span class="meta">            std::cerr <span class="string">&lt;&lt; &quot;  &quot; &lt;&lt; pair.first &lt;&lt; &quot; =&gt;</span> <span class="string">&quot; &lt;&lt; pair.second &lt;&lt; &quot;</span>\n<span class="string">&quot;; \</span></span></span><br><span class="line"><span class="string"><span class="meta">        &#125; \</span></span></span><br><span class="line"><span class="string"><span class="meta">        std::cerr &lt;&lt; std::endl; \</span></span></span><br><span class="line"><span class="string"><span class="meta">    &#125; while (0)</span></span></span><br><span class="line"><span class="string"><span class="meta">#define lson(var) (var&lt;&lt;1)</span></span></span><br><span class="line"><span class="string"><span class="meta">#define rson(var) ((var&lt;&lt;1)+1)</span></span></span><br><span class="line"><span class="string"><span class="meta">#define vecMxx(vec,x) (vec.end()-lower_bound(all(vec),x))	// vec中大于x的数有几个</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">using namespace std;</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">typedef long long ll;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef unsigned long long ull;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef __int128 i128;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef pair&lt;ll,ll&gt; pll;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef array&lt;ll,3&gt; arr3;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef array&lt;ll,2&gt; arr2;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef double DB;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef long double LD;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef pair&lt;DB,DB&gt; pdd;</span></span></span><br><span class="line"><span class="string"><span class="meta">typedef pair&lt;ll,bool&gt; plb;</span></span></span><br><span class="line"><span class="string"><span class="meta">constexpr ll MAXN=static_cast&lt;ll&gt;(1e6)+10,INF=static_cast&lt;ll&gt;(1e18)+3;</span></span></span><br><span class="line"><span class="string"><span class="meta">constexpr ll mod=static_cast&lt;ll&gt;(1e9)+7;</span></span></span><br><span class="line"><span class="string"><span class="meta">constexpr double eps=1e-8;</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">ll N,M,Q,X,K,lT,A[MAXN];</span></span></span><br><span class="line"><span class="string"><span class="meta">/*</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">*/</span></span></span><br><span class="line"><span class="string"><span class="meta">struct seqAuto&#123;	// 子序列自动机 subsequence automaton </span></span></span><br><span class="line"><span class="string"><span class="meta">	// 可以处理大小写字母，数字，但是可能要改一下base以及next</span></span></span><br><span class="line"><span class="string"><span class="meta">	vector&lt;vector&lt;int&gt;&gt; next;</span></span></span><br><span class="line"><span class="string"><span class="meta">	// 从i位置开始，字符下一次出现在哪个位置（下标）(包括i位置)</span></span></span><br><span class="line"><span class="string"><span class="meta">	char base=&#x27;a&#x27;;</span></span></span><br><span class="line"><span class="string"><span class="meta">	seqAuto(const string &amp;s)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">		next.assign(SZ(s)+5,vector&lt;int&gt;(28,-1));</span></span></span><br><span class="line"><span class="string"><span class="meta">		ROF(i,SZ(s)-1,0)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">			FOR(j,0,26)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">				next[i][j]=next[i+1][j];</span></span></span><br><span class="line"><span class="string"><span class="meta">			&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">			next[i][s[i]-base]=i;</span></span></span><br><span class="line"><span class="string"><span class="meta">		&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">	&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">	inline bool isFind(const string &amp;s)&#123;	// 传入substr时，必须为const属性</span></span></span><br><span class="line"><span class="string"><span class="meta">		ll idx=0;</span></span></span><br><span class="line"><span class="string"><span class="meta">		FOR(i,0,SZ(s)-1)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">			if(next[idx][s[i]-base]!=-1)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">				idx=next[idx][s[i]-base]+1;</span></span></span><br><span class="line"><span class="string"><span class="meta">			&#125;else&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">				return false;</span></span></span><br><span class="line"><span class="string"><span class="meta">			&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">		&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">		return true;</span></span></span><br><span class="line"><span class="string"><span class="meta">	&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">&#125;;</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">inline void solve()&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">	string S,T;</span></span></span><br><span class="line"><span class="string"><span class="meta">	cin&gt;&gt;S&gt;&gt;T;</span></span></span><br><span class="line"><span class="string"><span class="meta">	seqAuto sat(T);</span></span></span><br><span class="line"><span class="string"><span class="meta">	ll bp=0;</span></span></span><br><span class="line"><span class="string"><span class="meta">	vector&lt;string&gt; ans;</span></span></span><br><span class="line"><span class="string"><span class="meta">	S+=(&#x27;z&#x27;+1);</span></span></span><br><span class="line"><span class="string"><span class="meta">	FOR(i,0,SZ(S)-1)&#123;	// 双指针</span></span></span><br><span class="line"><span class="string"><span class="meta">		FOR(j,bp,SZ(S))&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">			assert(j&gt;=i);</span></span></span><br><span class="line"><span class="string"><span class="meta">			ll len=j-i;</span></span></span><br><span class="line"><span class="string"><span class="meta">			if(!sat.isFind(S.substr(i,len)))&#123;	// pos,len</span></span></span><br><span class="line"><span class="string"><span class="meta">				bp=j;</span></span></span><br><span class="line"><span class="string"><span class="meta">				if(ans.empty() || len-1&gt;SZ(ans.back()))&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">					ans.clear();</span></span></span><br><span class="line"><span class="string"><span class="meta">					ans.pb(S.substr(i,len-1));</span></span></span><br><span class="line"><span class="string"><span class="meta">				&#125;else if(len-1==SZ(ans.back()) )&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">					ans.pb(S.substr(i,len-1));</span></span></span><br><span class="line"><span class="string"><span class="meta">				&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">				break;</span></span></span><br><span class="line"><span class="string"><span class="meta">			&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">		&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">	&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">	sort(all(ans));</span></span></span><br><span class="line"><span class="string"><span class="meta">	cout&lt;&lt;ans[0]&lt;&lt;&quot;</span>\n<span class="string">&quot;;</span></span></span><br><span class="line"><span class="string"><span class="meta">&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta"></span></span></span><br><span class="line"><span class="string"><span class="meta">int main()</span></span></span><br><span class="line"><span class="string"><span class="meta">&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">	ios::sync_with_stdio(false);</span></span></span><br><span class="line"><span class="string"><span class="meta">	cin.tie(0);cout.tie(0);</span></span></span><br><span class="line"><span class="string"><span class="meta">	cin&gt;&gt;lT;</span></span></span><br><span class="line"><span class="string"><span class="meta">	while(lT--)&#123;</span></span></span><br><span class="line"><span class="string"><span class="meta">		solve();</span></span></span><br><span class="line"><span class="string"><span class="meta">	&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">	// solve();</span></span></span><br><span class="line"><span class="string"><span class="meta">	return 0;</span></span></span><br><span class="line"><span class="string"><span class="meta">&#125;</span></span></span><br><span class="line"><span class="string"><span class="meta">/*</span></span></span><br><span class="line"><span class="string"><span class="meta">AC</span></span></span><br><span class="line"><span class="string"><span class="meta">https://www.luogu.com.cn/record/218545015</span></span></span><br><span class="line"><span class="string"><span class="meta">*/</span></span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/05/24/20250524-e3b25d48/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -518,81 +598,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/05/22/20250522-f62eb103/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/22/20250522-f62eb103/" class="post-title-link" itemprop="url">P10814 【模板】离线二维数点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-05-22 03:31:00" itemprop="dateCreated datePublished" datetime="2025-05-22T03:31:00+08:00">2025-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 20:01:59" itemprop="dateModified" datetime="2026-02-17T20:01:59+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -664,7 +669,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">582</span>
+          <span class="site-state-item-count">583</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

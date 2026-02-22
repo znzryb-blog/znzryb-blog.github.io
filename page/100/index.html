@@ -191,6 +191,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/18/20241118-6e5a6ac9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/18/20241118-6e5a6ac9/" class="post-title-link" itemprop="url">Codeforces Round 986 (Div. 2)—D. Alice's Adventures in Cards</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-18 10:46:00" itemprop="dateCreated datePublished" datetime="2024-11-18T10:46:00+08:00">2024-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 15:38:31" itemprop="dateModified" datetime="2026-02-14T15:38:31+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>事实证明人还是不要太固执，我之前就是一定想要写一个搜索算法，但怎么写都TLE，即便我看了hint知道是dp，还是想写搜索，但最后一发dp AC了。怎么说呢，搜索的时间复杂度还是有点玄学，也可能是我学艺不精（bushi）。其实我感觉如果你知道这题是dp的话也不是说非常难写，毕竟我这个非常抗拒dp的写出来了嘛</p>
+<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>我们先想一个朴素dp，一个牌可以换到n牌当且仅当他<strong>可以换到 n牌 或 之前可以换到n牌的牌（为简化，我们称之为A牌）</strong>，那就把所有这些牌都遍历一下就知道能不能换到了。</p>
+<p>当然这个朴素dp的时间复杂度就比较随缘，最坏情况可能有O（n**2），而且其实也不是很好写。</p>
+<p>然后我们小小的优化一下（这种优化我感觉挺常见的），其实能不能换到就是看能不能换到A牌当中优先度最低的牌。</p>
+<p>当然三个人对牌的优先度不同，我们用<strong>pair&lt;char,int&gt; lowq,lowk,lowj;</strong> 分别存一下A牌中在qkj中优先度最小的。</p>
+<p>这是对他们的初始化</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowq=<span class="built_in">make_pair</span>(<span class="string">&#x27;q&#x27;</span>,n);</span><br><span class="line">lowk=<span class="built_in">make_pair</span>(<span class="string">&#x27;k&#x27;</span>,n);</span><br><span class="line">lowj=<span class="built_in">make_pair</span>(<span class="string">&#x27;j&#x27;</span>,n);</span><br></pre></td></tr></table></figure>
+<p>我们以这段代码为例，这个牌成功换到了A牌中q优先度最小的，q不用更新，他的优先度肯定更高。</p>
+<p>lowk以及lowj需要更新，这个 i 牌可能比他们的优先度更小。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(pq[i]&gt;pq[lowq.second]) &#123;</span><br><span class="line">      isReach[i]=<span class="literal">true</span>;</span><br><span class="line">      dp[i]=lowq;</span><br><span class="line">      <span class="keyword">if</span>(pk[i]&lt;pk[lowk.second])</span><br><span class="line">          lowk=<span class="built_in">make_pair</span>(<span class="string">&#x27;k&#x27;</span>,i);</span><br><span class="line">      <span class="keyword">if</span>(pj[i]&lt;pj[lowj.second])</span><br><span class="line">          lowj=<span class="built_in">make_pair</span>(<span class="string">&#x27;j&#x27;</span>,i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后答案输出就很简单了，跳着存入ans，玩过邻接表的都不会陌生</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i=dp[i].second) &#123;</span><br><span class="line">    ans.<span class="built_in">push_back</span>(dp[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>提交记录</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2028/submission/292269331"></a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">2e5</span>)<span class="number">+17</span>;</span><br><span class="line"><span class="type">int</span> pq[N],pk[N],pj[N];</span><br><span class="line"><span class="type">int</span> T,n;</span><br><span class="line">vector&lt;pair&lt;<span class="type">char</span>,<span class="type">int</span>&gt; &gt; ans;</span><br><span class="line">bitset&lt;N&gt; isReach;</span><br><span class="line">pair&lt;<span class="type">char</span>,<span class="type">int</span>&gt; dp[N],lowq,lowk,lowj;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin&gt;&gt;n;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">       ans.<span class="built_in">clear</span>(),isReach.<span class="built_in">reset</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) cin&gt;&gt;pq[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) cin&gt;&gt;pk[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) cin&gt;&gt;pj[i];</span><br><span class="line">        lowq=<span class="built_in">make_pair</span>(<span class="string">&#x27;q&#x27;</span>,n);</span><br><span class="line">        lowk=<span class="built_in">make_pair</span>(<span class="string">&#x27;k&#x27;</span>,n);</span><br><span class="line">        lowj=<span class="built_in">make_pair</span>(<span class="string">&#x27;j&#x27;</span>,n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">1</span>;--i) &#123;</span><br><span class="line">            <span class="keyword">if</span>(pq[i]&gt;pq[lowq.second]) &#123;</span><br><span class="line">                isReach[i]=<span class="literal">true</span>;</span><br><span class="line">                dp[i]=lowq;</span><br><span class="line">                <span class="keyword">if</span>(pk[i]&lt;pk[lowk.second])</span><br><span class="line">                    lowk=<span class="built_in">make_pair</span>(<span class="string">&#x27;k&#x27;</span>,i);</span><br><span class="line">                <span class="keyword">if</span>(pj[i]&lt;pj[lowj.second])</span><br><span class="line">                    lowj=<span class="built_in">make_pair</span>(<span class="string">&#x27;j&#x27;</span>,i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(pk[i]&gt;pk[lowk.second]) &#123;</span><br><span class="line">                isReach[i]=<span class="literal">true</span>;</span><br><span class="line">                dp[i]=lowk;</span><br><span class="line">                <span class="keyword">if</span>(pq[i]&lt;pq[lowq.second])</span><br><span class="line">                    lowq=<span class="built_in">make_pair</span>(<span class="string">&#x27;q&#x27;</span>,i);</span><br><span class="line">                <span class="keyword">if</span>(pj[i]&lt;pj[lowj.second])</span><br><span class="line">                    lowj=<span class="built_in">make_pair</span>(<span class="string">&#x27;j&#x27;</span>,i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(pj[i]&gt;pj[lowj.second]) &#123;</span><br><span class="line">                isReach[i]=<span class="literal">true</span>;</span><br><span class="line">                dp[i]=lowj;</span><br><span class="line">                <span class="keyword">if</span>(pk[i]&lt;pk[lowk.second])</span><br><span class="line">                    lowk=<span class="built_in">make_pair</span>(<span class="string">&#x27;k&#x27;</span>,i);</span><br><span class="line">                <span class="keyword">if</span>(pq[i]&lt;pq[lowq.second])</span><br><span class="line">                    lowq=<span class="built_in">make_pair</span>(<span class="string">&#x27;q&#x27;</span>,i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!isReach[<span class="number">1</span>]) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;NO&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;YES&quot;</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i=dp[i].second) &#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;ans.<span class="built_in">size</span>();++i) &#123;</span><br><span class="line">            cout&lt;&lt;ans[i].first&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;ans[i].second&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>一个暴搜dfs代码TLE</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2028/submission/292199427"></a></p>
+<p>在第11个点TLE了，加了快读也不太行</p>
+<p>19999个撑不住了</p>
+<p>当然这个TLE之前肯定还出了点事，最重要的是把退出条件放在最前面，而且任何退出条件后进来的全部是多余的，ans需要pop一下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(isFind) &#123;</span><br><span class="line">        ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">2e5</span>)<span class="number">+17</span>;</span><br><span class="line"><span class="type">int</span> pq[N],pk[N],pj[N];</span><br><span class="line"><span class="type">int</span> T,n;</span><br><span class="line"><span class="type">bool</span> isFind;</span><br><span class="line">vector&lt;pair&lt;<span class="type">char</span>,<span class="type">int</span>&gt; &gt; ans;</span><br><span class="line">bitset&lt;N&gt; vis;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;   <span class="comment">// x即为当前持有的卡牌</span></span><br><span class="line">    <span class="keyword">if</span>(isFind) &#123;</span><br><span class="line">        ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x==n) &#123;</span><br><span class="line">        isFind=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(vis[x])</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    vis[x]=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=x<span class="number">+1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(isFind)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 可以看到，emplace_back支持直接传入构造函数的参数来构造创建元素，而push_back必须先构造元素，再通过复制构造函数传入。</span></span><br><span class="line">        <span class="keyword">if</span>(pq[i]&lt;pq[x]) &#123;</span><br><span class="line">            ans.<span class="built_in">emplace_back</span>(<span class="string">&#x27;q&#x27;</span>,i);</span><br><span class="line">            <span class="built_in">dfs</span>(i);</span><br><span class="line">            <span class="keyword">if</span>(!isFind)</span><br><span class="line">                ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pk[i]&lt;pk[x]) &#123;</span><br><span class="line">            ans.<span class="built_in">emplace_back</span>(<span class="string">&#x27;k&#x27;</span>,i);</span><br><span class="line">            <span class="built_in">dfs</span>(i);</span><br><span class="line">            <span class="keyword">if</span>(!isFind)</span><br><span class="line">                ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pj[i]&lt;pj[x]) &#123;</span><br><span class="line">            ans.<span class="built_in">emplace_back</span>(<span class="string">&#x27;j&#x27;</span>,i);</span><br><span class="line">            <span class="built_in">dfs</span>(i);</span><br><span class="line">            <span class="keyword">if</span>(!isFind)</span><br><span class="line">                ans.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin&gt;&gt;n;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        isFind=<span class="literal">false</span>,ans.<span class="built_in">clear</span>(),vis.<span class="built_in">reset</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            cin&gt;&gt;pq[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            cin&gt;&gt;pk[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">            cin&gt;&gt;pj[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(!isFind) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;NO&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;YES&quot;</span>&lt;&lt;endl;</span><br><span class="line">        cout&lt;&lt;ans.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;ans.<span class="built_in">size</span>();++i) &#123;</span><br><span class="line">            cout&lt;&lt;ans[i].first&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;ans[i].second&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/16/20241116-6167ef22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -493,74 +581,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/14/20241114-3ed18788/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/14/20241114-3ed18788/" class="post-title-link" itemprop="url">F. Flamingoes of Mystery</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-14 11:37:00" itemprop="dateCreated datePublished" datetime="2024-11-14T11:37:00+08:00">2024-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 15:38:29" itemprop="dateModified" datetime="2026-02-14T15:38:29+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>比较简单的交互题</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N= <span class="number">1010</span>;</span><br><span class="line">ll n,sum[N],ans[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;++i) &#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;? 1 &quot;</span>&lt;&lt;n-i<span class="number">+1</span>&lt;&lt;endl;</span><br><span class="line">        cin&gt;&gt;sum[n-i<span class="number">+1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;? 2 3&quot;</span>&lt;&lt;endl;</span><br><span class="line">    ll temp;</span><br><span class="line">    cin&gt;&gt;temp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n;i&gt;=<span class="number">3</span>;--i) &#123;</span><br><span class="line">        ans[i]=sum[i]-sum[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    ans[<span class="number">1</span>]=sum[<span class="number">3</span>]-temp;</span><br><span class="line">    ans[<span class="number">2</span>]=sum[<span class="number">2</span>]-ans[<span class="number">1</span>];</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;! &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://codeforces.com/problemset/submission/1425/291200157</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -632,7 +652,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">582</span>
+          <span class="site-state-item-count">583</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

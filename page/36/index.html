@@ -191,6 +191,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/12/20250712-99ae81a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/07/12/20250712-99ae81a6/" class="post-title-link" itemprop="url">牛客练习赛142-C.战前准备</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-12 02:06:00" itemprop="dateCreated datePublished" datetime="2025-07-12T02:06:00+08:00">2025-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 21:29:19" itemprop="dateModified" datetime="2026-02-17T21:29:19+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>差分做法，只要用差分把所有坏区间都标记出来，剩下的就是不可行的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FOR</span>(i,<span class="number">0</span>,M<span class="number">-2</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p:pos[i<span class="number">+1</span>])&#123;</span><br><span class="line">		<span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(pos[i]),p);</span><br><span class="line">		<span class="keyword">if</span>(it==pos[i].<span class="built_in">begin</span>())&#123;</span><br><span class="line">			diff[<span class="number">1</span>]+=<span class="number">1</span>;</span><br><span class="line">			<span class="comment">// p+1是可行的（至少从这个p看来）</span></span><br><span class="line">			diff[p<span class="number">+1</span>]-=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			it--;ll idx=*it;</span><br><span class="line">			diff[idx<span class="number">+1</span>]+=<span class="number">1</span>;</span><br><span class="line">			<span class="comment">// p+1是可行的（至少从这个p看来）</span></span><br><span class="line">			diff[p<span class="number">+1</span>]-=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78135312">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78135312</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 战前准备</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/112575/C</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll MAXM=(ll)<span class="number">1e6</span><span class="number">+10</span>;<span class="keyword">constexpr</span> ll MAXV=(ll)<span class="number">1e6</span><span class="number">+10</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e9</span>)<span class="number">+7</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;<span class="type">const</span> <span class="type">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,T,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">vector&lt;ll&gt; pos[MAXN];</span><br><span class="line">ll diff[MAXN],Sum[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N&gt;&gt;M;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">		pos[A[i]].<span class="built_in">pb</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(M==<span class="number">1</span>)&#123;</span><br><span class="line">		cout&lt;&lt;N&lt;&lt;<span class="string">&quot;\n&quot;</span>;<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">0</span>,M<span class="number">-2</span>)&#123;</span><br><span class="line">		ll las=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p:pos[i<span class="number">+1</span>])&#123;</span><br><span class="line">			<span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(<span class="built_in">all</span>(pos[i]),p);</span><br><span class="line">			<span class="keyword">if</span>(it==pos[i].<span class="built_in">begin</span>())&#123;</span><br><span class="line">				diff[<span class="number">1</span>]+=<span class="number">1</span>;</span><br><span class="line">				<span class="comment">// p+1是可行的（至少从这个p看来）</span></span><br><span class="line">				diff[p<span class="number">+1</span>]-=<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				it--;ll idx=*it;</span><br><span class="line">				diff[idx<span class="number">+1</span>]+=<span class="number">1</span>;</span><br><span class="line">				<span class="comment">// p+1是可行的（至少从这个p看来）</span></span><br><span class="line">				diff[p<span class="number">+1</span>]-=<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		Sum[i]=Sum[i<span class="number">-1</span>]+diff[i];</span><br><span class="line">	&#125;</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		<span class="keyword">if</span>(Sum[i]==<span class="number">0</span>)&#123;</span><br><span class="line">			++ans;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// cin&gt;&gt;lT;</span></span><br><span class="line">	<span class="comment">// while(lT--)</span></span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=78135312</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/12/20250712-9b0b7aad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -592,85 +670,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/09/20250709-c3367e96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/07/09/20250709-c3367e96/" class="post-title-link" itemprop="url">3562. 折扣价交易股票的最大利润（树上背包学习）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-07-09 06:28:00" itemprop="dateCreated datePublished" datetime="2025-07-09T06:28:00+08:00">2025-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 21:29:18" itemprop="dateModified" datetime="2026-02-17T21:29:18+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>【树上背包【力扣周赛 451】】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1o1jgzJE51/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37">https://www.bilibili.com/video/BV1o1jgzJE51/?share_source=copy_web&amp;vd_source=6ca0bc05e7d6f39b07c1afd464edae37</a></p>
-<p>这个视频讲树上背包问题讲的非常透彻，非常好。</p>
-<p>这个第一个遍历边就不多说了，第二个循环倒过来是因为滚动数组优化，第三个必须正过来，你可以倒过来试一试，当数据中含有这个需要0元，但是价值不为0的物品时就会出错，这是因为倒过来遍历可能取了这个物品两次，正过来遍历的时候是空的，那么就不存在这个问题了。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line"><span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">this</span> <span class="keyword">auto</span> &amp;&amp;self,<span class="type">int</span> u,<span class="type">int</span> p)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> v:g[u])&#123;</span><br><span class="line">        <span class="keyword">if</span>(v==p) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">self</span>(v,u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// memo是暂时不考虑当前节点u而定的</span></span><br><span class="line">    vector&lt;array&lt;<span class="type">int</span>,3&gt; &gt; <span class="built_in">memo</span>(budget<span class="number">+5</span>,&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">    </span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=budget;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=i;++j)&#123;  <span class="comment">// 必须要正过来循环</span></span><br><span class="line">                memo[i][<span class="number">1</span>]=<span class="built_in">max</span>(memo[i][<span class="number">1</span>],memo[i-j][<span class="number">1</span>]+dp[<span class="number">1</span>][v][j]);</span><br><span class="line">                memo[i][<span class="number">2</span>]=<span class="built_in">max</span>(memo[i][<span class="number">2</span>],memo[i-j][<span class="number">2</span>]+dp[<span class="number">2</span>][v][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=budget;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">2</span>;++j)&#123;</span><br><span class="line">            <span class="type">int</span> cost=present[u<span class="number">-1</span>]/j;</span><br><span class="line">            dp[j][u][i]=<span class="built_in">max</span>(dp[j][u][i],memo[i][<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=cost)&#123;</span><br><span class="line">                dp[j][u][i]=<span class="built_in">max</span>(dp[j][u][i],future[u<span class="number">-1</span>]-cost+memo[i-cost][<span class="number">2</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(<span class="type">int</span> n, vector&lt;<span class="type">int</span>&gt;&amp; present, vector&lt;<span class="type">int</span>&gt;&amp; future, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; hierarchy, <span class="type">int</span> budget)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> dp[<span class="number">3</span>][<span class="number">170</span>][<span class="number">170</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">2</span>;++i)&#123;      <span class="comment">// init</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=n<span class="number">+5</span>;++j)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;=budget<span class="number">+5</span>;++k)&#123;</span><br><span class="line">                    dp[i][j][k]=<span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="built_in">g</span>(n<span class="number">+5</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;t:hierarchy)&#123;</span><br><span class="line">            g[t[<span class="number">0</span>]].<span class="built_in">push_back</span>(t[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ism==1是父亲没买，ism==2是父亲买了</span></span><br><span class="line">        <span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">this</span> <span class="keyword">auto</span> &amp;&amp;self,<span class="type">int</span> u,<span class="type">int</span> p)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> v:g[u])&#123;</span><br><span class="line">                <span class="keyword">if</span>(v==p) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="built_in">self</span>(v,u);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// memo是暂时不考虑当前节点u而定的</span></span><br><span class="line">            vector&lt;array&lt;<span class="type">int</span>,3&gt; &gt; <span class="built_in">memo</span>(budget<span class="number">+5</span>,&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">            </span><br><span class="line">             <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> i=budget;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=i;++j)&#123;  <span class="comment">// 必须要正过来循环</span></span><br><span class="line">                        memo[i][<span class="number">1</span>]=<span class="built_in">max</span>(memo[i][<span class="number">1</span>],memo[i-j][<span class="number">1</span>]+dp[<span class="number">1</span>][v][j]);</span><br><span class="line">                        memo[i][<span class="number">2</span>]=<span class="built_in">max</span>(memo[i][<span class="number">2</span>],memo[i-j][<span class="number">2</span>]+dp[<span class="number">2</span>][v][j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=budget;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">2</span>;++j)&#123;</span><br><span class="line">                    <span class="type">int</span> cost=present[u<span class="number">-1</span>]/j;</span><br><span class="line">                    dp[j][u][i]=<span class="built_in">max</span>(dp[j][u][i],memo[i][<span class="number">1</span>]);</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=cost)&#123;</span><br><span class="line">                        dp[j][u][i]=<span class="built_in">max</span>(dp[j][u][i],future[u<span class="number">-1</span>]-cost+memo[i-cost][<span class="number">2</span>]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=budget;i&gt;=<span class="number">0</span>;--i)&#123;</span><br><span class="line">            ans=<span class="built_in">max</span>(&#123;ans,dp[<span class="number">1</span>][<span class="number">1</span>][i]&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -742,7 +741,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">582</span>
+          <span class="site-state-item-count">583</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
