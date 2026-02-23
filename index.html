@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-02-23 01:01:00 / Modified: 16:02:39" itemprop="dateCreated datePublished" datetime="2026-02-23T01:01:00+08:00">2026-02-23</time>
+              <time title="Created: 2026-02-23 01:01:00 / Modified: 17:02:18" itemprop="dateCreated datePublished" datetime="2026-02-23T01:01:00+08:00">2026-02-23</time>
             </span>
 
           
@@ -260,6 +260,8 @@
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p><a href="/2026/02/22/20260222-b6e20294">Codeforces Round 1081 (Div. 2)-CF-1081-E. Swap to Rearrange（按值进行图论建模）（欧拉回路）</a></p>
 <p>这两道题目应该是比较类似的。</p>
+<p>在算法竞赛中，采用排除法还是一个比较好的办法。这道题目其实还是一样的，其他方法不太适合解决这种问题，那么只能够求助于图论建模了。</p>
+<p>我们想问怎么样建这张图，实际上这个题目是rearrangement问题，它只有一个可以连边的东西，对吧，那就是V和P之间去连，V和P之间按值连接。这也是使用排除法，因为其他东西你都不知道，它怎么排，你怎么去连，对吧。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
