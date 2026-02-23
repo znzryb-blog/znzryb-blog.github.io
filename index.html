@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-02-23 01:01:00 / Modified: 10:02:17" itemprop="dateCreated datePublished" datetime="2026-02-23T01:01:00+08:00">2026-02-23</time>
+              <time title="Created: 2026-02-23 01:01:00 / Modified: 11:02:43" itemprop="dateCreated datePublished" datetime="2026-02-23T01:01:00+08:00">2026-02-23</time>
             </span>
 
           
@@ -316,7 +316,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-23 10:02:17" itemprop="dateModified" datetime="2026-02-23T10:02:17+08:00">2026-02-23</time>
+                <time title="Modified: 2026-02-23 11:02:43" itemprop="dateModified" datetime="2026-02-23T11:02:43+08:00">2026-02-23</time>
               </span>
 
           
@@ -413,6 +413,10 @@
 </div>
 <p>我感觉AI唬我呢，左看右看，东看西看，完全没看出这道题目为什么需要用图论。因为说白了，这根本不是一个一一对应的问题，对吧？这和图论有什么关系？无非其实就是要让数量相等呀，这个图论实在难以说有什么联系。所以说，我感觉这个AI其实有点乱写，opus4.6，其实也不过如此吧。</p>
 <p>仔细的看了一下，应该这道题就是用图论建模做。我们下面用一张图来说明一下图论建模，它这个图是怎么建的。那为什么这道题目用图文建模呢？我认为这道题目首先不适合使用DP解决，因为你不知道以什么为状态。所以说，用DP解决是不可以，因为状态所需空间太大了，然后，其实我们也没什么工具的，要么就贪心啊，你也很难贪，是吧？所以其实也就图论建模了。</p>
+<p>首先呢，我们只关注值，所以说我们所见的图呢，是按值连接的。</p>
+<p><img src="https://media.znzryb.com/20260222-b6e20294/image_0103e32e.png" alt="image" /></p>
+<p><a href="/2026/02/23/20260223-e1ba2987">Codeforces Round 1026 (Div. 2)-CF-1026-E. Melody</a></p>
+<p>就是看了洛谷的题解，体检上的这个人来说，这道题目和CF 1026的E比较相似。我稍微看了一下CF 21026的体面，应该是解法比较相似，都是建图，按值进行图论建模。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
