@@ -29,14 +29,16 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://media.znzryb.com/20260222-b6e20294/image_be68f11f.png">
 <meta property="og:image" content="https://media.znzryb.com/20260222-b6e20294/image_ae0a56e7.png">
+<meta property="og:image" content="https://media.znzryb.com/20260222-b6e20294/image_3adc8e0a.png">
 <meta property="article:published_time" content="2026-02-21T18:39:00.000Z">
-<meta property="article:modified_time" content="2026-02-23T06:02:13.821Z">
+<meta property="article:modified_time" content="2026-02-23T07:03:25.451Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="constructive 构造">
 <meta property="article:tag" content="graph">
 <meta property="article:tag" content="key insight 关键观察 ob">
 <meta property="article:tag" content="图论建模 modelling">
 <meta property="article:tag" content="思维 thought">
+<meta property="article:tag" content="欧拉回路 Euler circuit">
 <meta property="article:tag" content="环 cycle">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://media.znzryb.com/20260222-b6e20294/image_be68f11f.png">
@@ -235,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-23 14:02:13" itemprop="dateModified" datetime="2026-02-23T14:02:13+08:00">2026-02-23</time>
+                <time title="Modified: 2026-02-23 15:03:25" itemprop="dateModified" datetime="2026-02-23T15:03:25+08:00">2026-02-23</time>
               </span>
 
           
@@ -337,6 +339,23 @@
 <p><a href="/2026/02/23/20260223-e1ba2987">Codeforces Round 1026 (Div. 2)-CF-1026-E. Melody</a></p>
 <p>就是看了洛谷的题解，体检上的这个人来说，这道题目和CF 1026的E比较相似。我稍微看了一下CF 1026的题面，应该是解法比较相似，都是建图，按值进行图论建模。</p>
 <p>剩下的就是找欧拉回路了，哎，怎么就突然扯到欧拉回路了呢？首先我们肯定要找一个回路嘛，如果一个连通分量中每个点的入度和出度一致，那么就说明该连通分量可以变成，或者说，该连通分量就是由一系列环构成的。当然了，由一系列环构成可能不能辅助我们实现，实际上它就是一个回路。我们可以使用欧拉回路的方法，把图中的每条边都消耗掉，欧拉回路是每条边恰好被遍历过一次，就是每条边都被恰好遍历一次组成的闭合路径，就是欧拉回路。这个和我们所说的由一系列环构成是一样的，其实是一个意思。<strong>存在欧拉回路的这个条件也很简单，就是每个顶点的度数都是偶数，那么一定存在一条欧拉回路</strong>（在联通无向图中）。</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        求解欧拉图的 horizontal 算法的这个模拟
+    </div>
+    <div class='fold-content'>
+        <p><img src="https://media.znzryb.com/20260222-b6e20294/image_3adc8e0a.png" alt="image" /><br />
+你画的图我看到了：左边是环 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mtext>-</mtext><mn>4</mn><mtext>-</mtext><mn>3</mn><mtext>-</mtext><mn>2</mn><mtext>-</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">1\text{-}4\text{-}3\text{-}2\text{-}1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord text"><span class="mord">-</span></span><span class="mord">4</span><span class="mord text"><span class="mord">-</span></span><span class="mord">3</span><span class="mord text"><span class="mord">-</span></span><span class="mord">2</span><span class="mord text"><span class="mord">-</span></span><span class="mord">1</span></span></span></span>，右边是环 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mtext>-</mtext><mn>5</mn><mtext>-</mtext><mn>6</mn><mtext>-</mtext><mn>7</mn><mtext>-</mtext><mn>3</mn></mrow><annotation encoding="application/x-tex">3\text{-}5\text{-}6\text{-}7\text{-}3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord text"><span class="mord">-</span></span><span class="mord">5</span><span class="mord text"><span class="mord">-</span></span><span class="mord">6</span><span class="mord text"><span class="mord">-</span></span><span class="mord">7</span><span class="mord text"><span class="mord">-</span></span><span class="mord">3</span></span></span></span>，两个环在顶点 3 相交。共 8 条边。<br />
+从顶点 1 出发，逐步执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">操作                          stack               result</span><br><span class="line">────────────────────────────────────────────────────────</span><br><span class="line">初始                          [1]                  []</span><br><span class="line">1→4  走边(1,4)                [1, 4]</span><br><span class="line">4→3  走边(4,3)                [1, 4, 3]</span><br><span class="line">3→2  走边(3,2)  (3的指针跳过已用的4) [1, 4, 3, 2]</span><br><span class="line">2→1  走边(2,1)                [1, 4, 3, 2, 1]</span><br><span class="line">1 没边了，pop                  [1, 4, 3, 2]         [1]</span><br><span class="line">2 没边了，pop                  [1, 4, 3]            [1,2]</span><br><span class="line">3 还有边！3→5  走边(3,5)       [1, 4, 3, 5]         [1,2]</span><br><span class="line">5→6  走边(5,6)                [1, 4, 3, 5, 6]</span><br><span class="line">6→7  走边(6,7)                [1, 4, 3, 5, 6, 7]</span><br><span class="line">7→3  走边(7,3)                [1, 4, 3, 5, 6, 7, 3]</span><br><span class="line">3 没边了，pop                  [1, 4, 3, 5, 6, 7]   [1,2,3]</span><br><span class="line">7 没边了，pop                  [1, 4, 3, 5, 6]      [1,2,3,7]</span><br><span class="line">6 没边了，pop                  [1, 4, 3, 5]         [1,2,3,7,6]</span><br><span class="line">5 没边了，pop                  [1, 4, 3]            [1,2,3,7,6,5]</span><br><span class="line">3 没边了，pop                  [1, 4]               [1,2,3,7,6,5,3]</span><br><span class="line">4 没边了，pop                  [1]                  [1,2,3,7,6,5,3,4]</span><br><span class="line">1 没边了，pop                  []                   [1,2,3,7,6,5,3,4,1]</span><br></pre></td></tr></table></figure>
+<p>反转 result：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1</mn><mo>→</mo><mn>4</mn><mo>→</mo><mn>3</mn><mo>→</mo><mn>5</mn><mo>→</mo><mn>6</mn><mo>→</mo><mn>7</mn><mo>→</mo><mn>3</mn><mo>→</mo><mn>2</mn><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1 \to 4 \to 3 \to 5 \to 6 \to 7 \to 3 \to 2 \to 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>8 条边各走一次，回到起点。<br />
+<strong>回退发生在哪里</strong>：走完左边的环 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>→</mo><mn>4</mn><mo>→</mo><mn>3</mn><mo>→</mo><mn>2</mn><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1 \to 4 \to 3 \to 2 \to 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 后，顶点 1 和 2 都没有剩余边了，连续 pop 两次（这就是回退），退到顶点 3。顶点 3 还有边到 5 和 7，于是从 3 继续出发走右边的环。最后反转 result 把右边的环&quot;嵌入&quot;到顶点 3 的位置，拼成完整的欧拉回路。</p>
+
+    </div>
+</div>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -360,6 +379,7 @@
               <a href="/tags/constructive-%E6%9E%84%E9%80%A0/" rel="tag"># constructive 构造</a>
               <a href="/tags/%E7%8E%AF-cycle/" rel="tag"># 环 cycle</a>
               <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-Euler-circuit/" rel="tag"># 欧拉回路 Euler circuit</a>
           </div>
 
         
@@ -464,7 +484,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">170</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

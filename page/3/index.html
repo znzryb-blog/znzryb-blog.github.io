@@ -191,6 +191,164 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/06/20260206-dfe59baa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/06/20260206-dfe59baa/" class="post-title-link" itemprop="url">2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——J. Joust Sort（拓扑排序解决依赖排序问题）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-02-06 05:09:00" itemprop="dateCreated datePublished" datetime="2026-02-06T05:09:00+08:00">2026-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-19 14:10:01" itemprop="dateModified" datetime="2026-02-19T14:10:01+08:00">2026-02-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<h3 id="题目总结j-joust排序-joust-sort"><a class="markdownIt-Anchor" href="#题目总结j-joust排序-joust-sort"></a> 题目总结：J. Joust排序 (Joust Sort)</h3>
+<p><strong>题目核心：</strong><br />
+给定一个由小写字母组成的字符串 ，以及若干条字母之间的“大小关系”约束。要求根据这些约束对字符串进行重新排列。</p>
+<p><strong>规则说明：</strong></p>
+<ol>
+<li>
+<p><strong>强约束：</strong> 若给定 ，则在最终字符串中，<strong>所有</strong>字母 必须出现在<strong>所有</strong>字母 之前。</p>
+</li>
+<li>
+<p><strong>无约束：</strong> 若字母 和 之间没有直接或间接的约束关系（既不是 也不是 ），则它们在字符串中的位置可以<strong>任意交错</strong>。</p>
+</li>
+<li>
+<p><strong>合法性：</strong> 如果约束关系中存在冲突（如环状依赖 且 ），则判定为无法排序。</p>
+</li>
+</ol>
+<p><strong>输出要求：</strong></p>
+<ul>
+<li>
+<p>输出满足所有约束的任意一种排列方案。</p>
+</li>
+<li>
+<p>若不存在合法方案，输出 <code>IMPOSSIBLE</code>。</p>
+</li>
+</ul>
+<hr />
+<p><strong>样例解释：</strong></p>
+<ul>
+<li>
+<p><strong>样例 1：</strong></p>
+</li>
+<li>
+<p>输入：<code>m &gt; i</code>, <code>n &lt; i</code>, <code>i &gt; o</code>，字符串 <code>minion</code>。</p>
+</li>
+<li>
+<p>推导：由 且 （即 ）可知， 和 都在 之前。由 （即 ）可知， 在 之前。</p>
+</li>
+<li>
+<p>关系链：。</p>
+</li>
+<li>
+<p>结果：<code>noniim</code> 符合 。</p>
+</li>
+<li>
+<p><strong>样例 2：</strong></p>
+</li>
+<li>
+<p>输入：<code>b &lt; n</code>，字符串 <code>banana</code>。</p>
+</li>
+<li>
+<p>推导：仅要求所有的 <code>b</code> 在所有的 <code>n</code> 之前。对字母 <code>a</code> 没有约束。</p>
+</li>
+<li>
+<p>结果：<code>banana</code>。此时所有的 <code>b</code>（位置0）确实在所有的 <code>n</code>（位置2, 4）之前，<code>a</code> 可以穿插其中。</p>
+</li>
+<li>
+<p><strong>样例 3：</strong></p>
+</li>
+<li>
+<p>输入：包含多条重复及推导关系，如 且 。</p>
+</li>
+<li>
+<p>推导：关系链为 。</p>
+</li>
+<li>
+<p>结果：<code>nnnbaaama</code>。所有的 <code>n</code> 在 <code>b</code> 前，所有的 <code>b</code> 在 <code>a</code> 前。</p>
+</li>
+<li>
+<p><strong>样例 4：</strong></p>
+</li>
+<li>
+<p>输入：<code>a &lt; b</code>, <code>b &lt; a</code>。</p>
+</li>
+<li>
+<p>推导：逻辑冲突，存在环。</p>
+</li>
+<li>
+<p>结果：<code>IMPOSSIBLE</code>。</p>
+</li>
+</ul>
+<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>拓扑排序。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>AC<br />
+<a target="_blank" rel="noopener" href="https://codeforces.com/gym/106157/submission/361649348">https://codeforces.com/gym/106157/submission/361649348</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: J. Joust Sort</span></span><br><span class="line"><span class="comment"> * Contest: 2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025)</span></span><br><span class="line"><span class="comment"> * Judge: Codeforces</span></span><br><span class="line"><span class="comment"> * URL: https://codeforces.com/gym/106157/problem/J</span></span><br><span class="line"><span class="comment"> * Created: 2026-02-06 13:10:57</span></span><br><span class="line"><span class="comment"> * Author: Gospel_rock</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Powered by AutoCp https://github.com/Pushpavel/AutoCp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o&lt;&lt;1|1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr&lt;&lt;<span class="string">&quot;\n-----------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed&lt;&lt;setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span><span class="number">+10</span>, INF = (<span class="number">1ll</span>&lt;&lt;<span class="number">61</span>)<span class="number">-1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>; <span class="comment">// (ll)1e9+7; </span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT,testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll N;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    vector&lt;vector&lt;ll&gt;&gt; <span class="built_in">g</span>(<span class="number">30</span>);</span><br><span class="line">    <span class="function">vector&lt;ll&gt; <span class="title">in_degree</span><span class="params">(<span class="number">30</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        <span class="type">char</span> a,op,b;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;op&gt;&gt;b;</span><br><span class="line">        <span class="keyword">if</span> (op==<span class="string">&#x27;&lt;&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">swap</span>(a,b);</span><br><span class="line">        &#125;</span><br><span class="line">        g[b-<span class="string">&#x27;a&#x27;</span>].<span class="built_in">push_back</span>(a-<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">        in_degree[a-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    map&lt;<span class="type">char</span>,ll&gt; ch_cnt;</span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;ch:s) &#123;</span><br><span class="line">        ch_cnt[ch]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">char</span>&gt; <span class="title">vis</span><span class="params">(<span class="number">30</span>)</span></span>;</span><br><span class="line">    string ans;</span><br><span class="line">    <span class="keyword">auto</span> topo_sort=[&amp;](ll node) -&gt; vector&lt;ll&gt; &#123;</span><br><span class="line">        queue&lt;ll&gt; q;</span><br><span class="line">        vector&lt;ll&gt; res;</span><br><span class="line">        vis[node]=<span class="literal">true</span>;</span><br><span class="line">        q.<span class="built_in">push</span>(node);</span><br><span class="line">        res.<span class="built_in">push_back</span>(node);</span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            ll u=q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> v:g[u]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (vis[v]) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                in_degree[v]--;</span><br><span class="line">                <span class="keyword">if</span> (in_degree[v]==<span class="number">0</span>) &#123;</span><br><span class="line">                    vis[v]=<span class="literal">true</span>;</span><br><span class="line">                    res.<span class="built_in">push_back</span>(v);</span><br><span class="line">                    q.<span class="built_in">push</span>(v);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (vis[i]) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (in_degree[i]==<span class="number">0</span>) &#123;</span><br><span class="line">            vector&lt;ll&gt; res=<span class="built_in">topo_sort</span>(i);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> id:res) &#123;</span><br><span class="line">                <span class="type">char</span> a=<span class="string">&#x27;a&#x27;</span>+id;</span><br><span class="line">                ans+=<span class="built_in">string</span>(ch_cnt[a],a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">SZ</span>(ans)!=<span class="built_in">SZ</span>(s)) &#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;IMPOSSIBLE\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    cout.<span class="built_in">setf</span>(ios::unitbuf);   <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// cin &gt;&gt; lT;</span></span><br><span class="line">    <span class="comment">// for (testcase=1;testcase&lt;=lT;++testcase)</span></span><br><span class="line">        <span class="built_in">Solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/gym/106157/submission/361649348</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/06/20260206-c7c08062/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,156 +820,6 @@ Pahom 从黎明开始，到日落结束，使用铲子做标记，走动的区�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/06/20260206-1b7eeb20/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/06/20260206-1b7eeb20/" class="post-title-link" itemprop="url">2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025) 2025 英国 ICPC——C. Colourful Captcha</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-02-06 07:52:00" itemprop="dateCreated datePublished" datetime="2026-02-06T07:52:00+08:00">2026-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-19 14:09:59" itemprop="dateModified" datetime="2026-02-19T14:09:59+08:00">2026-02-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<h2 id="题目总结colourful-captcha"><a class="markdownIt-Anchor" href="#题目总结colourful-captcha"></a> 题目总结：Colourful Captcha</h2>
-<p>本题要求构造一个符合特定条件的 ASCII 艺术矩形（验证码），以区分“简化模型（模拟机器人）”和“人类”的读取结果。</p>
-<h3 id="1-核心约束"><a class="markdownIt-Anchor" href="#1-核心约束"></a> 1. 核心约束</h3>
-<ul>
-<li>
-<p><strong>尺寸限制</strong>：行数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\le 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span>，每行长度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\le 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span></span></span></span> 且长度相等。</p>
-</li>
-<li>
-<p><strong>字符构成</strong>：仅限大写英文字母和点 <code>.</code>。</p>
-</li>
-<li>
-<p><strong>人类读取 (</strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">C_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><strong>)</strong>：</p>
-<ul>
-<li>人类通过“大字母”的<strong>孔洞数量</strong>来识别颜色。</li>
-<li><strong>孔洞规则</strong>：<code>B</code> 有 2 个孔；<code>A, D, O, P, Q, R</code> 有 1 个孔；其余字母 0 个孔。</li>
-<li><strong>识别单位</strong>：由四连通字母组成的区域视为一个“大字母”。</li>
-<li><strong>识别顺序</strong>：从左到右，且大字母的水平边界框（Bounding Box）不得相交或接触。</li>
-</ul>
-</li>
-<li>
-<p><strong>机器人读取 (</strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><strong>)</strong>：</p>
-<ul>
-<li>机器人直接扫描文本中的子串。</li>
-<li><strong>包含要求</strong>：图中必须包含子串 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，且其两端不能紧邻其他字母（如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mtext>RED</mtext></mrow><annotation encoding="application/x-tex">C_2=\text{RED}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">RED</span></span></span></span></span>，允许 <code>.RED.</code>，禁止 <code>REDHAT</code>）。</li>
-<li><strong>排除要求</strong>：图中严禁出现除 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 以外的其他彩虹颜色名子串。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-彩虹颜色与孔洞对应表"><a class="markdownIt-Anchor" href="#2-彩虹颜色与孔洞对应表"></a> 2. 彩虹颜色与孔洞对应表</h3>
-<table>
-<thead>
-<tr>
-<th><strong>颜色名</strong></th>
-<th><strong>孔洞序列</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>RED</strong></td>
-<td>1, 0, 1</td>
-</tr>
-<tr>
-<td><strong>ORANGE</strong></td>
-<td>1, 1, 0, 1, 0, 0</td>
-</tr>
-<tr>
-<td><strong>YELLOW</strong></td>
-<td>0, 0, 0, 0, 1, 0</td>
-</tr>
-<tr>
-<td><strong>GREEN</strong></td>
-<td>0, 1, 0, 0, 0</td>
-</tr>
-<tr>
-<td><strong>BLUE</strong></td>
-<td>2, 0, 0, 0</td>
-</tr>
-<tr>
-<td><strong>VIOLET</strong></td>
-<td>0, 0, 1, 0, 0, 0</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="3-样例解释"><a class="markdownIt-Anchor" href="#3-样例解释"></a> 3. 样例解释</h3>
-<p><strong>输入</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mtext>BLUE</mtext></mrow><annotation encoding="application/x-tex">C_1 = \text{BLUE}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">BLUE</span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mtext>RED</mtext></mrow><annotation encoding="application/x-tex">C_2 = \text{RED}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">RED</span></span></span></span></span></p>
-<p><strong>输出分析</strong>：</p>
-<figure class="highlight plaintext"><figcaption><span>art</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BB..L...U.U.EEE  &lt;-- 第一部分：人类识别为 BLUE</span><br><span class="line">B.B.L...U.U.E..      B(2孔), L(0孔), U(0孔), E(0孔)</span><br><span class="line">BBB.L...U.U.EEE      四个大字母水平不接触，识别结果：BLUE</span><br><span class="line">B.B.L...U.U.E..</span><br><span class="line">RED.RED.RED.RED  &lt;-- 第二部分：机器人识别为 RED</span><br><span class="line">                     包含子串 RED，且两端由点号或边界隔离</span><br><span class="line">                     未包含 ORANGE, YELLOW 等其他子串</span><br></pre></td></tr></table></figure>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>这道题目给出的构造条件非常的宽松，你甚至可以就是直接就是嗯每一列它都是用 s_ai 组成就行了。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">string s_human,s_ai;</span><br><span class="line">cin&gt;&gt;s_human&gt;&gt;s_ai;</span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">ans_ls</span><span class="params">(<span class="number">12</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;s_human.<span class="built_in">size</span>();++j) &#123;</span><br><span class="line">        ans_ls[i]+=s_ai;</span><br><span class="line">        ans_ls[i]+=<span class="string">&quot;.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>,idx=<span class="number">1</span>;i&lt;s_human.<span class="built_in">size</span>();++i,idx+=<span class="built_in">SZ</span>(s_ai)<span class="number">+1</span>) &#123;</span><br><span class="line">    <span class="type">char</span> ch=s_human[i];</span><br><span class="line">    <span class="keyword">if</span> (ch==<span class="string">&#x27;B&#x27;</span>) &#123;</span><br><span class="line">        ans_ls[<span class="number">2</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">        ans_ls[<span class="number">9</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (one_hole.<span class="built_in">contains</span>(ch)) &#123;</span><br><span class="line">        ans_ls[<span class="number">2</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;++i) &#123;</span><br><span class="line">    cout&lt;&lt;ans_ls[i]&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么你会看到叔叔就长成这样，直接使用 s_ai 的 red 啊去组成这样子一个列。violt的话只有O的部分是有一个呃空缺的，我们只要点一个点一个点就行。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">_______________[ Testcase #<span class="number">1</span> INPUT ]_______________</span><br><span class="line">VIOLET</span><br><span class="line">RED</span><br><span class="line"></span><br><span class="line">_______________[ Testcase #<span class="number">1</span> OUTPUT]_______________</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.R.D.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br><span class="line">RED.RED.RED.RED.RED.RED.</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>AC<br />
-<a target="_blank" rel="noopener" href="https://qoj.ac/submission/2013731">https://qoj.ac/submission/2013731</a></p>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: C. Colourful Captcha</span></span><br><span class="line"><span class="comment"> * Contest: 2025 United Kingdom and Ireland Programming Contest (UKIEPC 2025)</span></span><br><span class="line"><span class="comment"> * Judge: Codeforces</span></span><br><span class="line"><span class="comment"> * URL: https://codeforces.com/gym/106157/problem/C</span></span><br><span class="line"><span class="comment"> * Created: 2026-02-07 13:33:24</span></span><br><span class="line"><span class="comment"> * Author: Gospel_rock</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Powered by AutoCp https://github.com/Pushpavel/AutoCp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o&lt;&lt;1|1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr&lt;&lt;<span class="string">&quot;\n-----------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed&lt;&lt;setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span><span class="number">+10</span>, INF = (<span class="number">1ll</span>&lt;&lt;<span class="number">61</span>)<span class="number">-1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>; <span class="comment">// (ll)1e9+7; </span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT,testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">set&lt;<span class="type">char</span>&gt; one_hole=&#123;<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;D&#x27;</span>,<span class="string">&#x27;O&#x27;</span>,<span class="string">&#x27;P&#x27;</span>,<span class="string">&#x27;Q&#x27;</span>,<span class="string">&#x27;R&#x27;</span>&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ll N;</span></span><br><span class="line">    <span class="comment">// cin &gt;&gt; N;</span></span><br><span class="line">    string s_human,s_ai;</span><br><span class="line">    cin&gt;&gt;s_human&gt;&gt;s_ai;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">ans_ls</span><span class="params">(<span class="number">12</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;s_human.<span class="built_in">size</span>();++j) &#123;</span><br><span class="line">            ans_ls[i]+=s_ai;</span><br><span class="line">            ans_ls[i]+=<span class="string">&quot;.&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>,idx=<span class="number">1</span>;i&lt;s_human.<span class="built_in">size</span>();++i,idx+=<span class="built_in">SZ</span>(s_ai)<span class="number">+1</span>) &#123;</span><br><span class="line">        <span class="type">char</span> ch=s_human[i];</span><br><span class="line">        <span class="keyword">if</span> (ch==<span class="string">&#x27;B&#x27;</span>) &#123;</span><br><span class="line">            ans_ls[<span class="number">2</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            ans_ls[<span class="number">9</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (one_hole.<span class="built_in">contains</span>(ch)) &#123;</span><br><span class="line">            ans_ls[<span class="number">2</span>][idx]=<span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;++i) &#123;</span><br><span class="line">        cout&lt;&lt;ans_ls[i]&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    cout.<span class="built_in">setf</span>(ios::unitbuf);   <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// cin &gt;&gt; lT;</span></span><br><span class="line">    <span class="comment">// for (testcase=1;testcase&lt;=lT;++testcase)</span></span><br><span class="line">        <span class="built_in">Solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://qoj.ac/submission/2013731</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -890,7 +898,7 @@ Pahom 从黎明开始，到日落结束，使用铲子做标记，走动的区�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">170</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
