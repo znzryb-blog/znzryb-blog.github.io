@@ -191,6 +191,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/10/20250710-ebcce608/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/07/10/20250710-ebcce608/" class="post-title-link" itemprop="url">The 2025 Shanghai Collegiate Programming Contest - I. 真相（类似于树上背包的转移）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-07-10 12:13:00" itemprop="dateCreated datePublished" datetime="2025-07-10T12:13:00+08:00">2025-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-17 21:29:18" itemprop="dateModified" datetime="2026-02-17T21:29:18+08:00">2026-02-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>递推公式。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span>&amp;&amp; self,ll u,ll p)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">	dp[u][<span class="number">0</span>]=<span class="number">1</span>;		<span class="comment">// 每一个人说真话这种情况一定是存在的</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">		<span class="keyword">if</span>(v==p) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">self</span>(self,v,u);</span><br><span class="line">		<span class="function">vector&lt;ll&gt; <span class="title">tmp</span><span class="params">(N<span class="number">+5</span>)</span></span>;</span><br><span class="line">		<span class="built_in">ROF</span>(i,sz[u],<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">FOR</span>(j,<span class="number">0</span>,sz[v])&#123;</span><br><span class="line">				tmp[i+j]+=dp[u][i]*dp[v][j]%mod;</span><br><span class="line">				tmp[i+j]%=mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		dp[u]=tmp;</span><br><span class="line">		sz[u]+=sz[v];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// dp[u][A[u]-1] 就是如果u说真话，dp[u][A[u]]的值</span></span><br><span class="line">	<span class="comment">// 因为u说真话，那么情况已经定下来了，其余的就是dp[u][A[u]-1]</span></span><br><span class="line">	dp[u][A[u]]=A[u]?dp[u][A[u]<span class="number">-1</span>]:<span class="number">0</span>;  <span class="comment">// 对于任何节点来说，A[u]=0都是悖论</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105992/submission/328455295">https://codeforces.com/gym/105992/submission/328455295</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: I. 真相</span></span><br><span class="line"><span class="comment">// Contest: Codeforces - The 2025 Shanghai Collegiate Programming Contest</span></span><br><span class="line"><span class="comment">// URL: https://codeforces.com/gym/105992/problem/I</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 1000 ms</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(var) (var&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(var) ((var&lt;&lt;1)+1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  ll = <span class="type">long</span> <span class="type">long</span>;<span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB=<span class="type">double</span>;<span class="keyword">using</span> LD=<span class="type">long</span> <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> pdd = pair&lt;DB,DB&gt;;<span class="keyword">using</span> plb = pair&lt;ll,<span class="type">bool</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> pll = pair&lt;ll,ll&gt;;</span><br><span class="line"><span class="keyword">using</span> arr3 = array&lt;ll,<span class="number">3</span>&gt; ;<span class="keyword">using</span> arr2 = array&lt;ll,<span class="number">2</span>&gt;;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e3</span>)<span class="number">+10</span>,INF=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e17</span>)<span class="number">+9</span>; <span class="comment">// 1e18+9也是素数</span></span><br><span class="line"><span class="keyword">constexpr</span> ll MAXM=(ll)<span class="number">1e6</span><span class="number">+10</span>;<span class="keyword">constexpr</span> ll MAXV=(ll)<span class="number">1e6</span><span class="number">+10</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll mod= <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">double</span> eps=<span class="number">1e-8</span>;<span class="type">const</span> <span class="type">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll N,M,Q,X,K,T,lT,A[MAXN];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;N;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N)&#123;</span><br><span class="line">		cin&gt;&gt;A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">vector <span class="title">g</span><span class="params">(N<span class="number">+5</span>,vector&lt;ll&gt;())</span></span>;</span><br><span class="line">	<span class="function">vector <span class="title">dp</span><span class="params">(N<span class="number">+5</span>,vector&lt;ll&gt;(N<span class="number">+5</span>))</span></span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">1</span>,N<span class="number">-1</span>)&#123;</span><br><span class="line">		ll u,v;</span><br><span class="line">		cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">		g[u].<span class="built_in">pb</span>(v);g[v].<span class="built_in">pb</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">sz</span><span class="params">(N<span class="number">+5</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span>&amp;&amp; self,ll u,ll p)-&gt;<span class="type">void</span>&#123;</span><br><span class="line">		dp[u][<span class="number">0</span>]=<span class="number">1</span>;		<span class="comment">// 每一个人说真话这种情况一定是存在的</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v:g[u])&#123;</span><br><span class="line">			<span class="keyword">if</span>(v==p) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">self</span>(self,v,u);</span><br><span class="line">			<span class="function">vector&lt;ll&gt; <span class="title">tmp</span><span class="params">(N<span class="number">+5</span>)</span></span>;</span><br><span class="line">			<span class="built_in">ROF</span>(i,sz[u],<span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">FOR</span>(j,<span class="number">0</span>,sz[v])&#123;</span><br><span class="line">					tmp[i+j]+=dp[u][i]*dp[v][j]%mod;</span><br><span class="line">					tmp[i+j]%=mod;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			dp[u]=tmp;</span><br><span class="line">			sz[u]+=sz[v];</span><br><span class="line">		&#125;</span><br><span class="line">		dp[u][A[u]]=A[u]?dp[u][A[u]<span class="number">-1</span>]:<span class="number">0</span>;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">dfs</span>(dfs,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">	ll ans=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">FOR</span>(i,<span class="number">0</span>,N)&#123;</span><br><span class="line">		ans+=dp[<span class="number">1</span>][i];ans%=mod;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// #ifdef LOCAL</span></span><br><span class="line">    <span class="comment">// FOR(i,1,N)&#123;</span></span><br><span class="line">    	<span class="comment">// FOR(j,0,N)&#123;</span></span><br><span class="line">    		<span class="comment">// cerr&lt;&lt;dp[i][j]&lt;&lt;&quot; &quot;;</span></span><br><span class="line">    	<span class="comment">// &#125;</span></span><br><span class="line">    	<span class="comment">// cerr&lt;&lt;&quot;\n&quot;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	cin&gt;&gt;lT;</span><br><span class="line">	<span class="keyword">while</span>(lT--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/gym/105992/my</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/09/20250709-c3367e96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -528,81 +606,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/07/07/20250707-c3b72029/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/07/07/20250707-c3b72029/" class="post-title-link" itemprop="url">2022年度杭州未来科技城数字经济人才编程大赛—Q3. 快递中转站选址（中位数贪心）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-07-07 13:19:00" itemprop="dateCreated datePublished" datetime="2025-07-07T13:19:00+08:00">2025-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 21:29:16" itemprop="dateModified" datetime="2026-02-17T21:29:16+08:00">2026-02-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">buildTransferStation</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; area)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; xx,yy;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;area.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;area[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(area[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    xx.<span class="built_in">push_back</span>(i);</span><br><span class="line">                    yy.<span class="built_in">push_back</span>(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(xx.<span class="built_in">begin</span>(),xx.<span class="built_in">end</span>());<span class="built_in">sort</span>(yy.<span class="built_in">begin</span>(),yy.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">int</span> x=xx[xx.<span class="built_in">size</span>()/<span class="number">2</span>],y=yy[yy.<span class="built_in">size</span>()/<span class="number">2</span>];</span><br><span class="line">cout&lt;&lt;x&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;y&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;area.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;area[i].<span class="built_in">size</span>();++j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(area[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                   ans+=<span class="built_in">abs</span>(i-x)+<span class="built_in">abs</span>(j-y);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -674,7 +677,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">583</span>
+          <span class="site-state-item-count">584</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
