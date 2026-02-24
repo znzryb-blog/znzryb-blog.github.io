@@ -191,6 +191,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/13/20250213-a7275824/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/02/13/20250213-a7275824/" class="post-title-link" itemprop="url">CF-998-D. Subtract Min Sort</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-02-13 11:26:00" itemprop="dateCreated datePublished" datetime="2025-02-13T11:26:00+08:00">2025-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-15 22:25:56" itemprop="dateModified" datetime="2026-02-15T22:25:56+08:00">2026-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><a href="/2025/02/12/20250212-025883b1">CF-1004-B. Two Large Bags</a></p>
+<p>和这题也没那么像，但是确实这种有操作，而且操作没有次数限制的，一定要找出一种操作模式，虽然说有可能浪费，但是绝对不会恶化现有情况，这是我对这类题目的自己的一点感悟</p>
+<p>那么，这道题目，我们发现，如果有一个逆序对（比如说下面这个5，4）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">4</span> <span class="number">5</span> <span class="number">4</span> <span class="number">5</span> <span class="number">4</span> <span class="number">5</span> <span class="number">4</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>我们肯定就要处理这个，我们要让5变小</p>
+<p>但是这个还要判断逆序对呀，能不能再进一步，对所有数都进行一次这个操作？</p>
+<p>我们可以证明，这个操作一定是优的，因为他让前面的数减小了</p>
+<p>于是我们顺着操作一遍，再判断是否是有序的就好了</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2060/submission/305951401">https://codeforces.com/contest/2060/submission/305951401</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: D. Subtract Min Sort</span></span><br><span class="line"><span class="comment">// Contest: Codeforces - Codeforces Round 998 (Div. 3)</span></span><br><span class="line"><span class="comment">// URL: https://codeforces.com/contest/2060/problem/D</span></span><br><span class="line"><span class="comment">// Memory Limit: 256 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i, a) memset(i, a, sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int)a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll, ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll, 3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;DB, DB&gt; pdd;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN = <span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>) + <span class="number">10</span>, INF = <span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>) + <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">ll N, T, A[MAXN], backup[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; N;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123; cin &gt;&gt; A[i]; &#125;</span><br><span class="line">  <span class="keyword">if</span> (A[<span class="number">1</span>] &gt; A[<span class="number">2</span>]) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 我们可以证明，这个操作一定是优的，因为他让前面的数减小了</span></span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N - <span class="number">1</span>) &#123;</span><br><span class="line">    ll t1 = A[i] - <span class="built_in">min</span>(A[i], A[i + <span class="number">1</span>]), t2 = A[i + <span class="number">1</span>] - <span class="built_in">min</span>(A[i], A[i + <span class="number">1</span>]);</span><br><span class="line">    A[i] = t1;</span><br><span class="line">    A[i + <span class="number">1</span>] = t2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123; backup[i] = A[i]; &#125;</span><br><span class="line">  <span class="built_in">sort</span>(A + <span class="number">1</span>, A + <span class="number">1</span> + N);</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">    <span class="keyword">if</span> (backup[i] != A[i]) &#123;</span><br><span class="line">      cout &lt;&lt; <span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;YES\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">  cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  cin &gt;&gt; T;</span><br><span class="line">  <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/contest/2060/submission/305951401</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/13/20250213-020ef949/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,105 +559,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2025/02/10/20250210-9729e029/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/10/20250210-9729e029/" class="post-title-link" itemprop="url">2025牛客WC5-C-小L的位运算</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-02-10 14:38:00" itemprop="dateCreated datePublished" datetime="2025-02-10T14:38:00+08:00">2025-02-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-15 22:25:54" itemprop="dateModified" datetime="2026-02-15T22:25:54+08:00">2026-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<blockquote>
-<p>我们将不匹配的位置分类，发现最多只有四类，<em>ab</em> 分别是 00*,* 01*,* 10*,* 11 ，任意<br />
-两个不同种类不匹配的话，我们一定可以交换其中的某一位 0 和 1 使之两两匹配，</p>
-</blockquote>
-<p>其他的没什么特殊的，我们发现四种情况全部都可以选择其他另外一种情况抵消。</p>
-<p>那么问题就来到了怎么样抵消的问题上</p>
-<blockquote>
-<p>我们一定可以交换其中的某一位 0 和 1 使之两两匹配，那么我<br />
-们就只看最多的一类不匹配的位置的数量有没有超过总数的一半即可。<br />
-如果超过就超过的部分反置，其余匹配，否则一定存在一种分配方式使之匹配后至多<br />
-仅剩一个。</p>
-</blockquote>
-<p>官解的匹配方式是这样的，但我相信这个分类讨论大抵是没那么容易想到的，那我们有没有一种策略去匹配不出错那？</p>
-<p>用大的去匹配次大的</p>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75564916">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75564916</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;ll&gt; pq;</span><br><span class="line">pq.<span class="built_in">push</span>(rem0);</span><br><span class="line">pq.<span class="built_in">push</span>(rem1);</span><br><span class="line">pq.<span class="built_in">push</span>(rem01);</span><br><span class="line">pq.<span class="built_in">push</span>(rem10);</span><br><span class="line">ll ans=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">SZ</span>(pq) != <span class="number">1</span>) &#123;</span><br><span class="line">  ll u = pq.<span class="built_in">top</span>();</span><br><span class="line">  pq.<span class="built_in">pop</span>();</span><br><span class="line">  ll v = pq.<span class="built_in">top</span>();</span><br><span class="line">  pq.<span class="built_in">pop</span>();</span><br><span class="line">  ans += v * Y;</span><br><span class="line">  <span class="keyword">if</span> (u == v) <span class="keyword">continue</span>;</span><br><span class="line">  pq.<span class="built_in">push</span>(u - v);</span><br><span class="line">&#125;</span><br><span class="line">ans += pq.<span class="built_in">top</span>() * X;</span><br></pre></td></tr></table></figure>
-<p>用大的去匹配小的</p>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75565204">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75565204</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;ll&gt; pq;</span><br><span class="line">pq.<span class="built_in">push</span>(rem0);</span><br><span class="line">pq.<span class="built_in">push</span>(rem1);</span><br><span class="line">pq.<span class="built_in">push</span>(rem01);</span><br><span class="line">pq.<span class="built_in">push</span>(rem10);</span><br><span class="line">ll ans = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">SZ</span>(pq) &gt; <span class="number">1</span>) &#123;</span><br><span class="line">  ll u = pq.<span class="built_in">top</span>();</span><br><span class="line">  pq.<span class="built_in">pop</span>();</span><br><span class="line">  ll v = pq.<span class="built_in">top</span>();</span><br><span class="line">  pq.<span class="built_in">pop</span>();</span><br><span class="line">  ans += v * Y;</span><br><span class="line">  pq.<span class="built_in">push</span>(u - v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">  cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">ans += pq.<span class="built_in">top</span>() * X;</span><br><span class="line">cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>似乎都会出问题，这些贪心策略都有瑕疵（见以下hack数据3，5，7，13）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">28</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"><span class="number">0001111100000001111111111111</span></span><br><span class="line"><span class="number">0001111111111110000000000000</span></span><br><span class="line"><span class="number">1111111100000000000000000000</span></span><br><span class="line"></span><br><span class="line">应该输出</span><br><span class="line"><span class="number">84</span>（<span class="number">14</span>次交换*<span class="number">6</span>=<span class="number">84</span>）</span><br></pre></td></tr></table></figure>
-<p>有些人~~（我）~~可能觉得3，5，7，13根本无法消除（无法完全通过交换消除），通过交换最终会剩余2</p>
-<p>但实际上是可以的，只不过比较复杂，需要通过分段的方法消除，具体见下</p>
-<p><img src="https://media.znzryb.com/20250210-9729e029/image_be282332.png" alt="image" /></p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>AC</p>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75568259">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=75568259</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Problem: 小L的位运算</span></span><br><span class="line"><span class="comment">// Contest: NowCoder</span></span><br><span class="line"><span class="comment">// URL: https://ac.nowcoder.com/acm/contest/95337/C</span></span><br><span class="line"><span class="comment">// Memory Limit: 512 MB</span></span><br><span class="line"><span class="comment">// Time Limit: 2000 ms</span></span><br><span class="line"><span class="comment">// by znzryb</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Powered by CP Editor (https://cpeditor.org)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOR(i, a, b) for (int i = (a); i &lt;= (b); ++i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ROF(i, a, b) for (int i = (a); i &gt;= (b); --i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLR(i, a) memset(i, a, sizeof(i))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((int)a.size())</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll, ll&gt; pll;</span><br><span class="line"><span class="keyword">typedef</span> array&lt;ll, 3&gt; arr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> DB;</span><br><span class="line"><span class="keyword">constexpr</span> ll MAXN = <span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">1e6</span>) + <span class="number">10</span>, INF = <span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">5e18</span>) + <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">ll N, X, Y, T;</span><br><span class="line"><span class="type">char</span> A[MAXN], B[MAXN], C[MAXN];</span><br><span class="line"><span class="comment">// ll rem[7];</span></span><br><span class="line">ll rem1, rem0, rem10, rem01;</span><br><span class="line"><span class="comment">// vector&lt;ll&gt; pq;</span></span><br><span class="line"><span class="comment">// ll ans=INF;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">  cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  cin &gt;&gt; N &gt;&gt; X &gt;&gt; Y;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123; cin &gt;&gt; A[i]; &#125;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123; cin &gt;&gt; B[i]; &#125;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123; cin &gt;&gt; C[i]; &#125;</span><br><span class="line">  <span class="built_in">FOR</span>(i, <span class="number">1</span>, N) &#123;</span><br><span class="line">    <span class="keyword">if</span> (((A[i] - <span class="string">&#x27;0&#x27;</span>) ^ (B[i] - <span class="string">&#x27;0&#x27;</span>)) != (C[i] - <span class="string">&#x27;0&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (C[i] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (A[i] == <span class="string">&#x27;0&#x27;</span> &amp;&amp; B[i] == <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">          rem0 += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          rem1 += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (A[i] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">          rem10 += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          rem01 += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// rem[0]=rem0,rem[1]=rem1,rem[2]=rem10,rem[3]=rem01;</span></span><br><span class="line">  <span class="keyword">if</span> (X * <span class="number">2</span> &gt; Y) &#123;</span><br><span class="line">    ll sum=rem0+rem1+rem10+rem01;</span><br><span class="line">    ll maxR=<span class="built_in">max</span>(&#123;rem0,rem1,rem10,rem01&#125;);</span><br><span class="line">    ll ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(maxR*<span class="number">2</span>&lt;=sum)&#123;</span><br><span class="line">    	ans=sum/<span class="number">2</span>*Y+sum%<span class="number">2</span>*X;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	ans=(maxR-(sum-maxR))*X+(sum-maxR)*Y;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; (rem1 + rem0 + rem10 + rem01) * X &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p>哈哈，不知道还可以这样分段消除，还以为题目出问题了，我太菜了</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/75/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><span class="page-number current">76</span><a class="page-number" href="/page/77/">77</a><span class="space">&hellip;</span><a class="page-number" href="/page/117/">117</a><a class="extend next" rel="next" href="/page/77/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/75/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><span class="page-number current">76</span><a class="page-number" href="/page/77/">77</a><span class="space">&hellip;</span><a class="page-number" href="/page/118/">118</a><a class="extend next" rel="next" href="/page/77/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -648,7 +630,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">585</span>
+          <span class="site-state-item-count">586</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

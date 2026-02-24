@@ -191,6 +191,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/24/20260224-c37aead5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/24/20260224-c37aead5/" class="post-title-link" itemprop="url">Codeforces Round 1082 (Div. 2)-CF-1082</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-02-24 05:58:00 / Modified: 14:02:03" itemprop="dateCreated datePublished" datetime="2026-02-24T05:58:00+08:00">2026-02-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<p><strong>题目大意</strong></p>
+<p>有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal">n</span></span></span></span> 张卡片排成一排，卡片上分别写着数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>n</mi><mo separator="true">,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1, 1, 2, 2, \dots, n, n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span></span></span></span>，初始时全部背面朝上。</p>
+<p>你将使用以下“贪心”策略来进行翻牌游戏，每回合精确地翻开两张卡片：</p>
+<ol>
+<li>
+<p>如果你之前已经翻开过（且未被消除）两张数字相同的卡片，则直接翻开并消除它们。</p>
+</li>
+<li>
+<p>否则，翻开从左到右第一张<strong>从未被翻开过</strong>的卡片，设其数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>。</p>
+</li>
+<li>
+<p>接着，如果之前已经翻开过另一张数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 的卡片，则翻开并消除它。</p>
+</li>
+<li>
+<p>否则，再次翻开从左到右第一张<strong>从未被翻开过</strong>的卡片。如果这两张卡片数字相同，则消除；如果不同，则重新翻回背面。</p>
+</li>
+</ol>
+<p>给定 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>，要求构造一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 各出现两次的排列，使得上述算法恰好需要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 个回合才能消除所有卡片。如果存在这样的排列，输出 <code>YES</code> 并输出该排列；否则输出 <code>NO</code>。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含一个整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span></span></span></span>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">1 \le t \le 10^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>），表示测试数据组数。<br />
+接下来每组数据包含一行，包含两个整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>3</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">1 \le n \le 3 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">1 \le k \le 10^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span>）。<br />
+保证所有测试数据中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 的总和不超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">3 \times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<p><strong>输出格式</strong></p>
+<p>如果不存在满足条件的卡片排列，输出一行 <code>NO</code>。<br />
+如果存在，输出一行 <code>YES</code>，并在下一行输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal">n</span></span></span></span> 个整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a_1, a_2, \dots, a_{2n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><msub><mi>a</mi><mi>i</mi></msub><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \le a_i \le n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7859700000000001em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>），表示卡片上的数字排列。如果有多个合法的排列，输出任意一个即可。</p>
+<p><strong>样例输入</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">2 3</span><br><span class="line">3 4</span><br><span class="line">3 2</span><br><span class="line">3 5</span><br><span class="line">6 10</span><br><span class="line">6 67</span><br></pre></td></tr></table></figure>
+<p><strong>样例输出</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">YES</span><br><span class="line">2 1 2 1</span><br><span class="line">YES</span><br><span class="line">1 3 2 2 1 3</span><br><span class="line">NO</span><br><span class="line">YES</span><br><span class="line">1 2 3 1 2 3</span><br><span class="line">YES</span><br><span class="line">2 1 3 4 5 4 1 2 6 5 6 3</span><br><span class="line">NO</span><br></pre></td></tr></table></figure>
+<p><strong>样例解释</strong></p>
+<p>对于第一组样例，初始排列为 <code>2 1 2 1</code>，每回合的操作如下：</p>
+<ul>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 回合：翻开第一张未翻过的卡片（数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>），之前没有记录，接着翻开下一张未翻过的卡片（数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>）。数字不同，翻回背面。此时记下前两张卡片的数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 回合：翻开第一张未翻过的卡片（第三张，数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>），由于之前已经翻开过数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 的卡片（第一张），因此翻开第一张，两张卡片相同并消除。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 回合：翻开第一张未翻过的卡片（第四张，数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>），由于之前已经翻开过数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 的卡片（第二张），因此翻开第二张，两张卡片相同并消除。<br />
+游戏结束，共花费 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 个回合。</p>
+</li>
+</ul>
+<p>对于第四组样例，初始排列为 <code>1 2 3 1 2 3</code>，每回合的操作如下：</p>
+<ul>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 回合：翻开第一、第二张从未翻过的卡片，数字分别为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>。数字不同，翻回背面。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 回合：翻开第三、第四张从未翻过的卡片，数字分别为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。数字不同，翻回背面。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 回合：此时发现之前翻开过（且未消除）的卡片中存在两张数字相同的卡片（第一张和第四张均为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>），触发规则第一条，直接翻开这两张卡片并消除。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> 回合：没有两张已翻开且相同的卡片。翻开第五张卡片（数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>），由于之前翻开过数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>（第二张卡片），因此翻开第二张卡片并消除。</p>
+</li>
+<li>
+<p>第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> 回合：翻开第六张卡片（数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>），由于之前翻开过数字 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>（第三张卡片），因此翻开第三张卡片并消除。<br />
+游戏结束，算法恰好在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">k=5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> 回合赢得游戏。</p>
+</li>
+</ul>
+<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/23/20260223-43b387e5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -776,208 +906,10 @@ Sulfox the fennec fox已经建立了一个迷宫，并邀请他的两个朋友Al
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/21/20260221-44c6d26e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/21/20260221-44c6d26e/" class="post-title-link" itemprop="url">CF-1081-赛后总结（不同的值就用不同的变量，不要用同一个变量，可能会导致漏写错写，请尽量少的复用原有的变量）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-02-21 16:55:00" itemprop="dateCreated datePublished" datetime="2026-02-21T16:55:00+08:00">2026-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-22 12:02:11" itemprop="dateModified" datetime="2026-02-22T12:02:11+08:00">2026-02-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基本情况"><a class="markdownIt-Anchor" href="#基本情况"></a> 基本情况</h2>
-<p>打的还是挺不错的。一共做出来四道题，做出来四道题。这个 D 题是最后 A 的，D 题是最后 A 的。哎，D 题这个叫什么，稍微有点唐了，这漏了这两行有点唐了。还有这个 C 啊，读错题目了。这个 C 读错题目了，绷不住了，我自己给自己上难度啊，以为这个弹夹可以不打完就就换，这个弹夹可以不打完就换，自己给自己上难度。以后遇到这个题目啊，就是如果我们发现这道题目，就是我们还是要确定一下，就是一些限制条件，我们还是要想办法确定一下。</p>
-<p>然后这个 d 的这个情况也是比较唐的，就这个 d 漏的这两行比较唐吧。是这样子，我感觉呢，以后这种如果说有多个，然后需要取 max 的话，最好啊 最好就是多整几行，多整几个变量，整个 add1 add2，这样子就你你不会忘记去给它进行这么一个赋值。然后你 add 1，你写出来，你不用，编译器还会报警，IDE 还会报警，对吧？你 add 1没用，你就知道你要把它取个 max 对吧？</p>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2192">https://codeforces.com/contest/2192</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a.id!=b.id) &#123;</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    a=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_diff_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">    a=*mx_diff_st.<span class="built_in">rbegin</span>();</span><br><span class="line">    b=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_a_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://media.znzryb.com/20260221-44c6d26e/image_7e9335e8.png" alt="image" /></p>
-<h2 id="心得感悟"><a class="markdownIt-Anchor" href="#心得感悟"></a> 心得感悟</h2>
-<p>下面是和队友对 D 题的这个探讨。</p>
-<p>ZnZrYb: 02-22 00:36:59<br />
-首先是树上 dp</p>
-<p>ZnZrYb: 02-22 00:37:38<br />
-auto dfs2=[&amp;](auto &amp;&amp; self,ll u,ll p,ll dep) -&gt; void {<br />
-dep_ls[u]=dep;<br />
-set&lt;Dep_sub&gt; mx_diff_st;<br />
-set&lt;A_sub&gt; mx_a_st;<br />
-ll id=0;<br />
-ll add_mx=0;<br />
-for (auto to:g[u]) {<br />
-if (to==p) continue;<br />
-self(self,to,u,dep+1);<br />
-dp[u]+=dp[to];<br />
-dp[u]+=sum_a[to];<br />
-sum_a[u]+=sum_a[to];<br />
-add_mx=max(add_mx,ans_ls[to]-dp[to]);<br />
-mx_dep[u]=max(mx_dep[to],mx_dep[u]);<br />
-++id;<br />
-mx_diff_st.insert({id,mx_dep[to]-dep});<br />
-mx_a_st.insert({id,sum_a[to]});<br />
-}<br />
-if (id&gt;=2) {<br />
-Dep_sub a=<em>mx_diff_st.rbegin();<br />
-A_sub b=<em>mx_a_st.rbegin();<br />
-ll add=0;<br />
-if (</em><a target="_blank" rel="noopener" href="http://a.id/"><em>a.id</em></a></em>!=<em><a target="_blank" rel="noopener" href="http://b.id/"><em>b.id</em></a></em>) {<br />
-add=a.dep*b.suma;<br />
-add_mx=max(add,add_mx);<br />
-}else {<br />
-a=<em>prev(prev(mx_diff_st.end()));<br />
-add=a.dep</em>b.suma;<br />
-add_mx=max(add,add_mx);<br />
-a=*mx_diff_st.rbegin();<br />
-b=<em>prev(prev(mx_a_st.end()));<br />
-add=a.dep</em>b.suma;<br />
-add_mx=max(add,add_mx);<br />
-}<br />
-}<br />
-ans_ls[u]=dp[u]+add_mx;<br />
-sum_a[u]+=A[u];<br />
-mx_dep[u]=max(dep,mx_dep[u]);<br />
-};</p>
-<p>ZnZrYb: 02-22 00:37:54<br />
-答案在这个 ans</p>
-<p>鵗曦: 02-22 00:39:12<br />
-我是先枚举移动各个节点，显然移动该节点最好办法就是移动到子树外的最深节点，移完之后贡献变化是高度差乘以子树的系数和</p>
-<p>ZnZrYb: 02-22 00:39:19<br />
-具体来说就是这个增量可以从，就是子节点里面来，就是可以从子节点里面来。然后这个增量也可以就是我们自己来操作。自己来操作的话，是使用的 Max D I F F S T 和 Max A S T。其实就是把最大的 sum A 嫁接到最大的深度指数上。但如果说最大的深度指数和最大的 sum A 是同一个的话，需要稍微进行一下其他处理。</p>
-<p>鵗曦: 02-22 00:39:29<br />
-然后每个节点的答案就是子树的最大值。</p>
-<p>鵗曦: 02-22 00:40:10<br />
-我是这么想的，但是写不对。</p>
-<p>鵗曦: 02-22 00:40:48<br />
-你觉得对不对</p>
-<p>鵗曦: 02-22 00:40:51<br />
-[图片]</p>
-<p>鵗曦: 02-22 00:41:14<br />
-diffst和ast是啥玩意</p>
-<p>ZnZrYb: 02-22 00:42:13<br />
-diff_st 存的是子树深度差值。 AST 就是存的是子树权值和</p>
-<p>ZnZrYb: 02-22 00:43:01<br />
-我觉得这个思路挺对的</p>
-<p>鵗曦: 02-22 00:43:53<br />
-按我这么写，需要用的信息可以O（n）维护出来。唯一的难点就是要查子树外的最深节点</p>
-<p>鵗曦: 02-22 00:44:02<br />
-然后咱想的是上个树剖</p>
-<p>ZnZrYb: 02-22 00:44:15<br />
-啊</p>
-<p>鵗曦: 02-22 00:44:24<br />
-因为一个子树在dfn上是连续的。</p>
-<p>鵗曦: 02-22 00:44:37<br />
-所以可以查前面一整段和后面一整段，取其中的深度最大值。</p>
-<p>鵗曦: 02-22 00:44:44<br />
-但是写的不对</p>
-<p>鵗曦: 02-22 00:44:51<br />
-[图片]</p>
-<p>ZnZrYb: 02-22 00:44:55<br />
-懂了</p>
-<p>ZnZrYb: 02-22 00:45:50<br />
-那就上个 st 表都能解决</p>
-<p>ZnZrYb: 02-22 00:46:03<br />
-感觉挺对的</p>
-<p>鵗曦: 02-22 00:46:13<br />
-过不去样例</p>
-<p>鵗曦: 02-22 00:46:16<br />
-写炸了</p>
-<p>ZnZrYb: 02-22 00:46:21<br />
-[笑哭]</p>
-<p>鵗曦: 02-22 00:46:57<br />
-dfn序列用st表预处理是吧</p>
-<p>鵗曦: 02-22 00:47:14<br />
-咱的树剖板子默认写了线段树</p>
-<p>ZnZrYb: 02-22 00:47:22<br />
-哦，我知道你可能是哪里的问题了</p>
-<p>鵗曦: 02-22 00:47:41<br />
-哪里</p>
-<p>ZnZrYb: 02-22 00:48:34<br />
-不过我不确定，就是你限定了树的范围了吧，就是他求的是 i 的子树</p>
-<p>ZnZrYb: 02-22 00:48:38<br />
-的答案</p>
-<p>鵗曦: 02-22 00:49:16<br />
-不是输出每个节点对应的答案吗</p>
-<p>鵗曦: 02-22 00:49:26<br />
-每个节点的操作是可以任意选择它指数里面的一个节点进行嫁接</p>
-<p>鵗曦: 02-22 00:49:34<br />
-子树</p>
-<p>鵗曦: 02-22 00:49:57<br />
-所以每个节点的答案就是处理出来的子树里的最大值。</p>
-<p>ZnZrYb: 02-22 00:51:36<br />
-感觉好像你没有理解错啊，你也是查询的子树里深度最大值是吧</p>
-<p>鵗曦: 02-22 00:52:09<br />
-我已经枚举计算过了，假如要移动某某个节点，能产生的最大权重</p>
-<p>鵗曦: 02-22 00:52:35<br />
-所以输出答案的时候，对于一个节点的答案，只需要找这个节点所在的子数里面计算出的各个最大权重中的最大</p>
-<p>鵗曦: 02-22 00:52:47<br />
-当然也是O（n）就能弄出来的。</p>
-<p>ZnZrYb: 02-22 00:53:41<br />
-子树里面的这个点，是连到子树里面，还是连到子树外面</p>
-<p>ZnZrYb: 02-22 00:54:22<br />
-如果计算 i 的答案，子树 i 里面的点必须只能连接到子树 i 的里面的其他点</p>
-<p>鵗曦: 02-22 00:54:34<br />
-6</p>
-<p>鵗曦: 02-22 00:54:37<br />
-这里理解错了</p>
-<p>鵗曦: 02-22 00:55:15<br />
-那我这样反着做错完了。</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/117/">117</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/118/">118</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1045,7 +977,7 @@ dfn序列用st表预处理是吧</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">585</span>
+          <span class="site-state-item-count">586</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
