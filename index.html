@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/02/24/20260224-74e87318/" class="post-title-link" itemprop="url">Codeforces Round 1082 (Div. 2)-CF-1082-E. Rigged Bracket Sequence</a>
+            <a href="/2026/02/24/20260224-74e87318/" class="post-title-link" itemprop="url">Codeforces Round 1082 (Div. 2)-CF-1082-E. Rigged Bracket Sequence（括号串）</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-02-24 06:39:00 / Modified: 16:04:18" itemprop="dateCreated datePublished" datetime="2026-02-24T06:39:00+08:00">2026-02-24</time>
+              <time title="Created: 2026-02-24 06:39:00 / Modified: 17:02:22" itemprop="dateCreated datePublished" datetime="2026-02-24T06:39:00+08:00">2026-02-24</time>
             </span>
 
           
@@ -310,8 +310,30 @@
 </li>
 </ul>
 <p><img src="https://media.znzryb.com/20260224-74e87318/image_756c0f90.png" alt="image" /></p>
-<p>这个就是所谓的right shift操作，那么其实就是向右循环移动一位。</p>
+<p>这个就是所谓的right shift操作，那么其实就是向右循环移动一位。题目给你一个正规合法的括号串，问你在所有子序列当中，哪些子序列在进行了right shift操作以后还是合法的括号串（注意，子序列进行了right shift操作后，会反作用于原来的正规合法括号串，那么我们就是要看原来的正规合法括号串，在进行了这个操作以后是否还合法）。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        猜测 dp，但是不满足合法 → 合法转移
+    </div>
+    <div class='fold-content'>
+        <p>这种题目，先猜一手 dp。<br />
+<a href="/2026/01/17/20260117-15aaa729">CF-1073-D2. Sub-RBS (Hard Version)（注意虚拟节点可能的操作特判）（括号序列 dp 的状态设计）</a><br />
+这道题目使用了不平衡度作为 dp 的状态设计，不知道这个对我们有没有什么启示？<br />
+<img src="https://media.znzryb.com/20260224-74e87318/image_96dbd024.png" alt="image" /><br />
+这提示我们可能不是 dp。</p>
+
+    </div>
+</div>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        探路：猜测
+    </div>
+    <div class='fold-content'>
+        <p>我们容易写出如下程序。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i]==<span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 这个分支应该是没有什么问题</span></span><br><span class="line">        <span class="comment">// 因为这计数已经是顶格了，而且往前移动左括号，绝对是保险的</span></span><br><span class="line">        ans+=<span class="built_in">binpow</span>(<span class="number">2</span>,i<span class="number">-1</span>);</span><br><span class="line">        ans%=mod;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 一样的，移动起来肯定没问题</span></span><br><span class="line">        cnt_right++;</span><br><span class="line">        ans+=<span class="built_in">binpow</span>(<span class="number">2</span>,cnt_right<span class="number">-1</span>);</span><br><span class="line">        ans%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+</div>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
