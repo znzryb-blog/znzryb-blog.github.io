@@ -191,6 +191,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/29/20241129-07aa76f7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/29/20241129-07aa76f7/" class="post-title-link" itemprop="url">D. Drunken Maze（醉迷宫）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-29 05:22:00" itemprop="dateCreated datePublished" datetime="2024-11-29T05:22:00+08:00">2024-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 15:38:39" itemprop="dateModified" datetime="2026-02-14T15:38:39+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>这题难点主要就是不要怕，看起来好像很难，但其实就只有16种状态，我还没加快读只跑了171ms。</p>
+<p>看了一下大佬的思路，主要就是状态分解，还是分层图的思想。</p>
+<p><img src="https://media.znzryb.com/20241129-07aa76f7/image_f470e8e5.png" alt="image" /></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//       y  x  dir dirs</span></span><br><span class="line"><span class="type">bool</span> vis[N][M][<span class="number">5</span>][<span class="number">5</span>];  </span><br><span class="line"><span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="built_in">sizeof</span>(vis));</span><br></pre></td></tr></table></figure>
+<p>所以我们建一个分层状态vis数组，dir指的是方向，dirs指的是在此方向走过的次数</p>
+<p>只要vis[][][][]==true我们就continue；</p>
+<p>在这个分层图上跑一个bfs</p>
+<p>然后注意一下不要撞墙，不要出界，不要dirs&gt;3</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>注意，该写法仅能在C<ins>11及以上环境中编译（C</ins>98好像没有array）</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2041/submission/293790427">https://codeforces.com/contest/2041/submission/293790427</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> dx[]=&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> dy[]=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">ll n,m;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这题会不会是分层图问题？</span></span><br><span class="line"><span class="comment">// 分不同的层去解决这个问题？</span></span><br><span class="line"><span class="comment">// 先写个bfs</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">check</span><span class="params">(ll x,ll y,vector&lt;vector&lt;<span class="type">char</span>&gt; &gt; &amp;maze)</span></span>&#123;	</span><br><span class="line"><span class="comment">// 检查是否出界以及撞墙</span></span><br><span class="line">	<span class="keyword">if</span>(y&lt;<span class="number">1</span> || y&gt;n)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span>(x&lt;<span class="number">1</span> || x&gt;m)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span>(maze[y][x]==<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	vector&lt;vector&lt;<span class="type">char</span>&gt; &gt; <span class="built_in">maze</span>(n<span class="number">+5</span>,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(m<span class="number">+5</span>)); </span><br><span class="line">	ll sy=<span class="number">0</span>,sx=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=m;++j)&#123;</span><br><span class="line">			cin&gt;&gt;maze[i][j];</span><br><span class="line">			<span class="keyword">if</span>(maze[i][j]==<span class="string">&#x27;S&#x27;</span>)</span><br><span class="line">				sy=i,sx=j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	queue&lt;array&lt;ll, 5&gt;&gt; q;</span><br><span class="line">	<span class="comment">//       x,y,step,dir,dirs;</span></span><br><span class="line">	q.<span class="built_in">push</span>(&#123;sx,sy,<span class="number">0LL</span>,<span class="number">0LL</span>,<span class="number">0LL</span>&#125;);</span><br><span class="line">	<span class="type">const</span> ll N=<span class="number">5</span>+<span class="built_in">static_cast</span>&lt;ll&gt; (n),M=<span class="built_in">static_cast</span>&lt;ll&gt; (m)<span class="number">+5</span>;</span><br><span class="line">	<span class="type">bool</span> vis[N][M][<span class="number">5</span>][<span class="number">5</span>];  </span><br><span class="line">	<span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">	ll ans=<span class="number">1e17</span>;</span><br><span class="line">	<span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		ll x=q.<span class="built_in">front</span>()[<span class="number">0</span>];</span><br><span class="line">		ll y=q.<span class="built_in">front</span>()[<span class="number">1</span>];</span><br><span class="line">		ll step=q.<span class="built_in">front</span>()[<span class="number">2</span>];</span><br><span class="line">		ll dir=q.<span class="built_in">front</span>()[<span class="number">3</span>];</span><br><span class="line">		ll dirs=q.<span class="built_in">front</span>()[<span class="number">4</span>];</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="keyword">if</span>(vis[y][x][dir][dirs])&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(maze[y][x]==<span class="string">&#x27;T&#x27;</span>)&#123;</span><br><span class="line">			ans=<span class="built_in">min</span>(ans,step);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		vis[y][x][dir][dirs]=<span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(i==dir &amp;&amp; dirs&lt;<span class="number">3</span> &amp;&amp; <span class="built_in">check</span>(x+dx[i],y+dy[i],maze))</span><br><span class="line">				q.<span class="built_in">push</span>(&#123;x+dx[i],y+dy[i],step<span class="number">+1</span>,i,dirs<span class="number">+1</span>&#125;);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(i!=dir &amp;&amp; <span class="built_in">check</span>(x+dx[i],y+dy[i],maze))</span><br><span class="line">				q.<span class="built_in">push</span>(&#123;x+dx[i],y+dy[i],step<span class="number">+1</span>,i,<span class="number">1LL</span>&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(ans!=<span class="number">1e17</span>)</span><br><span class="line">		cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://codeforces.com/contest/2041/submission/293790427</span></span><br></pre></td></tr></table></figure>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>前面少include 一个cstring库，唉，都是clang<ins>不支持&lt;bits/stdc</ins>.h&gt;导致的</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/29/20241129-5a795a8f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -475,92 +554,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/26/20241126-89e25092/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/26/20241126-89e25092/" class="post-title-link" itemprop="url">CodeTON Round 9 (Div. 1 + Div. 2, Rated, Prizes!)——D. Shohag Loves GCD</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-26 04:05:00" itemprop="dateCreated datePublished" datetime="2024-11-26T04:05:00+08:00">2024-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 15:38:36" itemprop="dateModified" datetime="2026-02-14T15:38:36+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="辗转相除法简介"><a class="markdownIt-Anchor" href="#辗转相除法简介"></a> 辗转相除法简介</h2>
-<p><img src="https://media.znzryb.com/20241126-89e25092/Euclidean_algorithm_1071_462_c48db088.gif" alt="image" /></p>
-<p>我认为这张动图更容易让人理解一点（来自维基百科辗转相除法）</p>
-<p>算法的演示动画。最初的绿色矩形的长和宽分别是a=1071，b=462，从中不断铺上462×462的正方形直到剩下部分面积是462 (b) ×147 (a%b) ；然后再铺上147×147的正方形直至剩下21×147的面积；最后，铺上21×21的正方形时，绿色部分就没有了。即21是1071和462的最大公约数。</p>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>主要思路和官方题解一致</p>
-<p>A[1] 是所有满足 idx%1==0 的 A[idx] 中最大的；（同时保证字典序以及</p>
-<p>ai !=gcd(ai，aj) 因为ai是最大的嘛，你aj都没ai大，最大公因数怎么可能等于ai那）<br />
-A[2] 是所有满足 idx%2==0 的 A[idx] 中最大的；</p>
-<p>同理，剩下可推。</p>
-<p>然后上面我们相当于证明了 j % i == 0的情况（此时最大公倍数为 i ），接下来我们看看j % i ≠ 0 的情况</p>
-<p><img src="https://media.znzryb.com/20241126-89e25092/image_6144a7ef.png" alt="image" /></p>
-<p>长话短说，就是我们可以把 j % i ≠ 0 的问题转化为 i % g == 0 的问题，然后又回归到原来这个问题上了</p>
-<p>基本就是官方题解思路</p>
-<p><img src="https://media.znzryb.com/20241126-89e25092/image_62388062.png" alt="image" /></p>
-<p>其实这个有点像埃氏筛(sieve-like)，所以最后的时间复杂度也和他很像。</p>
-<p>筛法的核心代码长这样</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">	<span class="keyword">if</span>(idx[i]&gt;m)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	A[i]=S[idx[i]];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">2</span>*i;j&lt;=n;j+=i)&#123;</span><br><span class="line">		idx[j]=<span class="built_in">max</span>(idx[j],idx[i]<span class="number">+1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T;</span><br><span class="line"></span><br><span class="line"><span class="comment">//void out(ll n,vector&lt;ll&gt; &amp;A,vector&lt;ll&gt; &amp;idx)&#123;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;&quot;debug: &quot;;</span></span><br><span class="line"><span class="comment">//	for(int i=1;i&lt;=n;++i)</span></span><br><span class="line"><span class="comment">//		cout&lt;&lt;A[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;&quot;debug: &quot;;</span></span><br><span class="line"><span class="comment">//	for(int i=1;i&lt;=n;++i)</span></span><br><span class="line"><span class="comment">//		cout&lt;&lt;idx[i]&lt;&lt;&quot; &quot;;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>); </span><br><span class="line">	<span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">	<span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>,<span class="string">&quot;r&quot;</span>,stdin);</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--) &#123;</span><br><span class="line">		ll n,m;</span><br><span class="line">		cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">		<span class="function">vector&lt;ll&gt; <span class="title">S</span><span class="params">(m<span class="number">+10</span>)</span></span>;</span><br><span class="line">		<span class="function">vector&lt;ll&gt; <span class="title">A</span><span class="params">(n<span class="number">+10</span>)</span></span>;</span><br><span class="line">		<span class="type">bool</span> vis[n<span class="number">+10</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=m; ++i) &#123;</span><br><span class="line">			cin&gt;&gt;S[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">sort</span>(&amp;S[<span class="number">1</span>],&amp;S[m<span class="number">+1</span>],<span class="built_in">greater</span>&lt;ll&gt;());</span><br><span class="line">		<span class="function">vector&lt;ll&gt; <span class="title">idx</span><span class="params">(n<span class="number">+10</span>)</span></span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">			idx[i]=<span class="number">1</span>;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(idx[i]&gt;m)&#123;</span><br><span class="line">				cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			A[i]=S[idx[i]];</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">2</span>*i;j&lt;=n;j+=i)&#123;</span><br><span class="line">				idx[j]=<span class="built_in">max</span>(idx[j],idx[i]<span class="number">+1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//		#ifndef ONLINE_JUDGE</span></span><br><span class="line"><span class="comment">//		out(n,A,idx);</span></span><br><span class="line"><span class="comment">//		#endif</span></span><br><span class="line">		<span class="keyword">if</span>(A[n]==<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="comment">// output ans</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">			cout&lt;&lt;A[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">	<span class="built_in">fclose</span>(stdin);</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://codeforces.com/contest/2039/submission/293319558</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p>这个比较好，一次提交过，</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -632,7 +625,7 @@ A[2] 是所有满足 idx%2==0 的 A[idx] 中最大的；</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">584</span>
+          <span class="site-state-item-count">585</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
