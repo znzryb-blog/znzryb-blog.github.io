@@ -191,6 +191,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/29/20241129-23755e13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/29/20241129-23755e13/" class="post-title-link" itemprop="url">USACO 2024 US Open Contest, Bronze—Problem 1.Logical Moos</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-29 08:02:00" itemprop="dateCreated datePublished" datetime="2024-11-29T08:02:00+08:00">2024-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-14 15:38:39" itemprop="dateModified" datetime="2026-02-14T15:38:39+08:00">2026-02-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>先搞一个布尔运算前缀和，再搞一个布尔运算后缀和，加快查询效率</p>
+<p>那么关键就来到了布尔运算前缀数组以及布尔运算后缀数组怎样运算更快（线性复杂度）？</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9yd2730s">https://www.luogu.com.cn/article/9yd2730s</a></p>
+<blockquote>
+<p>如果vector的大小很大，复杂度就会变得很劣质，但我们发现当vector的大小超过3 时，可以将中间的所有数字或起来合并。</p>
+</blockquote>
+<p>来讲讲为什么可以这样那？其实vector数组只要超过2，既有三个时，就可以合并了，因为只有最后一个bool不能合并，因为他仍然会受到后续与运算的影响，我们来实践一下试试。</p>
+<p>但实际上不是只是把suffix和prefix搓出来就好的，特别是针对&amp;，比如来看下面这个例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">7</span></span><br><span class="line"><span class="literal">false</span> <span class="keyword">and</span> <span class="literal">true</span> <span class="keyword">or</span> <span class="literal">true</span></span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>false &amp; suffix[3] == false看似是对的，但实际上是有问题的，后面这段当中有or出现，false ｜true == true，所以出现了问题。</p>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>没有考虑其实用&amp;运算直接连起来是不可行的，上面解释的非常清楚</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N=<span class="built_in">static_cast</span>&lt;ll&gt;(<span class="number">2e5</span>)<span class="number">+10</span>;</span><br><span class="line">ll n,m;</span><br><span class="line"><span class="comment">// 先搞一个布尔运算前缀和，再搞一个布尔运算后缀和，加快查询效率</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cal</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">bool</span>&gt; &amp;temp,vector&lt;<span class="type">bool</span>&gt; &amp;xfix,<span class="type">const</span> <span class="type">int</span> idx)</span></span>&#123;</span><br><span class="line">    xfix[idx]=temp[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;temp.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">        xfix[idx]=(xfix[i] | temp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">A</span><span class="params">(n<span class="number">+5</span>)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">prefix</span><span class="params">(n<span class="number">+5</span>,<span class="literal">false</span>)</span>,<span class="title">suffix</span><span class="params">(n<span class="number">+5</span>,<span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">        string a;</span><br><span class="line">        cin&gt;&gt;a;</span><br><span class="line">        <span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;f&#x27;</span> || a[<span class="number">0</span>]==<span class="string">&#x27;o&#x27;</span>)</span><br><span class="line">            A[i]=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            A[i]=<span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;<span class="type">bool</span>&gt; temp;</span><br><span class="line">    <span class="comment">// 计算前缀和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i+=<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[i<span class="number">-1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">            temp.<span class="built_in">push_back</span>(A[i]);</span><br><span class="line">            <span class="built_in">cal</span>(temp, prefix,i);</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;<span class="number">3</span>)&#123;</span><br><span class="line">                temp[<span class="number">0</span>]=(temp[<span class="number">0</span>] | temp[<span class="number">1</span>]);</span><br><span class="line">                temp[<span class="number">1</span>]=temp[<span class="number">2</span>];</span><br><span class="line">                temp.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> last=temp.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            temp[last]=(temp[last] &amp; A[i]);</span><br><span class="line">            <span class="built_in">cal</span>(temp, prefix,i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算后缀和</span></span><br><span class="line">    <span class="comment">// 显然可以直接将 [l,r] 的一大串直接替换为目标布尔值</span></span><br><span class="line">    temp.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n;i&gt;=<span class="number">1</span>;i-=<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[i<span class="number">+1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">            temp.<span class="built_in">push_back</span>(A[i]);</span><br><span class="line">            <span class="built_in">cal</span>(temp, suffix,i);</span><br><span class="line">            <span class="keyword">if</span>(temp.<span class="built_in">size</span>()&gt;<span class="number">3</span>)&#123;</span><br><span class="line">                temp[<span class="number">0</span>]=(temp[<span class="number">0</span>] | temp[<span class="number">1</span>]);</span><br><span class="line">                temp[<span class="number">1</span>]=temp[<span class="number">2</span>];</span><br><span class="line">                temp.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">int</span> last=temp.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            temp[last]=(temp[last] &amp; A[i]);</span><br><span class="line">            <span class="built_in">cal</span>(temp,suffix,i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行询问</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;++i)&#123;</span><br><span class="line">        ll l,r; string op;<span class="type">bool</span> w;  <span class="comment">// w即want</span></span><br><span class="line">        cin&gt;&gt;l&gt;&gt;r&gt;&gt;op;</span><br><span class="line">        <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;t&#x27;</span>)</span><br><span class="line">            w=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            w=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(l==<span class="number">1</span> &amp;&amp; r==n)&#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// l==1的特殊情况</span></span><br><span class="line">        <span class="keyword">if</span>(l==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="type">bool</span> isWant=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(A[r<span class="number">+1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>((w | suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                    isWant=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(isWant)</span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>((w &amp; suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                    isWant=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(isWant)</span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// r==n的特殊情况</span></span><br><span class="line">        <span class="keyword">if</span>(r==n)&#123;</span><br><span class="line">            <span class="type">bool</span> isWant=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(A[l<span class="number">-1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>((w | prefix[l<span class="number">-2</span>])==w)</span><br><span class="line">                    isWant=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(isWant)</span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>((w &amp; prefix[l<span class="number">-2</span>])==w)</span><br><span class="line">                    isWant=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(isWant)</span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">bool</span> isWant=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(A[r<span class="number">-1</span>]==<span class="literal">false</span> &amp;&amp; A[l<span class="number">-1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((prefix[l<span class="number">-2</span>] | w | suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                isWant=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(isWant)</span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(A[r<span class="number">-1</span>]==<span class="literal">true</span> &amp;&amp; A[l<span class="number">-1</span>]==<span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((prefix[l<span class="number">-2</span>] &amp; w | suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                isWant=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(isWant)</span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(A[r<span class="number">-1</span>]==<span class="literal">false</span> &amp;&amp; A[l<span class="number">-1</span>]==<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((prefix[l<span class="number">-2</span>] | w &amp; suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                isWant=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(isWant)</span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>((prefix[l<span class="number">-2</span>] &amp; w &amp; suffix[r<span class="number">+2</span>])==w)</span><br><span class="line">                isWant=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(isWant)</span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;Y&#x27;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27;N&#x27;</span>; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/29/20241129-07aa76f7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -481,83 +559,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/11/26/20241126-d3ad2420/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/26/20241126-d3ad2420/" class="post-title-link" itemprop="url">B. Bowling Frame</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-26 10:12:00" itemprop="dateCreated datePublished" datetime="2024-11-26T10:12:00+08:00">2024-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-14 15:38:37" itemprop="dateModified" datetime="2026-02-14T15:38:37+08:00">2026-02-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>其实这题这题知道结论很简单</p>
-<p>1，2，3，4  可以组成1-10（1+2+3+4）以内的任何数x，组成完剩余的就是（10-x）了。同理，可以推广。</p>
-<p>所以其实这个w+b就是障眼法，其实只要球的总数够用，就可以满足要求了。</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2041/submission/293339184"></a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T,w,b;</span><br><span class="line"><span class="type">const</span> ll N=<span class="number">7e4</span><span class="number">+7</span>;</span><br><span class="line">ll balls[N];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	ll n=<span class="number">7e4</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		balls[i]=balls[i<span class="number">-1</span>]+i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (T--) &#123;</span><br><span class="line">		cin&gt;&gt;w&gt;&gt;b;</span><br><span class="line">		ll idx=<span class="built_in">lower_bound</span>(&amp;balls[<span class="number">1</span>],&amp;balls[n<span class="number">+1</span>],w+b)-balls;</span><br><span class="line">		<span class="keyword">if</span>(balls[idx]&gt;w+b)</span><br><span class="line">			idx-=<span class="number">1</span>;</span><br><span class="line">			</span><br><span class="line">		cout&lt;&lt;idx&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://codeforces.com/contest/2041/submission/293339184</span></span><br></pre></td></tr></table></figure>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<p>唉，WA了一次，循环n开小了，谁能想到这个10<strong>9包括比较大的10</strong>9？6。</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/97/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/97/">97</a><span class="page-number current">98</span><a class="page-number" href="/page/99/">99</a><span class="space">&hellip;</span><a class="page-number" href="/page/118/">118</a><a class="extend next" rel="next" href="/page/99/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/97/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/97/">97</a><span class="page-number current">98</span><a class="page-number" href="/page/99/">99</a><span class="space">&hellip;</span><a class="page-number" href="/page/119/">119</a><a class="extend next" rel="next" href="/page/99/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -625,7 +630,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">590</span>
+          <span class="site-state-item-count">591</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
