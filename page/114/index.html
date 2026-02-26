@@ -191,6 +191,214 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-acb2099b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/06/20241006-acb2099b/" class="post-title-link" itemprop="url">P1182 数列分段 Section II</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-06 08:41:00" itemprop="dateCreated datePublished" datetime="2024-10-06T08:41:00+08:00">2024-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-11 15:38:56" itemprop="dateModified" datetime="2026-02-11T15:38:56+08:00">2026-02-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>60pts TLE 可能是check函数复杂度太高了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll maxn=<span class="number">1e5</span><span class="number">+10</span>,maxans=<span class="number">1e13</span><span class="number">+7</span>;</span><br><span class="line">ll n,m,a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">check</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    ll s=<span class="number">1</span>,subCnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (s&lt;=n) &#123;</span><br><span class="line">        ll res=<span class="number">0</span>,cnt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(ll i=s;i&lt;=n;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(res+a[i]&gt;x)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            res+=a[i];</span><br><span class="line">            cnt+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        s+=cnt;</span><br><span class="line">        subCnt+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(subCnt&lt;=m) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    ll l=<span class="number">1</span>,r=maxans;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r) &#123;</span><br><span class="line">        ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">check</span>(mid)) r=mid;</span><br><span class="line">        <span class="keyword">else</span> l=mid<span class="number">+1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;l&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 60pts https://www.luogu.com.cn/record/180491211</span></span><br></pre></td></tr></table></figure>
+<p>可以二分里套二分，当然那个二分我们就不写了，直接上stl</p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/ff1d1d99-76cf-491c-be4b-26290d697c94/P1182_2.in?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VXEF4VA4%2F20260211%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260211T073533Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEO7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCICla0WWYHDWgj4sPpSO616bma0VUM8p9FQGwSN2LhG9iAiAMooJckt8vdS8bxGh6aRlYkrlLuh3zkYu8He%2BSUuDDlSqIBAi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMuW%2B6R4xH57%2FidGtnKtwD7jYpxtfLVDKe4xoHIvvyHTfITQlPVCCAvHX5wvDEy7iQx8y2kJv%2BN4Dl7uBosbr9vDjZ2aLGmzj4SccnTQ9pHY79%2FeVolHpcZgXDNwuBZybBH5Rq6edhdW4oKV78gJYPQIpGNiE8mucSLup13NYnaG%2FwCtVEuOQ10YBgfC%2Bogxn8CpvfwBz62K9mBla7nrWRUitvZ0eYT4LsVMM%2FwT3grIlv%2BjlLSEMaq9cq7BWRO%2BFzHHOPN3ytu2j413qe6T%2BxRRNZ1HPzrLdHqvAXb6KdTdqnS4oHmtObez51hmTkjvDOnx5IuIZqmgTzJBOfVAa3hBJiRvY0NcyPwlfvOHm6xkklP84dhw6cRFH7BK37UniT5HaB9D4%2Bc0mlZZvvtRFDKqz4O0c1CaOoKfjBXeVMo0jIBHjNM1%2FmkoPrKzsX%2Bps5TMuCZBKlYdSNnIV4PZ9Ulig3aCyJpg0UtxKpCTqlwGMWDZPRta1QO9EEqyBcYXB75IrbDyWVU9vRamYuQVGphMuEs5Hcz32XwpvzkiiZ8YLLmhGS5yGXRen0mzu4ZzVNhcYCNO79QVMJXWOmBwamWBX9FJHuYxOW1lwnIEPM9EtmEUx8b6o3%2BhyUiUnWAd0zN2TmcxBZfkFnzUswlL2wzAY6pgG%2B6sTv89wF77lwxuzaXQsLBZ7xr7BccZbeM%2BfYUYN8tkJlwG61Miin90ae8xiwZ1nmGi2jmjpCRTTrGzhY2GqrpNHOYAmsWNU4Mdx0O%2B7kySpBSqmXleXJr2w9z6kWgCRsxyPf%2BER%2BKjpNnsFbLZ3ATihya9bNdNLTajG4%2Bl7d3dcnJthGuoMRy3GKu1R5cHa9t%2BlJBDlKn7IAzdDuZgPEWmc4WkZ%2B&amp;X-Amz-Signature=bab216f9ac5be8a7a668d28cd9168da51b12564e19211e97b9a8131989ee4668&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">P1182_2.in</a></p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/a3ae9645-94d7-4f5a-a7f1-cccdfb015c3d/P1182_2.out?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VXEF4VA4%2F20260211%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260211T073533Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEO7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCICla0WWYHDWgj4sPpSO616bma0VUM8p9FQGwSN2LhG9iAiAMooJckt8vdS8bxGh6aRlYkrlLuh3zkYu8He%2BSUuDDlSqIBAi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMuW%2B6R4xH57%2FidGtnKtwD7jYpxtfLVDKe4xoHIvvyHTfITQlPVCCAvHX5wvDEy7iQx8y2kJv%2BN4Dl7uBosbr9vDjZ2aLGmzj4SccnTQ9pHY79%2FeVolHpcZgXDNwuBZybBH5Rq6edhdW4oKV78gJYPQIpGNiE8mucSLup13NYnaG%2FwCtVEuOQ10YBgfC%2Bogxn8CpvfwBz62K9mBla7nrWRUitvZ0eYT4LsVMM%2FwT3grIlv%2BjlLSEMaq9cq7BWRO%2BFzHHOPN3ytu2j413qe6T%2BxRRNZ1HPzrLdHqvAXb6KdTdqnS4oHmtObez51hmTkjvDOnx5IuIZqmgTzJBOfVAa3hBJiRvY0NcyPwlfvOHm6xkklP84dhw6cRFH7BK37UniT5HaB9D4%2Bc0mlZZvvtRFDKqz4O0c1CaOoKfjBXeVMo0jIBHjNM1%2FmkoPrKzsX%2Bps5TMuCZBKlYdSNnIV4PZ9Ulig3aCyJpg0UtxKpCTqlwGMWDZPRta1QO9EEqyBcYXB75IrbDyWVU9vRamYuQVGphMuEs5Hcz32XwpvzkiiZ8YLLmhGS5yGXRen0mzu4ZzVNhcYCNO79QVMJXWOmBwamWBX9FJHuYxOW1lwnIEPM9EtmEUx8b6o3%2BhyUiUnWAd0zN2TmcxBZfkFnzUswlL2wzAY6pgG%2B6sTv89wF77lwxuzaXQsLBZ7xr7BccZbeM%2BfYUYN8tkJlwG61Miin90ae8xiwZ1nmGi2jmjpCRTTrGzhY2GqrpNHOYAmsWNU4Mdx0O%2B7kySpBSqmXleXJr2w9z6kWgCRsxyPf%2BER%2BKjpNnsFbLZ3ATihya9bNdNLTajG4%2Bl7d3dcnJthGuoMRy3GKu1R5cHa9t%2BlJBDlKn7IAzdDuZgPEWmc4WkZ%2B&amp;X-Amz-Signature=f0316103de75c69a72ee243434f8c16e82674ce04c5de9eea19961be5887af6d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">P1182_2.out</a></p>
+<p>不过我仔细分析了一下时间复杂度，以及这个样例(另一道题目<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2884">https://www.luogu.com.cn/problem/P2884</a>)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7</span> <span class="number">5</span></span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">400</span></span><br><span class="line"><span class="number">300</span></span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">500</span></span><br><span class="line"><span class="number">101</span></span><br><span class="line"><span class="number">400</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">500</span></span><br></pre></td></tr></table></figure>
+<p>会使上面这个程序死循环，让我确信不是check（）的问题</p>
+<p>仔细分析过后，发现还是check（）的问题，check死循环了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (s&lt;=n) &#123;</span><br><span class="line">        ll res=<span class="number">0</span>,cnt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(ll i=s;i&lt;=n;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(res+a[i]&gt;x)    <span class="comment">// 某些情况下，cnt走不到cnt+1，导致s停滞不前，导致死循环</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            res+=a[i];</span><br><span class="line">            cnt+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        s+=cnt;</span><br><span class="line">        subCnt+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>解决起来倒也简单</p>
+<p>ll l=maxa,r=maxans;</p>
+<p>让左端点比数组中最大的元素大，就可以了，这样可以保证cnt的前进。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://www.luogu.com.cn/problem/P2884</span></span><br><span class="line"><span class="comment">// https://www.luogu.com.cn/problem/P1182  双倍经验</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll maxn=<span class="number">1e5</span><span class="number">+10</span>,maxans=<span class="number">1e13</span><span class="number">+7</span>;</span><br><span class="line">ll n,m,a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">check</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    ll s=<span class="number">1</span>,subCnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (s&lt;=n) &#123;</span><br><span class="line">        ll res=<span class="number">0</span>,cnt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(ll i=s;i&lt;=n;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(res+a[i]&gt;x)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            res+=a[i];</span><br><span class="line">            cnt+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        s+=cnt;</span><br><span class="line">        subCnt+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(subCnt&lt;=m) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    ll maxa=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;a[i],maxa=<span class="built_in">max</span>(maxa,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    ll l=maxa,r=maxans;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r) &#123;</span><br><span class="line">        ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">check</span>(mid)) r=mid;</span><br><span class="line">        <span class="keyword">else</span> l=mid<span class="number">+1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;l&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 60pts TLE https://www.luogu.com.cn/record/180491211</span></span><br><span class="line"><span class="comment">// 40pts TLE https://www.luogu.com.cn/record/180498527</span></span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/180509878</span></span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/180510298</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-37201ccb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/06/20241006-37201ccb/" class="post-title-link" itemprop="url">789. 数的范围</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-06 07:04:00" itemprop="dateCreated datePublished" datetime="2024-10-06T07:04:00+08:00">2024-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-11 15:38:55" itemprop="dateModified" datetime="2026-02-11T15:38:55+08:00">2026-02-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://www.acwing.com/problem/content/791/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">100007</span>;</span><br><span class="line"><span class="type">int</span> n,q,k,a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">        cin&gt;&gt;a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=q;_++) &#123;</span><br><span class="line">        cin&gt;&gt;k;</span><br><span class="line">        <span class="type">int</span> l=<span class="number">1</span>,r=n;</span><br><span class="line">        <span class="keyword">while</span> (l&lt;r) &#123;</span><br><span class="line">            <span class="type">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(a[mid]&gt;=k) r=mid;</span><br><span class="line">            <span class="keyword">else</span> l=mid<span class="number">+1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(a[l]!=k) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;-1 -1&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> l2=<span class="number">1</span>,r2=n;</span><br><span class="line">        <span class="keyword">while</span> (l2&lt;r2) &#123;</span><br><span class="line">            <span class="type">int</span> mid=l2+r2<span class="number">+1</span>&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(a[mid]&lt;=k) l2=mid;</span><br><span class="line">            <span class="keyword">else</span> r2=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;l<span class="number">-1</span>&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;l2<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC  https://www.acwing.com/problem/content/submission/code_detail/37312161/</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-5d242736/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/06/20241006-5d242736/" class="post-title-link" itemprop="url">牛客周赛 Round 56 F 不是烤串故事</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-06 04:32:00" itemprop="dateCreated datePublished" datetime="2024-10-06T04:32:00+08:00">2024-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-11 15:38:55" itemprop="dateModified" datetime="2026-02-11T15:38:55+08:00">2026-02-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<p>给定一段字符串（或若干字符串），需要按题意进行判断/构造，输出对应结果。（该页目前为空，我先补上题意标题，具体题意可后续再补充链接或样例。）</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/06/20241006-3e71cf75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -324,230 +532,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/05/20241005-901bbec9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/05/20241005-901bbec9/" class="post-title-link" itemprop="url">牛客周赛 Round 56 C 异或故事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-05 11:26:00" itemprop="dateCreated datePublished" datetime="2024-10-05T11:26:00+08:00">2024-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:54" itemprop="dateModified" datetime="2026-02-11T15:38:54+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>给定一个整数 a，需要构造两个正整数 x、y，使得 x XOR y = a，并满足题目额外的范围/特殊要求（需要对某些边界值特判）。输出一组可行的 x 与 y。</p>
-<p>pass 7 / 10  <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/view-submission?submissionId=71053412">https://ac.nowcoder.com/acm/contest/view-submission?submissionId=71053412</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> t,a,b;<span class="type">const</span> <span class="type">int</span> amax=<span class="number">1e9</span><span class="number">+10</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">        cin&gt;&gt;a;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=amax;i++) &#123;</span><br><span class="line">            b=i^a;</span><br><span class="line">            <span class="keyword">if</span>(b&gt;<span class="number">0</span>) &#123;</span><br><span class="line">                cout&lt;&lt;i&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;b&lt;&lt;endl;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// a=1^0;</span></span><br><span class="line">    <span class="comment">// std::cout &lt;&lt; a &lt;&lt; std::endl;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// WA https://ac.nowcoder.com/acm/contest/view-submission?submissionId=71053412</span></span><br></pre></td></tr></table></figure>
-<p>前面一直WA，看到这个题解终于懂了。</p>
-<p><img src="https://media.znzryb.com/20241005-901bbec9/image.png" alt="https://ac.nowcoder.com/acm/discuss/blogs?tagId=271232" /></p>
-<p>其实主要就是要特判1和1e9，这两个通过我们的算法得出的另一个数会超范围，故需要特判。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://ac.nowcoder.com/acm/contest/88392</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> a,b,c,t;</span><br><span class="line">bitset &lt;64&gt; numa,num3;</span><br><span class="line">deque &lt;<span class="type">int</span>&gt; a2;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">convNum3</span><span class="params">(<span class="type">int</span> leng)</span></span>&#123;       <span class="comment">// 将num3转为10进制</span></span><br><span class="line">    ll res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;leng;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(num3[i])</span><br><span class="line">            res+=<span class="built_in">pow</span>(<span class="number">2</span>,leng<span class="number">-1</span>-i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=t;_++)&#123;</span><br><span class="line">        cin&gt;&gt;a;</span><br><span class="line">        ll oa=a;</span><br><span class="line">        numa.<span class="built_in">reset</span>();num<span class="number">3.</span><span class="built_in">reset</span>();</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            a<span class="number">2.</span><span class="built_in">push_back</span>(a%<span class="number">2</span>);</span><br><span class="line">            a/=<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> leng=a<span class="number">2.</span><span class="built_in">size</span>();         <span class="comment">// 这种循环上限还是用一个量（前面发现调不对发现是因为&lt;a2.size(),但a2的大小一直在变）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;leng;i++)&#123;</span><br><span class="line">            numa[i]=a<span class="number">2.</span><span class="built_in">back</span>();</span><br><span class="line">            a<span class="number">2.</span><span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;leng;i++) &#123;</span><br><span class="line">            num3[i]=numa[i];</span><br><span class="line">            <span class="keyword">if</span>(i==leng<span class="number">-1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(num3[i]) num3[i]=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">else</span> num3[i]=<span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll ans3=<span class="built_in">convNum3</span>(leng);</span><br><span class="line">        <span class="keyword">if</span>(oa==<span class="number">1000000000</span>) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="number">999999999</span>&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;<span class="number">1023</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(oa==<span class="number">1</span>) &#123;</span><br><span class="line">            cout&lt;&lt;<span class="string">&quot;2 3&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;<span class="number">1</span>&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;ans3&lt;&lt;endl;</span><br><span class="line">        <span class="comment">//cout&lt;&lt;&quot;xor res: 1^&quot;&lt;&lt;ans3&lt;&lt;&quot;=&quot;&lt;&lt;(ans3^1)&lt;&lt;endl;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://ac.nowcoder.com/acm/contest/view-submission?submissionId=71768673</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/05/20241005-89fc8553/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/05/20241005-89fc8553/" class="post-title-link" itemprop="url">P3374 【模板】树状数组 1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-05 03:12:00" itemprop="dateCreated datePublished" datetime="2024-10-05T03:12:00+08:00">2024-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:53" itemprop="dateModified" datetime="2026-02-11T15:38:53+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>维护一个长度为 n 的数组，支持两类操作：</p>
-<p>1）单点加上一个值。</p>
-<p>2）查询区间 [l,r] 的元素和。</p>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/1154539447bd8075b107d70f57bac282"></a></p>
-<p>似乎这题也可以用树状数组解决</p>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%A3%9C%E6%95%B8">https://zh.wikipedia.org/wiki/二補數</a></p>
-<p>lowbit()原理详见这里</p>
-<p>视频教程</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ce411u7qP/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4350e5f2584d2f27c848b347ea11b675">https://www.bilibili.com/video/BV1ce411u7qP/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4350e5f2584d2f27c848b347ea11b675</a></p>
-<p>区间和我们实际上是用两前缀和相减得到的</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">5e5</span><span class="number">+10</span>;</span><br><span class="line"><span class="type">int</span> n,m,tr[maxn],sumTr[maxn],x,y,k,op;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x&amp;(-x));	<span class="comment">// two&#x27;s complementary (6)x=110  (two&#x27;s..)x=001+1=010 </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> p,<span class="type">int</span> v)</span></span>&#123; </span><br><span class="line">	<span class="keyword">while</span>(p&lt;n<span class="number">+1</span>)&#123;  <span class="comment">// 这里要注意，别写成p&lt;n了，会全WA</span></span><br><span class="line">		tr[p]+=v;</span><br><span class="line">		p+=<span class="built_in">lowbit</span>(p);  </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">search</span>(p-<span class="built_in">lowbit</span>(p))+tr[p];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;tr[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		sumTr[i]=tr[i]+sumTr[i<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		tr[i]=sumTr[i]-sumTr[i-<span class="built_in">lowbit</span>(i)];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=m;_++)&#123;</span><br><span class="line">		cin&gt;&gt;op;</span><br><span class="line">		<span class="keyword">if</span>(op==<span class="number">1</span>)&#123;</span><br><span class="line">			cin&gt;&gt;x&gt;&gt;k;</span><br><span class="line">			<span class="built_in">add</span>(x,k);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">			<span class="type">int</span> ans=<span class="built_in">search</span>(y)-<span class="built_in">search</span>(x<span class="number">-1</span>);  <span class="comment">// 区间和我们实际上是用两前缀和相减得到的</span></span><br><span class="line">			cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/180138960</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2024/10/05/20241005-57ff9fbe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/05/20241005-57ff9fbe/" class="post-title-link" itemprop="url">P3368 【模板】树状数组 2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-10-05 07:02:00" itemprop="dateCreated datePublished" datetime="2024-10-05T07:02:00+08:00">2024-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-11 15:38:53" itemprop="dateModified" datetime="2026-02-11T15:38:53+08:00">2026-02-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p>维护一个长度为 n 的数组，支持两类操作：</p>
-<p>1）对区间 [l,r] 所有元素加上一个值。</p>
-<p>2）查询单点 a[x] 的当前值。</p>
-<p><strong>P3368 BIT2   区别在于区间加减和单点查询</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/1164539447bd8077a270c97989fc8553"></a></p>
-<p>视频教程</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pE41197Qj?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=4350e5f2584d2f27c848b347ea11b675">https://www.bilibili.com/video/BV1pE41197Qj?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=4350e5f2584d2f27c848b347ea11b675</a></p>
-<p>tr实际上是一个差分数组，只不过用了树状数组维护，a[ ]即原始数组就是diff的前缀和，所以甚至不需要再建一个前缀和数组</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/180209186">https://www.luogu.com.cn/record/180209186</a></p>
-<p>和这题代码基本一样，还是比较适合我复训的。</p>
-<p>我们来解释一下为什么可以这样pushup</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">invert</span><span class="params">(ll s,ll e)</span></span>&#123;</span><br><span class="line">	<span class="built_in">pushup</span>(s, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(e&lt;n)&#123;</span><br><span class="line">		<span class="built_in">pushup</span>(e<span class="number">+1</span>, <span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>众所周知，我们知道差分数组是给diff[s]+1，给diff[e+1]-1，那为什么可以直接pushup那？那是因为树状数组中遍历你上面的数组是必然遍历不到你的，这点你不用担心，所以不用担心差分连续加导致出错。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn=<span class="number">5e5</span><span class="number">+10</span>;</span><br><span class="line">ll n,m,tr[maxn],a[maxn],x,y,k,op; <span class="comment">// tr[] is difference array</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">lowbit</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x&amp;(-x));	<span class="comment">// two&#x27;s complementary (6)x=110  (two&#x27;s..)x=001+1=010 </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(ll p,ll v)</span></span>&#123; </span><br><span class="line">	<span class="keyword">while</span>(p&lt;n<span class="number">+1</span>)&#123;</span><br><span class="line">		tr[p]+=v;</span><br><span class="line">		p+=<span class="built_in">lowbit</span>(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">search</span><span class="params">(ll p)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">search</span>(p-<span class="built_in">lowbit</span>(p))+tr[p];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 这是在建树</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;			<span class="comment">// tr[] is the diff array&#x27;s BIT </span></span><br><span class="line">		tr[i]=a[i]-a[i-<span class="built_in">lowbit</span>(i)];  <span class="comment">// lowbit(i)=1 is the value of diff array</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> _=<span class="number">1</span>;_&lt;=m;_++)&#123;</span><br><span class="line">		cin&gt;&gt;op;</span><br><span class="line">		<span class="keyword">if</span>(op==<span class="number">1</span>)&#123;</span><br><span class="line">			cin&gt;&gt;x&gt;&gt;y&gt;&gt;k;   </span><br><span class="line">			<span class="comment">// 执行了两遍add操作，模拟差分</span></span><br><span class="line">			<span class="built_in">add</span>(x,k);		<span class="comment">// walk around. convert range plus v to diff[L]+v &amp;&amp; diff[R+1]-v</span></span><br><span class="line">			<span class="keyword">if</span>(y<span class="number">+1</span>&lt;=n)</span><br><span class="line">				<span class="built_in">add</span>(y<span class="number">+1</span>,-k);</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			cin&gt;&gt;x;</span><br><span class="line">			<span class="type">int</span> ans=<span class="built_in">search</span>(x);</span><br><span class="line">			cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// cin&gt;&gt;n;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 30pts https://www.luogu.com.cn/record/180207859  add(y+1,k)-&gt;add(y+1,-k)</span></span><br><span class="line"><span class="comment">// AC https://www.luogu.com.cn/record/180209186</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -619,7 +603,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">587</span>
+          <span class="site-state-item-count">590</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
