@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-03 06:39:00 / Modified: 19:03:54" itemprop="dateCreated datePublished" datetime="2026-03-03T06:39:00+08:00">2026-03-03</time>
+              <time title="Created: 2026-03-03 06:39:00 / Modified: 20:04:16" itemprop="dateCreated datePublished" datetime="2026-03-03T06:39:00+08:00">2026-03-03</time>
             </span>
 
           
@@ -321,8 +321,11 @@
 <p>其实也没有那么简单，你首先要注意到，对于一维问题，成对的±，相当于一系列差分的和。那么，还需要特意去选吗？直接<strong>选全部为正的差分值</strong>不就好了？（连续选了两个或更多差分值，有重叠也没关系，可以使用我们下图的逆运算）</p>
 <p><img src="https://media.znzryb.com/20260303-8c3fbee0/image_0851d5f9.png" alt="image" /></p>
 <p>但是这个只能解决成对的 ± 问题呀，要是 ±+，以 + 结尾的不成对串如何解决呢？</p>
-<p>来，我们仔细看看。只需要在末尾加一个 0，然后采用同样的贪心即可</p>
-<p>好，下面我们要正式解决这个问题了。</p>
+<p>来，我们仔细看看。只需要在末尾加一个 0，然后采用同样的贪心即可。</p>
+<p><img src="https://media.znzryb.com/20260303-8c3fbee0/image_3cca6519.png" alt="image" /></p>
+<p>好，<strong>下面我们要正式解决这个问题</strong>了。</p>
+<p>问题来到了 2D，我们发现有一个这个约束，就是，点的偶数边重建约束，这个还是有点烦的，怎么样去解决这个问题？</p>
+<p>不难想到，如果边一个点的边是否重建受到约束，我们能不能<strong>找到一个东西</strong>，其<strong>无论怎么样取，都符合约束呢</strong>？这样无论是贪心还是 dp，都会好解决的多。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
