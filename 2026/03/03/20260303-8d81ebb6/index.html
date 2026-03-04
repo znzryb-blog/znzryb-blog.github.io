@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="一、减少约束条件（对于明显堆砌约束条件的题目较为有效） Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分） 像这道题目，对于重建的这个约束太多。  Consider the case without any “acciden">
+  <meta name="description" content="一、减少约束条件（对于明显堆砌约束条件的题目较为有效） Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分）（对割的理解以及使用）（格林公式的应用） 像这道题目，对于重建的这个约束太多。  Consider the case">
 <meta property="og:type" content="article">
 <meta property="og:title" content="遇到一道题目没有思路的时候的多种解决方法">
 <meta property="og:url" content="https://znzryb.com/2026/03/03/20260303-8d81ebb6/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
-<meta property="og:description" content="一、减少约束条件（对于明显堆砌约束条件的题目较为有效） Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分） 像这道题目，对于重建的这个约束太多。  Consider the case without any “acciden">
+<meta property="og:description" content="一、减少约束条件（对于明显堆砌约束条件的题目较为有效） Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分）（对割的理解以及使用）（格林公式的应用） 像这道题目，对于重建的这个约束太多。  Consider the case">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-03T00:11:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T09:06:20.719Z">
+<meta property="article:modified_time" content="2026-03-04T07:05:53.299Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="赛后总结">
 <meta name="twitter:card" content="summary">
@@ -219,10 +219,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-03-03 08:11:00 / Modified: 17:06:20" itemprop="dateCreated datePublished" datetime="2026-03-03T08:11:00+08:00">2026-03-03</time>
+              <time title="Created: 2026-03-03 08:11:00" itemprop="dateCreated datePublished" datetime="2026-03-03T08:11:00+08:00">2026-03-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-04 15:05:53" itemprop="dateModified" datetime="2026-03-04T15:05:53+08:00">2026-03-04</time>
+              </span>
 
           
 
@@ -236,13 +242,14 @@
 
       
         <h2 id="一-减少约束条件对于明显堆砌约束条件的题目较为有效"><a class="markdownIt-Anchor" href="#一-减少约束条件对于明显堆砌约束条件的题目较为有效"></a> 一、减少约束条件（对于明显堆砌约束条件的题目较为有效）</h2>
-<p><a href="/2026/03/03/20260303-8c3fbee0">Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分）</a></p>
+<p><a href="/2026/03/03/20260303-8c3fbee0">Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分）（对割的理解以及使用）（格林公式的应用）</a></p>
 <p>像这道题目，对于重建的这个约束太多。</p>
 <blockquote>
 <p>Consider the case without any “accidents”, i.e., when <strong>there are no additional restrictions on the reconstructed streets</strong>.</p>
 </blockquote>
-<p>我们可以先把所有对于重建边操作的限制，就是连接十字路口只能连接偶数条边，给删除，我们会做了吗？</p>
-<h2 id="二-整体化为局部"><a class="markdownIt-Anchor" href="#二-整体化为局部"></a> 二、整体化为局部</h2>
+<p>不过，悲观地而言，只应用这一技巧想把这道题目做出来没什么用啊。</p>
+<h2 id="二-整体化为局部格林公式最优子结构贪心"><a class="markdownIt-Anchor" href="#二-整体化为局部格林公式最优子结构贪心"></a> 二、整体化为局部（格林公式，最优子结构，贪心）</h2>
+<p><a href="/2026/03/03/20260303-8c3fbee0">Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（±±，需要想到差分）（对割的理解以及使用）（格林公式的应用）</a></p>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
     </div>
 
@@ -261,8 +268,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/03/03/20260303-8c3fbee0/" rel="prev" title="Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（+-+-，需要想到差分）（对割的理解以及使用）">
-      <i class="fa fa-chevron-left"></i> Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（+-+-，需要想到差分）（对割的理解以及使用）
+    <a href="/2026/03/03/20260303-8c3fbee0/" rel="prev" title="Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（+-+-，需要想到差分）（对割的理解以及使用）（格林公式的应用）">
+      <i class="fa fa-chevron-left"></i> Codeforces Round 1083 (Div. 2)——CF-2205-F. Simons and Reconstructing His Roads（遇到一道题目没有思路，可以先降低约束试一试）（+-+-，需要想到差分）（对割的理解以及使用）（格林公式的应用）
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -323,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E5%87%8F%E5%B0%91%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E5%AF%B9%E4%BA%8E%E6%98%8E%E6%98%BE%E5%A0%86%E7%A0%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E9%A2%98%E7%9B%AE%E8%BE%83%E4%B8%BA%E6%9C%89%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text"> 一、减少约束条件（对于明显堆砌约束条件的题目较为有效）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%95%B4%E4%BD%93%E5%8C%96%E4%B8%BA%E5%B1%80%E9%83%A8"><span class="nav-number">2.</span> <span class="nav-text"> 二、整体化为局部</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E5%87%8F%E5%B0%91%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E5%AF%B9%E4%BA%8E%E6%98%8E%E6%98%BE%E5%A0%86%E7%A0%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E9%A2%98%E7%9B%AE%E8%BE%83%E4%B8%BA%E6%9C%89%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text"> 一、减少约束条件（对于明显堆砌约束条件的题目较为有效）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%95%B4%E4%BD%93%E5%8C%96%E4%B8%BA%E5%B1%80%E9%83%A8%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84%E8%B4%AA%E5%BF%83"><span class="nav-number">2.</span> <span class="nav-text"> 二、整体化为局部（格林公式，最优子结构，贪心）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
