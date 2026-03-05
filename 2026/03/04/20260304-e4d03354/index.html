@@ -22,13 +22,13 @@
 
   <meta name="description" content="题目 H. Prime Topology https:&#x2F;&#x2F;codeforces.com&#x2F;gym&#x2F;106262&#x2F;problem&#x2F;H 题目描述 定义集合 Un&#x3D;{1,2,3,…,n}U_n &#x3D; \{1, 2, 3, \dots, n\}Un​&#x3D;{1,2,3,…,n}。 如果 UnU_nUn​ 的一个子集 SSS 满足：对于 SSS 中任意两个不同的元素 aaa 和 bbb，它们的绝对差 ∣a−b∣|">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2025 ICPC Asia Manila Regional——vp 中通过题目总结（把题目对取模的要求用注释写在末尾）">
+<meta property="og:title" content="2025 ICPC Asia Manila Regional（2025 ICPC 马尼拉）——vp 中通过题目总结（把题目对取模的要求用注释写在末尾）">
 <meta property="og:url" content="https://znzryb.com/2026/03/04/20260304-e4d03354/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目 H. Prime Topology https:&#x2F;&#x2F;codeforces.com&#x2F;gym&#x2F;106262&#x2F;problem&#x2F;H 题目描述 定义集合 Un&#x3D;{1,2,3,…,n}U_n &#x3D; \{1, 2, 3, \dots, n\}Un​&#x3D;{1,2,3,…,n}。 如果 UnU_nUn​ 的一个子集 SSS 满足：对于 SSS 中任意两个不同的元素 aaa 和 bbb，它们的绝对差 ∣a−b∣|">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-04T08:48:00.000Z">
-<meta property="article:modified_time" content="2026-03-05T00:03:51.370Z">
+<meta property="article:modified_time" content="2026-03-05T08:03:21.082Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="bfs 广搜">
 <meta property="article:tag" content="memorized search">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>2025 ICPC Asia Manila Regional——vp 中通过题目总结（把题目对取模的要求用注释写在末尾） | Znzryb's Blog</title>
+  <title>2025 ICPC Asia Manila Regional（2025 ICPC 马尼拉）——vp 中通过题目总结（把题目对取模的要求用注释写在末尾） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -213,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2025 ICPC Asia Manila Regional——vp 中通过题目总结（把题目对取模的要求用注释写在末尾）
+          2025 ICPC Asia Manila Regional（2025 ICPC 马尼拉）——vp 中通过题目总结（把题目对取模的要求用注释写在末尾）
         </h1>
 
         <div class="post-meta">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-05 08:03:51" itemprop="dateModified" datetime="2026-03-05T08:03:51+08:00">2026-03-05</time>
+                <time title="Modified: 2026-03-05 16:03:21" itemprop="dateModified" datetime="2026-03-05T16:03:21+08:00">2026-03-05</time>
               </span>
 
           
@@ -341,7 +341,7 @@ Hero A 位于网格 A 的 <code>(3, 2)</code>，而 Clone B 位于网格 B 的 <
 </ul>
 <p>比较像这道题目 2025 CCPC 郑州的这道题目。</p>
 <p><a target="_blank" rel="noopener" href="https://qoj.ac/contest/2661/problem/15307">https://qoj.ac/contest/2661/problem/15307</a></p>
-<p><a href="/2026/03/04/20260304-51830021">2025 CCPC 郑州——G. Plus Xor（ n 方复杂度，要想到记忆化 bfs 搜索）</a></p>
+<p><a href="/2026/03/04/20260304-51830021">2025 CCPC 郑州——G. Plus Xor（ n 方复杂度，要想到记忆化 bfs 搜索）（记忆化 bfs 最重要的就是确定状态）（异或 b 只能改变 __lg(b)+1 位）（采用塞入的时候确定答案的，应该采用一 check/is_find_ans 函数，确保初始塞入情况和中途塞入情况采用同样的判断逻辑）</a></p>
 <p>这道题目比这个 G 简单，比较容易发现：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">XY_AB</span>&#123;</span><br><span class="line">    ll xa,ya,xb,yb;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> XY_AB &amp;o) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (xa!=o.xa) <span class="keyword">return</span> xa&lt;o.xa;</span><br><span class="line">        <span class="keyword">if</span> (ya!=o.ya) <span class="keyword">return</span> ya&lt;o.ya;</span><br><span class="line">        <span class="keyword">if</span> (xb!=o.xb) <span class="keyword">return</span> xb&lt;o.xb;</span><br><span class="line">        <span class="keyword">return</span> yb&lt;o.yb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>一个完整状态由 A 的位置和这个 B 的位置确定，我们只需要对这一状态进行记忆化 bfs 即可。</p>
@@ -483,7 +483,7 @@ Hero A 位于网格 A 的 <code>(3, 2)</code>，而 Clone B 位于网格 B 的 <
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">599</span>
+          <span class="site-state-item-count">600</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
