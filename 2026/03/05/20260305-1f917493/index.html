@@ -22,16 +22,17 @@
 
   <meta name="description" content="题目大意 题目描述 Gagamboy 需要购买 rrr 种不同的化学物质，每种需要 1kg。电商平台上共有 ccc 个卖家。 给定一个 r×cr \times cr×c 的价格矩阵 AAA，其中 ai,ja_{i,j}ai,j​ 表示从卖家 jjj 处购买 1kg 化学物质 iii 的价格。 此外，对于每个卖家 jjj，只要从该卖家处购买了任何数量的化学物质（哪怕只有一种），都需要额外支付一笔固">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery">
+<meta property="og:title" content="2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery（采用 naive  if else方法，应用不同状态压缩方法，解决该问题）（枚举一个 mask 的子集）">
 <meta property="og:url" content="https://znzryb.com/2026/03/05/20260305-1f917493/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目描述 Gagamboy 需要购买 rrr 种不同的化学物质，每种需要 1kg。电商平台上共有 ccc 个卖家。 给定一个 r×cr \times cr×c 的价格矩阵 AAA，其中 ai,ja_{i,j}ai,j​ 表示从卖家 jjj 处购买 1kg 化学物质 iii 的价格。 此外，对于每个卖家 jjj，只要从该卖家处购买了任何数量的化学物质（哪怕只有一种），都需要额外支付一笔固">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-04T22:25:00.000Z">
-<meta property="article:modified_time" content="2026-03-05T10:03:11.489Z">
+<meta property="article:modified_time" content="2026-03-05T12:02:25.040Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="dp">
 <meta property="article:tag" content="最优化 optimization">
+<meta property="article:tag" content="状压&#x2F;bitmask dp">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/05/20260305-1f917493/">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery | Znzryb's Blog</title>
+  <title>2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery（采用 naive  if else方法，应用不同状态压缩方法，解决该问题）（枚举一个 mask 的子集） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -211,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery
+          2025 ICPC Asia Manila Regional（2025 ICPC  亚洲 菲律宾 马尼拉）——M. Web Delivery（采用 naive  if else方法，应用不同状态压缩方法，解决该问题）（枚举一个 mask 的子集）
         </h1>
 
         <div class="post-meta">
@@ -222,7 +223,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-05 06:25:00 / Modified: 18:03:11" itemprop="dateCreated datePublished" datetime="2026-03-05T06:25:00+08:00">2026-03-05</time>
+              <time title="Created: 2026-03-05 06:25:00 / Modified: 20:02:25" itemprop="dateCreated datePublished" datetime="2026-03-05T06:25:00+08:00">2026-03-05</time>
             </span>
 
           
@@ -269,6 +270,8 @@ Gagamboy 需要购买 <span class="katex"><span class="katex-mathml"><math xmlns
 <p>对于第二组样例：<br />
 最优方案能达到的最小花费同样为 11。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> S = <span class="number">0</span>; S &lt; (<span class="number">1</span> &lt;&lt; r); S++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> T = S; T &gt; <span class="number">0</span>; T = (T - <span class="number">1</span>) &amp; S) &#123;</span><br><span class="line">        <span class="comment">// T 是 S 的非空子集</span></span><br><span class="line">        dp[S] = <span class="built_in">min</span>(dp[S], dp[S ^ T] + best[T]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举 mask 的所有子集，是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mn>3</mn><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(3^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -289,6 +292,7 @@ Gagamboy 需要购买 <span class="katex"><span class="katex-mathml"><math xmlns
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/dp/" rel="tag"># dp</a>
+              <a href="/tags/%E7%8A%B6%E5%8E%8B-bitmask-dp/" rel="tag"># 状压/bitmask dp</a>
               <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96-optimization/" rel="tag"># 最优化 optimization</a>
           </div>
 
