@@ -28,9 +28,12 @@
 <meta property="og:description" content="题目大意 题目描述 一共有 mmm 个玩偶，初始危险值 d1,d2,…,dmd_1, d_2, \dots, d_md1​,d2​,…,dm​ 均为 0。 整个过程持续 ℓ\ellℓ 秒。在每一秒内，会有一个（且仅有一个）玩偶的危险值增加 1。你可以时刻观察到所有玩偶当前的危险值。 你有 nnn 次使用手电筒的机会，分别在固定的时间点 a1,a2,…,ana_1, a_2, \dots, a_n">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://media.znzryb.com/20260309-984e7707/image_f03db179.png">
+<meta property="og:image" content="https://media.znzryb.com/20260309-984e7707/image_6f578ccb.png">
+<meta property="og:image" content="https://media.znzryb.com/20260309-984e7707/image_499f3b4d.png">
 <meta property="article:published_time" content="2026-03-08T21:37:00.000Z">
-<meta property="article:modified_time" content="2026-03-09T06:05:08.342Z">
+<meta property="article:modified_time" content="2026-03-09T07:05:38.144Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="games 博弈论_各种奇怪游戏">
 <meta property="article:tag" content="思维 thought">
 <meta property="article:tag" content="拆分算贡献&#x2F;贡献思想 contribute">
 <meta property="article:tag" content="贪心 greedy">
@@ -225,7 +228,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-09 05:37:00 / Modified: 14:05:08" itemprop="dateCreated datePublished" datetime="2026-03-09T05:37:00+08:00">2026-03-09</time>
+              <time title="Created: 2026-03-09 05:37:00 / Modified: 15:05:38" itemprop="dateCreated datePublished" datetime="2026-03-09T05:37:00+08:00">2026-03-09</time>
             </span>
 
           
@@ -270,6 +273,10 @@
 <p>你看到这个，基本就知道简单的贪心和这个二分答案是解决不了的。</p>
 <p>其实这道题目，这个思路还是不难的，就是，我们想让<strong>我们的每一次操作都在最终的答案中贡献最大</strong>，是不是？</p>
 <p>然后我们发现，如果说后面还有 N 个手电筒，我们如果给 N 个球加，我们其实对这个最终答案的贡献是 0。</p>
+<p><img src="https://media.znzryb.com/20260309-984e7707/image_6f578ccb.png" alt="image" /></p>
+<p>那怎么办？我们可以给 N+1 个球加。</p>
+<p><img src="https://media.znzryb.com/20260309-984e7707/image_499f3b4d.png" alt="image" /></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ll cnt=N;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">SZ</span>(st)&gt;cnt<span class="number">+1</span>) &#123;</span><br><span class="line">    <span class="built_in">pop</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=L;++i) &#123;</span><br><span class="line">    <span class="built_in">add</span>();</span><br><span class="line">    <span class="keyword">if</span> (incident[i]) &#123;</span><br><span class="line">        <span class="built_in">to_zero</span>();</span><br><span class="line">        --cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">SZ</span>(st)&gt;cnt<span class="number">+1</span>) &#123;</span><br><span class="line">        <span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ll ans=*st.<span class="built_in">rbegin</span>();</span><br></pre></td></tr></table></figure>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <p>AC</p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2207/submission/365942294">https://codeforces.com/contest/2207/submission/365942294</a></p>
@@ -292,6 +299,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
+              <a href="/tags/games-%E5%8D%9A%E5%BC%88%E8%AE%BA-%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E6%B8%B8%E6%88%8F/" rel="tag"># games 博弈论_各种奇怪游戏</a>
               <a href="/tags/%E6%80%9D%E7%BB%B4-thought/" rel="tag"># 思维 thought</a>
               <a href="/tags/%E6%8B%86%E5%88%86%E7%AE%97%E8%B4%A1%E7%8C%AE-%E8%B4%A1%E7%8C%AE%E6%80%9D%E6%83%B3-contribute/" rel="tag"># 拆分算贡献/贡献思想 contribute</a>
           </div>
@@ -305,7 +313,10 @@
     <a href="/2026/03/09/20260309-bea14400/" rel="prev" title="Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-赛后总结-A，C 题总结（一定要关注数据范围限制）（01 串操作，抽水）">
       <i class="fa fa-chevron-left"></i> Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-赛后总结-A，C 题总结（一定要关注数据范围限制）（01 串操作，抽水）
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/09/20260309-24b4d70d/" rel="next" title="Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点）">
+      Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点） <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -380,7 +391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">608</span>
+          <span class="site-state-item-count">609</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
