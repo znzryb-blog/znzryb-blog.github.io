@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/09/20260309-24b4d70d/" class="post-title-link" itemprop="url">Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点）</a>
+            <a href="/2026/03/09/20260309-24b4d70d/" class="post-title-link" itemprop="url">Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点）（暴力程序 bfs 的书写，最重要的还是和做题的一样的，用什么代表一个状态）</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-09 06:13:00 / Modified: 16:03:52" itemprop="dateCreated datePublished" datetime="2026-03-09T06:13:00+08:00">2026-03-09</time>
+              <time title="Created: 2026-03-09 06:13:00 / Modified: 19:03:48" itemprop="dateCreated datePublished" datetime="2026-03-09T06:13:00+08:00">2026-03-09</time>
             </span>
 
           
@@ -257,6 +257,10 @@
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/image_a723ca7b.png" alt="image" /></p>
 <p>样例 5 到达不了叶子节点</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><strong>暴力程序 bfs 的书写</strong>**，最重要的还是和做题的一样的，<strong><strong>用什么代表一个状态</strong></strong>。**</p>
+<p>为什么要书写暴力 bfs 程序？因为以我的这个经验，这种图论题目，你想一遍写对，基本不可能，以类似题目 F 为例：</p>
+<p><a href="/2026/02/02/20260202-a7f17ccc">2025-沈阳站-区域赛-F. The Bond Beyond Time（友谊天长地久）（如何使用 bfs 找一个无弦环）（这种题目，我感觉啊，想要做出来的话，要么就是你的思路得比较好，要么就是还是得写个对拍）</a></p>
+<p>这道题目有一个地方还是很难想到的，需要写一个对拍。</p>
 <p>S 只要符合这个要求，就是 Yes，否则就是 No。</p>
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/image_e27cd5ba.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
