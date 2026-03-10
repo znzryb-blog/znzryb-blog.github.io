@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-10 11:03:10" itemprop="dateModified" datetime="2026-03-10T11:03:10+08:00">2026-03-10</time>
+                <time title="Modified: 2026-03-10 13:04:17" itemprop="dateModified" datetime="2026-03-10T13:04:17+08:00">2026-03-10</time>
               </span>
 
           
@@ -262,11 +262,19 @@
 <p>不难发现样例 2，移动者会被困在 3,4 之间，因为阻塞者冷却时间太快了，只有 1。</p>
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/image_a723ca7b.png" alt="image" /></p>
 <p>样例 5 到达不了叶子节点</p>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<h2 id="暴力程序书写指导"><a class="markdownIt-Anchor" href="#暴力程序书写指导"></a> 暴力程序书写指导</h2>
 <p><strong>暴力程序 bfs 的书写</strong>**，最重要的还是和做题的一样的，<strong><strong>用什么代表一个状态</strong></strong>。**</p>
 <p>为什么要书写暴力 bfs 程序？因为以我的这个经验，这种图论题目，你想一遍写对，基本不可能，以类似题目 F 为例：</p>
 <p><a href="/2026/02/02/20260202-a7f17ccc">2025-沈阳站-区域赛-F. The Bond Beyond Time（友谊天长地久）（如何使用 bfs 找一个无弦环）（这种题目，我感觉啊，想要做出来的话，要么就是你的思路得比较好，要么就是还是得写个对拍）</a></p>
 <p>这道题目有一个地方还是很难想到的，需要写一个对拍。</p>
+<p>在写一个暴力程序之前（当然，特别暴力的除外啊，特别暴力的就不用想了，但是不是所有的题目都可以非常轻松的找到一个特别暴力的写法，特别是这种博弈题目），<strong>一定要想清楚这个状态转移图像</strong>。</p>
+<p>我们不难得到这样的图像：</p>
+<p><img src="https://media.znzryb.com/20260309-24b4d70d/image_cc776996.png" alt="image" /></p>
+<p>然后，我们来想如何具体实现，这种样子，我们非常容易想到这个记忆化 dfs。<strong>但是</strong>，<strong>有环的话，不能够使用记忆化 dfs，毕竟记忆化 dfs 就是 dp，只能够在 DAG 上使用</strong>。</p>
+<p>于是我们想到记忆化 bfs。但是<strong>一次</strong>正向的记忆化 bfs 很难实现类似的这种可以计算前驱后驱的这个复杂运算。</p>
+<p>但是<strong>一次不行，就跑两次呗</strong>。我们可以跑一次正向 dfs，记住这个出去的红色节点数量（即<strong>红色出度</strong>）和出去的这个蓝色节点数量（即<strong>蓝色出度</strong>）。然后再跑一次这个反向 bfs，从所有合法点一路往上推，通过<strong>减去红色计数器和<strong><strong>蓝色</strong></strong>计数器</strong>，实现类似于或的效果，把红色计数器和蓝色计数器并起来，实现红蓝 and 的效果。</p>
+<p>当然我们也不知道对不对，试一试吧。</p>
+<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p>S 只要符合这个要求，就是 Yes，否则就是 No。</p>
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/image_e27cd5ba.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
