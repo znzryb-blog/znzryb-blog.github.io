@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-10 13:04:17" itemprop="dateModified" datetime="2026-03-10T13:04:17+08:00">2026-03-10</time>
+                <time title="Modified: 2026-03-10 14:02:41" itemprop="dateModified" datetime="2026-03-10T14:02:41+08:00">2026-03-10</time>
               </span>
 
           
@@ -272,7 +272,7 @@
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/image_cc776996.png" alt="image" /></p>
 <p>然后，我们来想如何具体实现，这种样子，我们非常容易想到这个记忆化 dfs。<strong>但是</strong>，<strong>有环的话，不能够使用记忆化 dfs，毕竟记忆化 dfs 就是 dp，只能够在 DAG 上使用</strong>。</p>
 <p>于是我们想到记忆化 bfs。但是<strong>一次</strong>正向的记忆化 bfs 很难实现类似的这种可以计算前驱后驱的这个复杂运算。</p>
-<p>但是<strong>一次不行，就跑两次呗</strong>。我们可以跑一次正向 dfs，记住这个出去的红色节点数量（即<strong>红色出度</strong>）和出去的这个蓝色节点数量（即<strong>蓝色出度</strong>）。然后再跑一次这个反向 bfs，从所有合法点一路往上推，通过<strong>减去红色计数器和<strong><strong>蓝色</strong></strong>计数器</strong>，实现类似于或的效果，把红色计数器和蓝色计数器并起来，实现红蓝 and 的效果。</p>
+<p>但是<strong>一次不行，就跑两次呗</strong>。我们可以跑一次正向 bfs，记住这个出去的红色节点数量（即<strong>红色出度</strong>）和出去的这个蓝色节点数量（即<strong>蓝色出度</strong>）。（<strong>你也可以理解这次 bfs 就是在把<strong><strong>这张反图</strong></strong>建出来，毕竟不把图建出来，很难进行这个反向 bfs</strong>）然后再跑一次这个反向 bfs，从所有合法点一路往上推，通过<strong>减去红色计数器和<strong><strong>蓝色</strong></strong>计数器</strong>，实现类似于或的效果，把红色计数器和蓝色计数器并起来，实现红蓝 and 的效果。</p>
 <p>当然我们也不知道对不对，试一试吧。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p>S 只要符合这个要求，就是 Yes，否则就是 No。</p>
