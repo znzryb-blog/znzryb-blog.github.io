@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/09/20260309-24b4d70d/" class="post-title-link" itemprop="url">Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点）（暴力程序 bfs 的书写，最重要的还是和做题的一样的，用什么代表一个状态）（有环的话，不能够使用记忆化 dfs，毕竟记忆化 dfs 就是 dp，只能够在 DAG 上使用）</a>
+            <a href="/2026/03/09/20260309-24b4d70d/" class="post-title-link" itemprop="url">Codeforces Round 1085 (Div. 1 + Div. 2)——CF-2207-D. Boxed Like a Fish（阻塞者阻止移动者前往叶子节点）（暴力程序 bfs 的书写，最重要的还是和做题的一样的，用什么代表一个状态）（有环的话，不能够使用记忆化 dfs，毕竟记忆化 dfs 就是 dp，只能够在 DAG 上使用）（像这种博弈题目，一定要想到的就是两者的最优策略是什么？一定要想两者的最优策略）</a>
         </h2>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-10 20:02:55" itemprop="dateModified" datetime="2026-03-10T20:02:55+08:00">2026-03-10</time>
+                <time title="Modified: 2026-03-11 12:02:51" itemprop="dateModified" datetime="2026-03-11T12:02:51+08:00">2026-03-11</time>
               </span>
 
           
@@ -296,6 +296,9 @@
 <p>这个样例应该输出 no，原因和上面说的一样。<strong>阻塞者可能不急于操作，而是看你怎么操作以后，他再出手，逼你从优势位置移动出来</strong>。</p>
 <p><img src="https://media.znzryb.com/20260309-24b4d70d/SCR-20260310-ravr_f8f21b4d.png" alt="image" /></p>
 <p>所以说要怎么解决这个问题呢？还是挺难的。</p>
+<p><strong>像这种博弈题目，一定要想到的就是两者的最优策略是什么？一定要想两者的最优策略是什么。</strong></p>
+<p>Snorlax 试图阻止 Cyndaquil 到达叶子节点，他的最优策略是在 Cyndaquil <strong>即将到达叶子节点（或必胜节点）前的最后一步进行封锁</strong>。我们其实已经通过对拍呀，通过什么方式找到了这个比较特殊的这个例子。但是我们没有总结出来，就是阻塞者他的这个策略是什么，就这种博弈题目一定要去想他们的<strong>最优策略是什么</strong>。</p>
+<p>因此，其实我们就是看这个<strong>拉扯距离</strong>。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
