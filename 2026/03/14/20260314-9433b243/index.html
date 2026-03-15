@@ -27,12 +27,16 @@
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目描述 曾经有一棵包含 nnn 个节点的无向树。为了让它更有趣，每条无向边都被随意赋予了一个方向，使其变成了一棵有向树。 现在树的结构和边的方向都遗失了，但给出了一份记录了这棵树连通性的矩阵。该连通性矩阵表现为 nnn 个长度为 nnn 的 01 字符串。如果第 iii 行的第 jjj 个字符是 1，则代表在原图中存在一条从节点 iii 到节点 jjj 的有向路径；如果是 0 则代表">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260314-9433b243/image_87dea47b.png">
 <meta property="article:published_time" content="2026-03-14T10:32:00.000Z">
-<meta property="article:modified_time" content="2026-03-15T04:06:22.458Z">
+<meta property="article:modified_time" content="2026-03-15T05:05:59.751Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="Connected Components 联通块">
 <meta property="article:tag" content="graph">
 <meta property="article:tag" content="tree 树">
+<meta property="article:tag" content="并查集 disjointed union">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260314-9433b243/image_87dea47b.png">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/14/20260314-9433b243/">
 
@@ -228,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-15 12:06:22" itemprop="dateModified" datetime="2026-03-15T12:06:22+08:00">2026-03-15</time>
+                <time title="Modified: 2026-03-15 13:05:59" itemprop="dateModified" datetime="2026-03-15T13:05:59+08:00">2026-03-15</time>
               </span>
 
           
@@ -264,6 +268,12 @@
 对于第二个测试用例，可以证明不存在任何一种满足给出连通性的树结构。</p>
 <p>说白了，就是给你点与点之间的联通情况，你要重建出一颗有向的树，能够满足题目的要求。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>如果只是做一个 D1 的话，还是非常 easy 的。</p>
+<p><img src="https://media.znzryb.com/20260314-9433b243/image_87dea47b.png" alt="image" /></p>
+<p>只要一个点比如说 6，不出现在其他 2 可达的点中（比如说图上的 4,3,5,1）的可达性表上，那么 2,6 直接相连。（⚠️注意，之所以这么连，是因为如果不连这条边，可达性就无法满足了，我们采用这一策略是为了连最少的边，达到题目要求）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;pair&lt;ll,ll&gt;&gt; edges;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    vector&lt;ll&gt; nodes;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">1</span>;j&lt;=N;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span> (j==i) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (Reach[i][j]==<span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">            nodes.<span class="built_in">push_back</span>(j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> a:nodes) &#123;</span><br><span class="line">        <span class="type">bool</span> ok=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> b:nodes) &#123;</span><br><span class="line">            <span class="keyword">if</span> (b==a) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 检查是否出现在其他点的可达性表上</span></span><br><span class="line">            <span class="keyword">if</span> (Reach[b][a]==<span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                ok=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ok) &#123;</span><br><span class="line">            edges.<span class="built_in">push_back</span>(&#123;i,a&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，最后需要写一个校验程序，也非常 easy 啊，先写一个东西校验这个树结构是否正确，然后再直接跑一遍可达性判断，看看和题目给出的是否一致。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">SZ</span>(edges)!=N<span class="number">-1</span>) &#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;No\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;ll&gt;&gt; <span class="built_in">g</span>(N<span class="number">+2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> [u,v]:edges) &#123;</span><br><span class="line">        <span class="built_in">merge</span>(u,v);</span><br><span class="line">        g[u].<span class="built_in">push_back</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 对化为无向图后，树的可达性作校验</span></span><br><span class="line">    set&lt;ll&gt; st;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        ll fai=<span class="built_in">find</span>(i);</span><br><span class="line">        st.<span class="built_in">insert</span>(fai);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">SZ</span>(st)!=<span class="number">1</span>) &#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;No\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 直接模拟，校验我们所构造</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; <span class="built_in">R</span>(N<span class="number">+2</span>,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(N<span class="number">+2</span>,<span class="string">&#x27;0&#x27;</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        queue&lt;ll&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(i);</span><br><span class="line">        R[i][i]=<span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            ll a=q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> v:g[a]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (R[i][v]==<span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                R[i][v]=<span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">1</span>;j&lt;=N;++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Reach[i][j]!=R[i][j]) &#123;</span><br><span class="line">                cout&lt;&lt;<span class="string">&quot;No\n&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">while</span> (<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <p>AC<br />
 <a target="_blank" rel="noopener" href="https://codeforces.com/contest/2208/submission/366753217">https://codeforces.com/contest/2208/submission/366753217</a></p>
@@ -285,7 +295,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86-disjointed-union/" rel="tag"># 并查集 disjointed union</a>
               <a href="/tags/graph/" rel="tag"># graph</a>
+              <a href="/tags/Connected-Components-%E8%81%94%E9%80%9A%E5%9D%97/" rel="tag"># Connected Components 联通块</a>
               <a href="/tags/tree-%E6%A0%91/" rel="tag"># tree 树</a>
           </div>
 
@@ -298,7 +310,10 @@
     <a href="/2026/03/14/20260314-213474c1/" rel="prev" title="Codeforces Round 1086 (Div. 2)——CF-2208-赛后总结">
       <i class="fa fa-chevron-left"></i> Codeforces Round 1086 (Div. 2)——CF-2208-赛后总结
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/15/20260315-0529a22c/" rel="next" title="Codeforces Round 1086 (Div. 2)——CF-2208-D2. Tree Orientation (Hard Version)">
+      Codeforces Round 1086 (Div. 2)——CF-2208-D2. Tree Orientation (Hard Version) <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -373,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">622</span>
+          <span class="site-state-item-count">623</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
