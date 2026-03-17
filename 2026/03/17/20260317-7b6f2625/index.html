@@ -28,8 +28,12 @@
 <meta property="og:description" content="题目大意 题目描述 对于一个严格大于 0 的正整数 xxx，按以下过程构造字符串 S(x)S(x)S(x)：   初始字符串为空。   将 xxx 的十进制表示（无前导零）追加到字符串右侧。   如果 x≤9x \le 9x≤9，过程结束；否则，将 xxx 替换为其各位数字之和，并返回步骤 2 继续执行。   例如：   S(75)S(75)S(75) 为 “75123”（75 的数位和为 12">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-16T19:24:00.000Z">
-<meta property="article:modified_time" content="2026-03-17T04:02:32.747Z">
+<meta property="article:modified_time" content="2026-03-17T05:04:22.950Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="rearrangement 安排&#x2F;重排问题">
+<meta property="article:tag" content="string 字符串处理">
+<meta property="article:tag" content="贪心 greedy">
+<meta property="article:tag" content="逆向思维&#x2F;正难则反 reverse">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/17/20260317-7b6f2625/">
@@ -220,7 +224,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-17 03:24:00 / Modified: 12:02:32" itemprop="dateCreated datePublished" datetime="2026-03-17T03:24:00+08:00">2026-03-17</time>
+              <time title="Created: 2026-03-17 03:24:00 / Modified: 13:04:22" itemprop="dateCreated datePublished" datetime="2026-03-17T03:24:00+08:00">2026-03-17</time>
             </span>
 
           
@@ -282,6 +286,7 @@
 </li>
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>首先，<strong>对于重排问题</strong>，原来的顺序是一点用都没有的，我们只考虑原来的个数！也就是 freq 统计一手<strong>频数</strong>。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -300,6 +305,12 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
+              <a href="/tags/string-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" rel="tag"># string 字符串处理</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E6%80%9D%E7%BB%B4-%E6%AD%A3%E9%9A%BE%E5%88%99%E5%8F%8D-reverse/" rel="tag"># 逆向思维/正难则反 reverse</a>
+              <a href="/tags/rearrangement-%E5%AE%89%E6%8E%92-%E9%87%8D%E6%8E%92%E9%97%AE%E9%A2%98/" rel="tag"># rearrangement 安排/重排问题</a>
+          </div>
 
         
 
@@ -392,7 +403,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">181</span>
+        <span class="site-state-item-count">182</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
