@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/17/20260317-7b6f2625/" class="post-title-link" itemprop="url">Educational Codeforces Round 188 (Rated for Div. 2)——CF-2204-E. Sum of Digits (and Again)</a>
+            <a href="/2026/03/17/20260317-7b6f2625/" class="post-title-link" itemprop="url">Educational Codeforces Round 188 (Rated for Div. 2)——CF-2204-E. Sum of Digits (and Again)（什么时候不适合反向思考？）</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-17 03:24:00 / Modified: 13:04:22" itemprop="dateCreated datePublished" datetime="2026-03-17T03:24:00+08:00">2026-03-17</time>
+              <time title="Created: 2026-03-17 03:24:00 / Modified: 15:03:25" itemprop="dateCreated datePublished" datetime="2026-03-17T03:24:00+08:00">2026-03-17</time>
             </span>
 
           
@@ -279,6 +279,11 @@
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p>首先，<strong>对于重排问题</strong>，原来的顺序是一点用都没有的，我们只考虑原来的个数！也就是 freq 统计一手<strong>频数</strong>。</p>
+<p><img src="https://media.znzryb.com/20260317-7b6f2625/image_39dab695.png" alt="image" /></p>
+<p>说白了就是，字符串的最后一位数状态很少，但是光枚举那个东西想反推出来一整个答案，难如登天。</p>
+<p>说白了，<strong>一个东西的状态少，不一定就是去枚举他，因为枚举的越少，难度一般来说越大</strong>。所以说，<strong>我们一般要枚举的是不多不少的东西</strong>。</p>
+<p>因此，这个不多不少的东西，是什么呢？结合这个不太好反向思考的这个特性，我们发现，可以枚举第一部分的这个数位和。<strong>枚举了第一部分的数位和</strong>以后，你会发现，后面的东西全部都定下来了。那后面的东西都定下来了，确定是否能够取得第一部分的这个数位和，是不是也是非常 easy 的呢？</p>
+<p><img src="https://media.znzryb.com/20260317-7b6f2625/image_16dff5ae.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
