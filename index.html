@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/16/20260316-e2f5be73/" class="post-title-link" itemprop="url">Educational Codeforces Round 188 (Rated for Div. 2)——CF-2204-D. Alternating Path（无向图下，二分图与一张图没有奇数环是等价的）</a>
+            <a href="/2026/03/16/20260316-e2f5be73/" class="post-title-link" itemprop="url">Educational Codeforces Round 188 (Rated for Div. 2)——CF-2204-D. Alternating Path（无向图下，二分图与没有奇数环是等价的）</a>
         </h2>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-17 10:05:01" itemprop="dateModified" datetime="2026-03-17T10:05:01+08:00">2026-03-17</time>
+                <time title="Modified: 2026-03-17 11:03:15" itemprop="dateModified" datetime="2026-03-17T11:03:15+08:00">2026-03-17</time>
               </span>
 
           
@@ -294,6 +294,12 @@
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p><img src="https://media.znzryb.com/20260316-e2f5be73/image_2d3d286c.png" alt="image" /></p>
+<p>不难发现，有奇数环的环，搞出来一个这个矛盾的方案是非常容易的。</p>
+<p><img src="https://media.znzryb.com/20260316-e2f5be73/image_4c507f3e.png" alt="image" /></p>
+<p>当然，这个是反向论证，我们再正向论证一下，为什么我们一定要求这张图是一个二分图。不难发现，一张图上，一个点要么其所有的边都是出去的，要么所有边都是进去的。</p>
+<p><img src="https://media.znzryb.com/20260316-e2f5be73/image_3db90ba4.png" alt="image" /></p>
+<p>你说你如果违反这一要求会怎么样？那么就会一定不符合这个题设要求（这个应该是非常显然的，因为这样子会导致一个 a→b→c 序列，但是题设要求是 a→b&lt;-c）。</p>
+<p><img src="https://media.znzryb.com/20260316-e2f5be73/image_96cc35e4.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
