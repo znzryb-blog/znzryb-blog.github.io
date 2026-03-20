@@ -28,10 +28,13 @@
 <meta property="og:description" content="题目大意 题目描述 在一个 n×mn \times mn×m 的网格平面上，有一个关键区域。该区域是一个闭矩形，其四个顶点的坐标分别为 (a,b)(a,b)(a,b)、(a,d)(a,d)(a,d)、(c,d)(c,d)(c,d)、(c,b)(c,b)(c,b)，其中 0≤a&lt;c≤n0 \le a &lt; c \le n0≤a&lt;c≤n 且 0≤b&lt;d≤m0 \le b &amp;lt">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://media.znzryb.com/20260319-9ca8c2b0/image_7432428d.png">
+<meta property="og:image" content="https://media.znzryb.com/20260319-9ca8c2b0/image_520a7ad7.png">
 <meta property="article:published_time" content="2026-03-19T07:43:00.000Z">
-<meta property="article:modified_time" content="2026-03-20T04:02:58.009Z">
+<meta property="article:modified_time" content="2026-03-20T05:02:26.261Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="概率&#x2F;数学期望 possibility&#x2F;prob">
 <meta property="article:tag" content="组合数学 comb">
+<meta property="article:tag" content="计数问题 count">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://media.znzryb.com/20260319-9ca8c2b0/image_7432428d.png">
 
@@ -229,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-03-20 12:02:58" itemprop="dateModified" datetime="2026-03-20T12:02:58+08:00">2026-03-20</time>
+                <time title="Modified: 2026-03-20 13:02:26" itemprop="dateModified" datetime="2026-03-20T13:02:26+08:00">2026-03-20</time>
               </span>
 
           
@@ -264,6 +267,8 @@
 <p><img src="https://media.znzryb.com/20260319-9ca8c2b0/image_7432428d.png" alt="image" /></p>
 <p>在第三个测试用例中，关键区域保持完整的概率为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>8</mn><mn>20</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{8}{20}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2</mn><mn>5</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。对 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>998244353</mn></mrow><annotation encoding="application/x-tex">998244353</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">8</span><span class="mord">2</span><span class="mord">4</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">3</span></span></span></span> 取模后输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>199648871</mn></mrow><annotation encoding="application/x-tex">199648871</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">9</span><span class="mord">6</span><span class="mord">4</span><span class="mord">8</span><span class="mord">8</span><span class="mord">7</span><span class="mord">1</span></span></span></span>。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>我觉得是类似于这样子思考。</p>
+<p><img src="https://media.znzryb.com/20260319-9ca8c2b0/image_520a7ad7.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -284,6 +289,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-comb/" rel="tag"># 组合数学 comb</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87-%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B-possibility-prob/" rel="tag"># 概率/数学期望 possibility/prob</a>
+              <a href="/tags/%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98-count/" rel="tag"># 计数问题 count</a>
           </div>
 
         
