@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/24/20260324-2c252986/" class="post-title-link" itemprop="url">The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（在环上选一个点使得这个你往左，我往右，倒是没什么问题）</a>
+            <a href="/2026/03/24/20260324-2c252986/" class="post-title-link" itemprop="url">The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（这种题目就是推性质）（这个环，一定要想办法化曲为直！一定要在一个地方，把环变成一条直线）</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-24 10:17:00 / Modified: 19:03:44" itemprop="dateCreated datePublished" datetime="2026-03-24T10:17:00+08:00">2026-03-24</time>
+              <time title="Created: 2026-03-24 10:17:00 / Modified: 20:03:52" itemprop="dateCreated datePublished" datetime="2026-03-24T10:17:00+08:00">2026-03-24</time>
             </span>
 
           
@@ -292,6 +292,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
 <p><strong>样例 5 解释</strong>：三只蚂蚁都可以选择逆时针移动，其中第二只蚂蚁需要在中途停留一秒。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><img src="https://media.znzryb.com/20260324-2c252986/image_9d008f41.png" alt="image" /></p>
+<p>为什么这道题目可以枚举在哪里切一刀呢？</p>
+<p>当然，你可能会说，这样子枚举的正确性在哪里？具体而言，我们想问的就是，任何一种合法的，不浪费的走法，都一定可以投影到这个线段上吗？</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>

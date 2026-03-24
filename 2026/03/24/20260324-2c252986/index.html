@@ -22,17 +22,20 @@
 
   <meta name="description" content="题目大意 题目描述 在一个圆上有 NNN 只蚂蚁。圆被顺时针划分为 LLL 个位置，编号为 111 到 LLL，其中位置 LLL 与位置 111 相邻。 每只蚂蚁初始站在不同的位置上，并且都需要到达各自不同的目标位置。 在每一秒内，每只蚂蚁可以选择：   停留在原地。   顺时针或逆时针移动到相邻的位置。   在任何时刻（包括在两个位置之间移动的过程中），任意两只蚂蚁都不能处于同一个位置。例如，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（在环上选一个点使得这个你往左，我往右，倒是没什么问题）">
+<meta property="og:title" content="The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（这种题目就是推性质）（这个环，一定要想办法化曲为直！一定要在一个地方，把环变成一条直线）">
 <meta property="og:url" content="https://znzryb.com/2026/03/24/20260324-2c252986/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目描述 在一个圆上有 NNN 只蚂蚁。圆被顺时针划分为 LLL 个位置，编号为 111 到 LLL，其中位置 LLL 与位置 111 相邻。 每只蚂蚁初始站在不同的位置上，并且都需要到达各自不同的目标位置。 在每一秒内，每只蚂蚁可以选择：   停留在原地。   顺时针或逆时针移动到相邻的位置。   在任何时刻（包括在两个位置之间移动的过程中），任意两只蚂蚁都不能处于同一个位置。例如，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260324-2c252986/image_9d008f41.png">
 <meta property="article:published_time" content="2026-03-24T02:17:00.000Z">
-<meta property="article:modified_time" content="2026-03-24T11:03:44.994Z">
+<meta property="article:modified_time" content="2026-03-24T12:03:52.301Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="sort 排序">
 <meta property="article:tag" content="环 cycle">
 <meta property="article:tag" content="贪心 greedy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260324-2c252986/image_9d008f41.png">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/24/20260324-2c252986/">
 
@@ -47,7 +50,7 @@
   };
 </script>
 
-  <title>The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（在环上选一个点使得这个你往左，我往右，倒是没什么问题） | Znzryb's Blog</title>
+  <title>The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（这种题目就是推性质）（这个环，一定要想办法化曲为直！一定要在一个地方，把环变成一条直线） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -211,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（在环上选一个点使得这个你往左，我往右，倒是没什么问题）
+          The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——A. Ants on a Ring（这种题目就是推性质）（这个环，一定要想办法化曲为直！一定要在一个地方，把环变成一条直线）
         </h1>
 
         <div class="post-meta">
@@ -222,7 +225,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-24 10:17:00 / Modified: 19:03:44" itemprop="dateCreated datePublished" datetime="2026-03-24T10:17:00+08:00">2026-03-24</time>
+              <time title="Created: 2026-03-24 10:17:00 / Modified: 20:03:52" itemprop="dateCreated datePublished" datetime="2026-03-24T10:17:00+08:00">2026-03-24</time>
             </span>
 
           
@@ -298,6 +301,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
 <p><strong>样例 5 解释</strong>：三只蚂蚁都可以选择逆时针移动，其中第二只蚂蚁需要在中途停留一秒。</p>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><img src="https://media.znzryb.com/20260324-2c252986/image_9d008f41.png" alt="image" /></p>
+<p>为什么这道题目可以枚举在哪里切一刀呢？</p>
+<p>当然，你可能会说，这样子枚举的正确性在哪里？具体而言，我们想问的就是，任何一种合法的，不浪费的走法，都一定可以投影到这个线段上吗？</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -318,6 +324,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
+              <a href="/tags/sort-%E6%8E%92%E5%BA%8F/" rel="tag"># sort 排序</a>
               <a href="/tags/%E7%8E%AF-cycle/" rel="tag"># 环 cycle</a>
           </div>
 
