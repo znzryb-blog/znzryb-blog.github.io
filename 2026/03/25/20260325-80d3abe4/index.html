@@ -22,18 +22,21 @@
 
   <meta name="description" content="题目大意 题目描述 构造一个长度不超过 500500500 且仅由大写字母 C、G、A、T 组成的非空字符串，使其满足以下两个条件：   字符串中包含恰好 GGG 个子序列 GATA（即字符 G、A、T、A 按顺序出现，中间可以包含其他字符）。   字符串中包含恰好 CCC 个子序列 CAT（即字符 C、A、T 按顺序出现，中间可以包含其他字符）。   输入格式 第一行包含一个整数 QQQ（1≤">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT">
+<meta property="og:title" content="The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT（骨架插入式构造方法）">
 <meta property="og:url" content="https://znzryb.com/2026/03/25/20260325-80d3abe4/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目描述 构造一个长度不超过 500500500 且仅由大写字母 C、G、A、T 组成的非空字符串，使其满足以下两个条件：   字符串中包含恰好 GGG 个子序列 GATA（即字符 G、A、T、A 按顺序出现，中间可以包含其他字符）。   字符串中包含恰好 CCC 个子序列 CAT（即字符 C、A、T 按顺序出现，中间可以包含其他字符）。   输入格式 第一行包含一个整数 QQQ（1≤">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260325-80d3abe4/image_77711da1.png">
 <meta property="article:published_time" content="2026-03-25T00:48:00.000Z">
-<meta property="article:modified_time" content="2026-03-25T09:04:31.229Z">
+<meta property="article:modified_time" content="2026-03-25T10:04:48.510Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="constructive 构造">
 <meta property="article:tag" content="string 字符串处理">
 <meta property="article:tag" content="子序列 subsequence">
+<meta property="article:tag" content="贪心 greedy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260325-80d3abe4/image_77711da1.png">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/25/20260325-80d3abe4/">
 
@@ -48,7 +51,7 @@
   };
 </script>
 
-  <title>The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT | Znzryb's Blog</title>
+  <title>The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT（骨架插入式构造方法） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -212,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT
+          The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——G. GATA-CAT（骨架插入式构造方法）
         </h1>
 
         <div class="post-meta">
@@ -223,7 +226,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-25 08:48:00 / Modified: 17:04:31" itemprop="dateCreated datePublished" datetime="2026-03-25T08:48:00+08:00">2026-03-25</time>
+              <time title="Created: 2026-03-25 08:48:00 / Modified: 18:04:48" itemprop="dateCreated datePublished" datetime="2026-03-25T08:48:00+08:00">2026-03-25</time>
             </span>
 
           
@@ -278,6 +281,7 @@
 </li>
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p><img src="https://media.znzryb.com/20260325-80d3abe4/image_77711da1.png" alt="image" /></p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -297,6 +301,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
               <a href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97-subsequence/" rel="tag"># 子序列 subsequence</a>
               <a href="/tags/string-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" rel="tag"># string 字符串处理</a>
               <a href="/tags/constructive-%E6%9E%84%E9%80%A0/" rel="tag"># constructive 构造</a>
