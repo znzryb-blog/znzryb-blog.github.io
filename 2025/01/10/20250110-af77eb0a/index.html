@@ -28,12 +28,12 @@
 <meta property="og:description" content="思路讲解 BIT+频数数组 1234567891011121314inline ll query(ll x)&#123;	ll idx&#x3D;li[x];	ll res&#x3D;0;	&#x2F;&#x2F; x是在后面的数，查找前面的全部比它大的数	&#x2F;&#x2F; 当然，直接查找全部比它大的数比较难	&#x2F;&#x2F; 所以返回的是所有比它&lt;&#x3D;的数的数量	while(idx&gt;0)&#123;		res+&#x3D;tr[idx];		idx-&#x3D;lo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-10T07:59:00.000Z">
-<meta property="article:modified_time" content="2026-02-15T03:34:15.098Z">
+<meta property="article:modified_time" content="2026-03-26T06:06:36.982Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="divide and conquer 分治">
 <meta property="article:tag" content="归并排序">
 <meta property="article:tag" content="树状数组 BIT">
-<meta property="article:tag" content="逆序对">
+<meta property="article:tag" content="逆序对 inversions">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://znzryb.com/2025/01/10/20250110-af77eb0a/">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-15 11:34:15" itemprop="dateModified" datetime="2026-02-15T11:34:15+08:00">2026-02-15</time>
+                <time title="Modified: 2026-03-26 14:06:36" itemprop="dateModified" datetime="2026-03-26T14:06:36+08:00">2026-03-26</time>
               </span>
 
           
@@ -265,7 +265,7 @@
               <a href="/tags/divide-and-conquer-%E5%88%86%E6%B2%BB/" rel="tag"># divide and conquer 分治</a>
               <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84-BIT/" rel="tag"># 树状数组 BIT</a>
               <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" rel="tag"># 归并排序</a>
-              <a href="/tags/%E9%80%86%E5%BA%8F%E5%AF%B9/" rel="tag"># 逆序对</a>
+              <a href="/tags/%E9%80%86%E5%BA%8F%E5%AF%B9-inversions/" rel="tag"># 逆序对 inversions</a>
           </div>
 
         
@@ -355,7 +355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">646</span>
+          <span class="site-state-item-count">647</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
