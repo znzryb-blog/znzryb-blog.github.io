@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="图论中，找最大环是 NP-hard 问题，所以不可能找最大环。 找“最大环”（即无向图或有向图中的最长简单环，Longest Cycle Problem）是一个经典的 NP-Hard 问题。它和旅行商问题（TSP，Traveling Salesperson Problem）有着极深的渊源，本质上它们都是哈密顿环（Hamiltonian Cycle）问题的衍生和泛化。 我们可以从以下几个方面来理解为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="完全理解环以及回路相关问题    （图论中，找最大环是 NP-hard 问题，所以不可能找最大环，这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环）">
+<meta property="og:url" content="https://znzryb.com/2026/03/26/20260326-ff09dc0d/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="图论中，找最大环是 NP-hard 问题，所以不可能找最大环。 找“最大环”（即无向图或有向图中的最长简单环，Longest Cycle Problem）是一个经典的 NP-Hard 问题。它和旅行商问题（TSP，Traveling Salesperson Problem）有着极深的渊源，本质上它们都是哈密顿环（Hamiltonian Cycle）问题的衍生和泛化。 我们可以从以下几个方面来理解为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260326-ff09dc0d/image_fb0f51a2.png">
+<meta property="article:published_time" content="2026-03-26T08:43:00.000Z">
+<meta property="article:modified_time" content="2026-03-27T01:03:09.895Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="graph">
+<meta property="article:tag" content="欧拉回路&#x2F;路径 Euler circuit&#x2F;trail">
+<meta property="article:tag" content="环 cycle">
+<meta property="article:tag" content="算法讲解 tutorial">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260326-ff09dc0d/image_fb0f51a2.png">
+
+<link rel="canonical" href="https://znzryb.com/2026/03/26/20260326-ff09dc0d/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>完全理解环以及回路相关问题    （图论中，找最大环是 NP-hard 问题，所以不可能找最大环，这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环） | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/03/26/20260326-ff09dc0d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          完全理解环以及回路相关问题    （图论中，找最大环是 NP-hard 问题，所以不可能找最大环，这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-03-26 16:43:00" itemprop="dateCreated datePublished" datetime="2026-03-26T16:43:00+08:00">2026-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-27 09:03:09" itemprop="dateModified" datetime="2026-03-27T09:03:09+08:00">2026-03-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>图论中，找最大环是 NP-hard 问题，所以不可能找最大环。</p>
+<p>找“最大环”（即无向图或有向图中的最长简单环，Longest Cycle Problem）是一个经典的 NP-Hard 问题。它和旅行商问题（TSP，Traveling Salesperson Problem）有着极深的渊源，本质上它们都是<strong>哈密顿环（Hamiltonian Cycle）问题的衍生和泛化</strong>。</p>
+<p>我们可以从以下几个方面来理解为什么它是 NP-Hard，以及它和 TSP 的共性所在：</p>
+<h3 id="1-为什么找最大环是-np-hard-问题"><a class="markdownIt-Anchor" href="#1-为什么找最大环是-np-hard-问题"></a> 1. 为什么找最大环是 NP-Hard 问题？</h3>
+<p>在计算复杂性理论中，证明一个问题是 NP-Hard 的最标准方法，就是将一个已知的 NP-Hard/NP-Complete 问题<strong>规约（Reduce）到它。对于“最大环”问题，最直接的规约对象就是哈密顿环问题</strong>。</p>
+<ul>
+<li>
+<p><strong>哈密顿环问题</strong>：<strong>给定一个包含</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> <strong>个顶点的图，问是否存在一个简单环，它恰好经过图中的每一个顶点一次？这是一个非常著名的 NP-Complete 问题</strong>。</p>
+</li>
+<li>
+<p><strong>规约过程</strong>：假设你拥有一个能够在多项式时间内求出任意图“最大简单环”的神奇算法。现在给你一个未知的图，你只需要运行这个神奇算法求出图中的最大环，然后看看这个最大环的长度是不是正好等于顶点总数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>。</p>
+<ul>
+<li>如果等于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>，说明图里存在哈密顿环。</li>
+<li>如果小于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>，说明图里不存在哈密顿环。</li>
+</ul>
+</li>
+</ul>
+<p>图图论中，找最大环是 NP-hard 问题，所以不可能找最大环，<strong>这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环</strong>。</p>
+<hr />
+<p><strong>存在欧拉回路的</strong>这个条件也很简单**，就是每个顶点的度数都是偶数，那么一定存在一条欧拉回路（在联通无向图中）**</p>
+<p><strong>欧拉路径</strong>存在的充要条件（在无向连通图上），就是<strong>奇数度数节点数量等于0 或者 2</strong>（也就是要么是一条回路，也就是 0，要么是起点和重点可以少一条边）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (odd_cnt!=<span class="number">0</span> &amp;&amp; odd_cnt!=<span class="number">2</span>) &#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;ll&gt; ans_ls;</span><br><span class="line"><span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span> &amp;&amp; self,ll u) -&gt; <span class="type">void</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (!g[u].<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> it=g[u].<span class="built_in">begin</span>();</span><br><span class="line">        <span class="keyword">auto</span> [to,id]=*it;</span><br><span class="line">        g[u].<span class="built_in">erase</span>(it);</span><br><span class="line">        g[to].<span class="built_in">erase</span>(&#123;u,id&#125;);</span><br><span class="line">        <span class="built_in">self</span>(self,to);</span><br><span class="line">        ans_ls.<span class="built_in">push_back</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">dfs</span>(dfs,<span class="built_in">max</span>(start_node,g.<span class="built_in">begin</span>()-&gt;first));</span><br><span class="line"><span class="comment">// 判断图是否联通，如果不联通，也是错的。</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">SZ</span>(ans_ls)!=N) &#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">reverse</span>(<span class="built_in">all</span>(ans_ls));</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;YES\n&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> u:ans_ls) &#123;</span><br><span class="line">    cout&lt;&lt;u&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>为什么 Euler 路径红色这样子写有问题呢？其实也很容易理解，因为<strong>我们要把 ans_ls 反过来的呀</strong>！所以说，肯定需要先遍历完后续的点，才能塞入这条边啊！其实简单来说，就是<strong>要和正常的反过来</strong>！</p>
+<p><img src="https://media.znzryb.com/20260326-ff09dc0d/image_fb0f51a2.png" alt="image" /></p>
+<p><a href="/2026/02/22/20260222-b6e20294">Codeforces Round 1081 (Div. 2)-CF-1081-E. Swap to Rearrange（按值进行图论建模）（欧拉回路）</a></p>
+<p><a href="/2026/02/23/20260223-e1ba2987">Codeforces Round 1026 (Div. 2)-CF-1026-E. Melody</a></p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/graph/" rel="tag"># graph</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%B2%E8%A7%A3-tutorial/" rel="tag"># 算法讲解 tutorial</a>
+              <a href="/tags/%E7%8E%AF-cycle/" rel="tag"># 环 cycle</a>
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-%E8%B7%AF%E5%BE%84-Euler-circuit-trail/" rel="tag"># 欧拉回路/路径 Euler circuit/trail</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/26/20260326-4a90c343/" rel="prev" title="The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——K. Kitten Greetings">
+      <i class="fa fa-chevron-left"></i> The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——K. Kitten Greetings
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%89%BE%E6%9C%80%E5%A4%A7%E7%8E%AF%E6%98%AF-np-hard-%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text"> 1. 为什么找最大环是 NP-Hard 问题？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">649</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">183</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
