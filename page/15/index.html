@@ -191,6 +191,204 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/21/20260221-44c6d26e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/21/20260221-44c6d26e/" class="post-title-link" itemprop="url">CF-1081-赛后总结（不同的值就用不同的变量，不要用同一个变量，可能会导致漏写错写，请尽量少的复用原有的变量）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-02-21 16:55:00" itemprop="dateCreated datePublished" datetime="2026-02-21T16:55:00+08:00">2026-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-02-22 12:02:11" itemprop="dateModified" datetime="2026-02-22T12:02:11+08:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基本情况"><a class="markdownIt-Anchor" href="#基本情况"></a> 基本情况</h2>
+<p>打的还是挺不错的。一共做出来四道题，做出来四道题。这个 D 题是最后 A 的，D 题是最后 A 的。哎，D 题这个叫什么，稍微有点唐了，这漏了这两行有点唐了。还有这个 C 啊，读错题目了。这个 C 读错题目了，绷不住了，我自己给自己上难度啊，以为这个弹夹可以不打完就就换，这个弹夹可以不打完就换，自己给自己上难度。以后遇到这个题目啊，就是如果我们发现这道题目，就是我们还是要确定一下，就是一些限制条件，我们还是要想办法确定一下。</p>
+<p>然后这个 d 的这个情况也是比较唐的，就这个 d 漏的这两行比较唐吧。是这样子，我感觉呢，以后这种如果说有多个，然后需要取 max 的话，最好啊 最好就是多整几行，多整几个变量，整个 add1 add2，这样子就你你不会忘记去给它进行这么一个赋值。然后你 add 1，你写出来，你不用，编译器还会报警，IDE 还会报警，对吧？你 add 1没用，你就知道你要把它取个 max 对吧？</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2192">https://codeforces.com/contest/2192</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a.id!=b.id) &#123;</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    a=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_diff_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">    a=*mx_diff_st.<span class="built_in">rbegin</span>();</span><br><span class="line">    b=*<span class="built_in">prev</span>(<span class="built_in">prev</span>(mx_a_st.<span class="built_in">end</span>()));</span><br><span class="line">    add=a.dep*b.suma;</span><br><span class="line">    add_mx=<span class="built_in">max</span>(add,add_mx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://media.znzryb.com/20260221-44c6d26e/image_7e9335e8.png" alt="image" /></p>
+<h2 id="心得感悟"><a class="markdownIt-Anchor" href="#心得感悟"></a> 心得感悟</h2>
+<p>下面是和队友对 D 题的这个探讨。</p>
+<p>ZnZrYb: 02-22 00:36:59<br />
+首先是树上 dp</p>
+<p>ZnZrYb: 02-22 00:37:38<br />
+auto dfs2=[&amp;](auto &amp;&amp; self,ll u,ll p,ll dep) -&gt; void {<br />
+dep_ls[u]=dep;<br />
+set&lt;Dep_sub&gt; mx_diff_st;<br />
+set&lt;A_sub&gt; mx_a_st;<br />
+ll id=0;<br />
+ll add_mx=0;<br />
+for (auto to:g[u]) {<br />
+if (to==p) continue;<br />
+self(self,to,u,dep+1);<br />
+dp[u]+=dp[to];<br />
+dp[u]+=sum_a[to];<br />
+sum_a[u]+=sum_a[to];<br />
+add_mx=max(add_mx,ans_ls[to]-dp[to]);<br />
+mx_dep[u]=max(mx_dep[to],mx_dep[u]);<br />
+++id;<br />
+mx_diff_st.insert({id,mx_dep[to]-dep});<br />
+mx_a_st.insert({id,sum_a[to]});<br />
+}<br />
+if (id&gt;=2) {<br />
+Dep_sub a=<em>mx_diff_st.rbegin();<br />
+A_sub b=<em>mx_a_st.rbegin();<br />
+ll add=0;<br />
+if (</em><a target="_blank" rel="noopener" href="http://a.id/"><em>a.id</em></a></em>!=<em><a target="_blank" rel="noopener" href="http://b.id/"><em>b.id</em></a></em>) {<br />
+add=a.dep*b.suma;<br />
+add_mx=max(add,add_mx);<br />
+}else {<br />
+a=<em>prev(prev(mx_diff_st.end()));<br />
+add=a.dep</em>b.suma;<br />
+add_mx=max(add,add_mx);<br />
+a=*mx_diff_st.rbegin();<br />
+b=<em>prev(prev(mx_a_st.end()));<br />
+add=a.dep</em>b.suma;<br />
+add_mx=max(add,add_mx);<br />
+}<br />
+}<br />
+ans_ls[u]=dp[u]+add_mx;<br />
+sum_a[u]+=A[u];<br />
+mx_dep[u]=max(dep,mx_dep[u]);<br />
+};</p>
+<p>ZnZrYb: 02-22 00:37:54<br />
+答案在这个 ans</p>
+<p>鵗曦: 02-22 00:39:12<br />
+我是先枚举移动各个节点，显然移动该节点最好办法就是移动到子树外的最深节点，移完之后贡献变化是高度差乘以子树的系数和</p>
+<p>ZnZrYb: 02-22 00:39:19<br />
+具体来说就是这个增量可以从，就是子节点里面来，就是可以从子节点里面来。然后这个增量也可以就是我们自己来操作。自己来操作的话，是使用的 Max D I F F S T 和 Max A S T。其实就是把最大的 sum A 嫁接到最大的深度指数上。但如果说最大的深度指数和最大的 sum A 是同一个的话，需要稍微进行一下其他处理。</p>
+<p>鵗曦: 02-22 00:39:29<br />
+然后每个节点的答案就是子树的最大值。</p>
+<p>鵗曦: 02-22 00:40:10<br />
+我是这么想的，但是写不对。</p>
+<p>鵗曦: 02-22 00:40:48<br />
+你觉得对不对</p>
+<p>鵗曦: 02-22 00:40:51<br />
+[图片]</p>
+<p>鵗曦: 02-22 00:41:14<br />
+diffst和ast是啥玩意</p>
+<p>ZnZrYb: 02-22 00:42:13<br />
+diff_st 存的是子树深度差值。 AST 就是存的是子树权值和</p>
+<p>ZnZrYb: 02-22 00:43:01<br />
+我觉得这个思路挺对的</p>
+<p>鵗曦: 02-22 00:43:53<br />
+按我这么写，需要用的信息可以O（n）维护出来。唯一的难点就是要查子树外的最深节点</p>
+<p>鵗曦: 02-22 00:44:02<br />
+然后咱想的是上个树剖</p>
+<p>ZnZrYb: 02-22 00:44:15<br />
+啊</p>
+<p>鵗曦: 02-22 00:44:24<br />
+因为一个子树在dfn上是连续的。</p>
+<p>鵗曦: 02-22 00:44:37<br />
+所以可以查前面一整段和后面一整段，取其中的深度最大值。</p>
+<p>鵗曦: 02-22 00:44:44<br />
+但是写的不对</p>
+<p>鵗曦: 02-22 00:44:51<br />
+[图片]</p>
+<p>ZnZrYb: 02-22 00:44:55<br />
+懂了</p>
+<p>ZnZrYb: 02-22 00:45:50<br />
+那就上个 st 表都能解决</p>
+<p>ZnZrYb: 02-22 00:46:03<br />
+感觉挺对的</p>
+<p>鵗曦: 02-22 00:46:13<br />
+过不去样例</p>
+<p>鵗曦: 02-22 00:46:16<br />
+写炸了</p>
+<p>ZnZrYb: 02-22 00:46:21<br />
+[笑哭]</p>
+<p>鵗曦: 02-22 00:46:57<br />
+dfn序列用st表预处理是吧</p>
+<p>鵗曦: 02-22 00:47:14<br />
+咱的树剖板子默认写了线段树</p>
+<p>ZnZrYb: 02-22 00:47:22<br />
+哦，我知道你可能是哪里的问题了</p>
+<p>鵗曦: 02-22 00:47:41<br />
+哪里</p>
+<p>ZnZrYb: 02-22 00:48:34<br />
+不过我不确定，就是你限定了树的范围了吧，就是他求的是 i 的子树</p>
+<p>ZnZrYb: 02-22 00:48:38<br />
+的答案</p>
+<p>鵗曦: 02-22 00:49:16<br />
+不是输出每个节点对应的答案吗</p>
+<p>鵗曦: 02-22 00:49:26<br />
+每个节点的操作是可以任意选择它指数里面的一个节点进行嫁接</p>
+<p>鵗曦: 02-22 00:49:34<br />
+子树</p>
+<p>鵗曦: 02-22 00:49:57<br />
+所以每个节点的答案就是处理出来的子树里的最大值。</p>
+<p>ZnZrYb: 02-22 00:51:36<br />
+感觉好像你没有理解错啊，你也是查询的子树里深度最大值是吧</p>
+<p>鵗曦: 02-22 00:52:09<br />
+我已经枚举计算过了，假如要移动某某个节点，能产生的最大权重</p>
+<p>鵗曦: 02-22 00:52:35<br />
+所以输出答案的时候，对于一个节点的答案，只需要找这个节点所在的子数里面计算出的各个最大权重中的最大</p>
+<p>鵗曦: 02-22 00:52:47<br />
+当然也是O（n）就能弄出来的。</p>
+<p>ZnZrYb: 02-22 00:53:41<br />
+子树里面的这个点，是连到子树里面，还是连到子树外面</p>
+<p>ZnZrYb: 02-22 00:54:22<br />
+如果计算 i 的答案，子树 i 里面的点必须只能连接到子树 i 的里面的其他点</p>
+<p>鵗曦: 02-22 00:54:34<br />
+6</p>
+<p>鵗曦: 02-22 00:54:37<br />
+这里理解错了</p>
+<p>鵗曦: 02-22 00:55:15<br />
+那我这样反着做错完了。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/19/20260219-b383813a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -809,157 +1007,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/02/18/20260218-679d900a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/18/20260218-679d900a/" class="post-title-link" itemprop="url">2025-2026 ICPC NERC, Kyrgyzstan Regional Contest 吉尔吉斯斯坦——E. Visualize This</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2026-02-18 07:45:00 / Modified: 16:02:45" itemprop="dateCreated datePublished" datetime="2026-02-18T07:45:00+08:00">2026-02-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p><strong>题目归纳</strong></p>
-<p>给定一个数组大小 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">1 \le n \le 10^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span>)，需要构建并按特定格式可视化一个线段树。</p>
-<p><strong>线段树构建规则</strong></p>
-<ul>
-<li>
-<p><strong>根节点</strong>：对应半开区间 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
-</li>
-<li>
-<p><strong>分裂规则</strong>：对于非叶子节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>L</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[L, R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>，其中点为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false">⌊</mo><mo stretchy="false">(</mo><mi>L</mi><mo>+</mo><mi>R</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">⌋</mo></mrow><annotation encoding="application/x-tex">M = \lfloor (L+R)/2 \rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">⌋</span></span></span></span>。左子节点为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>L</mi><mo separator="true">,</mo><mi>M</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[L, M)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mclose">)</span></span></span></span>，右子节点为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>M</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[M, R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>。</p>
-</li>
-<li>
-<p><strong>叶子节点</strong>：对应区间长度为 1 的节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>i</mi><mo separator="true">,</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[i, i+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</p>
-</li>
-</ul>
-<p><strong>可视化输出规则</strong></p>
-<ul>
-<li>
-<p><strong>分层输出</strong>：树的根在第一行，子节点在下一行，以此类推。</p>
-</li>
-<li>
-<p><strong>节点格式</strong>：显示为 <code>[L;R)</code>。</p>
-</li>
-<li>
-<p><strong>分隔竖线</strong>：如果节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>L</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[L, R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span> 不是叶子，必须在其分号 <code>;</code> 的正下方（即同一列），从该节点的下一行开始直到整个图形的最后一行，绘制竖线 <code>|</code>。这表示左右子树的物理分隔。</p>
-</li>
-<li>
-<p><strong>排版约束</strong>：</p>
-<ul>
-<li>同一行内的元素（节点文本或竖线）之间至少保留 <strong>1 个空格</strong>。</li>
-<li>在满足对齐条件的前提下，空格数量应<strong>尽可能少</strong>。</li>
-<li>整个图形靠左对齐（即至少有一行的行首没有空格）。</li>
-<li>行末不得有多余空格。</li>
-</ul>
-</li>
-</ul>
-<p><strong>样例展示与解释</strong></p>
-<p><strong>样例 1</strong> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n=3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    [0;3)</span><br><span class="line">[0;1) |     [1;3)</span><br><span class="line">      | [1;2) | [2;3)</span><br></pre></td></tr></table></figure>
-<p><strong>解释</strong>：</p>
-<ul>
-<li>
-<p><strong>第 1 行</strong>：根节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span>。其中点为 1，分号 <code>;</code> 所在列决定了后续行的主分隔线位置。</p>
-</li>
-<li>
-<p><strong>第 2 行</strong>：</p>
-<ul>
-<li>左子节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</li>
-<li>中间是根节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 延伸下来的竖线 <code>|</code>。</li>
-<li>右子节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[1, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span>。</li>
-</ul>
-</li>
-<li>
-<p><strong>第 3 行</strong>：</p>
-<ul>
-<li>左侧空位（因为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 是叶子）。</li>
-<li>根节点的竖线 <code>|</code> 继续延伸。</li>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[1, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 分裂为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[1, 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[2, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span>，中间由 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[1, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 的分号 <code>;</code> 延伸出的竖线 <code>|</code> 分隔。</li>
-</ul>
-</li>
-<li>
-<p><strong>对齐</strong>：所有竖线 <code>|</code> 都严格位于其父节点 <code>;</code> 的正下方，且元素间距最小化。</p>
-</li>
-</ul>
-<p><strong>样例 2</strong> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">n=7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span>)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                    [0;7)</span><br><span class="line">    [0;3)             |             [3;7)</span><br><span class="line">[0;1) |     [1;3)     |     [3;5)     |     [5;7)</span><br><span class="line">      | [1;2) | [2;3) | [3;4) | [4;5) | [5;6) | [6;7)</span><br></pre></td></tr></table></figure>
-<p><strong>解释</strong>：</p>
-<ul>
-<li>
-<p>展示了更深层的结构。每一层新产生的分支节点都会在其 <code>;</code> 下方产生一条新的竖线，一直延伸到底部。</p>
-</li>
-<li>
-<p>例如，根节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>7</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 7)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mclose">)</span></span></span></span> 的竖线贯穿了第 2、3、4 行。</p>
-</li>
-<li>
-<p>第 2 行的节点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, 3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>7</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[3, 7)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mclose">)</span></span></span></span> 的竖线分别贯穿了第 3、4 行。</p>
-</li>
-</ul>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>这道题目主要就是考验你的一个实现的这个能力。比较建议的实现方法呢，就是这个宽度的计算呢，先使用一个函数进行总的宽度的计算。然后需要注意啊，这道题目不允许出现后导空格，就是它不会自动忽略后导空格。所以你需要在输出的时候把所有的后导空格给 pop back 给 pop 掉。</p>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/106169/submission/363482617">https://codeforces.com/gym/106169/submission/363482617</a> 因为后导空格 WA 的一发。</p>
-<p>然后还有一个点呢，就是这道题目它使用的是左臂右开，0 base 的，那么你最好也仿照它使用左臂右开0 base 的，不要把它，不要用1 base 的做这道题目，1 base 的做这道题目。是会有问题的，因为因为这个嗯，因为一加一个数，然后再 向下整除二，和0加一个数再向下整除二，它其实这个区间是会有不同的。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">visualize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    widths.<span class="built_in">resize</span>(<span class="number">4</span> * N + <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">cal_visual_w</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    grid.<span class="built_in">resize</span>(mx_layer + <span class="number">2</span>, <span class="built_in">string</span>(widths[<span class="number">1</span>], <span class="string">&#x27; &#x27;</span>));</span><br><span class="line">    <span class="built_in">visualize</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= mx_layer; ++i) &#123;</span><br><span class="line">        <span class="keyword">while</span> (!grid[i].<span class="built_in">empty</span>() &amp;&amp; grid[i].<span class="built_in">back</span>()==<span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">            grid[i].<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; grid[i] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cal_visual_w</span><span class="params">(ll u, ll layer)</span> </span>&#123;</span><br><span class="line">    mx_layer = <span class="built_in">max</span>(mx_layer, layer);</span><br><span class="line">    <span class="keyword">if</span> (infos[u].l == infos[u].r<span class="number">-1</span>) &#123;</span><br><span class="line">        widths[u] = infos[u].<span class="built_in">to_string</span>().<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cal_visual_w</span>(u &lt;&lt; <span class="number">1</span>, layer + <span class="number">1</span>);</span><br><span class="line">    widths[u] = widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">cal_visual_w</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, layer + <span class="number">1</span>);</span><br><span class="line">    widths[u] += widths[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可视化线段树</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">visualize</span><span class="params">(ll u, ll sc, ll layer)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (infos[u].l == infos[u].r<span class="number">-1</span>) &#123;</span><br><span class="line">        string label = infos[u].<span class="built_in">to_string</span>();</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt; label.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            grid[layer][sc + i] = label[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">visualize</span>(u &lt;&lt; <span class="number">1</span>, sc, layer + <span class="number">1</span>);</span><br><span class="line">    string label = infos[u].<span class="built_in">to_string</span>();</span><br><span class="line">    ll pos = label.<span class="built_in">find</span>(<span class="string">&#x27;;&#x27;</span>);</span><br><span class="line">    ll labStart = sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">1</span> - pos;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=mx_layer;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (layer+i&gt;mx_layer) <span class="keyword">break</span>;</span><br><span class="line">        grid[layer + i][sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">1</span>] = <span class="string">&#x27;|&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// grid[layer + 1][sc + widths[u &lt;&lt; 1] + 1] = &#x27;|&#x27;;</span></span><br><span class="line">    <span class="comment">// if (layer+2 &lt;= mx_layer) &#123;</span></span><br><span class="line">    <span class="comment">//     grid[layer+2][sc + widths[u &lt;&lt; 1] + 1]=&#x27;|&#x27;;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt; label.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        grid[layer][labStart + i] = label[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">visualize</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">3</span>, layer + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<p>AC<br />
-<a target="_blank" rel="noopener" href="https://codeforces.com/gym/106169/submission/363483057">https://codeforces.com/gym/106169/submission/363483057</a></p>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: E. Visualize This</span></span><br><span class="line"><span class="comment"> * Contest: 2025</span></span><br><span class="line"><span class="comment"> * Judge: Codeforces</span></span><br><span class="line"><span class="comment"> * URL: https://codeforces.com/gym/106169/problem/E</span></span><br><span class="line"><span class="comment"> * Created: 2026-02-17 23:05:50</span></span><br><span class="line"><span class="comment"> * Author: Gospel_rock</span></span><br><span class="line"><span class="comment"> * My blog: https://znzryb.com/</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Powered by AutoCp https://github.com/Pushpavel/AutoCp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o&lt;&lt;1|1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot; = [&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;]&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug1d(a)                          \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; #a &lt;&lt; <span class="string">&quot; = [&quot;</span>;                     \</span></span><br><span class="line"><span class="meta">for (int i = 0; i &lt; (int)(a).size(); i++) \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; (i ? <span class="string">&quot;, &quot;</span> : <span class="string">&quot;&quot;</span>) &lt;&lt; a[i];        \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug2d(a)                               \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; #a &lt;&lt; <span class="string">&quot; = [\n&quot;</span>;                        \</span></span><br><span class="line"><span class="meta">for (int i = 0; i &lt; (int)(a).size(); i++)      \</span></span><br><span class="line"><span class="meta">&#123;                                              \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;  [&quot;</span>;                               \</span></span><br><span class="line"><span class="meta">for (int j = 0; j &lt; (int)(a[i]).size(); j++) \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; (j ? <span class="string">&quot;, &quot;</span> : <span class="string">&quot;&quot;</span>) &lt;&lt; a[i][j];        \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;                               \</span></span><br><span class="line"><span class="meta">&#125;                                              \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr&lt;&lt;<span class="string">&quot;\n-----------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed&lt;&lt;setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="comment">// using i128 = __int128;</span></span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll) <span class="number">1e6</span> + <span class="number">10</span>, INF = (<span class="number">1ll</span> &lt;&lt; <span class="number">61</span>) - <span class="number">1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>; <span class="comment">// (ll)1e9+7;</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT, testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Info</span> &#123;</span><br><span class="line">    ll l, r, sum;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">friend</span> ostream &amp;<span class="keyword">operator</span> &lt;&lt;(ostream &amp;os, <span class="type">const</span> Info &amp;a) &#123;</span><br><span class="line">        os &lt;&lt; <span class="string">&quot;[&quot;</span> &lt;&lt; a.l &lt;&lt; <span class="string">&quot;;&quot;</span> &lt;&lt; a.r &lt;&lt; <span class="string">&quot;)&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> os;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">string <span class="title">to_string</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        stringstream ss;</span><br><span class="line">        ss &lt;&lt; *<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> ss.<span class="built_in">str</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Info <span class="title">merge</span><span class="params">(<span class="type">const</span> Info &amp;a, <span class="type">const</span> Info &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;a.l, b.r, a.sum + b.sum&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SEG</span> &#123;</span><br><span class="line">    ll N;</span><br><span class="line">    vector&lt;Info&gt; infos;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">SEG</span>(ll N, <span class="type">const</span> vector&lt;Info&gt; &amp;a) &#123;</span><br><span class="line">        infos.<span class="built_in">resize</span>(<span class="number">4</span> * N + <span class="number">5</span>);</span><br><span class="line">        <span class="keyword">this</span>-&gt;N = N;</span><br><span class="line">        <span class="built_in">build</span>(a, <span class="number">1</span>, <span class="number">0</span>, N);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pull</span><span class="params">(ll u)</span> </span>&#123;</span><br><span class="line">        infos[u] = <span class="built_in">merge</span>(infos[u &lt;&lt; <span class="number">1</span>], infos[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(<span class="type">const</span> vector&lt;Info&gt; &amp;a, ll u, ll l, ll r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l == r<span class="number">-1</span>) &#123;</span><br><span class="line">            infos[u] = a[l];</span><br><span class="line">            infos[u].l = l;</span><br><span class="line">            infos[u].r = r;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ll mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">build</span>(a, u &lt;&lt; <span class="number">1</span>, l, mid);</span><br><span class="line">        <span class="built_in">build</span>(a, u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid, r);</span><br><span class="line">        <span class="built_in">pull</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Info <span class="title">query</span><span class="params">(ll u, ll l, ll r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (infos[u].l &gt;= l &amp;&amp; infos[u].r &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">return</span> infos[u];</span><br><span class="line">        &#125;</span><br><span class="line">        Info res&#123;&#125;;</span><br><span class="line">        <span class="keyword">if</span> (!(infos[u &lt;&lt; <span class="number">1</span>].r &lt; l || infos[u &lt;&lt; <span class="number">1</span>].l &gt; r)) &#123;</span><br><span class="line">            res = <span class="built_in">merge</span>(res, <span class="built_in">query</span>(u &lt;&lt; <span class="number">1</span>, l, r));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(infos[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].r &lt; l || infos[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].l &gt; r)) &#123;</span><br><span class="line">            res = <span class="built_in">merge</span>(res, <span class="built_in">query</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, l, r));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">assign</span><span class="params">(ll u, ll pos, <span class="type">const</span> Info &amp;val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (infos[u].l == infos[u].r &amp;&amp; infos[u].l == pos) &#123;</span><br><span class="line">            infos[u] = val;</span><br><span class="line">            infos[u].l = pos;</span><br><span class="line">            infos[u].r = pos;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos &gt;= infos[u &lt;&lt; <span class="number">1</span>].l &amp;&amp; pos &lt;= infos[u &lt;&lt; <span class="number">1</span>].r) &#123;</span><br><span class="line">            <span class="built_in">assign</span>(u &lt;&lt; <span class="number">1</span>, pos, val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos &gt;= infos[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].l &amp;&amp; pos &lt;= infos[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].r) &#123;</span><br><span class="line">            <span class="built_in">assign</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, pos, val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">pull</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    vector&lt;ll&gt; widths;</span><br><span class="line">    vector&lt;string&gt; grid;</span><br><span class="line">    ll mx_layer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">visualize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        widths.<span class="built_in">resize</span>(<span class="number">4</span> * N + <span class="number">2</span>);</span><br><span class="line">        <span class="built_in">cal_visual_w</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        grid.<span class="built_in">resize</span>(mx_layer + <span class="number">2</span>, <span class="built_in">string</span>(widths[<span class="number">1</span>], <span class="string">&#x27; &#x27;</span>));</span><br><span class="line">        <span class="built_in">visualize</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= mx_layer; ++i) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!grid[i].<span class="built_in">empty</span>() &amp;&amp; grid[i].<span class="built_in">back</span>()==<span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">                grid[i].<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            cout &lt;&lt; grid[i] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">cal_visual_w</span><span class="params">(ll u, ll layer)</span> </span>&#123;</span><br><span class="line">        mx_layer = <span class="built_in">max</span>(mx_layer, layer);</span><br><span class="line">        <span class="keyword">if</span> (infos[u].l == infos[u].r<span class="number">-1</span>) &#123;</span><br><span class="line">            widths[u] = infos[u].<span class="built_in">to_string</span>().<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cal_visual_w</span>(u &lt;&lt; <span class="number">1</span>, layer + <span class="number">1</span>);</span><br><span class="line">        widths[u] = widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">3</span>;</span><br><span class="line">        <span class="built_in">cal_visual_w</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, layer + <span class="number">1</span>);</span><br><span class="line">        widths[u] += widths[u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可视化线段树</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">visualize</span><span class="params">(ll u, ll sc, ll layer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (infos[u].l == infos[u].r<span class="number">-1</span>) &#123;</span><br><span class="line">            string label = infos[u].<span class="built_in">to_string</span>();</span><br><span class="line">            <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt; label.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">                grid[layer][sc + i] = label[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">visualize</span>(u &lt;&lt; <span class="number">1</span>, sc, layer + <span class="number">1</span>);</span><br><span class="line">        string label = infos[u].<span class="built_in">to_string</span>();</span><br><span class="line">        ll pos = label.<span class="built_in">find</span>(<span class="string">&#x27;;&#x27;</span>);</span><br><span class="line">        ll labStart = sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">1</span> - pos;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=mx_layer;++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (layer+i&gt;mx_layer) <span class="keyword">break</span>;</span><br><span class="line">            grid[layer + i][sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">1</span>] = <span class="string">&#x27;|&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// grid[layer + 1][sc + widths[u &lt;&lt; 1] + 1] = &#x27;|&#x27;;</span></span><br><span class="line">        <span class="comment">// if (layer+2 &lt;= mx_layer) &#123;</span></span><br><span class="line">        <span class="comment">//     grid[layer+2][sc + widths[u &lt;&lt; 1] + 1]=&#x27;|&#x27;;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt; label.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            grid[layer][labStart + i] = label[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">visualize</span>(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, sc + widths[u &lt;&lt; <span class="number">1</span>] + <span class="number">3</span>, layer + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll N;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="function">vector&lt;Info&gt; <span class="title">A</span><span class="params">(N + <span class="number">2</span>)</span></span>;</span><br><span class="line">    <span class="function">SEG <span class="title">seg</span><span class="params">(N, A)</span></span>;</span><br><span class="line">    seg.<span class="built_in">visualize</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    cout.<span class="built_in">setf</span>(ios::unitbuf); <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// cin &gt;&gt; lT;</span></span><br><span class="line">    <span class="comment">// for (testcase=1;testcase&lt;=lT;++testcase)</span></span><br><span class="line">    <span class="built_in">Solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/gym/106169/submission/363483057</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
-</div><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1031,7 +1078,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">652</span>
+          <span class="site-state-item-count">653</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
