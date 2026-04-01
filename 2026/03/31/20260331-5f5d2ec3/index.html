@@ -22,16 +22,18 @@
 
   <meta name="description" content="题目大意 题目描述总结 给定一个长度为 nnn 的数列 a1,a2,…,ana_1, a_2, \dots, a_na1​,a2​,…,an​ 和一个定值 xxx。两名玩家（铃仙和因幡帝）交替从数列中取数，取出的数会立刻从原数列中删除。规则如下：   铃仙先手，每次可以从当前数列中任选一个数。   因幡帝后手，每次必须选择当前数列头部的前 xxx 个数（即剩下数列的第 111 到第 xxx 个数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2026 杭电春季联赛 2——1003-竹林清韵">
+<meta property="og:title" content="2026 杭电春季联赛 2——1003-竹林清韵（调和级数的时间复杂度）">
 <meta property="og:url" content="https://znzryb.com/2026/03/31/20260331-5f5d2ec3/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
 <meta property="og:description" content="题目大意 题目描述总结 给定一个长度为 nnn 的数列 a1,a2,…,ana_1, a_2, \dots, a_na1​,a2​,…,an​ 和一个定值 xxx。两名玩家（铃仙和因幡帝）交替从数列中取数，取出的数会立刻从原数列中删除。规则如下：   铃仙先手，每次可以从当前数列中任选一个数。   因幡帝后手，每次必须选择当前数列头部的前 xxx 个数（即剩下数列的第 111 到第 xxx 个数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-31T04:40:00.000Z">
-<meta property="article:modified_time" content="2026-04-01T00:02:22.780Z">
+<meta property="article:modified_time" content="2026-04-01T03:46:23.153Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="games 博弈论_各种奇怪游戏">
 <meta property="article:tag" content="数据结构 data structure">
+<meta property="article:tag" content="贪心 greedy">
+<meta property="article:tag" content="逆向思维&#x2F;正难则反 reverse">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://znzryb.com/2026/03/31/20260331-5f5d2ec3/">
@@ -47,7 +49,7 @@
   };
 </script>
 
-  <title>2026 杭电春季联赛 2——1003-竹林清韵 | Znzryb's Blog</title>
+  <title>2026 杭电春季联赛 2——1003-竹林清韵（调和级数的时间复杂度） | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -211,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2026 杭电春季联赛 2——1003-竹林清韵
+          2026 杭电春季联赛 2——1003-竹林清韵（调和级数的时间复杂度）
         </h1>
 
         <div class="post-meta">
@@ -228,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-01 08:02:22" itemprop="dateModified" datetime="2026-04-01T08:02:22+08:00">2026-04-01</time>
+                <time title="Modified: 2026-04-01 11:46:23" itemprop="dateModified" datetime="2026-04-01T11:46:23+08:00">2026-04-01</time>
               </span>
 
           
@@ -313,7 +315,74 @@
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p>说实话，看完这道题目，我的感觉是不是特别困难。</p>
-<p>不难看出，第一次，我们要最大化这个</p>
+<p>呃，其实我们会发现，使用数据结构优化的这个贪心，因为有调和级数的保障，时间复杂度是对的。</p>
+<p>⚠️注意：容易想到的贪心策略有<strong>不断地取前 x+1 个中最大的数字，不断地取全局最大数字</strong>，但是这些都是错的！</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        不断地取前 x+1 个中最大的数字的反例（说白了，这个东西有反例就是我们把原数组中的数字强行进行了分块，但是如果原数组中的比较大的数字全部都在一个块当中你就炸了）
+    </div>
+    <div class='fold-content'>
+        <p>我完全懂你的意思！你提出的这个贪心策略非常直观且符合直觉：<strong>既然一轮游戏刚好消耗</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> <strong>个数，那我就每次盯着最前面的</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> <strong>个数，铃仙拿走里面最大的，剩下的</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> <strong>个恰好留给因幡帝按规则从头吃掉，完美闭环！</strong><br />
+但在仔细推敲后，<strong>这个策略其实是有漏洞的，它极大地限制了铃仙的发挥</strong>。<br />
+我们可以用一个非常简单的<strong>反例</strong>来验证：<br />
+假设 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，现在的数组是：<code>10, 20, 100, 90</code>。<br />
+<strong>按照你的“分块模拟”贪心策略：</strong></p>
+<ul>
+<li><strong>第一轮</strong>：看最前面的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1+1=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 个数，也就是 <code>10, 20</code>。铃仙拿走最大的 <code>20</code>，剩下的 <code>10</code> 被因幡帝吃掉。</li>
+<li><strong>第二轮</strong>：看剩下的 <code>100, 90</code>。铃仙拿走最大的 <code>100</code>，剩下的 <code>90</code> 被因幡帝吃掉。</li>
+<li><strong>铃仙最终得分</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20</mn><mo>+</mo><mn>100</mn><mo>=</mo><mn>120</mn></mrow><annotation encoding="application/x-tex">20 + 100 = 120</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">0</span></span></span></span>。<br />
+<strong>但如果铃仙采取真正的“全局最优策略”呢？</strong></li>
+<li><strong>第一轮</strong>：铃仙发现前面的数全都是垃圾，她根本不看前面，直接从全局选了那个最大的 <code>100</code>！
+<ul>
+<li>拿走 <code>100</code> 后，数组变成了 <code>10, 20, 90</code>。</li>
+<li>轮到因幡帝，因幡帝是个死脑筋，规则限制她<strong>必须</strong>吃掉最头部的 1 个数，于是她悲惨地吃掉了垃圾数字 <code>10</code>。</li>
+<li>一轮结束后，剩下的数组是 <code>20, 90</code>。</li>
+</ul>
+</li>
+<li><strong>第二轮</strong>：铃仙再拿走最大的 <code>90</code>。
+<ul>
+<li>因幡帝吃掉最后的 <code>20</code>。</li>
+</ul>
+</li>
+<li><strong>铃仙最终得分</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>+</mo><mn>90</mn><mo>=</mo><mn>190</mn></mrow><annotation encoding="application/x-tex">100 + 90 = 190</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">0</span></span></span></span>！<br />
+你看！<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>190</mn></mrow><annotation encoding="application/x-tex">190</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">0</span></span></span></span> <strong>远远大于你的策略得出的</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn></mrow><annotation encoding="application/x-tex">120</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">0</span></span></span></span><strong>。</strong></li>
+</ul>
+
+    </div>
+</div>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        不断地取全局最大数字（这个其实错的更加离谱，一开始就被我放弃了）
+    </div>
+    <div class='fold-content'>
+        <p>假设 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，现在的数组是：<strong><code>99, 10, 100, 10</code></strong>。<br />
+<strong>如果你采用“每次拿全局最大”的策略：</strong></p>
+<ul>
+<li><strong>第一轮</strong>：全局最大是 <code>100</code>，铃仙不管三七二十一，先抢走 <code>100</code>。
+<ul>
+<li>拿走后，数组变成 <code>99, 10, 10</code>。</li>
+<li>轮到因幡帝，因幡帝吃掉头部的 1 个数，惨剧发生了——<strong>因幡帝把</strong> <strong><code>99</code></strong> <strong>吃掉了！</strong></li>
+</ul>
+</li>
+<li><strong>第二轮</strong>：数组只剩 <code>10, 10</code>。铃仙只能含泪拿走一个 <code>10</code>。</li>
+<li><strong>铃仙最终得分</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>+</mo><mn>10</mn><mo>=</mo><mn>110</mn></mrow><annotation encoding="application/x-tex">100 + 10 = 110</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span></span></span></span>。<br />
+<strong>但如果铃仙是个战术大师呢？</strong></li>
+<li><strong>第一轮</strong>：铃仙纵观全局，发现最大的 <code>100</code> 排在第三个位置，<strong>它非常“安全”</strong>，因为因幡帝这轮只能吃掉第 1 个数，根本碰不到它！但排在第一位的 <code>99</code> <strong>极度危险</strong>，如果现在不拿，下一秒就会被吃掉。
+<ul>
+<li>所以铃仙第一轮<strong>强忍住拿</strong> <strong><code>100</code></strong> <strong>的诱惑，优先保下了</strong> <strong><code>99</code>****！</strong></li>
+<li>拿走 <code>99</code> 后，数组变成 <code>10, 100, 10</code>。</li>
+<li>轮到因幡帝，因幡帝吃掉头部的 1 个数，也就是垃圾数字 <code>10</code>。</li>
+</ul>
+</li>
+<li><strong>第二轮</strong>：数组剩下 <code>100, 10</code>。那个原本安全的 <code>100</code> 现在暴漏出来了，铃仙笑纳 <code>100</code>。</li>
+<li><strong>铃仙最终得分</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>99</mn><mo>+</mo><mn>100</mn><mo>=</mo><mn>199</mn></mrow><annotation encoding="application/x-tex">99 + 100 = 199</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">9</span></span></span></span>！<br />
+你看！<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>199</mn></mrow><annotation encoding="application/x-tex">199</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">9</span></span></span></span> <strong>再次碾压了你</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>110</mn></mrow><annotation encoding="application/x-tex">110</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span></span></span></span> <strong>的策略。</strong></li>
+</ul>
+
+    </div>
+</div>
+<p><a href="/2026/03/26/20260326-16b65fbc">The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——D. Dropshipping（正过来看，ddl 是 ddl，也就是截止时间，但是反过来看，ddl 是激活时间）</a></p>
+<p>我们可以采用这道题目的一个思路</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -333,8 +402,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
               <a href="/tags/games-%E5%8D%9A%E5%BC%88%E8%AE%BA-%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E6%B8%B8%E6%88%8F/" rel="tag"># games 博弈论_各种奇怪游戏</a>
               <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-data-structure/" rel="tag"># 数据结构 data structure</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E6%80%9D%E7%BB%B4-%E6%AD%A3%E9%9A%BE%E5%88%99%E5%8F%8D-reverse/" rel="tag"># 逆向思维/正难则反 reverse</a>
           </div>
 
         
