@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/03/31/20260331-5f5d2ec3/" class="post-title-link" itemprop="url">2026 杭电春季联赛 2——1003-竹林清韵（调和级数的时间复杂度）</a>
+            <a href="/2026/03/31/20260331-5f5d2ec3/" class="post-title-link" itemprop="url">2026 杭电春季联赛 2——1003-竹林清韵（时间复杂度分析）（调和级数的时间复杂度）</a>
         </h2>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-01 11:46:23" itemprop="dateModified" datetime="2026-04-01T11:46:23+08:00">2026-04-01</time>
+                <time title="Modified: 2026-04-01 12:03:36" itemprop="dateModified" datetime="2026-04-01T12:03:36+08:00">2026-04-01</time>
               </span>
 
           
@@ -307,7 +307,10 @@
 </ul>
 <h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
 <p>说实话，看完这道题目，我的感觉是不是特别困难。</p>
-<p>呃，其实我们会发现，使用数据结构优化的这个贪心，因为有调和级数的保障，时间复杂度是对的。</p>
+<p>那么，这道题目的<strong>第一个难点就是时间复杂度分析</strong>：</p>
+<p>呃，其实我们会发现，使用数据结构优化的这个贪心，<strong>因为有调和级数的保障，时间复杂度是对的</strong>。</p>
+<p>或者，换句话说，如果我们的这个**每次铃仙选数的次数（在所有 x 下）**加起来是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>3</mn><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>4</mn><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>5</mn><mo>+</mo><mo>⋯</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n/2+n/3+n/4+n/5+\cdots+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，是不是就是这个调和级数？</p>
+<p>然后这道题目的<strong>第二个难点就是这个贪心策略地选择</strong>：</p>
 <p>⚠️注意：容易想到的贪心策略有<strong>不断地取前 x+1 个中最大的数字，不断地取全局最大数字</strong>，但是这些都是错的！</p>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -374,7 +377,7 @@
     </div>
 </div>
 <p><a href="/2026/03/26/20260326-16b65fbc">The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——D. Dropshipping（正过来看，ddl 是 ddl，也就是截止时间，但是反过来看，ddl 是激活时间）</a></p>
-<p>我们可以采用这道题目的一个思路</p>
+<p>我们可以采用这道题目的一个思路，就是，截止时间，ddl 非常难以处理，但是反过来看，就是这个激活时间，激活时间以后，这个点就想选就选，不想选就不选了。</p>
 <h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
 <div class='fold collapsed'>
     <div class='fold-title'>
@@ -854,7 +857,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">183</span>
+        <span class="site-state-item-count">185</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
