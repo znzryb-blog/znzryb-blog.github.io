@@ -28,10 +28,10 @@
 <meta property="og:description" content="思路讲解 赛时稍微有点暴力，其实这个是增长的，递增的（不要从代数上想，从几何的角度想就容易很多）。 那么二分或者是双指针都行，那我们就写一个双指针吧，好久没写了。 1234567891011121314&#x2F;&#x2F; 双指针做法FOR(i,1,N-1)&#123;	FOR(j,bp,N)&#123;		ll curArea&#x3D;Sum[j-1]-Sum[i-1];		ll ldiff&#x3D;Sum[N]-curAr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-24T07:56:00.000Z">
-<meta property="article:modified_time" content="2026-02-17T12:02:00.513Z">
+<meta property="article:modified_time" content="2026-04-06T08:33:09.446Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="geometry 几何&#x2F;计算几何">
-<meta property="article:tag" content="two pointers 双指针">
+<meta property="article:tag" content="two pointers 双指针&#x2F;滑动窗口">
 <meta property="article:tag" content="凸包 convex hull">
 <meta property="article:tag" content="面积 area">
 <meta name="twitter:card" content="summary">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-02-17 20:02:00" itemprop="dateModified" datetime="2026-02-17T20:02:00+08:00">2026-02-17</time>
+                <time title="Modified: 2026-04-06 16:33:09" itemprop="dateModified" datetime="2026-04-06T16:33:09+08:00">2026-04-06</time>
               </span>
 
           
@@ -279,7 +279,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/geometry-%E5%87%A0%E4%BD%95-%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag"># geometry 几何/计算几何</a>
-              <a href="/tags/two-pointers-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag"># two pointers 双指针</a>
+              <a href="/tags/two-pointers-%E5%8F%8C%E6%8C%87%E9%92%88-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag"># two pointers 双指针/滑动窗口</a>
               <a href="/tags/%E5%87%B8%E5%8C%85-convex-hull/" rel="tag"># 凸包 convex hull</a>
               <a href="/tags/%E9%9D%A2%E7%A7%AF-area/" rel="tag"># 面积 area</a>
           </div>
@@ -371,14 +371,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">658</span>
+          <span class="site-state-item-count">666</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">185</span>
+        <span class="site-state-item-count">188</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
