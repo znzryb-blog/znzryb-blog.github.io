@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://media.znzryb.com/20260408-daa4fb7d/image_79166cfd.png">
 <meta property="og:image" content="https://media.znzryb.com/20260408-daa4fb7d/image_2df656f1.png">
 <meta property="article:published_time" content="2026-04-07T22:20:00.000Z">
-<meta property="article:modified_time" content="2026-04-09T11:03:40.649Z">
+<meta property="article:modified_time" content="2026-04-10T01:03:43.750Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="HDU">
 <meta property="article:tag" content="dp">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-09 19:03:40" itemprop="dateModified" datetime="2026-04-09T19:03:40+08:00">2026-04-09</time>
+                <time title="Modified: 2026-04-10 09:03:43" itemprop="dateModified" datetime="2026-04-10T09:03:43+08:00">2026-04-10</time>
               </span>
 
           
@@ -320,6 +320,9 @@
     </div>
 </div>
 <h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<p>注意，不要在循环内新建这个变量，可以把这个变量放在外面（说白了就是建内存块，delete 析构内存慢）</p>
+<p><a href="/2026/04/09/20260409-a7a76e64"> 注意在构造 nxt 数组的时候，一定不要忘记给已经到过的点也要建边</a></p>
+<p>注意，防止哨兵值参与计算，如果是 INF 哨兵值，就直接 continue</p>
 <div class='fold collapsed'>
     <div class='fold-title'>
         latex 错误报告代码
@@ -433,7 +436,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">676</span>
+          <span class="site-state-item-count">678</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

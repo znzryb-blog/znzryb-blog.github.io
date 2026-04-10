@@ -20,18 +20,23 @@
     var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="注意在构造 nxt 数组的时候，">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940\section&#123;错误三：BFS 建自动机时 \texttt&#123;nxt&#125; 表不完整&#125;%&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注意在构造 nxt 数组的时候，一定不要忘记给已经到过的点也要建边">
 <meta property="og:url" content="https://znzryb.com/2026/04/09/20260409-a7a76e64/index.html">
 <meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940\section&#123;错误三：BFS 建自动机时 \texttt&#123;nxt&#125; 表不完整&#125;%&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260409-a7a76e64/image_5aa68552.png">
 <meta property="article:published_time" content="2026-04-09T02:45:00.000Z">
-<meta property="article:modified_time" content="2026-04-09T11:03:40.849Z">
+<meta property="article:modified_time" content="2026-04-10T01:03:43.926Z">
 <meta property="article:author" content="znzryb">
+<meta property="article:tag" content="bfs 广搜">
 <meta property="article:tag" content="graph">
 <meta property="article:tag" content="图论建模 modelling">
 <meta property="article:tag" content="常见错误 bug&#x2F;error">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260409-a7a76e64/image_5aa68552.png">
 
 <link rel="canonical" href="https://znzryb.com/2026/04/09/20260409-a7a76e64/">
 
@@ -46,7 +51,7 @@
   };
 </script>
 
-  <title>注意在构造 nxt 数组的时候， | Znzryb's Blog</title>
+  <title>注意在构造 nxt 数组的时候，一定不要忘记给已经到过的点也要建边 | Znzryb's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
     <script>
@@ -210,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          注意在构造 nxt 数组的时候，
+          注意在构造 nxt 数组的时候，一定不要忘记给已经到过的点也要建边
         </h1>
 
         <div class="post-meta">
@@ -219,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-04-09 10:45:00 / Modified: 19:03:40" itemprop="dateCreated datePublished" datetime="2026-04-09T10:45:00+08:00">2026-04-09</time>
+              <time title="Created: 2026-04-09 10:45:00" itemprop="dateCreated datePublished" datetime="2026-04-09T10:45:00+08:00">2026-04-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-10 09:03:43" itemprop="dateModified" datetime="2026-04-10T09:03:43+08:00">2026-04-10</time>
+              </span>
 
           
 
@@ -235,7 +246,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+        <p><img src="https://media.znzryb.com/20260409-a7a76e64/image_5aa68552.png" alt="image" /></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\section</span>&#123;错误三：BFS 建自动机时 <span class="keyword">\texttt</span>&#123;nxt&#125; 表不完整&#125;</span><br><span class="line"><span class="comment">%======================================================================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误代码&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; 2; ++i) &#123;</span></span><br><span class="line"><span class="string">    auto v = u.next_state(i);</span></span><br><span class="line"><span class="string">    if (mp.contains(v)) &#123;</span></span><br><span class="line"><span class="string">        continue;   // 错误：跳过了，但没有记录转移边</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    mp[v] = idx;</span></span><br><span class="line"><span class="string">    nxt[mp[u]][i] = idx;</span></span><br><span class="line"><span class="string">    ++idx;</span></span><br><span class="line"><span class="string">    q.push(v);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误分析&#125;</span><br><span class="line">当目标状态 <span class="keyword">\texttt</span>&#123;v&#125; 已经在 BFS 中被访问过时，代码直接 <span class="keyword">\texttt</span>&#123;continue&#125;，<span class="keyword">\textbf</span>&#123;没有设置 <span class="keyword">\texttt</span>&#123;nxt[mp[u]][i] = mp[v]&#125;&#125;。这导致所有&quot;转移到已访问状态&quot;的边全部留为初始值 <span class="built_in">$</span>-1<span class="built_in">$</span>。</span><br><span class="line"></span><br><span class="line">自动机共 <span class="built_in">$</span>40<span class="built_in">$</span> 个状态、<span class="built_in">$</span>80<span class="built_in">$</span> 条有向边，但其中只有 <span class="built_in">$</span>39<span class="built_in">$</span> 条（BFS 树边）被正确记录，剩下 <span class="built_in">$</span>41<span class="built_in">$</span> 条（回边和交叉边）全部丢失。后续的子序列 DP 在遇到这些 <span class="built_in">$</span>-1<span class="built_in">$</span> 的转移时会直接跳过，导致大量合法的子序列转移被忽略。</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;修复&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string"> for (int i = 0; i &lt; 2; ++i) &#123;</span></span><br><span class="line"><span class="string">    auto v = u.next_state(i);</span></span><br><span class="line"><span class="string">    if (mp.contains(v)) &#123;</span></span><br><span class="line"><span class="string">        nxt[mp[u]][i] = mp[v];</span></span><br><span class="line"><span class="string">        continue;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    mp[v] = idx;</span></span><br><span class="line"><span class="string">    idx_state[idx] = v;</span></span><br><span class="line"><span class="string">    nxt[mp[u]][i] = idx;</span></span><br><span class="line"><span class="string">    ++idx;</span></span><br><span class="line"><span class="string">    q.push(v);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;教训&#125;</span><br><span class="line">BFS 建图时，&quot;发现新节点&quot;和&quot;记录边&quot;是两个独立的操作。即使目标节点已经在队列中，从当前节点到它的<span class="keyword">\textbf</span>&#123;转移边&#125;仍然必须被记录。这是 BFS 建自动机的经典易错点。</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
     </div>
 
     
@@ -245,6 +257,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/graph/" rel="tag"># graph</a>
+              <a href="/tags/bfs-%E5%B9%BF%E6%90%9C/" rel="tag"># bfs 广搜</a>
               <a href="/tags/%E5%9B%BE%E8%AE%BA%E5%BB%BA%E6%A8%A1-modelling/" rel="tag"># 图论建模 modelling</a>
               <a href="/tags/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF-bug-error/" rel="tag"># 常见错误 bug/error</a>
           </div>
@@ -258,7 +271,10 @@
     <a href="/2026/04/08/20260408-e54d2bec/" rel="prev" title="小心，不要把这个 step 也用于判重，如果 step 要用于优先队列，那么就使用两个比较器">
       <i class="fa fa-chevron-left"></i> 小心，不要把这个 step 也用于判重，如果 step 要用于优先队列，那么就使用两个比较器
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/09/20260409-b276ea24/" rel="next" title="注意，不要在循环内新建这个变量，可以把这个变量放在外面（说白了就是建内存块，delete 析构内存慢）">
+      注意，不要在循环内新建这个变量，可以把这个变量放在外面（说白了就是建内存块，delete 析构内存慢） <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -332,7 +348,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">676</span>
+          <span class="site-state-item-count">678</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
