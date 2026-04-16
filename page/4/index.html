@@ -191,6 +191,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/08/20260408-e54d2bec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/08/20260408-e54d2bec/" class="post-title-link" itemprop="url">小心，不要把这个 step 也用于判重，如果 step 要用于优先队列，那么就使用两个比较器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-04-08 06:59:00 / Modified: 15:03:19" itemprop="dateCreated datePublished" datetime="2026-04-08T06:59:00+08:00">2026-04-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>另外，再提醒你两个<strong>后续也会出问题</strong>的点，虽然它们不是这次输出变成 <code>1..8</code> 的主因：</p>
+<ul>
+<li>你的 <code>set&lt;L_R_A_B_C&gt; memo</code> 判重会用到 <code>operator&lt;</code>，但你把 <code>step</code> 也放进比较里了。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> L_R_A_B_C &amp;o) <span class="type">const</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (step != o.step) <span class="keyword">return</span> step &gt; o.step;</span><br><span class="line">    <span class="keyword">if</span> (hands != o.hands) <span class="keyword">return</span> hands &lt; o.hands;</span><br><span class="line">    <span class="keyword">return</span> tower_ls &lt; o.tower_ls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这会导致“同一个局面但 <code>step</code> 不同”被当成两个不同状态，不是你真正想要的“局面判重”。</p>
+<ul>
+<li>你的边权其实是 <code>0/1</code> 的：
+<ul>
+<li>栈 <code>&gt;</code> 手，代价是 <code>1</code></li>
+<li>手 <code>&gt;</code> 栈，代价是 <code>0</code><br />
+这种情况最好用 <code>0-1 BFS</code>，或者至少用 <code>dist</code> 做最短路，不能简单地“第一次入队就判重”。</li>
+</ul>
+</li>
+</ul>
+<p>如果你愿意，我下一条可以直接按你这份代码的风格，给你整理一个<strong>最适合这题打表的状态设计 + 0-1 BFS 写法</strong>。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/08/20260408-c7b015eb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -569,74 +643,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/07/20260407-19e161ca/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/04/07/20260407-19e161ca/" class="post-title-link" itemprop="url">vector clear() 函数减少内存的重新分配（保留 capacity），进而加快速度</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-04-07 11:56:00" itemprop="dateCreated datePublished" datetime="2026-04-07T11:56:00+08:00">2026-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-08 08:04:07" itemprop="dateModified" datetime="2026-04-08T08:04:07+08:00">2026-04-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=17893">https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=17893</a></p>
-<p><a href="/2026/04/06/20260406-d722ff08">2026 杭电春季联赛 3——1009-时空回溯（向下取整除法的性质）</a></p>
-<p><img src="https://media.znzryb.com/20260407-19e161ca/image_335dfee6.png" alt="image" /></p>
-<p><img src="https://media.znzryb.com/20260407-19e161ca/image_377077a2.png" alt="image" /></p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -708,7 +714,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">689</span>
+          <span class="site-state-item-count">690</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
