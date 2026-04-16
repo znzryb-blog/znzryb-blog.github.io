@@ -191,6 +191,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/03/26/20260326-ff09dc0d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/03/26/20260326-ff09dc0d/" class="post-title-link" itemprop="url">完全理解环以及回路相关问题    （图论中，找最大环是 NP-hard 问题，所以不可能找最大环，这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-03-26 16:43:00" itemprop="dateCreated datePublished" datetime="2026-03-26T16:43:00+08:00">2026-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-06 22:57:59" itemprop="dateModified" datetime="2026-04-06T22:57:59+08:00">2026-04-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>图论中，找最大环是 NP-hard 问题，所以不可能找最大环。</p>
+<p>找“最大环”（即无向图或有向图中的最长简单环，Longest Cycle Problem）是一个经典的 NP-Hard 问题。它和旅行商问题（TSP，Traveling Salesperson Problem）有着极深的渊源，本质上它们都是<strong>哈密顿环（Hamiltonian Cycle）问题的衍生和泛化</strong>。</p>
+<p>我们可以从以下几个方面来理解为什么它是 NP-Hard，以及它和 TSP 的共性所在：</p>
+<h3 id="1-为什么找最大环是-np-hard-问题"><a class="markdownIt-Anchor" href="#1-为什么找最大环是-np-hard-问题"></a> 1. 为什么找最大环是 NP-Hard 问题？</h3>
+<p>在计算复杂性理论中，证明一个问题是 NP-Hard 的最标准方法，就是将一个已知的 NP-Hard/NP-Complete 问题<strong>规约（Reduce）到它。对于“最大环”问题，最直接的规约对象就是哈密顿环问题</strong>。</p>
+<ul>
+<li>
+<p><strong>哈密顿环问题</strong>：<strong>给定一个包含</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> <strong>个顶点的图，问是否存在一个简单环，它恰好经过图中的每一个顶点一次？这是一个非常著名的 NP-Complete 问题</strong>。</p>
+</li>
+<li>
+<p><strong>规约过程</strong>：假设你拥有一个能够在多项式时间内求出任意图“最大简单环”的神奇算法。现在给你一个未知的图，你只需要运行这个神奇算法求出图中的最大环，然后看看这个最大环的长度是不是正好等于顶点总数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>。</p>
+<ul>
+<li>如果等于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>，说明图里存在哈密顿环。</li>
+<li>如果小于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span>，说明图里不存在哈密顿环。</li>
+</ul>
+</li>
+</ul>
+<p>图图论中，找最大环是 NP-hard 问题，所以不可能找最大环，<strong>这是因为找出最大环的方法可以非常轻松的判定以及找到图中的哈密顿环</strong>。</p>
+<hr />
+<p><strong>存在欧拉回路的</strong>这个条件也很简单**，就是每个顶点的度数都是偶数，那么一定存在一条欧拉回路（在联通无向图中）**</p>
+<p><strong>欧拉路径</strong>存在的充要条件（在无向连通图上），就是<strong>奇数度数节点数量等于0 或者 2</strong>（也就是要么是一条回路，也就是 0，要么是起点和重点可以少一条边）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (odd_cnt!=<span class="number">0</span> &amp;&amp; odd_cnt!=<span class="number">2</span>) &#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;ll&gt; ans_ls;</span><br><span class="line"><span class="keyword">auto</span> dfs=[&amp;](<span class="keyword">auto</span> &amp;&amp; self,ll u) -&gt; <span class="type">void</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (!g[u].<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> it=g[u].<span class="built_in">begin</span>();</span><br><span class="line">        <span class="keyword">auto</span> [to,id]=*it;</span><br><span class="line">        g[u].<span class="built_in">erase</span>(it);</span><br><span class="line">        g[to].<span class="built_in">erase</span>(&#123;u,id&#125;);</span><br><span class="line">        <span class="built_in">self</span>(self,to);</span><br><span class="line">        ans_ls.<span class="built_in">push_back</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">dfs</span>(dfs,<span class="built_in">max</span>(start_node,g.<span class="built_in">begin</span>()-&gt;first));</span><br><span class="line"><span class="comment">// 判断图是否联通，如果不联通，也是错的。</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">SZ</span>(ans_ls)!=N) &#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;NO\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">reverse</span>(<span class="built_in">all</span>(ans_ls));</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;YES\n&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> u:ans_ls) &#123;</span><br><span class="line">    cout&lt;&lt;u&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>为什么 Euler 路径红色这样子写有问题呢？其实也很容易理解，因为<strong>我们要把 ans_ls 反过来的呀</strong>！所以说，肯定需要先遍历完后续的点，才能塞入这条边啊！其实简单来说，就是<strong>要和正常的反过来</strong>！</p>
+<p><img src="https://media.znzryb.com/20260326-ff09dc0d/image_fb0f51a2.png" alt="image" /></p>
+<p><a href="/2026/02/22/20260222-b6e20294">Codeforces Round 1081 (Div. 2)-CF-1081-E. Swap to Rearrange（按值进行图论建模）（欧拉回路）</a></p>
+<p><a href="/2026/02/23/20260223-e1ba2987">Codeforces Round 1026 (Div. 2)-CF-1026-E. Melody</a></p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/03/26/20260326-4a90c343/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -916,133 +1006,6 @@ Evelyn 和 Todd 正在进行一场游戏。游戏开始时有一个包含 <span 
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/03/24/20260324-54669eef/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/24/20260324-54669eef/" class="post-title-link" itemprop="url">The 2026 ICPC Latin America Championship（2026 拉丁美洲决赛）-Gym-106416——F. Fun with Balls（读题面，一定要把每句话都读到，你就看大写字母就完了）（其实，你会发现，虽然 n 的大小为 150，但是需要你决策的地方其实不多）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-03-24 14:49:00" itemprop="dateCreated datePublished" datetime="2026-03-24T14:49:00+08:00">2026-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-06 22:57:29" itemprop="dateModified" datetime="2026-04-06T22:57:29+08:00">2026-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
-<p><img src="https://media.znzryb.com/20260324-54669eef/image_d9d3261a.png" alt="image" /></p>
-<p>一开始没注意到这句话，绷不住了。注意，读题面，<strong>一定要把每句话都读到，你就看大写字母就完了</strong>。</p>
-<p>也不能怪我，这个 if 在 cf 题面上的这个位置太阴了。</p>
-<p><img src="https://media.znzryb.com/20260324-54669eef/image_939bf0ce.png" alt="image" /></p>
-<p><strong>题意总结</strong></p>
-<p>给定 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 个球，以及它们被依次使用时的颜色序列 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>K</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>K</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">K_1,K_2,\dots,K_N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。</p>
-<p>Antonella 按如下规则逐个放球，且每一步之后都必须保持整个球堆稳定：</p>
-<p><img src="https://media.znzryb.com/20260324-54669eef/image_b95acfd7.png" alt="image" /></p>
-<ol>
-<li>
-<p>第一个球一定放在地面上。</p>
-</li>
-<li>
-<p>之后每次加入一个新球时，这个球要么放在地面上，要么恰好放在两个球的正上方。</p>
-</li>
-<li>
-<p>所有在地面上的球必须紧密排列，中间不能有空隙。</p>
-</li>
-<li>
-<p>如果当前有多个合法放置位置，Antonella 一定选择<strong>最高</strong>的位置。</p>
-</li>
-<li>
-<p>如果最高的位置不止一个，则她可以任选其中一个。</p>
-</li>
-</ol>
-<p>若若干个<strong>同色</strong>球两两之间可以通过“接触”的球一路连通，则它们构成一个同色连通块，称为一个 cluster。cluster 的大小就是其中球的个数。</p>
-<p>题目要求你在所有可能构造出的稳定球堆中，求出：</p>
-<p>所有颜色的所有 cluster 里，<strong>最大 cluster 的大小</strong> 的最大可能值。</p>
-<p>也就是说，要输出 Antonella 在满足规则的前提下，最终有可能得到的最大同色连通块大小。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行是整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>。</p>
-<p>第二行是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 个整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>K</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>K</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">K_1,K_2,\dots,K_N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，表示每个球按加入顺序的颜色。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示答案。</p>
-<p><strong>样例 1</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">3</span><br><span class="line">1 2 1</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>解释：</p>
-<p>先放第一个颜色为 <code>1</code> 的球。第二个颜色为 <code>2</code> 的球也只能放在地面上，可以放在第一个球左边或右边。第三个颜色为 <code>1</code> 的球此时会放到前两个球上方。这样最终颜色为 <code>1</code> 的两个球会连成一个大小为 <code>2</code> 的 cluster，所以答案是 <code>2</code>。</p>
-<p><strong>样例 2</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">3</span><br><span class="line">1 1 1</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p>解释：</p>
-<p>三个球颜色都相同，不管具体怎么放，最终都能连成一个大小为 <code>3</code> 的同色 cluster，所以答案是 <code>3</code>。</p>
-<p><strong>样例 3</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">4</span><br><span class="line">1 5 5 1</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>解释：</p>
-<p>按规则逐步加入后，最大的同色连通块大小最多只能达到 <code>2</code>，因此答案是 <code>2</code>。</p>
-<p><strong>样例 4</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">6</span><br><span class="line">1 2 2 1 2 3</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p>解释：</p>
-<p>在某种合法构造下，颜色为 <code>2</code> 的球可以形成一个大小为 <code>3</code> 的 cluster，因此答案是 <code>3</code>。</p>
-<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
-<p>这道题目不是很想补，毕竟暴力嘛，算了。</p>
-<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
-<div class='fold collapsed'>
-    <div class='fold-title'>
-        源代码
-    </div>
-    <div class='fold-content'>
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
-</div>
-<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1114,7 +1077,7 @@ Evelyn 和 Todd 正在进行一场游戏。游戏开始时有一个包含 <span 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">688</span>
+          <span class="site-state-item-count">689</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

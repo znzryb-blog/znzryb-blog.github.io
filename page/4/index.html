@@ -191,6 +191,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/08/20260408-c7b015eb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/08/20260408-c7b015eb/" class="post-title-link" itemprop="url">初始化顺序问题，栈的初始化顺序有可能是反的</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-04-08 06:58:00" itemprop="dateCreated datePublished" datetime="2026-04-08T06:58:00+08:00">2026-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-09 08:03:13" itemprop="dateModified" datetime="2026-04-09T08:03:13+08:00">2026-04-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最直接的原因是：<strong>你把初始栈建反了</strong>。</p>
+<p>你后面的所有操作都把 <code>vector::back()</code> 当成栈顶：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;L_R_A_B_C&gt; <span class="title">op_lrabc</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    vector&lt;L_R_A_B_C&gt; res;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hands[i] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tower_ls[j].<span class="built_in">empty</span>() || tower_ls[j].<span class="built_in">back</span>() &gt; hands[i]) &#123;</span><br><span class="line">                L_R_A_B_C to = *<span class="keyword">this</span>;</span><br><span class="line">                to.tower_ls[j].<span class="built_in">push_back</span>(hands[i]);</span><br><span class="line">                to.hands[i] = <span class="number">0</span>;</span><br><span class="line">                res.<span class="built_in">push_back</span>(to);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hands[i] != <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tower_ls[j].<span class="built_in">empty</span>()) <span class="keyword">continue</span>;</span><br><span class="line">            L_R_A_B_C to = *<span class="keyword">this</span>;</span><br><span class="line">            to.hands[i] = tower_ls[j].<span class="built_in">back</span>();</span><br><span class="line">            to.tower_ls[j].<span class="built_in">pop_back</span>();</span><br><span class="line">            to.step++;</span><br><span class="line">            res.<span class="built_in">push_back</span>(to);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但你初始化的时候写的是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">bfs</span><span class="params">(ll n)</span> </span>&#123;</span><br><span class="line">    L_R_A_B_C st;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        st.tower_ls[<span class="number">0</span>].<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    set&lt;L_R_A_B_C&gt; memo;</span><br><span class="line">    priority_queue&lt;L_R_A_B_C&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(st);</span><br><span class="line">    memo.<span class="built_in">insert</span>(st);</span><br></pre></td></tr></table></figure>
+<p>这样 <code>A</code> 里实际是 <code>[1,2,3,...,n]</code>，而 <code>back()</code> 是 <code>n</code>。</p>
+<p>也就是说，你程序理解出来的“栈顶”是<strong>最大的盘</strong>，这和题意“越靠近栈底越大”正好反了。</p>
+<p>所以你的程序会认为可以这样合法移动：</p>
+<ol>
+<li>
+<p>先拿出 <code>n</code> 放到空的 <code>C</code></p>
+</li>
+<li>
+<p>再拿出 <code>n-1</code> 放到 <code>C</code>，因为此时 <code>C.back() = n &gt; n-1</code></p>
+</li>
+<li>
+<p>再拿出 <code>n-2</code></p>
+</li>
+<li>
+<p>一直这样下去</p>
+</li>
+</ol>
+<p>于是每个盘都只需要被拿起一次，答案自然就成了 <code>n</code>，所以你才会打出：</p>
+<ul>
+<li>
+<p><code>1:1</code></p>
+</li>
+<li>
+<p><code>2:2</code></p>
+</li>
+<li>
+<p><code>3:3</code></p>
+</li>
+<li>
+<p>…</p>
+</li>
+<li>
+<p><code>8:8</code></p>
+</li>
+</ul>
+<p>你这里概念上应该让初始 <code>A</code> 满足：如果 <code>back()</code> 是栈顶，那么 <code>back()</code> 必须是最小盘，也就是初始内容应当是 <code>{n,n-1,...,1}</code>，而不是 <code>{1,2,...,n}</code>。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/08/20260408-daa4fb7d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -532,74 +637,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/07/20260407-6a50bd4a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/04/07/20260407-6a50bd4a/" class="post-title-link" itemprop="url">一般来说，一个线段树只应该有一个 merge 函数，因为我们的 merge 是 static 的，我们的逻辑也是用 merge 从子节点中完全重新推出父节点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-04-07 11:44:00" itemprop="dateCreated datePublished" datetime="2026-04-07T11:44:00+08:00">2026-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-08 08:04:07" itemprop="dateModified" datetime="2026-04-08T08:04:07+08:00">2026-04-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一般来说，一个线段树只应该有一个 merge 函数，因为我们的 merge 是 static 的，我们的逻辑也是用 merge 从子节点中完全重新推出父节点。</p>
-<p><a href="/2026/04/06/20260406-d722ff08">2026 杭电春季联赛 3——1009-时空回溯（向下取整除法的性质）</a></p>
-<p>由于我们的 merge 是一个 static 的函数，<strong>不会默认保留原来的一些属性，一切都是完全重新推导的</strong>。</p>
-<p><img src="https://media.znzryb.com/20260407-6a50bd4a/image_ecf1b3a5.png" alt="image" /></p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -671,7 +708,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">688</span>
+          <span class="site-state-item-count">689</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
