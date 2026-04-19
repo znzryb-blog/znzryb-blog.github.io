@@ -191,6 +191,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/11/20260411-b19988b9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/11/20260411-b19988b9/" class="post-title-link" itemprop="url">P16224 [蓝桥杯 2026 省 A] A. 均衡数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-04-11 16:47:00" itemprop="dateCreated datePublished" datetime="2026-04-11T16:47:00+08:00">2026-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-12 10:53:24" itemprop="dateModified" datetime="2026-04-12T10:53:24+08:00">2026-04-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h2>
+<h1 id="p16224-蓝桥杯-2026-省-a-均衡数"><a class="markdownIt-Anchor" href="#p16224-蓝桥杯-2026-省-a-均衡数"></a> P16224 [蓝桥杯 2026 省 A] 均衡数</h1>
+<h2 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h2>
+<p>如果一个正整数的二进制表示中（无前导 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 的数量和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的数量相同，则我们称其为一个“均衡数”。</p>
+<p>现在，请你找到一个均衡数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>，使得 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>2026202620262026</mn><mo>−</mo><mi>x</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|2026202620262026 - x|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mord">∣</span></span></span></span> 的值最小。若存在多个均衡数使得 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>2026202620262026</mn><mo>−</mo><mi>x</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|2026202620262026 - x|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mord">2</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mord">∣</span></span></span></span> 的值相同且最小，则取其中最小的一个。</p>
+<h2 id="输入格式"><a class="markdownIt-Anchor" href="#输入格式"></a> 输入格式</h2>
+<p>无</p>
+<h2 id="输出格式"><a class="markdownIt-Anchor" href="#输出格式"></a> 输出格式</h2>
+<p>这是一道结果填空的题，你只需要算出结果后提交即可。本题的结果为一个整数，在提交答案时只填写这个整数，填写多余的内容将无法得分。</p>
+<h2 id="输入输出样例-1"><a class="markdownIt-Anchor" href="#输入输出样例-1"></a> 输入输出样例 #1</h2>
+<h3 id="输入-1"><a class="markdownIt-Anchor" href="#输入-1"></a> 输入 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="输出-1"><a class="markdownIt-Anchor" href="#输出-1"></a> 输出 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h2>
+<p>说白了，最靠近的就是 <strong>50 位最大均衡数</strong>和 <strong>52 位最小均衡数</strong>。</p>
+<p>这个是 52 位最小均衡数，比这个 50 位的最大的更接近，故选这个。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="built_in">bin</span>(<span class="number">2251799847239679</span>)</span><br><span class="line"><span class="string">&#x27;0b1000000000000000000000000001111111111111111111111111&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="ac代码"><a class="markdownIt-Anchor" href="#ac代码"></a> AC代码</h2>
+<p>AC<br />
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/273571661">https://www.luogu.com.cn/record/273571661</a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        源代码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// teamname: Gospel_rock</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: P16224 [蓝桥杯 2026 省 A] 均衡数</span></span><br><span class="line"><span class="comment"> * Contest: </span></span><br><span class="line"><span class="comment"> * Judge: Luogu</span></span><br><span class="line"><span class="comment"> * URL: https://www.luogu.com.cn/problem/P16224?contestId=320702</span></span><br><span class="line"><span class="comment"> * Created: 2026-04-12 01:08:52</span></span><br><span class="line"><span class="comment"> * Author: Gospel_rock</span></span><br><span class="line"><span class="comment"> * My blog: https://znzryb.com/</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Powered by AutoCp https://github.com/Pushpavel/AutoCp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(),vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o&lt;&lt;1|1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long) a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug(var) cerr &lt;&lt; #var &lt;&lt;<span class="string">&quot; = [&quot;</span>&lt;&lt;var&lt;&lt;<span class="string">&quot;]&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug1d(a)    \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; #a &lt;&lt; <span class="string">&quot; = [&quot;</span>;   \</span></span><br><span class="line"><span class="meta">for (int i = 0; i &lt; (int)(a).size(); i++) \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; (i ? <span class="string">&quot;, &quot;</span> : <span class="string">&quot;&quot;</span>) &lt;&lt; a[i]; \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> debug2d(a)  \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; #a &lt;&lt; <span class="string">&quot; = [\n&quot;</span>;  \</span></span><br><span class="line"><span class="meta">for (int i = 0; i &lt; (int)(a).size(); i++)  \</span></span><br><span class="line"><span class="meta">&#123;   \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;  [&quot;</span>;  \</span></span><br><span class="line"><span class="meta">for (int j = 0; j &lt; (int)(a[i]).size(); j++) \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; (j ? <span class="string">&quot;, &quot;</span> : <span class="string">&quot;&quot;</span>) &lt;&lt; a[i][j];   \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;   \</span></span><br><span class="line"><span class="meta">&#125;  \</span></span><br><span class="line"><span class="meta">cerr &lt;&lt; <span class="string">&quot;]\n&quot;</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr&lt;&lt;<span class="string">&quot;\n-----------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed&lt;&lt;setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> i128 = __int128;</span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span><span class="number">+10</span>, INF = (<span class="number">1ll</span>&lt;&lt;<span class="number">61</span>)<span class="number">-1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>; <span class="comment">// (ll)1e9+7; </span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> PI = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT,testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Solve</span> &#123;</span><br><span class="line">    <span class="comment">// ll N;</span></span><br><span class="line">    <span class="built_in">Solve</span>() &#123;</span><br><span class="line">        <span class="comment">// cin &gt;&gt; N;</span></span><br><span class="line">        <span class="comment">// cout&lt;&lt;&quot;2251799847239679&quot;;</span></span><br><span class="line">        ll ans=(<span class="number">1ll</span>&lt;&lt;<span class="number">51</span>)+(<span class="number">1ll</span>&lt;&lt;<span class="number">25</span>)<span class="number">-1</span>;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">    cout.<span class="built_in">setf</span>(ios::unitbuf);   <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// cin &gt;&gt; lT;</span></span><br><span class="line">    <span class="comment">// for (testcase=1;testcase&lt;=lT;++testcase)</span></span><br><span class="line">        Solve solve;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">9003 0271 3419 402</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h2 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h2>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/11/20260411-2daf8b59/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -551,75 +645,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/09/20260409-a7a76e64/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/04/09/20260409-a7a76e64/" class="post-title-link" itemprop="url">注意在构造 nxt 数组的时候，一定不要忘记给已经到过的点也要建边</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-04-09 10:45:00" itemprop="dateCreated datePublished" datetime="2026-04-09T10:45:00+08:00">2026-04-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-10 09:03:43" itemprop="dateModified" datetime="2026-04-10T09:03:43+08:00">2026-04-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://media.znzryb.com/20260409-a7a76e64/image_5aa68552.png" alt="image" /></p>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\section</span>&#123;错误三：BFS 建自动机时 <span class="keyword">\texttt</span>&#123;nxt&#125; 表不完整&#125;</span><br><span class="line"><span class="comment">%======================================================================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误代码&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; 2; ++i) &#123;</span></span><br><span class="line"><span class="string">    auto v = u.next_state(i);</span></span><br><span class="line"><span class="string">    if (mp.contains(v)) &#123;</span></span><br><span class="line"><span class="string">        continue;   // 错误：跳过了，但没有记录转移边</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    mp[v] = idx;</span></span><br><span class="line"><span class="string">    nxt[mp[u]][i] = idx;</span></span><br><span class="line"><span class="string">    ++idx;</span></span><br><span class="line"><span class="string">    q.push(v);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误分析&#125;</span><br><span class="line">当目标状态 <span class="keyword">\texttt</span>&#123;v&#125; 已经在 BFS 中被访问过时，代码直接 <span class="keyword">\texttt</span>&#123;continue&#125;，<span class="keyword">\textbf</span>&#123;没有设置 <span class="keyword">\texttt</span>&#123;nxt[mp[u]][i] = mp[v]&#125;&#125;。这导致所有&quot;转移到已访问状态&quot;的边全部留为初始值 <span class="built_in">$</span>-1<span class="built_in">$</span>。</span><br><span class="line"></span><br><span class="line">自动机共 <span class="built_in">$</span>40<span class="built_in">$</span> 个状态、<span class="built_in">$</span>80<span class="built_in">$</span> 条有向边，但其中只有 <span class="built_in">$</span>39<span class="built_in">$</span> 条（BFS 树边）被正确记录，剩下 <span class="built_in">$</span>41<span class="built_in">$</span> 条（回边和交叉边）全部丢失。后续的子序列 DP 在遇到这些 <span class="built_in">$</span>-1<span class="built_in">$</span> 的转移时会直接跳过，导致大量合法的子序列转移被忽略。</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;修复&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string"> for (int i = 0; i &lt; 2; ++i) &#123;</span></span><br><span class="line"><span class="string">    auto v = u.next_state(i);</span></span><br><span class="line"><span class="string">    if (mp.contains(v)) &#123;</span></span><br><span class="line"><span class="string">        nxt[mp[u]][i] = mp[v];</span></span><br><span class="line"><span class="string">        continue;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    mp[v] = idx;</span></span><br><span class="line"><span class="string">    idx_state[idx] = v;</span></span><br><span class="line"><span class="string">    nxt[mp[u]][i] = idx;</span></span><br><span class="line"><span class="string">    ++idx;</span></span><br><span class="line"><span class="string">    q.push(v);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;教训&#125;</span><br><span class="line">BFS 建图时，&quot;发现新节点&quot;和&quot;记录边&quot;是两个独立的操作。即使目标节点已经在队列中，从当前节点到它的<span class="keyword">\textbf</span>&#123;转移边&#125;仍然必须被记录。这是 BFS 建自动机的经典易错点。</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/138/">138</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/139/">139</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -687,7 +716,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">690</span>
+          <span class="site-state-item-count">691</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
