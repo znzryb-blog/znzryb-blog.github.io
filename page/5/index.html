@@ -191,6 +191,74 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/09/20260409-b276ea24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/09/20260409-b276ea24/" class="post-title-link" itemprop="url">注意，不要在循环内新建这个变量，可以把这个变量放在外面（说白了就是建内存块，delete 析构内存慢）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-04-09 16:11:00" itemprop="dateCreated datePublished" datetime="2026-04-09T16:11:00+08:00">2026-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-10 09:03:43" itemprop="dateModified" datetime="2026-04-10T09:03:43+08:00">2026-04-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=18676">https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=18676</a></p>
+<p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=18673">https://acm.hdu.edu.cn/contest/view-code?cid=1199&amp;rid=18673</a></p>
+<p><img src="https://media.znzryb.com/20260409-b276ea24/image_27d80974.png" alt="image" /></p>
+<p><img src="https://media.znzryb.com/20260409-b276ea24/image_33433177.png" alt="image" /></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\section</span>&#123;错误七（TLE）：循环内 <span class="keyword">\texttt</span>&#123;vector&#125; 拷贝构造导致 <span class="built_in">$</span>10<span class="built_in">^</span>7<span class="built_in">$</span> 次堆分配&#125;</span><br><span class="line"><span class="comment">%======================================================================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误代码&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; N; ++i) &#123;</span></span><br><span class="line"><span class="string">    ll ch = s[i] - &#x27;0&#x27;;</span></span><br><span class="line"><span class="string">    vector&lt;ll&gt; ndp = dp;   // 拷贝构造：每次都 new 一块内存</span></span><br><span class="line"><span class="string">    for (int status = 0; status &lt;= 45; ++status) &#123;</span></span><br><span class="line"><span class="string">        // ...</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    swap(ndp, dp);</span></span><br><span class="line"><span class="string">&#125;   // ndp 析构：每次都 delete 一块内存</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;错误分析&#125;</span><br><span class="line"><span class="keyword">\texttt</span>&#123;vector&lt;ll&gt; ndp = dp;&#125; 是拷贝构造，每次调用都会在堆上分配 <span class="built_in">$</span>50 <span class="keyword">\times</span> 8 = 400<span class="built_in">$</span> 字节的新内存，循环结束时 <span class="keyword">\texttt</span>&#123;ndp&#125; 析构又将其释放。<span class="built_in">$</span>N<span class="built_in">$</span> 最大为 <span class="built_in">$</span>10<span class="built_in">^</span>7<span class="built_in">$</span>，因此总共触发 <span class="built_in">$</span>10<span class="built_in">^</span>7<span class="built_in">$</span> 次 <span class="keyword">\texttt</span>&#123;malloc&#125; + <span class="built_in">$</span>10<span class="built_in">^</span>7<span class="built_in">$</span> 次 <span class="keyword">\texttt</span>&#123;free&#125;，系统调用开销远超 DP 本身的计算量。</span><br><span class="line"></span><br><span class="line"><span class="keyword">\subsection</span>*&#123;修复&#125;</span><br><span class="line">将 <span class="keyword">\texttt</span>&#123;ndp&#125; 的声明提到循环外部，循环内用赋值代替构造：</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;minted&#125;&#123;cpp&#125;<span class="string"></span></span><br><span class="line"><span class="string">vector&lt;ll&gt; ndp;              // 提到循环外</span></span><br><span class="line"><span class="string">for (int i = 0; i &lt; N; ++i) &#123;</span></span><br><span class="line"><span class="string">    ll ch = s[i] - &#x27;0&#x27;;</span></span><br><span class="line"><span class="string">    ndp = dp;                // 赋值：size 相同时不会重新分配内存</span></span><br><span class="line"><span class="string">    for (int status = 0; status &lt;= 45; ++status) &#123;</span></span><br><span class="line"><span class="string">        // ...</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    dp.swap(ndp);            // O(1)，只交换内部指针</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span><span class="keyword">\end</span>&#123;minted&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/09/20260409-a7a76e64/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -576,72 +644,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/04/07/20260407-36e1f405/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/04/07/20260407-36e1f405/" class="post-title-link" itemprop="url">注意特殊操作的范围，不一定就局限在【l，r】了，可能是全局操作【1，N】。</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-04-07 15:39:00" itemprop="dateCreated datePublished" datetime="2026-04-07T15:39:00+08:00">2026-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-08 08:04:07" itemprop="dateModified" datetime="2026-04-08T08:04:07+08:00">2026-04-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>注意特殊操作的范围，不一定就局限在【l，r】了，可能是全局操作【1，N】。</p>
-<p><img src="https://media.znzryb.com/20260407-36e1f405/image_bd308275.png" alt="image" /></p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -713,7 +715,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">696</span>
+          <span class="site-state-item-count">697</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
