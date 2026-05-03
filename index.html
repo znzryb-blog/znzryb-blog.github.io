@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-05-03 05:56:00 / Modified: 14:12:41" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
+              <time title="Created: 2026-05-03 05:56:00 / Modified: 14:35:15" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
             </span>
 
           
@@ -820,6 +820,114 @@ A: UCup 题源杂、不全是区域赛；很多 region 比赛题已在 QOJ categ
 A: 见 <code>~/.claude/skills/qoj-access/SKILL.md</code> 的「批量搜题工作流」章节。</p>
 </li>
 </ul>
+<hr />
+<h1 id="三年趋势分析2026-05-03-加"><a class="markdownIt-Anchor" href="#三年趋势分析2026-05-03-加"></a> 三年趋势分析（2026-05-03 加）</h1>
+<h2 id="一句话结论"><a class="markdownIt-Anchor" href="#一句话结论"></a> 一句话结论</h2>
+<p><strong>计算几何题在区域赛里数量稳中有升，没有任何衰减迹象</strong>——平均每场题数从 2023 的 1.08 涨到 2025 的 1.50，2025 几乎每场 Regional / Final 都至少出 1 题几何（92%）。</p>
+<h2 id="三年纵向数据仅-regional-final去掉网络赛-女生赛-高职专场"><a class="markdownIt-Anchor" href="#三年纵向数据仅-regional-final去掉网络赛-女生赛-高职专场"></a> 三年纵向数据（仅 Regional + Final，去掉网络赛 / 女生赛 / 高职专场）</h2>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>场次</th>
+<th>几何题总数</th>
+<th>平均每场</th>
+<th>至少 1 几何的场次占比</th>
+<th>2023</th>
+<th>13</th>
+<th>14</th>
+<th>1.08</th>
+<th>85%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024</td>
+<td>13</td>
+<td>18</td>
+<td>1.38</td>
+<td>85%</td>
+<td>2025</td>
+<td>12</td>
+<td>18</td>
+<td><strong>1.50</strong></td>
+<td><strong>92%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>几个值得注意的拐点：</p>
+<ul>
+<li>
+<p><strong>CCPC 2025 是 CCPC 系列的几何爆发年</strong>：CCPC 2023-24 平均只有 0.6 题/场（Qinhuangdao / Shenzhen / Chongqing / Zhengzhou 几个站完全不出几何），CCPC 2025 跳到 1.43 题/场，已经追平 ICPC 的水平了</p>
+</li>
+<li>
+<p><strong>「几何专场」越来越频繁</strong>：ICPC 2024 上海 4 题几何（A/H/J/M）、ICPC 2024 EC Final 3 题几何（B/D/H）、CCPC 2025 郑州 3 题几何（B/E/L）。这种单场 3+ 题几何的情况在 2023 一次都没出现过</p>
+</li>
+<li>
+<p><strong>2025 反例只有 ICPC Hong Kong 1 场没出几何</strong>——也就是说，赛前如果完全不练几何，2025 你大概率每场都要弃 1-2 题</p>
+</li>
+</ul>
+<h2 id="几何子类分布59-题一题可能算多类"><a class="markdownIt-Anchor" href="#几何子类分布59-题一题可能算多类"></a> 几何子类分布（59 题，一题可能算多类）</h2>
+<table>
+<thead>
+<tr>
+<th>子类</th>
+<th>题数</th>
+<th>性价比</th>
+<th>必练程度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>网格 / 整点</strong></td>
+<td>9</td>
+<td>高</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>极角 / 概率积分</td>
+<td>6</td>
+<td>中</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Manhattan / 最近点对</strong></td>
+<td>4</td>
+<td>极高（套路固定）</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>栅格化 / 扫描线</strong></td>
+<td>3</td>
+<td>高（和 DS 共享）</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>tiling</td>
+<td>1</td>
+<td>低</td>
+<td>⭐</td>
+</tr>
+</tbody>
+</table>
+<h2 id="对队伍的策略建议"><a class="markdownIt-Anchor" href="#对队伍的策略建议"></a> 对队伍的策略建议</h2>
+<p>针对当前情况：队伍没专门几何手，估自己只能啃铜档几何题。这是个真问题，不是可以躲的：</p>
+<ul>
+<li>
+<p><strong>92% 的场次至少有 1 题几何</strong>，几乎每场都要面对这道题，少做 1 题往往就是金银分水岭</p>
+</li>
+<li>
+<p>Tier B 偏难/防 AK 的几何题只占 8/59 ≈ <strong>14%</strong>，剩下 <strong>85% 的几何题是金/银档可做</strong>——也就是说不需要培养一个能啃完所有几何题的「全能几何手」，只要能稳吃银档以上就能从「铜」走到「金」</p>
+</li>
+<li>
+<p>投入产出比最高的三个套路是 <strong>凸包/半平面 + Manhattan/最近点对 + 栅格化/扫描线</strong>，加起来覆盖 <strong>17 + 4 + 3 = 24 题</strong>（占 59 题的 <strong>41%</strong>）。把这三类练熟，几乎一半的几何题就能稳过</p>
+</li>
+<li>
+<p>3D / visibility / tiling 这几类性价比低（题数少 + Tier B 偏难居多），先放一放，等前面三类练完再补</p>
+</li>
+</ul>
+<h2 id="为什么-v1-漏题这件事在趋势上更刺眼"><a class="markdownIt-Anchor" href="#为什么-v1-漏题这件事在趋势上更刺眼"></a> 为什么 v1 漏题这件事在趋势上更刺眼</h2>
+<p>v2 新增的 27 真几何里，有相当一部分集中在 2024-2025（1843/G、1843/J、1913/A、1913/M、1913/J、2641/G、2641/K、2609/L、2661/E、2581/L 等），意味着出题人在「题名不暗示几何但内容是几何」这个方向上明显倾向更强了——以后类似筛题任务必须双段扫，不能再只看 title。</p>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
       
     </div>
