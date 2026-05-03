@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="用途 zzy（ICPC&#x2F;CCPC 在训选手）的几何专项训练清单。从 QOJ.ac category 21 (Asia East ICPC) + 205 (CCPC) 共 50 场近三年区域赛 637 题里筛出真·计算几何，剔题名带 geometry&#x2F;convex&#x2F;polygon 但实质是 DS&#x2F;DP 的伪几何题。  验收方式 清单按 Tier S &#x2F; A &#x2F; B 分组。每行的 QOJ pid 是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QOJ 2023-2025 区域赛真·计算几何 59 题清单（验收版 v2）">
+<meta property="og:url" content="https://znzryb.com/2026/05/03/20260503-68c2e096/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="用途 zzy（ICPC&#x2F;CCPC 在训选手）的几何专项训练清单。从 QOJ.ac category 21 (Asia East ICPC) + 205 (CCPC) 共 50 场近三年区域赛 637 题里筛出真·计算几何，剔题名带 geometry&#x2F;convex&#x2F;polygon 但实质是 DS&#x2F;DP 的伪几何题。  验收方式 清单按 Tier S &#x2F; A &#x2F; B 分组。每行的 QOJ pid 是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-02T21:56:00.000Z">
+<meta property="article:modified_time" content="2026-05-03T06:12:41.348Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="Circle 圆">
+<meta property="article:tag" content="QOJ">
+<meta property="article:tag" content="geometry 几何&#x2F;计算几何">
+<meta property="article:tag" content="三维 three-dimensional">
+<meta property="article:tag" content="凸包 convex hull">
+<meta property="article:tag" content="圆的切分与连线">
+<meta property="article:tag" content="坐标coordinate">
+<meta property="article:tag" content="扫描线 sweep line">
+<meta property="article:tag" content="极角排序 Polar Angle Sorting">
+<meta property="article:tag" content="算法讲解 tutorial">
+<meta property="article:tag" content="闵可夫斯基和 Minkowski sum">
+<meta property="article:tag" content="面积 area">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2026/05/03/20260503-68c2e096/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>QOJ 2023-2025 区域赛真·计算几何 59 题清单（验收版 v2） | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/03/20260503-68c2e096/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          QOJ 2023-2025 区域赛真·计算几何 59 题清单（验收版 v2）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-05-03 05:56:00 / Modified: 14:12:41" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="用途"><a class="markdownIt-Anchor" href="#用途"></a> 用途</h2>
+<p>zzy（ICPC/CCPC 在训选手）的几何专项训练清单。从 <a target="_blank" rel="noopener" href="http://qoj.ac/">QOJ.ac</a> category 21 (Asia East ICPC) + 205 (CCPC) 共 50 场近三年区域赛 637 题里筛出真·计算几何，<strong>剔题名带 geometry/convex/polygon 但实质是 DS/DP 的伪几何题</strong>。</p>
+<h2 id="验收方式"><a class="markdownIt-Anchor" href="#验收方式"></a> 验收方式</h2>
+<p>清单按 Tier S / A / B 分组。每行的 QOJ pid 是直链。⭐ 标记的是 <strong>v2 全文扫描</strong> 才发现的，<strong>v1 仅按题名关键字过滤会漏掉</strong>——这一类是验收时最容易找到「我做过但你没列」反例的来源。</p>
+<h2 id="三档定义"><a class="markdownIt-Anchor" href="#三档定义"></a> 三档定义</h2>
+<ul>
+<li>
+<p><strong>Tier S（金档）</strong>：明确给出几何对象 + 标准计算几何套路（凸包 / Manhattan / 圆环扫描 / visibility / 半平面 / 3D 圆柱），区域赛金牌组应能稳过</p>
+</li>
+<li>
+<p><strong>Tier A（银档）</strong>：题面是几何场景（矩形 / 网格路径 / 整点结构）但解法可能偏向扫描线 / 容斥 / 前缀和，几何味浓但需结合 DS</p>
+</li>
+<li>
+<p><strong>Tier B（铜档/偏难/构造）</strong>：3D / 投影 / 多边形重建 / 楼梯 visibility / Minkowski 体积 / 整点构造，金牌组也可能落在防 AK 边缘</p>
+</li>
+</ul>
+<h2 id="工作流数据如何产出"><a class="markdownIt-Anchor" href="#工作流数据如何产出"></a> 工作流（数据如何产出）</h2>
+<p>数据源 + 流程都落在 <code>~/.claude/skills/qoj-access/SKILL.md</code> “批量搜题工作流” 章节。所有原始产物 + <a target="_blank" rel="noopener" href="http://result.md/">RESULT.md</a> 仍在 <code>/tmp/qoj_geom/</code>（注意 <code>/tmp</code> 重启会清，长期保留要 commit 到 repo）。</p>
+<hr />
+<h1 id="总览"><a class="markdownIt-Anchor" href="#总览"></a> 总览</h1>
+<ul>
+<li>
+<p><strong>Tier S 真几何 — 33 题</strong>（v1: 21 题 + v2 新增 12 ⭐）</p>
+</li>
+<li>
+<p><strong>Tier A 真几何 — 18 题</strong>（v1: 7 题 + v2 新增 11 ⭐）</p>
+</li>
+<li>
+<p><strong>Tier B 偏难/构造 — 8 题</strong>（v1: 4 题 + v2 新增 4 ⭐）</p>
+</li>
+<li>
+<p><strong>合计 — 59 题</strong></p>
+</li>
+</ul>
+<p>v2 改动：v1 仅按题名关键字筛 87 候选，导致「题名不像几何但实质是几何」大面积漏掉。v2 把 637 题题面正文全部下载切片，用强几何信号正则（凸包/Manhattan/(x,y)/反射/3D 等）全文扫描，103 命中后人工 review，最终新增 27 真几何。</p>
+<hr />
+<h2 id="tier-s-33-题"><a class="markdownIt-Anchor" href="#tier-s-33-题"></a> 🥇 Tier S — 33 题</h2>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>cid/idx</th>
+<th>比赛</th>
+<th>题名</th>
+<th>几何点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8081">8081</a></td>
+<td>1485/J</td>
+<td>ICPC 2023 EC Online (I)</td>
+<td>Minimum Manhattan Distance</td>
+<td>Manhattan 距离最值</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8082">8082</a></td>
+<td>1485/K</td>
+<td>ICPC 2023 EC Online (I)</td>
+<td>Minimum Euclidean Distance</td>
+<td>最近点对</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7906">7906</a></td>
+<td>1472/M</td>
+<td>ICPC 2023 Jinan</td>
+<td>Almost Convex</td>
+<td>凸包变体</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9253">9253</a></td>
+<td>1784/L</td>
+<td>ICPC 2023 Xi’an</td>
+<td>Prism Palace</td>
+<td>3D 棱柱</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7785">7785</a></td>
+<td>1449/I</td>
+<td>ICPC 2023 Shenyang</td>
+<td>Three Rectangles</td>
+<td>矩形布尔运算</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8054">8054</a></td>
+<td>1522/H</td>
+<td>ICPC 2023 EC Final</td>
+<td>Map 2</td>
+<td>多边形+查询</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7734">7734</a></td>
+<td>1435/B</td>
+<td>ICPC 2023 Nanjing</td>
+<td>Intersection over Union</td>
+<td>矩形 IoU</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9919">9919</a></td>
+<td>1885/E</td>
+<td>ICPC 2024 Hong Kong</td>
+<td>Concave Hull</td>
+<td>凹包</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9804">9804</a></td>
+<td>1865/G</td>
+<td>ICPC 2024 Shenyang</td>
+<td>Guess the Polygon</td>
+<td>多边形重建</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9808">9808</a></td>
+<td>1865/K</td>
+<td>ICPC 2024 Shenyang</td>
+<td>Fragile Pinball</td>
+<td>反射几何</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9576">9576</a></td>
+<td>1828/M</td>
+<td>ICPC 2024 Nanjing</td>
+<td>Ordainer of Inexorable Judgment</td>
+<td>多边形 + 旋转</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9869">9869</a></td>
+<td>1871/H</td>
+<td>ICPC 2024 Kunming</td>
+<td>Horizon Scanning</td>
+<td>极角扫描</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14813">14813</a></td>
+<td>2581/M</td>
+<td>ICPC 2025 Nanjing</td>
+<td>Many Convex Polygons</td>
+<td>多凸包</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14714">14714</a></td>
+<td>2567/I</td>
+<td>ICPC 2025 Chengdu</td>
+<td>Inside Triangle</td>
+<td>三角形包含</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14725">14725</a></td>
+<td>2609/G</td>
+<td>ICPC 2025 Wuhan</td>
+<td>Projection</td>
+<td>投影几何</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14692">14692</a></td>
+<td>2562/L</td>
+<td>ICPC 2025 Xi’an</td>
+<td>Let’s Make a Convex!</td>
+<td>凸性构造</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9520">9520</a></td>
+<td>1817/B</td>
+<td>CCPC 2024 Harbin</td>
+<td>Concave Hull</td>
+<td>凹包</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14555">14555</a></td>
+<td>2534/I</td>
+<td>CCPC Online 2025</td>
+<td>矩形</td>
+<td>矩形</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14815">14815</a></td>
+<td>2575/B</td>
+<td>CCPC 2025 Harbin</td>
+<td>液压机</td>
+<td>物理几何</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15033">15033</a></td>
+<td>2693/B</td>
+<td>CCPC 2025 Jinan</td>
+<td>Fortress</td>
+<td>多边形</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14461">14461</a></td>
+<td>2564/L</td>
+<td>CCPC 2025 Women</td>
+<td>挑战凸多边形</td>
+<td>凸多边形</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15319">15319</a></td>
+<td>2908/F</td>
+<td>ICPC 2025 Shanghai</td>
+<td>Flower’s land 4</td>
+<td>线段相交（端点在轴）</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14710">14710</a></td>
+<td>2567/E</td>
+<td>ICPC 2025 Chengdu</td>
+<td>Escaping from Trap</td>
+<td>正多边形交互测距</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9978">9978</a></td>
+<td>1894/D</td>
+<td>ICPC 2024 EC Final</td>
+<td>Keystone Correction</td>
+<td>3D 投影矩形 keystone</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14946">14946</a></td>
+<td>2641/G</td>
+<td>ICPC 2025 Shenyang</td>
+<td>Collision Damage</td>
+<td>凸多边形交集面积期望</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/8241">8241</a></td>
+<td>1516/L</td>
+<td>ICPC 2023 Hangzhou</td>
+<td>Master of Both V</td>
+<td>凸包+半平面（修改维护）</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7783">7783</a></td>
+<td>1449/G</td>
+<td>ICPC 2023 Shenyang</td>
+<td>Military Maneuver</td>
+<td>圆环扫描期望最小时间</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9554">9554</a></td>
+<td>1843/G</td>
+<td>CCPC 2024 Jinan</td>
+<td>The Wheel of Fortune</td>
+<td>凸多边形重心+磁铁扰动</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9037">9037</a></td>
+<td>1913/A</td>
+<td>ICPC 2024 Shanghai</td>
+<td>Ancient Maps, Hidden Danger</td>
+<td>多边形 visibility 隐藏区域</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9049">9049</a></td>
+<td>1913/M</td>
+<td>ICPC 2024 Shanghai</td>
+<td>Machine Learning with Penguins</td>
+<td>3D 圆柱面通过点</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7903">7903</a></td>
+<td>1472/J</td>
+<td>ICPC 2023 Jinan</td>
+<td>Computational Intelligence</td>
+<td>两线段上随机点期望距离</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7862">7862</a></td>
+<td>1459/F</td>
+<td>ICPC 2023 Macau</td>
+<td>Land Trade</td>
+<td>半平面布尔表达式面积</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9557">9557</a></td>
+<td>1843/J</td>
+<td>CCPC 2024 Jinan</td>
+<td>Temperance</td>
+<td>3D 点 axis-density 删除</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tier-a-18-题"><a class="markdownIt-Anchor" href="#tier-a-18-题"></a> 🥈 Tier A — 18 题</h2>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>cid/idx</th>
+<th>比赛</th>
+<th>题名</th>
+<th>几何点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9728">9728</a></td>
+<td>1893/C</td>
+<td>ICPC 2024 Hangzhou</td>
+<td>Catch the Star</td>
+<td>极角</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9044">9044</a></td>
+<td>1913/H</td>
+<td>ICPC 2024 Shanghai</td>
+<td>Hexagon Puzzle</td>
+<td>六边形</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/16328">16328</a></td>
+<td>3295/A</td>
+<td>ICPC 2025 EC Final</td>
+<td>Outstanding Outlines</td>
+<td>多边形轮廓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15302">15302</a></td>
+<td>2661/B</td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>Cutting Chocolate</td>
+<td>切分</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15312">15312</a></td>
+<td>2661/L</td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>Triangle Grid</td>
+<td>三角网格</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14822">14822</a></td>
+<td>2575/I</td>
+<td>CCPC 2025 Harbin</td>
+<td>六边形翻转</td>
+<td>六边形</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15430">15430</a></td>
+<td>3387/L</td>
+<td>CCPC 2025 Chongqing</td>
+<td>Tiling the Floor</td>
+<td>tiling</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7758">7758</a></td>
+<td>1412/M</td>
+<td>CCPC 2023 Harbin</td>
+<td>Painter</td>
+<td>圆/矩形栅格化+渲染</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7878">7878</a></td>
+<td>1440/E</td>
+<td>ICPC 2023 Hefei</td>
+<td>Matrix Distances</td>
+<td>Manhattan 距离贡献</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14308">14308</a></td>
+<td>2513/H</td>
+<td>ICPC 2025 EC Online (I)</td>
+<td>Walk</td>
+<td>网格路径与矩形相交收费</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14812">14812</a></td>
+<td>2581/L</td>
+<td>ICPC 2025 Nanjing</td>
+<td>Regional Champion</td>
+<td>圆+三角+直线分割平面计数构造</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/8550">8550</a></td>
+<td>1596/I</td>
+<td>CCPC Final 2023</td>
+<td>All the Way Left</td>
+<td>不自交+只左转排列计数</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9046">9046</a></td>
+<td>1913/J</td>
+<td>ICPC 2024 Shanghai</td>
+<td>Just-in-Time Render Analysis</td>
+<td>矩形完全嵌套 render depth</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14730">14730</a></td>
+<td>2609/L</td>
+<td>ICPC 2025 Wuhan</td>
+<td>ICPC</td>
+<td>矩形+单调路径分割概率</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14950">14950</a></td>
+<td>2641/K</td>
+<td>ICPC 2025 Shenyang</td>
+<td>Relay Jump</td>
+<td>关于点对称跳跃链路</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/11109">11109</a></td>
+<td>2036/E</td>
+<td>CCPC Final 2024</td>
+<td>Omniscient Artist</td>
+<td>矩形覆盖恰好 m·c 次面积</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9739">9739</a></td>
+<td>1841/A</td>
+<td>CCPC 2024 Women</td>
+<td>盒子</td>
+<td>3D 矩形包含查询</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15305">15305</a></td>
+<td>2661/E</td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>Doo Doo Doo</td>
+<td>同心圆环+门最短路</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tier-b-8-题"><a class="markdownIt-Anchor" href="#tier-b-8-题"></a> 🥉 Tier B — 8 题</h2>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>cid/idx</th>
+<th>比赛</th>
+<th>题名</th>
+<th>几何点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9547">9547</a></td>
+<td>1821/M</td>
+<td>ICPC 2024 Chengdu</td>
+<td>Two Convex Holes</td>
+<td>双凸洞</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9976">9976</a></td>
+<td>1894/B</td>
+<td>ICPC 2024 EC Final</td>
+<td>Guess the Polygon 2</td>
+<td>多边形重建</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9982">9982</a></td>
+<td>1894/H</td>
+<td>ICPC 2024 EC Final</td>
+<td>Staircase Museum</td>
+<td>楼梯 visibility</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14314">14314</a></td>
+<td>2524/A</td>
+<td>ICPC 2025 EC Online (II)</td>
+<td>Angry Birds</td>
+<td>Minkowski 凸包体积</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7680">7680</a></td>
+<td>1404/D</td>
+<td>CCPC 2023 Guilin</td>
+<td>Subway</td>
+<td>整点+不自交线段地铁规划构造</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7756">7756</a></td>
+<td>1412/K</td>
+<td>CCPC 2023 Harbin</td>
+<td>Omniscia Spares None</td>
+<td>整数坐标布点+连接线段不内部相交</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14547">14547</a></td>
+<td>2534/A</td>
+<td>CCPC Online 2025</td>
+<td>整点正方形计数2</td>
+<td>整点正方形（边可不平行轴）计数</td>
+</tr>
+<tr>
+<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9316">9316</a></td>
+<td>1794/I</td>
+<td>ICPC 2024 EC Online (I)</td>
+<td>Boxes</td>
+<td>3D 凸包不重叠/嵌套划分最大体积</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="几何子类索引找专项-set-时用"><a class="markdownIt-Anchor" href="#几何子类索引找专项-set-时用"></a> 几何子类索引（找专项 set 时用）</h2>
+<ul>
+<li>
+<p><strong>凸包 / 半平面</strong>：1485/J、1485/K、1472/M、1817/B、1885/E、1865/G、1885/E、2562/L、2564/L、2581/M、2693/B、1516/L⭐、2641/G⭐、1843/G⭐、1794/I⭐、1894/B、1821/M、2524/A</p>
+</li>
+<li>
+<p><strong>Manhattan / Minkowski</strong>：1485/J、1440/E⭐、2524/A</p>
+</li>
+<li>
+<p><strong>3D</strong>：1784/L、1894/D⭐、1913/M⭐、1843/J⭐、1841/A⭐、1794/I⭐、1894/H</p>
+</li>
+<li>
+<p><strong>反射 / 旋转</strong>：1865/K、1828/M、2641/K⭐、1843/G⭐、2575/I</p>
+</li>
+<li>
+<p><strong>网格 / 整点</strong>：1449/I、1435/B、2534/I、2534/A⭐、2581/L⭐、2513/H⭐、2609/L⭐、1404/D⭐、1412/K⭐</p>
+</li>
+<li>
+<p><strong>可见性 / visibility</strong>：1913/A⭐、1894/H、3295/A</p>
+</li>
+<li>
+<p><strong>极角 / 概率积分</strong>：1871/H、1893/C、1449/G⭐、1472/J⭐、2641/G⭐、2609/L⭐</p>
+</li>
+<li>
+<p><strong>栅格化 / 渲染</strong>：1412/M⭐、2036/E⭐、1913/J⭐</p>
+</li>
+<li>
+<p><strong>交互几何</strong>：2567/E⭐、2661/B、2661/E⭐</p>
+</li>
+<li>
+<p><strong>tiling</strong>：3387/L</p>
+</li>
+</ul>
+<hr />
+<h2 id="漏-不收的范围验收前请知悉"><a class="markdownIt-Anchor" href="#漏-不收的范围验收前请知悉"></a> 漏 / 不收的范围（验收前请知悉）</h2>
+<ul>
+<li>
+<p>QOJ category 21 不含 NERC / NWERC / SWERC / Latin / Africa</p>
+</li>
+<li>
+<p>CCPC 2025 总决赛 (cid 3727) 抓数据时（2026-05-03）0 题数据未公开</p>
+</li>
+<li>
+<p>CF Gym 上有些 Asia 区域赛镜像 QOJ 没收，本次没扩到 CF Gym</p>
+</li>
+<li>
+<p>v2 全文扫描的低 score (2-4) 还有 ~28 题没逐题精读，如果验收发现遗漏在这批里，告诉我题号，我去回查那一段题面</p>
+</li>
+</ul>
+<hr />
+<h2 id="剔除清单部分代表"><a class="markdownIt-Anchor" href="#剔除清单部分代表"></a> 剔除清单（部分代表）</h2>
+<p>这些 v1 / v2 都看过题面、确认是「几何皮 ≠ 几何题」：</p>
+<ul>
+<li>
+<p>An Easy Geometry Problem — 带修线段树</p>
+</li>
+<li>
+<p>Geometry Task — 中位数排序</p>
+</li>
+<li>
+<p>A Brand New Geometric Problem — 高维数学</p>
+</li>
+<li>
+<p>China Convex Polygon Contest — 提交时序调度</p>
+</li>
+<li>
+<p>Identify Chord — 图论环上加边</p>
+</li>
+<li>
+<p>Colorful Graph 2 (1596/C) — 图染色（虽然提到 polygon）</p>
+</li>
+<li>
+<p>Yet another permutation problem (2908/L) — 排列段交换计数</p>
+</li>
+<li>
+<p>Cute Young Diagram Counting (2641/H) — 杨表组合</p>
+</li>
+<li>
+<p>Boxes 误判：1794/I 已 KEEP（真 3D 凸包）</p>
+</li>
+</ul>
+<p>完整 53 题剔除清单见 <code>/tmp/qoj_geom/RESULT.md</code> v1 部分。</p>
+<hr />
+<h2 id="qa"><a class="markdownIt-Anchor" href="#qa"></a> Q&amp;A</h2>
+<ul>
+<li>
+<p><strong>Q: 为什么不用 clist tag=geometry？</strong><br />
+A: CF Gym 和 QOJ 几乎不打题目级 tag，按 tag 拉会大量漏题。</p>
+</li>
+<li>
+<p><strong>Q: 为什么不上 Universal Cup？</strong><br />
+A: UCup 题源杂、不全是区域赛；很多 region 比赛题已在 QOJ category 21 里（QOJ 多场比赛同时挂在 ICPC region 和 UCup 两个分类下，例如 ICPC 2023 ECF = UCup Stage 23 Shanghai）。</p>
+</li>
+<li>
+<p><strong>Q: 数据如何获取？</strong><br />
+A: 见 <code>~/.claude/skills/qoj-access/SKILL.md</code> 的「批量搜题工作流」章节。</p>
+</li>
+</ul>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%B2%E8%A7%A3-tutorial/" rel="tag"># 算法讲解 tutorial</a>
+              <a href="/tags/geometry-%E5%87%A0%E4%BD%95-%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag"># geometry 几何/计算几何</a>
+              <a href="/tags/%E5%9D%90%E6%A0%87coordinate/" rel="tag"># 坐标coordinate</a>
+              <a href="/tags/%E5%87%B8%E5%8C%85-convex-hull/" rel="tag"># 凸包 convex hull</a>
+              <a href="/tags/%E9%9D%A2%E7%A7%AF-area/" rel="tag"># 面积 area</a>
+              <a href="/tags/%E6%89%AB%E6%8F%8F%E7%BA%BF-sweep-line/" rel="tag"># 扫描线 sweep line</a>
+              <a href="/tags/QOJ/" rel="tag"># QOJ</a>
+              <a href="/tags/%E5%9C%86%E7%9A%84%E5%88%87%E5%88%86%E4%B8%8E%E8%BF%9E%E7%BA%BF/" rel="tag"># 圆的切分与连线</a>
+              <a href="/tags/%E6%9E%81%E8%A7%92%E6%8E%92%E5%BA%8F-Polar-Angle-Sorting/" rel="tag"># 极角排序 Polar Angle Sorting</a>
+              <a href="/tags/%E4%B8%89%E7%BB%B4-three-dimensional/" rel="tag"># 三维 three-dimensional</a>
+              <a href="/tags/%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E5%92%8C-Minkowski-sum/" rel="tag"># 闵可夫斯基和 Minkowski sum</a>
+              <a href="/tags/Circle-%E5%9C%86/" rel="tag"># Circle 圆</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/02/20260502-2c3c0f8a/" rel="prev" title="CF Edu 189 D - Exceptional Segments">
+      <i class="fa fa-chevron-left"></i> CF Edu 189 D - Exceptional Segments
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">1.</span> <span class="nav-text"> 用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E6%94%B6%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text"> 验收方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%A1%A3%E5%AE%9A%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text"> 三档定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%95%B0%E6%8D%AE%E5%A6%82%E4%BD%95%E4%BA%A7%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text"> 工作流（数据如何产出）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E8%A7%88"><span class="nav-number">5.</span> <span class="nav-text"> 总览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tier-s-33-%E9%A2%98"><span class="nav-number">5.1.</span> <span class="nav-text"> 🥇 Tier S — 33 题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tier-a-18-%E9%A2%98"><span class="nav-number">5.2.</span> <span class="nav-text"> 🥈 Tier A — 18 题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tier-b-8-%E9%A2%98"><span class="nav-number">5.3.</span> <span class="nav-text"> 🥉 Tier B — 8 题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E5%AD%90%E7%B1%BB%E7%B4%A2%E5%BC%95%E6%89%BE%E4%B8%93%E9%A1%B9-set-%E6%97%B6%E7%94%A8"><span class="nav-number">5.4.</span> <span class="nav-text"> 几何子类索引（找专项 set 时用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F-%E4%B8%8D%E6%94%B6%E7%9A%84%E8%8C%83%E5%9B%B4%E9%AA%8C%E6%94%B6%E5%89%8D%E8%AF%B7%E7%9F%A5%E6%82%89"><span class="nav-number">5.5.</span> <span class="nav-text"> 漏 &#x2F; 不收的范围（验收前请知悉）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%94%E9%99%A4%E6%B8%85%E5%8D%95%E9%83%A8%E5%88%86%E4%BB%A3%E8%A1%A8"><span class="nav-number">5.6.</span> <span class="nav-text"> 剔除清单（部分代表）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qa"><span class="nav-number">5.7.</span> <span class="nav-text"> Q&amp;A</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">700</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">207</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
