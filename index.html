@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-05-03 05:56:00 / Modified: 16:55:16" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
+              <time title="Created: 2026-05-03 05:56:00 / Modified: 17:20:22" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
             </span>
 
           
@@ -1374,6 +1374,130 @@
 <p><strong>真正的策略价值</strong>：拿到比赛后<strong>先扫一眼有没有 Tier 金/银的几何题</strong>，有就值得花时间想；没有就果断放弃几何题（58% 概率没有），把时间留给 DS / DP。</p>
 </li>
 </ul>
+<h2 id="round-2-update2026-05-03-收尾cf-gym-题解补足-工程持久化"><a class="markdownIt-Anchor" href="#round-2-update2026-05-03-收尾cf-gym-题解补足-工程持久化"></a> 🔄 Round 2 update（2026-05-03 收尾）：CF Gym 题解补足 + 工程持久化</h2>
+<p>QOJ 上只有 7 场公开 tutorial PDF（cid 1411 / 1472 / 1817 / 1828 / 1865 / 2581 / 2641，剩 43 场无题解）。Round 2 用 <strong>CF Gym 镜像兜底</strong>拉 editorial：CF 也是 Cloudflare 但<strong>比 qoj 简单一档</strong> —— <code>curl_cffi</code> 配 <code>impersonate=&quot;chrome&quot;</code> 不需要任何 cookie / cf_clearance 就能直通（封装在新写的 <a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code"><code>cf-access</code></a> skill）。</p>
+<h3 id="命中结果"><a class="markdownIt-Anchor" href="#命中结果"></a> 命中结果</h3>
+<p><strong>43 场 → 18 找到 Gym 镜像 → 11 拿到 editorial PDF</strong>（剔了 4 个城市/学校重名 false positive：湘潭大 PC ≠ Xi’an Regional、上海高校赛 ≠ ICPC Asia Shanghai、西安交大校赛 ≠ Xi’an Regional）。</p>
+<p>覆盖 48 题清单中 <strong>14 道题</strong>，其中包括 2 道原本没题解、属于「12 道 zzy 真能做」名单的金 / 铜签到题。</p>
+<table>
+<thead>
+<tr>
+<th>QOJ cid</th>
+<th>比赛</th>
+<th>CF Gym 镜像</th>
+<th>覆盖 48 清单题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1404</td>
+<td>CCPC 2023 Guilin</td>
+<td>104768</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7680">7680</a> D Subway（防 AK）</td>
+</tr>
+<tr>
+<td>1435</td>
+<td>ICPC 2023 Nanjing</td>
+<td>104821</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7734">7734</a> B Intersection over Union（防 AK）</td>
+</tr>
+<tr>
+<td>1440</td>
+<td>ICPC 2023 Hefei</td>
+<td>104857</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7878">7878</a> E Matrix Distances（已剔，PDF 仍存档）</td>
+</tr>
+<tr>
+<td>1449</td>
+<td>ICPC 2023 Shenyang</td>
+<td>104869</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7785"><strong>7785</strong></a> <strong>I Three Rectangles（金）</strong>  • <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7783">7783</a> G Military Maneuver（防 AK）</td>
+</tr>
+<tr>
+<td>1459</td>
+<td>ICPC 2023 Macau</td>
+<td>104891</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7862">7862</a> F Land Trade（防 AK）</td>
+</tr>
+<tr>
+<td>1516</td>
+<td>ICPC 2023 Hangzhou</td>
+<td>104976</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8241">8241</a> L Master of Both V（防 AK）</td>
+</tr>
+<tr>
+<td>1843</td>
+<td>CCPC 2024 Jinan</td>
+<td>105540</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9554">9554</a> G The Wheel of Fortune（防 AK）+ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9557">9557</a> J Temperance（已剔）</td>
+</tr>
+<tr>
+<td>1871</td>
+<td>ICPC 2024 Kunming</td>
+<td>105588</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9869"><strong>9869</strong></a> <strong>H Horizon Scanning（铜签到）</strong></td>
+</tr>
+<tr>
+<td>1873</td>
+<td>CCPC 2024 Zhengzhou</td>
+<td>105632</td>
+<td>（Zhengzhou 24 不在 48 题里）</td>
+</tr>
+<tr>
+<td>1893</td>
+<td>ICPC 2024 Hangzhou</td>
+<td>105657</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9728">9728</a> C Catch the Star（防 AK）</td>
+</tr>
+<tr>
+<td>2661</td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>105941</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15312">15312</a> L Triangle Grid + <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15305">15305</a> E Doo Doo Doo（防 AK）+ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15302">15302</a> B Cutting Chocolate（已剔）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="对-12-道可做几何的进展"><a class="markdownIt-Anchor" href="#对-12-道可做几何的进展"></a> 对 12 道可做几何的进展</h3>
+<p>本轮新增 2 道有题解：<strong>Three Rectangles</strong>（沈阳 23 金）+ <strong>Horizon Scanning</strong>（昆明 24 铜签到）。原 QOJ 已有 2 道：<strong>Painter</strong> + <strong>Almost Convex</strong>（哈尔滨 23 / 济南 23）。</p>
+<p><strong>仍缺 editorial 的 8 道</strong>：液压机 25 哈尔滨 · Inside Triangle 25 成都 · Outstanding Outlines 25 EC Final · Many Convex Polygons 25 南京 · Collision Damage 25 沈阳 · Concave Hull 24 哈尔滨 · Staircase Museum 24 EC Final · Guess the Polygon 24 沈阳。这些都是 25 年最新场 + EC Final 类，CF Gym 都没收 mirror 或附件没挂 editorial。</p>
+<h3 id="没找到镜像的-25-场cf-gym-系统性盲区"><a class="markdownIt-Anchor" href="#没找到镜像的-25-场cf-gym-系统性盲区"></a> 没找到镜像的 25 场（CF Gym 系统性盲区）</h3>
+<ul>
+<li>
+<p><strong>CCPC Final / EC Final（5 场）</strong>：Final 类比赛 CF Gym 不收 → 1522 / 1596 / 1894 / 2036 / 3295</p>
+</li>
+<li>
+<p><strong>East Continent Online + CCPC Online（8 场）</strong>：线上赛不上 gym → 1485 / 1794 / 1799 / 2513 / 2524 / 1358 / 2530 / 2534</p>
+</li>
+<li>
+<p><strong>CCPC Women / Vocational（4 场）</strong>：小众分赛 → 1841 / 1842 / 2564 / 2565</p>
+</li>
+<li>
+<p><strong>Hong Kong 24 / 25</strong>：1885 / 3169（QOJ 有但 CF 没）</p>
+</li>
+<li>
+<p><strong>2025 部分区域赛 mirror 滞后</strong>：Wuhan 25 / Chengdu 25 / Harbin 25 等 mirror 找到了但附件还没挂 editorial PDF</p>
+</li>
+<li>
+<p><strong>CCPC 2023 Shenzhen / Harbin</strong> + <strong>CCPC 2025 Jinan / Chongqing</strong>：CF 没收</p>
+</li>
+</ul>
+<p>下一轮要补这 25 场只能走（按可行性）：UCup mirror（<a target="_blank" rel="noopener" href="http://contest.ucup.ac/">contest.ucup.ac</a>）→ 出题人 blog → CSDN / 知乎 / luogu blog → 1-2 个月后 CF Gym 重跑。</p>
+<h3 id="假阳性踩坑"><a class="markdownIt-Anchor" href="#假阳性踩坑"></a> 假阳性踩坑</h3>
+<p>按「赛站名 + 年份」fuzzy match Gym 镜像很容易混淆<strong>城市/学校重名</strong>：</p>
+<ul>
+<li>
+<p><code>Xi'an</code> 子串混进 <code>**Xian**gtan University</code> / <code>**Xian** Jiaotong University</code> → 湘潭 PC + 西交大校赛被误命中为 Xi’an Regional</p>
+</li>
+<li>
+<p><code>Shanghai</code> 混进 <code>**Shanghai** Collegiate Programming Contest</code>（上海高校赛）→ 误命中为 ICPC Asia Shanghai Regional</p>
+</li>
+</ul>
+<p><strong>修法</strong>：matcher 必须加 <code>\b(ICPC.*Asia|Universal.*Cup)\b</code> 限定，把校赛 / 高校赛 / 邀请赛过滤掉。本轮 4 个 FP 已手动剔除并删除对应 PDF。</p>
+<h3 id="工程持久化不再依赖-tmp"><a class="markdownIt-Anchor" href="#工程持久化不再依赖-tmp"></a> 工程持久化（不再依赖 /tmp）</h3>
+<p>v3 全套数据 + scripts + 11 个 editorial PDF 已从 <code>/tmp/qoj_geom/</code> 搬进 git 仓库：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Users</span>/zzy/<span class="title class_">Desktop</span>/<span class="title class_">DoProblemAsMyTaste</span>/memory/qoj-geometry-catalog-v3/</span><br><span class="line">├── RESULT_v3.<span class="property">md</span> / RESULT_v3_notion.<span class="property">md</span> / RESULT_v2.<span class="property">md</span> / <span class="variable constant_">RESULT</span>.<span class="property">md</span></span><br><span class="line">├── srk_stats_v3.<span class="property">json</span> / srk_stats.<span class="property">json</span> / problems.<span class="property">json</span> / full_text_hits.<span class="property">json</span></span><br><span class="line">├── candidates.<span class="property">json</span> / _notion_payload.<span class="property">json</span> / batch_*.<span class="property">md</span> / new_hits_text.<span class="property">md</span></span><br><span class="line">├── <span class="number">6</span> 数据派生 .<span class="property">py</span>（recalc_trend / cross_validate / srk_analyze / build_notion_v3 / extract_all / harvest）</span><br><span class="line">├── <span class="number">3</span> round-<span class="number">2</span> .<span class="property">py</span>（cf_gym_hunt / cf_gym_hunt2 / cf_dl_editorials）+ cf_hunt_result.<span class="property">json</span></span><br><span class="line">└── cf_gym_editorials/  ← <span class="number">11</span> <span class="variable constant_">PDF</span> + <span class="variable constant_">MANIFEST</span>.<span class="property">json</span>（cid → gym_id → editorial_url → covers_geom_problems）</span><br></pre></td></tr></table></figure>
+<p><strong>只有 PDF 切片（637 题面 .txt + 50 场题面 PDF + algoux srk 工作目录，~440 MB）仍在 /tmp，重启会丢</strong>——但都可用 <code>harvest.py</code> + <code>extract_all.py</code> 重抓。</p>
+<hr />
 <h2 id="v3-数据来源-复现指南"><a class="markdownIt-Anchor" href="#v3-数据来源-复现指南"></a> v3 数据来源 / 复现指南</h2>
 <ul>
 <li>
@@ -1386,7 +1510,10 @@
 <p>50 场题面 PDF（中文）：<code>r=1</code></p>
 </li>
 <li>
-<p><strong>9 场公开题解 PDF</strong>：<code>r=2</code>（QOJ 上只有这 9 场公开了题解）</p>
+<p><strong>7 场公开题解 PDF（QOJ 自带）</strong>：<code>r=2</code></p>
+</li>
+<li>
+<p><strong>11 场 editorial PDF（round 2 补，CF Gym 兜底）</strong>：<a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code"><code>cf-access</code></a> skill 的 <code>find_gym.py</code> + <code>gym_materials.py</code>，详见上方 Round 2 章节</p>
 </li>
 <li>
 <p>难度分类：按队伍奖牌段位的通过率重打 Tier</p>

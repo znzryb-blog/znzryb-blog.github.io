@@ -28,7 +28,7 @@
 <meta property="og:description" content="v3 关键修正（vs v2） v2 把&quot;防 AK 题&quot;也算成 Tier S 金档——59 题里有 18 道实际是金牌队都过不了的防 AK，例如 ICPC 2025 Wuhan L “ICPC”（446 队 0 人过）、CCPC 2025 Jinan B “Fortress”（260 队 0 过）。v3 改用真榜单数据：   数据源：algoux&#x2F;srk-collection">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-02T21:56:00.000Z">
-<meta property="article:modified_time" content="2026-05-03T08:55:16.879Z">
+<meta property="article:modified_time" content="2026-05-03T09:20:22.819Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="Circle 圆">
 <meta property="article:tag" content="QOJ">
@@ -232,7 +232,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-05-03 05:56:00 / Modified: 16:55:16" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
+              <time title="Created: 2026-05-03 05:56:00 / Modified: 17:20:22" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
             </span>
 
           
@@ -1390,6 +1390,130 @@
 <p><strong>真正的策略价值</strong>：拿到比赛后<strong>先扫一眼有没有 Tier 金/银的几何题</strong>，有就值得花时间想；没有就果断放弃几何题（58% 概率没有），把时间留给 DS / DP。</p>
 </li>
 </ul>
+<h2 id="round-2-update2026-05-03-收尾cf-gym-题解补足-工程持久化"><a class="markdownIt-Anchor" href="#round-2-update2026-05-03-收尾cf-gym-题解补足-工程持久化"></a> 🔄 Round 2 update（2026-05-03 收尾）：CF Gym 题解补足 + 工程持久化</h2>
+<p>QOJ 上只有 7 场公开 tutorial PDF（cid 1411 / 1472 / 1817 / 1828 / 1865 / 2581 / 2641，剩 43 场无题解）。Round 2 用 <strong>CF Gym 镜像兜底</strong>拉 editorial：CF 也是 Cloudflare 但<strong>比 qoj 简单一档</strong> —— <code>curl_cffi</code> 配 <code>impersonate=&quot;chrome&quot;</code> 不需要任何 cookie / cf_clearance 就能直通（封装在新写的 <a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code"><code>cf-access</code></a> skill）。</p>
+<h3 id="命中结果"><a class="markdownIt-Anchor" href="#命中结果"></a> 命中结果</h3>
+<p><strong>43 场 → 18 找到 Gym 镜像 → 11 拿到 editorial PDF</strong>（剔了 4 个城市/学校重名 false positive：湘潭大 PC ≠ Xi’an Regional、上海高校赛 ≠ ICPC Asia Shanghai、西安交大校赛 ≠ Xi’an Regional）。</p>
+<p>覆盖 48 题清单中 <strong>14 道题</strong>，其中包括 2 道原本没题解、属于「12 道 zzy 真能做」名单的金 / 铜签到题。</p>
+<table>
+<thead>
+<tr>
+<th>QOJ cid</th>
+<th>比赛</th>
+<th>CF Gym 镜像</th>
+<th>覆盖 48 清单题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1404</td>
+<td>CCPC 2023 Guilin</td>
+<td>104768</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7680">7680</a> D Subway（防 AK）</td>
+</tr>
+<tr>
+<td>1435</td>
+<td>ICPC 2023 Nanjing</td>
+<td>104821</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7734">7734</a> B Intersection over Union（防 AK）</td>
+</tr>
+<tr>
+<td>1440</td>
+<td>ICPC 2023 Hefei</td>
+<td>104857</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7878">7878</a> E Matrix Distances（已剔，PDF 仍存档）</td>
+</tr>
+<tr>
+<td>1449</td>
+<td>ICPC 2023 Shenyang</td>
+<td>104869</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7785"><strong>7785</strong></a> <strong>I Three Rectangles（金）</strong>  • <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7783">7783</a> G Military Maneuver（防 AK）</td>
+</tr>
+<tr>
+<td>1459</td>
+<td>ICPC 2023 Macau</td>
+<td>104891</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7862">7862</a> F Land Trade（防 AK）</td>
+</tr>
+<tr>
+<td>1516</td>
+<td>ICPC 2023 Hangzhou</td>
+<td>104976</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8241">8241</a> L Master of Both V（防 AK）</td>
+</tr>
+<tr>
+<td>1843</td>
+<td>CCPC 2024 Jinan</td>
+<td>105540</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9554">9554</a> G The Wheel of Fortune（防 AK）+ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9557">9557</a> J Temperance（已剔）</td>
+</tr>
+<tr>
+<td>1871</td>
+<td>ICPC 2024 Kunming</td>
+<td>105588</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9869"><strong>9869</strong></a> <strong>H Horizon Scanning（铜签到）</strong></td>
+</tr>
+<tr>
+<td>1873</td>
+<td>CCPC 2024 Zhengzhou</td>
+<td>105632</td>
+<td>（Zhengzhou 24 不在 48 题里）</td>
+</tr>
+<tr>
+<td>1893</td>
+<td>ICPC 2024 Hangzhou</td>
+<td>105657</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9728">9728</a> C Catch the Star（防 AK）</td>
+</tr>
+<tr>
+<td>2661</td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>105941</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15312">15312</a> L Triangle Grid + <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15305">15305</a> E Doo Doo Doo（防 AK）+ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15302">15302</a> B Cutting Chocolate（已剔）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="对-12-道可做几何的进展"><a class="markdownIt-Anchor" href="#对-12-道可做几何的进展"></a> 对 12 道可做几何的进展</h3>
+<p>本轮新增 2 道有题解：<strong>Three Rectangles</strong>（沈阳 23 金）+ <strong>Horizon Scanning</strong>（昆明 24 铜签到）。原 QOJ 已有 2 道：<strong>Painter</strong> + <strong>Almost Convex</strong>（哈尔滨 23 / 济南 23）。</p>
+<p><strong>仍缺 editorial 的 8 道</strong>：液压机 25 哈尔滨 · Inside Triangle 25 成都 · Outstanding Outlines 25 EC Final · Many Convex Polygons 25 南京 · Collision Damage 25 沈阳 · Concave Hull 24 哈尔滨 · Staircase Museum 24 EC Final · Guess the Polygon 24 沈阳。这些都是 25 年最新场 + EC Final 类，CF Gym 都没收 mirror 或附件没挂 editorial。</p>
+<h3 id="没找到镜像的-25-场cf-gym-系统性盲区"><a class="markdownIt-Anchor" href="#没找到镜像的-25-场cf-gym-系统性盲区"></a> 没找到镜像的 25 场（CF Gym 系统性盲区）</h3>
+<ul>
+<li>
+<p><strong>CCPC Final / EC Final（5 场）</strong>：Final 类比赛 CF Gym 不收 → 1522 / 1596 / 1894 / 2036 / 3295</p>
+</li>
+<li>
+<p><strong>East Continent Online + CCPC Online（8 场）</strong>：线上赛不上 gym → 1485 / 1794 / 1799 / 2513 / 2524 / 1358 / 2530 / 2534</p>
+</li>
+<li>
+<p><strong>CCPC Women / Vocational（4 场）</strong>：小众分赛 → 1841 / 1842 / 2564 / 2565</p>
+</li>
+<li>
+<p><strong>Hong Kong 24 / 25</strong>：1885 / 3169（QOJ 有但 CF 没）</p>
+</li>
+<li>
+<p><strong>2025 部分区域赛 mirror 滞后</strong>：Wuhan 25 / Chengdu 25 / Harbin 25 等 mirror 找到了但附件还没挂 editorial PDF</p>
+</li>
+<li>
+<p><strong>CCPC 2023 Shenzhen / Harbin</strong> + <strong>CCPC 2025 Jinan / Chongqing</strong>：CF 没收</p>
+</li>
+</ul>
+<p>下一轮要补这 25 场只能走（按可行性）：UCup mirror（<a target="_blank" rel="noopener" href="http://contest.ucup.ac/">contest.ucup.ac</a>）→ 出题人 blog → CSDN / 知乎 / luogu blog → 1-2 个月后 CF Gym 重跑。</p>
+<h3 id="假阳性踩坑"><a class="markdownIt-Anchor" href="#假阳性踩坑"></a> 假阳性踩坑</h3>
+<p>按「赛站名 + 年份」fuzzy match Gym 镜像很容易混淆<strong>城市/学校重名</strong>：</p>
+<ul>
+<li>
+<p><code>Xi'an</code> 子串混进 <code>**Xian**gtan University</code> / <code>**Xian** Jiaotong University</code> → 湘潭 PC + 西交大校赛被误命中为 Xi’an Regional</p>
+</li>
+<li>
+<p><code>Shanghai</code> 混进 <code>**Shanghai** Collegiate Programming Contest</code>（上海高校赛）→ 误命中为 ICPC Asia Shanghai Regional</p>
+</li>
+</ul>
+<p><strong>修法</strong>：matcher 必须加 <code>\b(ICPC.*Asia|Universal.*Cup)\b</code> 限定，把校赛 / 高校赛 / 邀请赛过滤掉。本轮 4 个 FP 已手动剔除并删除对应 PDF。</p>
+<h3 id="工程持久化不再依赖-tmp"><a class="markdownIt-Anchor" href="#工程持久化不再依赖-tmp"></a> 工程持久化（不再依赖 /tmp）</h3>
+<p>v3 全套数据 + scripts + 11 个 editorial PDF 已从 <code>/tmp/qoj_geom/</code> 搬进 git 仓库：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Users</span>/zzy/<span class="title class_">Desktop</span>/<span class="title class_">DoProblemAsMyTaste</span>/memory/qoj-geometry-catalog-v3/</span><br><span class="line">├── RESULT_v3.<span class="property">md</span> / RESULT_v3_notion.<span class="property">md</span> / RESULT_v2.<span class="property">md</span> / <span class="variable constant_">RESULT</span>.<span class="property">md</span></span><br><span class="line">├── srk_stats_v3.<span class="property">json</span> / srk_stats.<span class="property">json</span> / problems.<span class="property">json</span> / full_text_hits.<span class="property">json</span></span><br><span class="line">├── candidates.<span class="property">json</span> / _notion_payload.<span class="property">json</span> / batch_*.<span class="property">md</span> / new_hits_text.<span class="property">md</span></span><br><span class="line">├── <span class="number">6</span> 数据派生 .<span class="property">py</span>（recalc_trend / cross_validate / srk_analyze / build_notion_v3 / extract_all / harvest）</span><br><span class="line">├── <span class="number">3</span> round-<span class="number">2</span> .<span class="property">py</span>（cf_gym_hunt / cf_gym_hunt2 / cf_dl_editorials）+ cf_hunt_result.<span class="property">json</span></span><br><span class="line">└── cf_gym_editorials/  ← <span class="number">11</span> <span class="variable constant_">PDF</span> + <span class="variable constant_">MANIFEST</span>.<span class="property">json</span>（cid → gym_id → editorial_url → covers_geom_problems）</span><br></pre></td></tr></table></figure>
+<p><strong>只有 PDF 切片（637 题面 .txt + 50 场题面 PDF + algoux srk 工作目录，~440 MB）仍在 /tmp，重启会丢</strong>——但都可用 <code>harvest.py</code> + <code>extract_all.py</code> 重抓。</p>
+<hr />
 <h2 id="v3-数据来源-复现指南"><a class="markdownIt-Anchor" href="#v3-数据来源-复现指南"></a> v3 数据来源 / 复现指南</h2>
 <ul>
 <li>
@@ -1402,7 +1526,10 @@
 <p>50 场题面 PDF（中文）：<code>r=1</code></p>
 </li>
 <li>
-<p><strong>9 场公开题解 PDF</strong>：<code>r=2</code>（QOJ 上只有这 9 场公开了题解）</p>
+<p><strong>7 场公开题解 PDF（QOJ 自带）</strong>：<code>r=2</code></p>
+</li>
+<li>
+<p><strong>11 场 editorial PDF（round 2 补，CF Gym 兜底）</strong>：<a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code"><code>cf-access</code></a> skill 的 <code>find_gym.py</code> + <code>gym_materials.py</code>，详见上方 Round 2 章节</p>
 </li>
 <li>
 <p>难度分类：按队伍奖牌段位的通过率重打 Tier</p>
@@ -1428,10 +1555,10 @@
               <a href="/tags/%E6%89%AB%E6%8F%8F%E7%BA%BF-sweep-line/" rel="tag"># 扫描线 sweep line</a>
               <a href="/tags/QOJ/" rel="tag"># QOJ</a>
               <a href="/tags/%E5%9C%86%E7%9A%84%E5%88%87%E5%88%86%E4%B8%8E%E8%BF%9E%E7%BA%BF/" rel="tag"># 圆的切分与连线</a>
-              <a href="/tags/%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E5%92%8C-Minkowski-sum/" rel="tag"># 闵可夫斯基和 Minkowski sum</a>
               <a href="/tags/%E6%9E%81%E8%A7%92%E6%8E%92%E5%BA%8F-Polar-Angle-Sorting/" rel="tag"># 极角排序 Polar Angle Sorting</a>
-              <a href="/tags/%E4%B8%89%E7%BB%B4-three-dimensional/" rel="tag"># 三维 three-dimensional</a>
+              <a href="/tags/%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E5%92%8C-Minkowski-sum/" rel="tag"># 闵可夫斯基和 Minkowski sum</a>
               <a href="/tags/Circle-%E5%9C%86/" rel="tag"># Circle 圆</a>
+              <a href="/tags/%E4%B8%89%E7%BB%B4-three-dimensional/" rel="tag"># 三维 three-dimensional</a>
           </div>
 
         
@@ -1502,7 +1629,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#v3-%E5%85%B3%E9%94%AE%E4%BF%AE%E6%AD%A3vs-v2"><span class="nav-number">1.</span> <span class="nav-text"> v3 关键修正（vs v2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.</span> <span class="nav-text"> 数字对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%BA%A6%E5%AE%9A"><span class="nav-number">1.2.</span> <span class="nav-text"> 排序约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%91%E6%A1%A3%E5%A4%9A%E6%95%B0%E9%87%91%E7%89%8C%E9%98%9F%E8%BF%87%E8%AF%A5%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text"> 🥇 金档（多数金牌队过该题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD"><span class="nav-number">1.3.1.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final"><span class="nav-number">1.3.2.</span> <span class="nav-text"> East Continent Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC"><span class="nav-number">1.3.4.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shenyang-%E6%B2%88%E9%98%B3"><span class="nav-number">1.3.5.</span> <span class="nav-text"> Shenyang 沈阳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%B6%E6%A1%A3%E5%A4%9A%E6%95%B0%E9%93%B6%E7%89%8C%E9%98%9F%E8%BF%87%E8%AF%A5%E9%A2%98"><span class="nav-number">1.4.</span> <span class="nav-text"> 🥈 银档（多数银牌队过该题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final-2"><span class="nav-number">1.4.1.</span> <span class="nav-text"> East Continent Final</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%9C%E6%A1%A3%E7%AD%BE%E5%88%B0%E5%A4%9A%E6%95%B0%E9%93%9C%E7%89%8C%E9%98%9F%E8%BF%87"><span class="nav-number">1.5.</span> <span class="nav-text"> 🥉 铜档&#x2F;签到（多数铜牌队过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8-2"><span class="nav-number">1.5.1.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jinan-%E6%B5%8E%E5%8D%97"><span class="nav-number">1.5.2.</span> <span class="nav-text"> Jinan 济南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kunming-%E6%98%86%E6%98%8E"><span class="nav-number">1.5.3.</span> <span class="nav-text"> Kunming 昆明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-%E9%87%91%E6%A1%A3%E5%81%8F%E9%9A%BE%E9%87%91%E7%89%8C%E9%98%9F-20-50-%E8%BF%87"><span class="nav-number">1.6.</span> <span class="nav-text"> 🥇- 金档偏难（金牌队 20-50% 过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-2"><span class="nav-number">1.6.1.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wuhan-%E6%AD%A6%E6%B1%89"><span class="nav-number">1.6.2.</span> <span class="nav-text"> Wuhan 武汉</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E8%BF%91%E9%98%B2-ak%E9%87%91%E7%89%8C%E9%98%9F-5-20-%E8%BF%87"><span class="nav-number">1.7.</span> <span class="nav-text"> 🚫 接近防 AK（金牌队 5-20% 过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD-2"><span class="nav-number">1.7.1.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-3"><span class="nav-number">1.7.2.</span> <span class="nav-text"> Nanjing 南京</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2-ak-5-%E5%85%A8%E5%9C%BA%E9%80%9A%E8%BF%87-%E9%87%91%E7%89%8C%E8%BF%87-2-%E9%98%9F"><span class="nav-number">1.8.</span> <span class="nav-text"> 🚫 防 AK（≤ 5% 全场通过 + 金牌过 ≤ 2 队）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ccpc-final"><span class="nav-number">1.8.1.</span> <span class="nav-text"> CCPC Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ccpc-women"><span class="nav-number">1.8.2.</span> <span class="nav-text"> CCPC Women</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD-3"><span class="nav-number">1.8.3.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chongqing-%E9%87%8D%E5%BA%86"><span class="nav-number">1.8.4.</span> <span class="nav-text"> Chongqing 重庆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final-3"><span class="nav-number">1.8.5.</span> <span class="nav-text"> East Continent Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guilin-%E6%A1%82%E6%9E%97"><span class="nav-number">1.8.6.</span> <span class="nav-text"> Guilin 桂林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hangzhou-%E6%9D%AD%E5%B7%9E"><span class="nav-number">1.8.7.</span> <span class="nav-text"> Hangzhou 杭州</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8-3"><span class="nav-number">1.8.8.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hong-kong-%E9%A6%99%E6%B8%AF"><span class="nav-number">1.8.9.</span> <span class="nav-text"> Hong Kong 香港</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jinan-%E6%B5%8E%E5%8D%97-2"><span class="nav-number">1.8.10.</span> <span class="nav-text"> Jinan 济南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macau-%E6%BE%B3%E9%97%A8"><span class="nav-number">1.8.11.</span> <span class="nav-text"> Macau 澳门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-4"><span class="nav-number">1.8.12.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shanghai-%E4%B8%8A%E6%B5%B7"><span class="nav-number">1.8.13.</span> <span class="nav-text"> Shanghai 上海</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shenyang-%E6%B2%88%E9%98%B3-2"><span class="nav-number">1.8.14.</span> <span class="nav-text"> Shenyang 沈阳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xian-%E8%A5%BF%E5%AE%89"><span class="nav-number">1.8.15.</span> <span class="nav-text"> Xi’an 西安</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zhengzhou-%E9%83%91%E5%B7%9E"><span class="nav-number">1.8.16.</span> <span class="nav-text"> Zhengzhou 郑州</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%A6%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BA%BF%E4%B8%8A-%E9%AB%98%E8%81%8C-%E6%9C%AA%E6%89%98%E7%AE%A1"><span class="nav-number">1.9.</span> <span class="nav-text"> ❓ 无榜单数据（线上 &#x2F; 高职 &#x2F; 未托管）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%94%E9%99%A4%E6%B8%85%E5%8D%9511-%E9%81%93%E4%BC%AA%E5%87%A0%E4%BD%95-v2-%E8%AF%AF%E6%94%B6"><span class="nav-number">1.10.</span> <span class="nav-text"> 🗑 剔除清单（11 道伪几何 &#x2F; v2 误收）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%B9%B4%E8%B6%8B%E5%8A%BFv3-%E9%87%8D%E7%AE%97%E4%BD%9C%E5%BA%9F-v2-%E6%97%A7%E6%95%B0%E5%AD%97"><span class="nav-number">1.11.</span> <span class="nav-text"> 三年趋势（v3 重算，作废 v2 旧数字）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA%E4%B8%8E-v2-%E5%AE%8C%E5%85%A8%E7%9B%B8%E5%8F%8D"><span class="nav-number">1.11.1.</span> <span class="nav-text"> 关键结论（与 v2 完全相反）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E9%81%93%E5%8F%AF%E5%81%9A%E5%87%A0%E4%BD%95%E9%A2%98%E5%88%86%E5%B8%83"><span class="nav-number">1.11.2.</span> <span class="nav-text"> 12 道可做几何题分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E9%98%9F%E4%BC%8D%E7%AD%96%E7%95%A5%E7%9A%84%E4%BF%AE%E6%AD%A3"><span class="nav-number">1.11.3.</span> <span class="nav-text"> 对队伍策略的修正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v3-%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90-%E5%A4%8D%E7%8E%B0%E6%8C%87%E5%8D%97"><span class="nav-number">1.12.</span> <span class="nav-text"> v3 数据来源 &#x2F; 复现指南</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#v3-%E5%85%B3%E9%94%AE%E4%BF%AE%E6%AD%A3vs-v2"><span class="nav-number">1.</span> <span class="nav-text"> v3 关键修正（vs v2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.</span> <span class="nav-text"> 数字对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%BA%A6%E5%AE%9A"><span class="nav-number">1.2.</span> <span class="nav-text"> 排序约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%91%E6%A1%A3%E5%A4%9A%E6%95%B0%E9%87%91%E7%89%8C%E9%98%9F%E8%BF%87%E8%AF%A5%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text"> 🥇 金档（多数金牌队过该题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD"><span class="nav-number">1.3.1.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final"><span class="nav-number">1.3.2.</span> <span class="nav-text"> East Continent Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC"><span class="nav-number">1.3.4.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shenyang-%E6%B2%88%E9%98%B3"><span class="nav-number">1.3.5.</span> <span class="nav-text"> Shenyang 沈阳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%B6%E6%A1%A3%E5%A4%9A%E6%95%B0%E9%93%B6%E7%89%8C%E9%98%9F%E8%BF%87%E8%AF%A5%E9%A2%98"><span class="nav-number">1.4.</span> <span class="nav-text"> 🥈 银档（多数银牌队过该题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final-2"><span class="nav-number">1.4.1.</span> <span class="nav-text"> East Continent Final</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%9C%E6%A1%A3%E7%AD%BE%E5%88%B0%E5%A4%9A%E6%95%B0%E9%93%9C%E7%89%8C%E9%98%9F%E8%BF%87"><span class="nav-number">1.5.</span> <span class="nav-text"> 🥉 铜档&#x2F;签到（多数铜牌队过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8-2"><span class="nav-number">1.5.1.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jinan-%E6%B5%8E%E5%8D%97"><span class="nav-number">1.5.2.</span> <span class="nav-text"> Jinan 济南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kunming-%E6%98%86%E6%98%8E"><span class="nav-number">1.5.3.</span> <span class="nav-text"> Kunming 昆明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-%E9%87%91%E6%A1%A3%E5%81%8F%E9%9A%BE%E9%87%91%E7%89%8C%E9%98%9F-20-50-%E8%BF%87"><span class="nav-number">1.6.</span> <span class="nav-text"> 🥇- 金档偏难（金牌队 20-50% 过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-2"><span class="nav-number">1.6.1.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wuhan-%E6%AD%A6%E6%B1%89"><span class="nav-number">1.6.2.</span> <span class="nav-text"> Wuhan 武汉</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E8%BF%91%E9%98%B2-ak%E9%87%91%E7%89%8C%E9%98%9F-5-20-%E8%BF%87"><span class="nav-number">1.7.</span> <span class="nav-text"> 🚫 接近防 AK（金牌队 5-20% 过）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD-2"><span class="nav-number">1.7.1.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-3"><span class="nav-number">1.7.2.</span> <span class="nav-text"> Nanjing 南京</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2-ak-5-%E5%85%A8%E5%9C%BA%E9%80%9A%E8%BF%87-%E9%87%91%E7%89%8C%E8%BF%87-2-%E9%98%9F"><span class="nav-number">1.8.</span> <span class="nav-text"> 🚫 防 AK（≤ 5% 全场通过 + 金牌过 ≤ 2 队）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ccpc-final"><span class="nav-number">1.8.1.</span> <span class="nav-text"> CCPC Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ccpc-women"><span class="nav-number">1.8.2.</span> <span class="nav-text"> CCPC Women</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chengdu-%E6%88%90%E9%83%BD-3"><span class="nav-number">1.8.3.</span> <span class="nav-text"> Chengdu 成都</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chongqing-%E9%87%8D%E5%BA%86"><span class="nav-number">1.8.4.</span> <span class="nav-text"> Chongqing 重庆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#east-continent-final-3"><span class="nav-number">1.8.5.</span> <span class="nav-text"> East Continent Final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guilin-%E6%A1%82%E6%9E%97"><span class="nav-number">1.8.6.</span> <span class="nav-text"> Guilin 桂林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hangzhou-%E6%9D%AD%E5%B7%9E"><span class="nav-number">1.8.7.</span> <span class="nav-text"> Hangzhou 杭州</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harbin-%E5%93%88%E5%B0%94%E6%BB%A8-3"><span class="nav-number">1.8.8.</span> <span class="nav-text"> Harbin 哈尔滨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hong-kong-%E9%A6%99%E6%B8%AF"><span class="nav-number">1.8.9.</span> <span class="nav-text"> Hong Kong 香港</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jinan-%E6%B5%8E%E5%8D%97-2"><span class="nav-number">1.8.10.</span> <span class="nav-text"> Jinan 济南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macau-%E6%BE%B3%E9%97%A8"><span class="nav-number">1.8.11.</span> <span class="nav-text"> Macau 澳门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nanjing-%E5%8D%97%E4%BA%AC-4"><span class="nav-number">1.8.12.</span> <span class="nav-text"> Nanjing 南京</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shanghai-%E4%B8%8A%E6%B5%B7"><span class="nav-number">1.8.13.</span> <span class="nav-text"> Shanghai 上海</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shenyang-%E6%B2%88%E9%98%B3-2"><span class="nav-number">1.8.14.</span> <span class="nav-text"> Shenyang 沈阳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xian-%E8%A5%BF%E5%AE%89"><span class="nav-number">1.8.15.</span> <span class="nav-text"> Xi’an 西安</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zhengzhou-%E9%83%91%E5%B7%9E"><span class="nav-number">1.8.16.</span> <span class="nav-text"> Zhengzhou 郑州</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%A6%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BA%BF%E4%B8%8A-%E9%AB%98%E8%81%8C-%E6%9C%AA%E6%89%98%E7%AE%A1"><span class="nav-number">1.9.</span> <span class="nav-text"> ❓ 无榜单数据（线上 &#x2F; 高职 &#x2F; 未托管）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%94%E9%99%A4%E6%B8%85%E5%8D%9511-%E9%81%93%E4%BC%AA%E5%87%A0%E4%BD%95-v2-%E8%AF%AF%E6%94%B6"><span class="nav-number">1.10.</span> <span class="nav-text"> 🗑 剔除清单（11 道伪几何 &#x2F; v2 误收）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%B9%B4%E8%B6%8B%E5%8A%BFv3-%E9%87%8D%E7%AE%97%E4%BD%9C%E5%BA%9F-v2-%E6%97%A7%E6%95%B0%E5%AD%97"><span class="nav-number">1.11.</span> <span class="nav-text"> 三年趋势（v3 重算，作废 v2 旧数字）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA%E4%B8%8E-v2-%E5%AE%8C%E5%85%A8%E7%9B%B8%E5%8F%8D"><span class="nav-number">1.11.1.</span> <span class="nav-text"> 关键结论（与 v2 完全相反）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E9%81%93%E5%8F%AF%E5%81%9A%E5%87%A0%E4%BD%95%E9%A2%98%E5%88%86%E5%B8%83"><span class="nav-number">1.11.2.</span> <span class="nav-text"> 12 道可做几何题分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E9%98%9F%E4%BC%8D%E7%AD%96%E7%95%A5%E7%9A%84%E4%BF%AE%E6%AD%A3"><span class="nav-number">1.11.3.</span> <span class="nav-text"> 对队伍策略的修正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#round-2-update2026-05-03-%E6%94%B6%E5%B0%BEcf-gym-%E9%A2%98%E8%A7%A3%E8%A1%A5%E8%B6%B3-%E5%B7%A5%E7%A8%8B%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.12.</span> <span class="nav-text"> 🔄 Round 2 update（2026-05-03 收尾）：CF Gym 题解补足 + 工程持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%B8%AD%E7%BB%93%E6%9E%9C"><span class="nav-number">1.12.1.</span> <span class="nav-text"> 命中结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9-12-%E9%81%93%E5%8F%AF%E5%81%9A%E5%87%A0%E4%BD%95%E7%9A%84%E8%BF%9B%E5%B1%95"><span class="nav-number">1.12.2.</span> <span class="nav-text"> 对 12 道可做几何的进展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%89%BE%E5%88%B0%E9%95%9C%E5%83%8F%E7%9A%84-25-%E5%9C%BAcf-gym-%E7%B3%BB%E7%BB%9F%E6%80%A7%E7%9B%B2%E5%8C%BA"><span class="nav-number">1.12.3.</span> <span class="nav-text"> 没找到镜像的 25 场（CF Gym 系统性盲区）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%87%E9%98%B3%E6%80%A7%E8%B8%A9%E5%9D%91"><span class="nav-number">1.12.4.</span> <span class="nav-text"> 假阳性踩坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8D%E5%86%8D%E4%BE%9D%E8%B5%96-tmp"><span class="nav-number">1.12.5.</span> <span class="nav-text"> 工程持久化（不再依赖 &#x2F;tmp）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v3-%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90-%E5%A4%8D%E7%8E%B0%E6%8C%87%E5%8D%97"><span class="nav-number">1.13.</span> <span class="nav-text"> v3 数据来源 &#x2F; 复现指南</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
