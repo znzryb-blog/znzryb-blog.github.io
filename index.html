@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/05/03/20260503-68c2e096/" class="post-title-link" itemprop="url">QOJ 2023-2025 区域赛真·计算几何 59 题清单（验收版 v2）</a>
+            <a href="/2026/05/03/20260503-68c2e096/" class="post-title-link" itemprop="url">QOJ 2023-2025 区域赛真·计算几何 48 题清单（v3 用真榜单数据 + 题解 cross-validate）</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-05-03 05:56:00 / Modified: 14:35:15" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
+              <time title="Created: 2026-05-03 05:56:00 / Modified: 16:49:49" itemprop="dateCreated datePublished" datetime="2026-05-03T05:56:00+08:00">2026-05-03</time>
             </span>
 
           
@@ -230,704 +230,1171 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="用途"><a class="markdownIt-Anchor" href="#用途"></a> 用途</h2>
-<p>zzy（ICPC/CCPC 在训选手）的几何专项训练清单。从 <a target="_blank" rel="noopener" href="http://qoj.ac/">QOJ.ac</a> category 21 (Asia East ICPC) + 205 (CCPC) 共 50 场近三年区域赛 637 题里筛出真·计算几何，<strong>剔题名带 geometry/convex/polygon 但实质是 DS/DP 的伪几何题</strong>。</p>
-<h2 id="验收方式"><a class="markdownIt-Anchor" href="#验收方式"></a> 验收方式</h2>
-<p>清单按 Tier S / A / B 分组。每行的 QOJ pid 是直链。⭐ 标记的是 <strong>v2 全文扫描</strong> 才发现的，<strong>v1 仅按题名关键字过滤会漏掉</strong>——这一类是验收时最容易找到「我做过但你没列」反例的来源。</p>
-<h2 id="三档定义"><a class="markdownIt-Anchor" href="#三档定义"></a> 三档定义</h2>
+          <h1 id="v3-关键修正vs-v2"><a class="markdownIt-Anchor" href="#v3-关键修正vs-v2"></a> v3 关键修正（vs v2）</h1>
+<p><strong>v2 把&quot;防 AK 题&quot;也算成 Tier S 金档</strong>——59 题里有 18 道实际是金牌队都过不了的防 AK，例如 ICPC 2025 Wuhan L “ICPC”（446 队 0 人过）、CCPC 2025 Jinan B “Fortress”（260 队 0 过）。<strong>v3 改用真榜单数据</strong>：</p>
 <ul>
 <li>
-<p><strong>Tier S（金档）</strong>：明确给出几何对象 + 标准计算几何套路（凸包 / Manhattan / 圆环扫描 / visibility / 半平面 / 3D 圆柱），区域赛金牌组应能稳过</p>
+<p>数据源：<a target="_blank" rel="noopener" href="https://github.com/algoux/srk-collection">algoux/srk-collection</a> 50 场官方 srk.json</p>
 </li>
 <li>
-<p><strong>Tier A（银档）</strong>：题面是几何场景（矩形 / 网格路径 / 整点结构）但解法可能偏向扫描线 / 容斥 / 前缀和，几何味浓但需结合 DS</p>
+<p>🥇 <strong>金档</strong> = 金牌队 ≥ 50% 过 · 🥈 <strong>银档</strong> = 银牌队 ≥ 50% 过 · 🥉 <strong>铜档</strong> = 铜牌队 ≥ 50% 过</p>
 </li>
 <li>
-<p><strong>Tier B（铜档/偏难/构造）</strong>：3D / 投影 / 多边形重建 / 楼梯 visibility / Minkowski 体积 / 整点构造，金牌组也可能落在防 AK 边缘</p>
+<p>🥇- <strong>金档偏难</strong> = 金牌队 20-50% 过 · 🚫 <strong>防 AK</strong> = ≤ 5% 全场通过 + 金牌过 ≤ 2</p>
+</li>
+<li>
+<p>同时 cross-validate 题面 + 题解 PDF（已下载 50 场题面 + 9 场公开题解）剔除伪几何</p>
 </li>
 </ul>
-<h2 id="工作流数据如何产出"><a class="markdownIt-Anchor" href="#工作流数据如何产出"></a> 工作流（数据如何产出）</h2>
-<p>数据源 + 流程都落在 <code>~/.claude/skills/qoj-access/SKILL.md</code> “批量搜题工作流” 章节。所有原始产物 + <a target="_blank" rel="noopener" href="http://result.md/">RESULT.md</a> 仍在 <code>/tmp/qoj_geom/</code>（注意 <code>/tmp</code> 重启会清，长期保留要 commit 到 repo）。</p>
-<hr />
-<h1 id="总览"><a class="markdownIt-Anchor" href="#总览"></a> 总览</h1>
-<ul>
-<li>
-<p><strong>Tier S 真几何 — 33 题</strong>（v1: 21 题 + v2 新增 12 ⭐）</p>
-</li>
-<li>
-<p><strong>Tier A 真几何 — 18 题</strong>（v1: 7 题 + v2 新增 11 ⭐）</p>
-</li>
-<li>
-<p><strong>Tier B 偏难/构造 — 8 题</strong>（v1: 4 题 + v2 新增 4 ⭐）</p>
-</li>
-<li>
-<p><strong>合计 — 59 题</strong></p>
-</li>
-</ul>
-<p>v2 改动：v1 仅按题名关键字筛 87 候选，导致「题名不像几何但实质是几何」大面积漏掉。v2 把 637 题题面正文全部下载切片，用强几何信号正则（凸包/Manhattan/(x,y)/反射/3D 等）全文扫描，103 命中后人工 review，最终新增 27 真几何。</p>
-<hr />
-<h2 id="tier-s-33-题"><a class="markdownIt-Anchor" href="#tier-s-33-题"></a> 🥇 Tier S — 33 题</h2>
+<h2 id="数字对比"><a class="markdownIt-Anchor" href="#数字对比"></a> 数字对比</h2>
 <table>
 <thead>
 <tr>
-<th>QOJ pid</th>
-<th>cid/idx</th>
-<th>比赛</th>
-<th>题名</th>
-<th>几何点</th>
+<th></th>
+<th>v2</th>
+<th>v3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8081">8081</a></td>
-<td>1485/J</td>
-<td>ICPC 2023 EC Online (I)</td>
-<td>Minimum Manhattan Distance</td>
-<td>Manhattan 距离最值</td>
+<td>真几何题数</td>
+<td>59</td>
+<td><strong>48</strong>（含 2 软几何边缘）</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8082">8082</a></td>
-<td>1485/K</td>
-<td>ICPC 2023 EC Online (I)</td>
-<td>Minimum Euclidean Distance</td>
-<td>最近点对</td>
+<td>标 Tier S 金档实为防 AK</td>
+<td>≥ 18 道</td>
+<td>0</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7906">7906</a></td>
-<td>1472/M</td>
-<td>ICPC 2023 Jinan</td>
-<td>Almost Convex</td>
-<td>凸包变体</td>
+<td>题面 cross-validate</td>
+<td>仅 v2 全文扫</td>
+<td>✅ 深读 23 题面</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9253">9253</a></td>
-<td>1784/L</td>
-<td>ICPC 2023 Xi’an</td>
-<td>Prism Palace</td>
-<td>3D 棱柱</td>
+<td>题解 cross-validate</td>
+<td>❌ 没做</td>
+<td>✅ 9 场公开题解全验</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7785">7785</a></td>
-<td>1449/I</td>
-<td>ICPC 2023 Shenyang</td>
-<td>Three Rectangles</td>
-<td>矩形布尔运算</td>
+<td>剔除伪几何</td>
+<td>53 题（仅按 title 筛阶段）</td>
+<td>加 11 题（v2 误收的）</td>
 </tr>
+</tbody>
+</table>
+<h2 id="排序约定"><a class="markdownIt-Anchor" href="#排序约定"></a> 排序约定</h2>
+<p><strong>先按难度（金 → 银 → 铜 → 偏难 → 防 AK） → 同档按赛站聚合 → 赛站内年份 2025 → 2024 → 2023</strong>。</p>
+<hr />
+<h2 id="金档多数金牌队过该题"><a class="markdownIt-Anchor" href="#金档多数金牌队过该题"></a> 🥇 金档（多数金牌队过该题）</h2>
+<h3 id="chengdu-成都"><a class="markdownIt-Anchor" href="#chengdu-成都"></a> Chengdu 成都</h3>
+<table>
+<thead>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8054">8054</a></td>
-<td>1522/H</td>
-<td>ICPC 2023 EC Final</td>
-<td>Map 2</td>
-<td>多边形+查询</td>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7734">7734</a></td>
-<td>1435/B</td>
-<td>ICPC 2023 Nanjing</td>
-<td>Intersection over Union</td>
-<td>矩形 IoU</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14714">14714</a></td>
+<td>ICPC 2025 Chengdu Regional</td>
+<td>I</td>
+<td>Inside Triangle</td>
+<td>—</td>
+<td>金 16/32 · 银 1/32 · 铜 0/32 · 总 17/320</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
 </tr>
+</tbody>
+</table>
+<h3 id="east-continent-final"><a class="markdownIt-Anchor" href="#east-continent-final"></a> East Continent Final</h3>
+<table>
+<thead>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9919">9919</a></td>
-<td>1885/E</td>
-<td>ICPC 2024 Hong Kong</td>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9982">9982</a></td>
+<td>ICPC 2024 East Continent Final</td>
+<td>H</td>
+<td>Staircase Museum</td>
+<td>—</td>
+<td>金 23/28 · 银 11/28 · 铜 4/28 · 总 43/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="harbin-哈尔滨"><a class="markdownIt-Anchor" href="#harbin-哈尔滨"></a> Harbin 哈尔滨</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9520">9520</a></td>
+<td>CCPC 2024 Harbin</td>
+<td>B</td>
 <td>Concave Hull</td>
-<td>凹包</td>
+<td>—</td>
+<td>金 24/28 · 银 11/28 · 铜 5/28 · 总 42/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nanjing-南京"><a class="markdownIt-Anchor" href="#nanjing-南京"></a> Nanjing 南京</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14813">14813</a></td>
+<td>ICPC 2025 Nanjing Regional</td>
+<td>M</td>
+<td>Many Convex Polygons</td>
+<td>—</td>
+<td>金 25/33 · 银 1/33 · 铜 1/34 · 总 27/335</td>
+<td>凸 k 边形面积叉积公式 + NTT 卷积（题解证实）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shenyang-沈阳"><a class="markdownIt-Anchor" href="#shenyang-沈阳"></a> Shenyang 沈阳</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14946">14946</a></td>
+<td>ICPC 2025 Shenyang Regional</td>
+<td>G</td>
+<td>Collision Damage</td>
+<td>凸多边形交集面积</td>
+<td>金 24/40 · 银 6/40 · 铜 2/40 · 总 33/400</td>
+<td>闵可夫斯基和 P + (-Q) 求 D = P - Q（题解证实）</td>
 </tr>
 <tr>
 <td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9804">9804</a></td>
-<td>1865/G</td>
-<td>ICPC 2024 Shenyang</td>
+<td>ICPC 2024 Shenyang Regional</td>
+<td>G</td>
 <td>Guess the Polygon</td>
-<td>多边形重建</td>
+<td>—</td>
+<td>金 26/30 · 银 14/30 · 铜 2/30 · 总 43/300</td>
+<td>多边形竖直线相交长度积分（题解证实）</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9808">9808</a></td>
-<td>1865/K</td>
-<td>ICPC 2024 Shenyang</td>
-<td>Fragile Pinball</td>
-<td>反射几何</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9576">9576</a></td>
-<td>1828/M</td>
-<td>ICPC 2024 Nanjing</td>
-<td>Ordainer of Inexorable Judgment</td>
-<td>多边形 + 旋转</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9869">9869</a></td>
-<td>1871/H</td>
-<td>ICPC 2024 Kunming</td>
-<td>Horizon Scanning</td>
-<td>极角扫描</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14813">14813</a></td>
-<td>2581/M</td>
-<td>ICPC 2025 Nanjing</td>
-<td>Many Convex Polygons</td>
-<td>多凸包</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14714">14714</a></td>
-<td>2567/I</td>
-<td>ICPC 2025 Chengdu</td>
-<td>Inside Triangle</td>
-<td>三角形包含</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14725">14725</a></td>
-<td>2609/G</td>
-<td>ICPC 2025 Wuhan</td>
-<td>Projection</td>
-<td>投影几何</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14692">14692</a></td>
-<td>2562/L</td>
-<td>ICPC 2025 Xi’an</td>
-<td>Let’s Make a Convex!</td>
-<td>凸性构造</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9520">9520</a></td>
-<td>1817/B</td>
-<td>CCPC 2024 Harbin</td>
-<td>Concave Hull</td>
-<td>凹包</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14555">14555</a></td>
-<td>2534/I</td>
-<td>CCPC Online 2025</td>
-<td>矩形</td>
-<td>矩形</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14815">14815</a></td>
-<td>2575/B</td>
-<td>CCPC 2025 Harbin</td>
-<td>液压机</td>
-<td>物理几何</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15033">15033</a></td>
-<td>2693/B</td>
-<td>CCPC 2025 Jinan</td>
-<td>Fortress</td>
-<td>多边形</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14461">14461</a></td>
-<td>2564/L</td>
-<td>CCPC 2025 Women</td>
-<td>挑战凸多边形</td>
-<td>凸多边形</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15319">15319</a></td>
-<td>2908/F</td>
-<td>ICPC 2025 Shanghai</td>
-<td>Flower’s land 4</td>
-<td>线段相交（端点在轴）</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14710">14710</a></td>
-<td>2567/E</td>
-<td>ICPC 2025 Chengdu</td>
-<td>Escaping from Trap</td>
-<td>正多边形交互测距</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9978">9978</a></td>
-<td>1894/D</td>
-<td>ICPC 2024 EC Final</td>
-<td>Keystone Correction</td>
-<td>3D 投影矩形 keystone</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14946">14946</a></td>
-<td>2641/G</td>
-<td>ICPC 2025 Shenyang</td>
-<td>Collision Damage</td>
-<td>凸多边形交集面积期望</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/8241">8241</a></td>
-<td>1516/L</td>
-<td>ICPC 2023 Hangzhou</td>
-<td>Master of Both V</td>
-<td>凸包+半平面（修改维护）</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7783">7783</a></td>
-<td>1449/G</td>
-<td>ICPC 2023 Shenyang</td>
-<td>Military Maneuver</td>
-<td>圆环扫描期望最小时间</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9554">9554</a></td>
-<td>1843/G</td>
-<td>CCPC 2024 Jinan</td>
-<td>The Wheel of Fortune</td>
-<td>凸多边形重心+磁铁扰动</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9037">9037</a></td>
-<td>1913/A</td>
-<td>ICPC 2024 Shanghai</td>
-<td>Ancient Maps, Hidden Danger</td>
-<td>多边形 visibility 隐藏区域</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9049">9049</a></td>
-<td>1913/M</td>
-<td>ICPC 2024 Shanghai</td>
-<td>Machine Learning with Penguins</td>
-<td>3D 圆柱面通过点</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7903">7903</a></td>
-<td>1472/J</td>
-<td>ICPC 2023 Jinan</td>
-<td>Computational Intelligence</td>
-<td>两线段上随机点期望距离</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7862">7862</a></td>
-<td>1459/F</td>
-<td>ICPC 2023 Macau</td>
-<td>Land Trade</td>
-<td>半平面布尔表达式面积</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9557">9557</a></td>
-<td>1843/J</td>
-<td>CCPC 2024 Jinan</td>
-<td>Temperance</td>
-<td>3D 点 axis-density 删除</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7785">7785</a></td>
+<td>ICPC 2023 Shenyang Regional</td>
+<td>I</td>
+<td>Three Rectangles</td>
+<td>—</td>
+<td>金 15/29 · 银 6/29 · 铜 2/29 · 总 23/291</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
 </tr>
 </tbody>
 </table>
-<h2 id="tier-a-18-题"><a class="markdownIt-Anchor" href="#tier-a-18-题"></a> 🥈 Tier A — 18 题</h2>
+<h2 id="银档多数银牌队过该题"><a class="markdownIt-Anchor" href="#银档多数银牌队过该题"></a> 🥈 银档（多数银牌队过该题）</h2>
+<h3 id="east-continent-final-2"><a class="markdownIt-Anchor" href="#east-continent-final-2"></a> East Continent Final</h3>
 <table>
 <thead>
 <tr>
 <th>QOJ pid</th>
-<th>cid/idx</th>
 <th>比赛</th>
+<th>题号</th>
 <th>题名</th>
 <th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9728">9728</a></td>
-<td>1893/C</td>
-<td>ICPC 2024 Hangzhou</td>
-<td>Catch the Star</td>
-<td>极角</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9044">9044</a></td>
-<td>1913/H</td>
-<td>ICPC 2024 Shanghai</td>
-<td>Hexagon Puzzle</td>
-<td>六边形</td>
-</tr>
-<tr>
 <td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/16328">16328</a></td>
-<td>3295/A</td>
-<td>ICPC 2025 EC Final</td>
+<td>ICPC 2025 East Continent Final</td>
+<td>A</td>
 <td>Outstanding Outlines</td>
-<td>多边形轮廓</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15302">15302</a></td>
-<td>2661/B</td>
-<td>CCPC 2025 Zhengzhou</td>
-<td>Cutting Chocolate</td>
-<td>切分</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15312">15312</a></td>
-<td>2661/L</td>
-<td>CCPC 2025 Zhengzhou</td>
-<td>Triangle Grid</td>
-<td>三角网格</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14822">14822</a></td>
-<td>2575/I</td>
-<td>CCPC 2025 Harbin</td>
-<td>六边形翻转</td>
-<td>六边形</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15430">15430</a></td>
-<td>3387/L</td>
-<td>CCPC 2025 Chongqing</td>
-<td>Tiling the Floor</td>
-<td>tiling</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7758">7758</a></td>
-<td>1412/M</td>
-<td>CCPC 2023 Harbin</td>
-<td>Painter</td>
-<td>圆/矩形栅格化+渲染</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7878">7878</a></td>
-<td>1440/E</td>
-<td>ICPC 2023 Hefei</td>
-<td>Matrix Distances</td>
-<td>Manhattan 距离贡献</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14308">14308</a></td>
-<td>2513/H</td>
-<td>ICPC 2025 EC Online (I)</td>
-<td>Walk</td>
-<td>网格路径与矩形相交收费</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14812">14812</a></td>
-<td>2581/L</td>
-<td>ICPC 2025 Nanjing</td>
-<td>Regional Champion</td>
-<td>圆+三角+直线分割平面计数构造</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/8550">8550</a></td>
-<td>1596/I</td>
-<td>CCPC Final 2023</td>
-<td>All the Way Left</td>
-<td>不自交+只左转排列计数</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9046">9046</a></td>
-<td>1913/J</td>
-<td>ICPC 2024 Shanghai</td>
-<td>Just-in-Time Render Analysis</td>
-<td>矩形完全嵌套 render depth</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14730">14730</a></td>
-<td>2609/L</td>
-<td>ICPC 2025 Wuhan</td>
-<td>ICPC</td>
-<td>矩形+单调路径分割概率</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14950">14950</a></td>
-<td>2641/K</td>
-<td>ICPC 2025 Shenyang</td>
-<td>Relay Jump</td>
-<td>关于点对称跳跃链路</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/11109">11109</a></td>
-<td>2036/E</td>
-<td>CCPC Final 2024</td>
-<td>Omniscient Artist</td>
-<td>矩形覆盖恰好 m·c 次面积</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9739">9739</a></td>
-<td>1841/A</td>
-<td>CCPC 2024 Women</td>
-<td>盒子</td>
-<td>3D 矩形包含查询</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/15305">15305</a></td>
-<td>2661/E</td>
-<td>CCPC 2025 Zhengzhou</td>
-<td>Doo Doo Doo</td>
-<td>同心圆环+门最短路</td>
+<td>—</td>
+<td>金 26/28 · 银 23/28 · 铜 10/28 · 总 66/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
 </tr>
 </tbody>
 </table>
-<h2 id="tier-b-8-题"><a class="markdownIt-Anchor" href="#tier-b-8-题"></a> 🥉 Tier B — 8 题</h2>
+<h2 id="铜档签到多数铜牌队过"><a class="markdownIt-Anchor" href="#铜档签到多数铜牌队过"></a> 🥉 铜档/签到（多数铜牌队过）</h2>
+<h3 id="harbin-哈尔滨-2"><a class="markdownIt-Anchor" href="#harbin-哈尔滨-2"></a> Harbin 哈尔滨</h3>
 <table>
 <thead>
 <tr>
 <th>QOJ pid</th>
-<th>cid/idx</th>
 <th>比赛</th>
+<th>题号</th>
 <th>题名</th>
 <th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14815">14815</a></td>
+<td>CCPC 2025 Harbin</td>
+<td>B</td>
+<td>液压机 ⚠️ 软几何</td>
+<td>—</td>
+<td>金 25/26 · 银 22/25 · 铜 16/25 · 总 74/260</td>
+<td>球 + 4 面墙弹性反射 → 物理模拟 + 碰撞时间几何</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7758">7758</a></td>
+<td>CCPC 2023 Harbin</td>
+<td>M</td>
+<td>Painter ⚠️ 软几何</td>
+<td>圆/矩形栅格化</td>
+<td>金 24/24 · 银 23/23 · 铜 23/23 · 总 224/240</td>
+<td>圆/矩形栅格化渲染 → 模拟为主，软几何边缘</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jinan-济南"><a class="markdownIt-Anchor" href="#jinan-济南"></a> Jinan 济南</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7906">7906</a></td>
+<td>ICPC 2023 Jinan Regional</td>
+<td>M</td>
+<td>Almost Convex</td>
+<td>—</td>
+<td>金 34/34 · 银 31/34 · 铜 19/31 · 总 97/334</td>
+<td>凸包 + 凹陷 1 顶点 almost-convex 多边形计数（题解证实）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kunming-昆明"><a class="markdownIt-Anchor" href="#kunming-昆明"></a> Kunming 昆明</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9869">9869</a></td>
+<td>ICPC 2024 Kunming Regional</td>
+<td>H</td>
+<td>Horizon Scanning</td>
+<td>—</td>
+<td>金 45/45 · 银 45/45 · 铜 45/45 · 总 342/449</td>
+<td>极角扫描 100% 通过率说明是签到几何，仍属几何</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-金档偏难金牌队-20-50-过"><a class="markdownIt-Anchor" href="#-金档偏难金牌队-20-50-过"></a> 🥇- 金档偏难（金牌队 20-50% 过）</h2>
+<h3 id="nanjing-南京-2"><a class="markdownIt-Anchor" href="#nanjing-南京-2"></a> Nanjing 南京</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9576">9576</a></td>
+<td>ICPC 2024 Nanjing Regional</td>
+<td>M</td>
+<td>Ordainer of Inexorable Judgment</td>
+<td>—</td>
+<td>金 7/33 · 银 2/33 · 铜 0/33 · 总 9/336</td>
+<td>凸多边形 + Minkowski 圆角化 + 切线极角范围（题解证实）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wuhan-武汉"><a class="markdownIt-Anchor" href="#wuhan-武汉"></a> Wuhan 武汉</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14725">14725</a></td>
+<td>ICPC 2025 Wuhan Regional</td>
+<td>G</td>
+<td>Projection</td>
+<td>—</td>
+<td>金 10/45 · 银 0/88 · 铜 0/133 · 总 10/446</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h2 id="接近防-ak金牌队-5-20-过"><a class="markdownIt-Anchor" href="#接近防-ak金牌队-5-20-过"></a> 🚫 接近防 AK（金牌队 5-20% 过）</h2>
+<h3 id="chengdu-成都-2"><a class="markdownIt-Anchor" href="#chengdu-成都-2"></a> Chengdu 成都</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14710">14710</a></td>
+<td>ICPC 2025 Chengdu Regional</td>
+<td>E</td>
+<td>Escaping from Trap</td>
+<td>正多边形交互</td>
+<td>金 4/32 · 银 0/32 · 铜 0/32 · 总 4/320</td>
+<td>正多边形 + 三角形面积反推位置（5 次交互）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nanjing-南京-3"><a class="markdownIt-Anchor" href="#nanjing-南京-3"></a> Nanjing 南京</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14812">14812</a></td>
+<td>ICPC 2025 Nanjing Regional</td>
+<td>L</td>
+<td>Regional Champion</td>
+<td>圆+三角+直线</td>
+<td>金 5/33 · 银 0/33 · 铜 0/34 · 总 5/335</td>
+<td>欧拉公式 V−E+F 求平面分割最大区域 + 圆/三角/直线交点构造（题解证实）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="防-ak-5-全场通过-金牌过-2-队"><a class="markdownIt-Anchor" href="#防-ak-5-全场通过-金牌过-2-队"></a> 🚫 防 AK（≤ 5% 全场通过 + 金牌过 ≤ 2 队）</h2>
+<h3 id="ccpc-final"><a class="markdownIt-Anchor" href="#ccpc-final"></a> CCPC Final</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8550">8550</a></td>
+<td>CCPC Final 2023</td>
+<td>I</td>
+<td>All the Way Left</td>
+<td>不自交+只左转</td>
+<td>金 0/12 · 银 0/12 · 铜 0/13 · 总 0/127</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ccpc-women"><a class="markdownIt-Anchor" href="#ccpc-women"></a> CCPC Women</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14461">14461</a></td>
+<td>CCPC 2025 Women</td>
+<td>L</td>
+<td>挑战凸多边形</td>
+<td>—</td>
+<td>金 1/20 · 银 0/19 · 铜 0/19 · 总 1/193</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chengdu-成都-3"><a class="markdownIt-Anchor" href="#chengdu-成都-3"></a> Chengdu 成都</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9547">9547</a></td>
-<td>1821/M</td>
-<td>ICPC 2024 Chengdu</td>
+<td>ICPC 2024 Chengdu Regional</td>
+<td>M</td>
 <td>Two Convex Holes</td>
-<td>双凸洞</td>
+<td>—</td>
+<td>金 0/31 · 银 0/31 · 铜 0/32 · 总 0/307</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chongqing-重庆"><a class="markdownIt-Anchor" href="#chongqing-重庆"></a> Chongqing 重庆</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15430">15430</a></td>
+<td>CCPC 2025 Chongqing</td>
+<td>L</td>
+<td>Tiling the Floor</td>
+<td>—</td>
+<td>金 1/26 · 银 0/26 · 铜 0/26 · 总 1/260</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="east-continent-final-3"><a class="markdownIt-Anchor" href="#east-continent-final-3"></a> East Continent Final</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9978">9978</a></td>
+<td>ICPC 2024 East Continent Final</td>
+<td>D</td>
+<td>Keystone Correction</td>
+<td>3D 投影</td>
+<td>金 1/28 · 银 0/28 · 铜 0/28 · 总 1/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
 </tr>
 <tr>
 <td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9976">9976</a></td>
-<td>1894/B</td>
-<td>ICPC 2024 EC Final</td>
+<td>ICPC 2024 East Continent Final</td>
+<td>B</td>
 <td>Guess the Polygon 2</td>
-<td>多边形重建</td>
+<td>—</td>
+<td>金 0/28 · 银 0/28 · 铜 0/28 · 总 0/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9982">9982</a></td>
-<td>1894/H</td>
-<td>ICPC 2024 EC Final</td>
-<td>Staircase Museum</td>
-<td>楼梯 visibility</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8054">8054</a></td>
+<td>ICPC 2023 East Continent Final</td>
+<td>H</td>
+<td>Map 2</td>
+<td>—</td>
+<td>金 0/28 · 银 0/28 · 铜 0/28 · 总 0/280</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="guilin-桂林"><a class="markdownIt-Anchor" href="#guilin-桂林"></a> Guilin 桂林</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7680">7680</a></td>
+<td>CCPC 2023 Guilin</td>
+<td>D</td>
+<td>Subway</td>
+<td>整点+不自交线段</td>
+<td>金 2/24 · 银 0/24 · 铜 0/24 · 总 2/240</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hangzhou-杭州"><a class="markdownIt-Anchor" href="#hangzhou-杭州"></a> Hangzhou 杭州</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9728">9728</a></td>
+<td>ICPC 2024 Hangzhou Regional</td>
+<td>C</td>
+<td>Catch the Star</td>
+<td>—</td>
+<td>金 0/37 · 银 0/37 · 铜 0/37 · 总 0/366</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8241">8241</a></td>
+<td>ICPC 2023 Hangzhou Regional</td>
+<td>L</td>
+<td>Master of Both V</td>
+<td>凸包+半平面</td>
+<td>金 0/45 · 银 0/45 · 铜 0/45 · 总 0/442</td>
+<td>维护线段集合 + 判存在凸多边形使所有线段为某边子集</td>
+</tr>
+</tbody>
+</table>
+<h3 id="harbin-哈尔滨-3"><a class="markdownIt-Anchor" href="#harbin-哈尔滨-3"></a> Harbin 哈尔滨</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7756">7756</a></td>
+<td>CCPC 2023 Harbin</td>
+<td>K</td>
+<td>Omniscia Spares None</td>
+<td>整数坐标布点</td>
+<td>金 1/24 · 银 0/23 · 铜 0/23 · 总 1/240</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hong-kong-香港"><a class="markdownIt-Anchor" href="#hong-kong-香港"></a> Hong Kong 香港</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9919">9919</a></td>
+<td>ICPC 2024 Hong Kong Regional</td>
+<td>E</td>
+<td>Concave Hull</td>
+<td>—</td>
+<td>金 2/15 · 银 0/15 · 铜 0/15 · 总 2/149</td>
+<td>concave hull 类（题名直接是几何）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jinan-济南-2"><a class="markdownIt-Anchor" href="#jinan-济南-2"></a> Jinan 济南</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15033">15033</a></td>
+<td>CCPC 2025 Jinan</td>
+<td>B</td>
+<td>Fortress</td>
+<td>—</td>
+<td>金 0/26 · 银 0/26 · 铜 0/26 · 总 0/260</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9554">9554</a></td>
+<td>CCPC 2024 Jinan</td>
+<td>G</td>
+<td>The Wheel of Fortune</td>
+<td>凸多边形重心</td>
+<td>金 2/28 · 银 0/28 · 铜 0/28 · 总 2/280</td>
+<td>缩放凸包 + 射线切分 + 面积/叉积（题解证实）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7903">7903</a></td>
+<td>ICPC 2023 Jinan Regional</td>
+<td>J</td>
+<td>Computational Intelligence</td>
+<td>两线段期望距离</td>
+<td>金 0/34 · 银 0/34 · 铜 0/31 · 总 0/334</td>
+<td>两线段上随机点期望距离 ∫∫ 距离 dxdy（题解证实）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="macau-澳门"><a class="markdownIt-Anchor" href="#macau-澳门"></a> Macau 澳门</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7862">7862</a></td>
+<td>ICPC 2023 Macau Regional</td>
+<td>F</td>
+<td>Land Trade</td>
+<td>半平面布尔</td>
+<td>金 0/8 · 银 0/8 · 铜 0/8 · 总 0/82</td>
+<td>矩形 + 半平面布尔表达式面积</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nanjing-南京-4"><a class="markdownIt-Anchor" href="#nanjing-南京-4"></a> Nanjing 南京</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7734">7734</a></td>
+<td>ICPC 2023 Nanjing Regional</td>
+<td>B</td>
+<td>Intersection over Union</td>
+<td>—</td>
+<td>金 0/33 · 银 0/33 · 铜 0/33 · 总 0/331</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shanghai-上海"><a class="markdownIt-Anchor" href="#shanghai-上海"></a> Shanghai 上海</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15319">15319</a></td>
+<td>ICPC 2025 Shanghai Regional</td>
+<td>F</td>
+<td>Flower’s land 4</td>
+<td>线段相交</td>
+<td>金 2/30 · 银 0/30 · 铜 0/30 · 总 2/331</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9037">9037</a></td>
+<td>ICPC 2024 Shanghai Regional</td>
+<td>A</td>
+<td>Ancient Maps, Hidden Danger</td>
+<td>多边形 visibility</td>
+<td>金 0/34 · 银 0/34 · 铜 0/34 · 总 0/336</td>
+<td>多边形 walls + 外部 visibility hidden reachable area</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9049">9049</a></td>
+<td>ICPC 2024 Shanghai Regional</td>
+<td>M</td>
+<td>Machine Learning with Penguins</td>
+<td>3D 圆柱面</td>
+<td>金 0/34 · 银 0/34 · 铜 0/34 · 总 0/336</td>
+<td>判 3D 点能否在某直立圆柱表面（base 在 xy 平面）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shenyang-沈阳-2"><a class="markdownIt-Anchor" href="#shenyang-沈阳-2"></a> Shenyang 沈阳</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9808">9808</a></td>
+<td>ICPC 2024 Shenyang Regional</td>
+<td>K</td>
+<td>Fragile Pinball</td>
+<td>—</td>
+<td>金 0/30 · 银 0/30 · 铜 0/30 · 总 0/300</td>
+<td>凸多边形 + 反射 + 镜像展开（题解证实）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7783">7783</a></td>
+<td>ICPC 2023 Shenyang Regional</td>
+<td>G</td>
+<td>Military Maneuver</td>
+<td>圆环扫描</td>
+<td>金 0/29 · 银 0/29 · 铜 0/29 · 总 0/291</td>
+<td>矩形采样 + 圆环面积期望（annulus 扫描）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xian-西安"><a class="markdownIt-Anchor" href="#xian-西安"></a> Xi’an 西安</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9253">9253</a></td>
+<td>ICPC 2023 Xi’an Regional</td>
+<td>L</td>
+<td>Prism Palace</td>
+<td>—</td>
+<td>金 0/41 · 银 0/41 · 铜 0/41 · 总 0/406</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zhengzhou-郑州"><a class="markdownIt-Anchor" href="#zhengzhou-郑州"></a> Zhengzhou 郑州</h3>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+<th>通过情况</th>
+<th>验证备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15312">15312</a></td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>L</td>
+<td>Triangle Grid</td>
+<td>—</td>
+<td>金 1/25 · 银 0/25 · 铜 0/25 · 总 1/260</td>
+<td>题面已含明确几何关键词；待 tutorial 复查</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15305">15305</a></td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>E</td>
+<td>Doo Doo Doo</td>
+<td>同心圆环</td>
+<td>金 1/25 · 银 0/25 · 铜 0/25 · 总 1/260</td>
+<td>同心圆环 + 门 + 最短路几何</td>
+</tr>
+</tbody>
+</table>
+<h2 id="无榜单数据线上-高职-未托管"><a class="markdownIt-Anchor" href="#无榜单数据线上-高职-未托管"></a> ❓ 无榜单数据（线上 / 高职 / 未托管）</h2>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>几何点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14555">14555</a></td>
+<td>CCPC Online 2025</td>
+<td>I</td>
+<td>矩形</td>
+<td>—</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14547">14547</a></td>
+<td>CCPC Online 2025</td>
+<td>A</td>
+<td>整点正方形计数2</td>
+<td>整点正方形计数</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14308">14308</a></td>
+<td>ICPC 2025 EC Online (I)</td>
+<td>H</td>
+<td>Walk</td>
+<td>网格路径与矩形</td>
 </tr>
 <tr>
 <td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14314">14314</a></td>
-<td>2524/A</td>
 <td>ICPC 2025 EC Online (II)</td>
+<td>A</td>
 <td>Angry Birds</td>
-<td>Minkowski 凸包体积</td>
+<td>—</td>
 </tr>
 <tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7680">7680</a></td>
-<td>1404/D</td>
-<td>CCPC 2023 Guilin</td>
-<td>Subway</td>
-<td>整点+不自交线段地铁规划构造</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/7756">7756</a></td>
-<td>1412/K</td>
-<td>CCPC 2023 Harbin</td>
-<td>Omniscia Spares None</td>
-<td>整数坐标布点+连接线段不内部相交</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/14547">14547</a></td>
-<td>2534/A</td>
-<td>CCPC Online 2025</td>
-<td>整点正方形计数2</td>
-<td>整点正方形（边可不平行轴）计数</td>
-</tr>
-<tr>
-<td>⭐ <a target="_blank" rel="noopener" href="https://qoj.ac/problem/9316">9316</a></td>
-<td>1794/I</td>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9316">9316</a></td>
 <td>ICPC 2024 EC Online (I)</td>
+<td>I</td>
 <td>Boxes</td>
-<td>3D 凸包不重叠/嵌套划分最大体积</td>
+<td>3D 凸包</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8081">8081</a></td>
+<td>ICPC 2023 EC Online (I)</td>
+<td>I</td>
+<td>Minimum Manhattan Distance</td>
+<td>—</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/8082">8082</a></td>
+<td>ICPC 2023 EC Online (I)</td>
+<td>K</td>
+<td>Minimum Euclidean Distance</td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="几何子类索引找专项-set-时用"><a class="markdownIt-Anchor" href="#几何子类索引找专项-set-时用"></a> 几何子类索引（找专项 set 时用）</h2>
-<ul>
-<li>
-<p><strong>凸包 / 半平面</strong>：1485/J、1485/K、1472/M、1817/B、1885/E、1865/G、1885/E、2562/L、2564/L、2581/M、2693/B、1516/L⭐、2641/G⭐、1843/G⭐、1794/I⭐、1894/B、1821/M、2524/A</p>
-</li>
-<li>
-<p><strong>Manhattan / Minkowski</strong>：1485/J、1440/E⭐、2524/A</p>
-</li>
-<li>
-<p><strong>3D</strong>：1784/L、1894/D⭐、1913/M⭐、1843/J⭐、1841/A⭐、1794/I⭐、1894/H</p>
-</li>
-<li>
-<p><strong>反射 / 旋转</strong>：1865/K、1828/M、2641/K⭐、1843/G⭐、2575/I</p>
-</li>
-<li>
-<p><strong>网格 / 整点</strong>：1449/I、1435/B、2534/I、2534/A⭐、2581/L⭐、2513/H⭐、2609/L⭐、1404/D⭐、1412/K⭐</p>
-</li>
-<li>
-<p><strong>可见性 / visibility</strong>：1913/A⭐、1894/H、3295/A</p>
-</li>
-<li>
-<p><strong>极角 / 概率积分</strong>：1871/H、1893/C、1449/G⭐、1472/J⭐、2641/G⭐、2609/L⭐</p>
-</li>
-<li>
-<p><strong>栅格化 / 渲染</strong>：1412/M⭐、2036/E⭐、1913/J⭐</p>
-</li>
-<li>
-<p><strong>交互几何</strong>：2567/E⭐、2661/B、2661/E⭐</p>
-</li>
-<li>
-<p><strong>tiling</strong>：3387/L</p>
-</li>
-</ul>
+<h2 id="剔除清单11-道伪几何-v2-误收"><a class="markdownIt-Anchor" href="#剔除清单11-道伪几何-v2-误收"></a> 🗑 剔除清单（11 道伪几何 / v2 误收）</h2>
+<p>题面 + 题解（如可拿到）双确认：题名/坐标只是 carrier，本质不是几何运算。</p>
+<table>
+<thead>
+<tr>
+<th>QOJ pid</th>
+<th>比赛</th>
+<th>题号</th>
+<th>题名</th>
+<th>实质</th>
+<th>通过情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14692">14692</a></td>
+<td>ICPC 2025 Xi’an Regional</td>
+<td>L</td>
+<td>Let’s Make a Convex!</td>
+<td>排序 + 三角形不等式（最大边 小于 其他边和），无几何运算</td>
+<td>金 40/40 · 银 40/40 · 铜 40/40 · 总 389/399</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/15302">15302</a></td>
+<td>CCPC 2025 Zhengzhou</td>
+<td>B</td>
+<td>Cutting Chocolate</td>
+<td>3D 切刀使每块 almond 数相等 → 组合计数，非几何</td>
+<td>金 25/25 · 银 25/25 · 铜 25/25 · 总 196/260</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14822">14822</a></td>
+<td>CCPC 2025 Harbin</td>
+<td>I</td>
+<td>六边形翻转</td>
+<td>六边形翻转游戏 → 组合 / 线性代数 / 异或，&quot;六边形格点&quot;只是建模</td>
+<td>金 26/26 · 银 24/25 · 铜 22/25 · 总 131/260</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14730">14730</a></td>
+<td>ICPC 2025 Wuhan Regional</td>
+<td>L</td>
+<td>ICPC</td>
+<td>monotone 路径 + 矩形落同侧 → 格路计数 + 概率 mod 998244353，非几何</td>
+<td>金 0/45 · 银 0/88 · 铜 0/133 · 总 0/446</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/14950">14950</a></td>
+<td>ICPC 2025 Shenyang Regional</td>
+<td>K</td>
+<td>Relay Jump</td>
+<td>题解：构造势能 ΦP(i)=Σ Pk - 2Pi 找不变量，非几何</td>
+<td>金 40/40 · 银 36/40 · 铜 35/40 · 总 133/400</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9557">9557</a></td>
+<td>CCPC 2024 Jinan</td>
+<td>J</td>
+<td>Temperance</td>
+<td>题解：初始密度 小于 k 直接计数（O(n) 贪心），3D 仅 carrier</td>
+<td>金 28/28 · 银 28/28 · 铜 28/28 · 总 276/280</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9044">9044</a></td>
+<td>ICPC 2024 Shanghai Regional</td>
+<td>H</td>
+<td>Hexagon Puzzle</td>
+<td>六边形拼图 V 块染色 → 组合优化 / 构造，非几何</td>
+<td>金 1/34 · 银 0/34 · 铜 0/34 · 总 1/336</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9046">9046</a></td>
+<td>ICPC 2024 Shanghai Regional</td>
+<td>J</td>
+<td>Just-in-Time Render Analysis</td>
+<td>矩形嵌套 → 树形数据结构 + 子树查询，&quot;矩形&quot;仅 carrier</td>
+<td>金 11/34 · 银 0/34 · 铜 0/34 · 总 11/336</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/11109">11109</a></td>
+<td>CCPC Final 2024</td>
+<td>E</td>
+<td>Omniscient Artist</td>
+<td>题解为扫描线 + 序列分块查 m 倍数出现次数，矩形仅作区间加 carrier，纯 DS</td>
+<td>金 4/12 · 银 0/9 · 铜 0/13 · 总 4/116</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/9739">9739</a></td>
+<td>CCPC 2024 Women</td>
+<td>A</td>
+<td>盒子</td>
+<td>轴对齐立方体内点判定 → 三维分别比较坐标，非几何</td>
+<td>金 17/17 · 银 17/17 · 铜 16/16 · 总 164/170</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://qoj.ac/problem/7878">7878</a></td>
+<td>ICPC 2023 Hefei Regional</td>
+<td>E</td>
+<td>Matrix Distances</td>
+<td>Manhattan 距离贡献求和 → 按维度独立排序的纯数学</td>
+<td>金 36/36 · 银 32/32 · 铜 36/36 · 总 325/344</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="漏-不收的范围验收前请知悉"><a class="markdownIt-Anchor" href="#漏-不收的范围验收前请知悉"></a> 漏 / 不收的范围（验收前请知悉）</h2>
-<ul>
-<li>
-<p>QOJ category 21 不含 NERC / NWERC / SWERC / Latin / Africa</p>
-</li>
-<li>
-<p>CCPC 2025 总决赛 (cid 3727) 抓数据时（2026-05-03）0 题数据未公开</p>
-</li>
-<li>
-<p>CF Gym 上有些 Asia 区域赛镜像 QOJ 没收，本次没扩到 CF Gym</p>
-</li>
-<li>
-<p>v2 全文扫描的低 score (2-4) 还有 ~28 题没逐题精读，如果验收发现遗漏在这批里，告诉我题号，我去回查那一段题面</p>
-</li>
-</ul>
-<hr />
-<h2 id="剔除清单部分代表"><a class="markdownIt-Anchor" href="#剔除清单部分代表"></a> 剔除清单（部分代表）</h2>
-<p>这些 v1 / v2 都看过题面、确认是「几何皮 ≠ 几何题」：</p>
-<ul>
-<li>
-<p>An Easy Geometry Problem — 带修线段树</p>
-</li>
-<li>
-<p>Geometry Task — 中位数排序</p>
-</li>
-<li>
-<p>A Brand New Geometric Problem — 高维数学</p>
-</li>
-<li>
-<p>China Convex Polygon Contest — 提交时序调度</p>
-</li>
-<li>
-<p>Identify Chord — 图论环上加边</p>
-</li>
-<li>
-<p>Colorful Graph 2 (1596/C) — 图染色（虽然提到 polygon）</p>
-</li>
-<li>
-<p>Yet another permutation problem (2908/L) — 排列段交换计数</p>
-</li>
-<li>
-<p>Cute Young Diagram Counting (2641/H) — 杨表组合</p>
-</li>
-<li>
-<p>Boxes 误判：1794/I 已 KEEP（真 3D 凸包）</p>
-</li>
-</ul>
-<p>完整 53 题剔除清单见 <code>/tmp/qoj_geom/RESULT.md</code> v1 部分。</p>
-<hr />
-<h2 id="qa"><a class="markdownIt-Anchor" href="#qa"></a> Q&amp;A</h2>
-<ul>
-<li>
-<p><strong>Q: 为什么不用 clist tag=geometry？</strong><br />
-A: CF Gym 和 QOJ 几乎不打题目级 tag，按 tag 拉会大量漏题。</p>
-</li>
-<li>
-<p><strong>Q: 为什么不上 Universal Cup？</strong><br />
-A: UCup 题源杂、不全是区域赛；很多 region 比赛题已在 QOJ category 21 里（QOJ 多场比赛同时挂在 ICPC region 和 UCup 两个分类下，例如 ICPC 2023 ECF = UCup Stage 23 Shanghai）。</p>
-</li>
-<li>
-<p><strong>Q: 数据如何获取？</strong><br />
-A: 见 <code>~/.claude/skills/qoj-access/SKILL.md</code> 的「批量搜题工作流」章节。</p>
-</li>
-</ul>
-<hr />
-<h1 id="三年趋势分析2026-05-03-加"><a class="markdownIt-Anchor" href="#三年趋势分析2026-05-03-加"></a> 三年趋势分析（2026-05-03 加）</h1>
-<h2 id="一句话结论"><a class="markdownIt-Anchor" href="#一句话结论"></a> 一句话结论</h2>
-<p><strong>计算几何题在区域赛里数量稳中有升，没有任何衰减迹象</strong>——平均每场题数从 2023 的 1.08 涨到 2025 的 1.50，2025 几乎每场 Regional / Final 都至少出 1 题几何（92%）。</p>
-<h2 id="三年纵向数据仅-regional-final去掉网络赛-女生赛-高职专场"><a class="markdownIt-Anchor" href="#三年纵向数据仅-regional-final去掉网络赛-女生赛-高职专场"></a> 三年纵向数据（仅 Regional + Final，去掉网络赛 / 女生赛 / 高职专场）</h2>
+<h2 id="三年趋势v3-重算作废-v2-旧数字"><a class="markdownIt-Anchor" href="#三年趋势v3-重算作废-v2-旧数字"></a> 三年趋势（v3 重算，作废 v2 旧数字）</h2>
+<p><strong>v2 旧数字（92% 场次有几何）作废</strong>：那是把防 AK + 金档偏难也算进去了，对 zzy 队伍没训练价值。v3 按「<strong>大部分金牌队过 OR 大部分银牌队过</strong>」硬口径重算，只保留 🥇 金 ∪ 🥈 银 ∪ 🥉 铜 = 12 道（7 + 1 + 4），剔除金档偏难 / 接近防 AK / 防 AK。</p>
+<p>口径：仅算 Regional + EC Final + CCPC 站赛 + CCPC Final（38 场），剔线上 / 高职 / 女生赛（无 srk / 不可比）。</p>
 <table>
 <thead>
 <tr>
 <th>年份</th>
-<th>场次</th>
-<th>几何题总数</th>
+<th>主场次数</th>
+<th>金/银/铜档可做几何题数</th>
 <th>平均每场</th>
-<th>至少 1 几何的场次占比</th>
-<th>2023</th>
-<th>13</th>
-<th>14</th>
-<th>1.08</th>
-<th>85%</th>
+<th>有 ≥1 可做几何题的场次</th>
+<th>占比</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2023</td>
+<td>13</td>
+<td>3</td>
+<td>0.23</td>
+<td>3</td>
+<td><strong>23%</strong></td>
+</tr>
 <tr>
 <td>2024</td>
 <td>13</td>
-<td>18</td>
-<td>1.38</td>
-<td>85%</td>
+<td>4</td>
+<td>0.31</td>
+<td>4</td>
+<td><strong>31%</strong></td>
+</tr>
+<tr>
 <td>2025</td>
 <td>12</td>
-<td>18</td>
-<td><strong>1.50</strong></td>
-<td><strong>92%</strong></td>
+<td>5</td>
+<td>0.42</td>
+<td>5</td>
+<td><strong>42%</strong></td>
 </tr>
 </tbody>
 </table>
-<p>几个值得注意的拐点：</p>
+<h3 id="关键结论与-v2-完全相反"><a class="markdownIt-Anchor" href="#关键结论与-v2-完全相反"></a> 关键结论（与 v2 完全相反）</h3>
+<ol>
+<li>
+<p><strong>超过半数比赛根本没有 zzy 能做的几何题</strong>：2023 有 77% 场次 0 道、2024 有 69%、2025 有 58%。「每场都要面对几何题」是 v2 错觉——大多数场次的几何题是金牌队都做不出来的防 AK，跟 zzy 队伍训练强度无关。</p>
+</li>
+<li>
+<p><strong>趋势仍上升但不夸张</strong>：从 23% → 42%（不是 v2 说的 85% → 92%）。三年翻不到 2 倍。</p>
+</li>
+<li>
+<p><strong>2025 拐点</strong>：5/12 场有可做几何，比例首次破 1/3。继续涨的话 2026 可能到 50%。</p>
+</li>
+<li>
+<p><strong>每场 0.42 道是什么概念</strong>：12 场比赛大概只 5 道几何 zzy 能稳吃——比「金/银题里的 DS / DP / 图论」少一个量级。</p>
+</li>
+</ol>
+<h3 id="12-道可做几何题分布"><a class="markdownIt-Anchor" href="#12-道可做几何题分布"></a> 12 道可做几何题分布</h3>
 <ul>
 <li>
-<p><strong>CCPC 2025 是 CCPC 系列的几何爆发年</strong>：CCPC 2023-24 平均只有 0.6 题/场（Qinhuangdao / Shenzhen / Chongqing / Zhengzhou 几个站完全不出几何），CCPC 2025 跳到 1.43 题/场，已经追平 ICPC 的水平了</p>
+<p><strong>2025（5 道）</strong>：液压机 (CCPC 哈尔滨 B, 铜签到) · Inside Triangle (ICPC 成都 I, 金) · Outstanding Outlines (ICPC EC Final A, 银) · Many Convex Polygons (ICPC 南京 M, 金) · Collision Damage (ICPC 沈阳 G, 金)</p>
 </li>
 <li>
-<p><strong>「几何专场」越来越频繁</strong>：ICPC 2024 上海 4 题几何（A/H/J/M）、ICPC 2024 EC Final 3 题几何（B/D/H）、CCPC 2025 郑州 3 题几何（B/E/L）。这种单场 3+ 题几何的情况在 2023 一次都没出现过</p>
+<p><strong>2024（4 道）</strong>：Concave Hull (CCPC 哈尔滨 B, 金) · Staircase Museum (ICPC EC Final H, 金) · Horizon Scanning (ICPC 昆明 H, 铜签到) · Guess the Polygon (ICPC 沈阳 G, 金)</p>
 </li>
 <li>
-<p><strong>2025 反例只有 ICPC Hong Kong 1 场没出几何</strong>——也就是说，赛前如果完全不练几何，2025 你大概率每场都要弃 1-2 题</p>
+<p><strong>2023（3 道）</strong>：Painter (CCPC 哈尔滨 M, 铜签到) · Almost Convex (ICPC 济南 M, 铜签到) · Three Rectangles (ICPC 沈阳 I, 金)</p>
 </li>
 </ul>
-<h2 id="几何子类分布59-题一题可能算多类"><a class="markdownIt-Anchor" href="#几何子类分布59-题一题可能算多类"></a> 几何子类分布（59 题，一题可能算多类）</h2>
-<table>
-<thead>
-<tr>
-<th>子类</th>
-<th>题数</th>
-<th>性价比</th>
-<th>必练程度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>网格 / 整点</strong></td>
-<td>9</td>
-<td>高</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>极角 / 概率积分</td>
-<td>6</td>
-<td>中</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td><strong>Manhattan / 最近点对</strong></td>
-<td>4</td>
-<td>极高（套路固定）</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td><strong>栅格化 / 扫描线</strong></td>
-<td>3</td>
-<td>高（和 DS 共享）</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>tiling</td>
-<td>1</td>
-<td>低</td>
-<td>⭐</td>
-</tr>
-</tbody>
-</table>
-<h2 id="对队伍的策略建议"><a class="markdownIt-Anchor" href="#对队伍的策略建议"></a> 对队伍的策略建议</h2>
-<p>针对当前情况：队伍没专门几何手，估自己只能啃铜档几何题。这是个真问题，不是可以躲的：</p>
+<h3 id="对队伍策略的修正"><a class="markdownIt-Anchor" href="#对队伍策略的修正"></a> 对队伍策略的修正</h3>
 <ul>
 <li>
-<p><strong>92% 的场次至少有 1 题几何</strong>，几乎每场都要面对这道题，少做 1 题往往就是金银分水岭</p>
+<p><strong>不需要培养专门的「几何手」</strong>：3 年只 12 道可做几何，平均每场不到半道。培养代价 vs 期望收益不成比例。</p>
 </li>
 <li>
-<p>Tier B 偏难/防 AK 的几何题只占 8/59 ≈ <strong>14%</strong>，剩下 <strong>85% 的几何题是金/银档可做</strong>——也就是说不需要培养一个能啃完所有几何题的「全能几何手」，只要能稳吃银档以上就能从「铜」走到「金」</p>
+<p><strong>应当掌握的几何子套路</strong>（覆盖 12 道里的核心）：凸包 + 凸多边形面积 / 重心 / 闵可夫斯基（占 7-8 道）+ 极角扫描（Horizon Scanning 类）+ 矩形覆盖布尔（Three Rectangles / Outstanding Outlines）。<strong>不需要练</strong> 3D / visibility / 半平面布尔表达式 / 反射 / 同心圆门 / Manhattan 期望——这些题虽然每年都有，但全在防 AK / 偏难，目标段位（金/银）做不出来也没事。</p>
 </li>
 <li>
-<p>投入产出比最高的三个套路是 <strong>凸包/半平面 + Manhattan/最近点对 + 栅格化/扫描线</strong>，加起来覆盖 <strong>17 + 4 + 3 = 24 题</strong>（占 59 题的 <strong>41%</strong>）。把这三类练熟，几乎一半的几何题就能稳过</p>
-</li>
-<li>
-<p>3D / visibility / tiling 这几类性价比低（题数少 + Tier B 偏难居多），先放一放，等前面三类练完再补</p>
+<p><strong>真正的策略价值</strong>：拿到比赛后<strong>先扫一眼有没有 Tier 金/银的几何题</strong>，有就值得花时间想；没有就果断放弃几何题（58% 概率没有），把时间留给 DS / DP。</p>
 </li>
 </ul>
-<h2 id="为什么-v1-漏题这件事在趋势上更刺眼"><a class="markdownIt-Anchor" href="#为什么-v1-漏题这件事在趋势上更刺眼"></a> 为什么 v1 漏题这件事在趋势上更刺眼</h2>
-<p>v2 新增的 27 真几何里，有相当一部分集中在 2024-2025（1843/G、1843/J、1913/A、1913/M、1913/J、2641/G、2641/K、2609/L、2661/E、2581/L 等），意味着出题人在「题名不暗示几何但内容是几何」这个方向上明显倾向更强了——以后类似筛题任务必须双段扫，不能再只看 title。</p>
+<h2 id="v3-数据来源-复现指南"><a class="markdownIt-Anchor" href="#v3-数据来源-复现指南"></a> v3 数据来源 / 复现指南</h2>
+<ul>
+<li>
+<p>50 场榜单 srk.json：<code>git clone https://github.com/algoux/srk-collection</code></p>
+</li>
+<li>
+<p>50 场题面 PDF（English）：QOJ <code>/download.php?type=attachments&amp;id=&lt;cid&gt;&amp;r=0</code></p>
+</li>
+<li>
+<p>50 场题面 PDF（中文）：<code>r=1</code></p>
+</li>
+<li>
+<p><strong>9 场公开题解 PDF</strong>：<code>r=2</code>（QOJ 上只有这 9 场公开了题解）</p>
+</li>
+<li>
+<p>难度分类：按队伍奖牌段位的通过率重打 Tier</p>
+</li>
+<li>
+<p>几何分类：题面深读 + 题解关键词 cross-validate</p>
+</li>
+</ul>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
       
     </div>
