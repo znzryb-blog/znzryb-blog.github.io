@@ -28,7 +28,7 @@
 <meta property="og:description" content="🤖 Claude 苏格拉底式带教对话录原稿。每一步都是 mentor 提一个聚焦问题 → me 答 → 反复推进至完整算法。蓝色 callout 是 Claude，橙色 callout 是 zzy，原稿里 mentor 的反例 &#x2F; 矫枉过正 &#x2F; 用户吐槽全部逐字保留。  原题：QOJ-784 凸多边形直径（vjudge 镜像：QOJ-784） 本对话最终产出 3 处 hack 数据 + 4 个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-04T03:26:00.000Z">
-<meta property="article:modified_time" content="2026-05-04T12:30:23.833Z">
+<meta property="article:modified_time" content="2026-05-07T03:57:21.521Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="QOJ">
 <meta property="article:tag" content="casework &#x2F; if-else 分类讨论">
@@ -37,6 +37,8 @@
 <meta property="article:tag" content="two pointers 双指针&#x2F;滑动窗口">
 <meta property="article:tag" content="凸包 convex hull">
 <meta property="article:tag" content="对拍 compare test">
+<meta property="article:tag" content="数据随机生成 dataRandon">
+<meta property="article:tag" content="旋转卡壳 rotating calipers">
 <meta property="article:tag" content="算法讲解 tutorial">
 <meta property="article:tag" content="精度问题及其解决">
 <meta name="twitter:card" content="summary">
@@ -227,10 +229,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-05-04 11:26:00 / Modified: 20:30:23" itemprop="dateCreated datePublished" datetime="2026-05-04T11:26:00+08:00">2026-05-04</time>
+              <time title="Created: 2026-05-04 11:26:00" itemprop="dateCreated datePublished" datetime="2026-05-04T11:26:00+08:00">2026-05-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-05-07 11:57:21" itemprop="dateModified" datetime="2026-05-07T11:57:21+08:00">2026-05-07</time>
+              </span>
 
           
 
@@ -986,8 +994,8 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-
 </li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://media.znzryb.com/20260504-a14c57ba/Convex_Diameter_mentor_88a5db8f.pdf">完整带教对话录 PDF (20 页)</a></p>
-<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/4ba16ca7-420c-4c9d-b44b-5f40d5b2e428/_rotate_ka.cpp.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662VKZVKZM%2F20260504%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260504T122934Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCjYtwwG2J0nNfeuaoU0uYJTp7Nt3g75YV2u%2BU7iA33AwIhAOYLrliAMAj7FF5YplFldbR6YPcBl7Yf1udaFjid%2BVJqKv8DCG0QABoMNjM3NDIzMTgzODA1IgwtVeoH13eCJY%2BBTo8q3ANUVYcPifpACi9xnnAghwacRPJv8a%2Fy4gFc2ivqRa3LfNej4CUw6RjwWIzmWlbV5X3ouD6MwvjLCaxAaiy0x%2BR0ijAQ6hZadd7XNdSwtEqxrmwnJ7W5gZzf%2FU1lBgIPGmaTqHjdrf%2B0i%2BTuo6bYrNyA7J0RLah0OjkytjosCmKe2ec9e82Gygm33RD7iEAW0t088LniL7LUlFlNhdo8jNjxqWDcObDOAlV0J1%2B6L0dhMGC4Un0xr1RouPrXdbGBCjG%2F6V3wU2Mp9C4hPe%2BS%2FY2r%2F0OpxRSpi8%2BxGEEbURj1ll4RseJ5zM42T5jajaeocqn6%2B31qWAnY2KajXQymoNCUQIlOm0CYkDkBS24JJezwYgmikfk%2FtQMtpQB2K%2FHzNzvHUJT8ywtclcxOUJiY9imFnSqmOOlD98A9vfJCRksS5BVyxK3NA7ZR0UcOgUbSFFSRCRjaszU8zPIW%2FU%2FRUBZjRumWnobY3PKxX3FCn%2B5pHnZq3AWgRuGto%2BDUdwxGM9ddEMLslZ2nevBWRXN9Ykuz9Xvn17yFM6Uyzt4WKhFxXFJnhXc%2BeGL%2FBv4xAV9KNx1%2FmTEIJhXco6eaFfBzM6yxp2TFLIraIt0R1i7iSaB7h8ExbeN4j6o%2B3UWnTTCnjOLPBjqkAe%2FyXG38U4UDyCj4X5mPgJvxvTPvNOYNcr4VZG42pxRuAn10ohUN3%2BowdHauQAbOAk%2FwZRIiGLtxjnqNKFFPX8dvG97C8205bi6QT%2Fx79C0eFsgWOvLVqWu0%2FSDEHHMa6v4nCGHujC0CUeupIQ8Q05w93vowCgTQ4ed6Kt1AoARKA0NFLx%2Bfucl6%2B%2BRQV0x0Yw%2Ff5pK%2BODHa8aazq%2BlsA64RuaWy&amp;X-Amz-Signature=79eff8558ce7d73c156dad5e3c123dccb429322af2f1b680867a1d577327690d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">_rotate_ka.cpp.txt</a></p>
-<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/32c9ffc2-622f-4c5b-9363-b524b0458270/_rotate_ka_edge2.cpp.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662VKZVKZM%2F20260504%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260504T122934Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCjYtwwG2J0nNfeuaoU0uYJTp7Nt3g75YV2u%2BU7iA33AwIhAOYLrliAMAj7FF5YplFldbR6YPcBl7Yf1udaFjid%2BVJqKv8DCG0QABoMNjM3NDIzMTgzODA1IgwtVeoH13eCJY%2BBTo8q3ANUVYcPifpACi9xnnAghwacRPJv8a%2Fy4gFc2ivqRa3LfNej4CUw6RjwWIzmWlbV5X3ouD6MwvjLCaxAaiy0x%2BR0ijAQ6hZadd7XNdSwtEqxrmwnJ7W5gZzf%2FU1lBgIPGmaTqHjdrf%2B0i%2BTuo6bYrNyA7J0RLah0OjkytjosCmKe2ec9e82Gygm33RD7iEAW0t088LniL7LUlFlNhdo8jNjxqWDcObDOAlV0J1%2B6L0dhMGC4Un0xr1RouPrXdbGBCjG%2F6V3wU2Mp9C4hPe%2BS%2FY2r%2F0OpxRSpi8%2BxGEEbURj1ll4RseJ5zM42T5jajaeocqn6%2B31qWAnY2KajXQymoNCUQIlOm0CYkDkBS24JJezwYgmikfk%2FtQMtpQB2K%2FHzNzvHUJT8ywtclcxOUJiY9imFnSqmOOlD98A9vfJCRksS5BVyxK3NA7ZR0UcOgUbSFFSRCRjaszU8zPIW%2FU%2FRUBZjRumWnobY3PKxX3FCn%2B5pHnZq3AWgRuGto%2BDUdwxGM9ddEMLslZ2nevBWRXN9Ykuz9Xvn17yFM6Uyzt4WKhFxXFJnhXc%2BeGL%2FBv4xAV9KNx1%2FmTEIJhXco6eaFfBzM6yxp2TFLIraIt0R1i7iSaB7h8ExbeN4j6o%2B3UWnTTCnjOLPBjqkAe%2FyXG38U4UDyCj4X5mPgJvxvTPvNOYNcr4VZG42pxRuAn10ohUN3%2BowdHauQAbOAk%2FwZRIiGLtxjnqNKFFPX8dvG97C8205bi6QT%2Fx79C0eFsgWOvLVqWu0%2FSDEHHMa6v4nCGHujC0CUeupIQ8Q05w93vowCgTQ4ed6Kt1AoARKA0NFLx%2Bfucl6%2B%2BRQV0x0Yw%2Ff5pK%2BODHa8aazq%2BlsA64RuaWy&amp;X-Amz-Signature=53d8dbfd037b068325354f10524c4282e2fa199164d7ab9fa29511da4cc5a7df&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">_rotate_ka_edge2.cpp.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/4ba16ca7-420c-4c9d-b44b-5f40d5b2e428/_rotate_ka.cpp.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663T5EQMFU%2F20260507%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260507T034701Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDd6zYDd45MEw42KgZHwPop0hSiIvQPu1xzmykpJGGKNwIgcBwtoBlIv1w8ESPRCS4ikaZGjnbK6zv8ZSRD1HsEarYqiAQIrf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDMEsuXfS5dvsEr1hDSrcA7e3PldEb4Re7lgcQ7wO6YB0a2SoW1fSGns6o9sKaXir6bxM%2FFGF8yNyeFa1xBvSx1qQ4%2BCzsU5Ldd5UFfm%2BhmiAEreYTENpCIitbH%2BxtDgOs4PlZMz6btfxCOIp50WxQF5MiBPgpda%2FPEtOuloIrQF74Cn4OYq1Fyng7OgXDw1n9IZugPduMSs57SPrfOyLMDD5VJhEuTXX4v2eCNaBJbskvVh54mvz47yxOJZbfgJm0Ey8J6nFFItDkDjLNEpQyW0JQkznJJocaTPvPkn%2BoQk%2F4tWkpFwkLa%2B6tsDDR6kUpkZmfRf5TAAuwmah%2F762wOphqXGqB2XbIVxLQ7s1TBOM21nt0R5rE8VpGkoSN3xhb54T5mANH9LIycXZ9GG8Iyh0F21TrZ81ZLl6JkVgnXGzAKIDiuAPmg8YMla3aMkScO3LvfnIBCh2i8HY3Pf%2F41MNBzpK5atVPxfr3I3SWGZfzo3SVQoK2WJ0p%2ByiWQB8s9LLamW%2B86k7Ij%2BWFRIXqBt02LtVoRfze%2B05iny%2BvPKZlpcKwIEHld7Dc3BpqV9xMAFUF2qc9WxGGulMXLwJCng5U6s2dErqCVwd3bsPqiadlkqb72jQWc7liWX6DZ6zEA303ltWrstaof0GMJSL8M8GOqUBh64xAzbFosrWAtU9S8X%2FWtvHfQ5L7LAZNLL5rupuu1nCEE5PH1eeeVPBm86A6YIHACFe4WSgpW%2BurF5RbT4bmImEnR4B%2Fa9sgYGT42ZV6thbaz7UtHi%2Fh0NPvX6a3ljDrcI%2BpONmc6nO%2FZm0LQWlwfLCUnSwU2d%2BQ8gtf0rZ5Spb9rk2m%2B5%2Fo5XC7ACPtboAbRGWBlqQE3FF91Dgsb3%2B%2BkpP8EUx&amp;X-Amz-Signature=71666537f15e171695f1d504f05f7f849778a0db119407f61c4377782cdf51de&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">_rotate_ka.cpp.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/32c9ffc2-622f-4c5b-9363-b524b0458270/_rotate_ka_edge2.cpp.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663T5EQMFU%2F20260507%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260507T034701Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDd6zYDd45MEw42KgZHwPop0hSiIvQPu1xzmykpJGGKNwIgcBwtoBlIv1w8ESPRCS4ikaZGjnbK6zv8ZSRD1HsEarYqiAQIrf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDMEsuXfS5dvsEr1hDSrcA7e3PldEb4Re7lgcQ7wO6YB0a2SoW1fSGns6o9sKaXir6bxM%2FFGF8yNyeFa1xBvSx1qQ4%2BCzsU5Ldd5UFfm%2BhmiAEreYTENpCIitbH%2BxtDgOs4PlZMz6btfxCOIp50WxQF5MiBPgpda%2FPEtOuloIrQF74Cn4OYq1Fyng7OgXDw1n9IZugPduMSs57SPrfOyLMDD5VJhEuTXX4v2eCNaBJbskvVh54mvz47yxOJZbfgJm0Ey8J6nFFItDkDjLNEpQyW0JQkznJJocaTPvPkn%2BoQk%2F4tWkpFwkLa%2B6tsDDR6kUpkZmfRf5TAAuwmah%2F762wOphqXGqB2XbIVxLQ7s1TBOM21nt0R5rE8VpGkoSN3xhb54T5mANH9LIycXZ9GG8Iyh0F21TrZ81ZLl6JkVgnXGzAKIDiuAPmg8YMla3aMkScO3LvfnIBCh2i8HY3Pf%2F41MNBzpK5atVPxfr3I3SWGZfzo3SVQoK2WJ0p%2ByiWQB8s9LLamW%2B86k7Ij%2BWFRIXqBt02LtVoRfze%2B05iny%2BvPKZlpcKwIEHld7Dc3BpqV9xMAFUF2qc9WxGGulMXLwJCng5U6s2dErqCVwd3bsPqiadlkqb72jQWc7liWX6DZ6zEA303ltWrstaof0GMJSL8M8GOqUBh64xAzbFosrWAtU9S8X%2FWtvHfQ5L7LAZNLL5rupuu1nCEE5PH1eeeVPBm86A6YIHACFe4WSgpW%2BurF5RbT4bmImEnR4B%2Fa9sgYGT42ZV6thbaz7UtHi%2Fh0NPvX6a3ljDrcI%2BpONmc6nO%2FZm0LQWlwfLCUnSwU2d%2BQ8gtf0rZ5Spb9rk2m%2B5%2Fo5XC7ACPtboAbRGWBlqQE3FF91Dgsb3%2B%2BkpP8EUx&amp;X-Amz-Signature=cf394bf838546027e563be778d8eb1a3604f2f7510af6c938b8d326cb4ffc18d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">_rotate_ka_edge2.cpp.txt</a></p>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
     </div>
 
@@ -1004,8 +1012,10 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-
               <a href="/tags/%E5%87%B8%E5%8C%85-convex-hull/" rel="tag"># 凸包 convex hull</a>
               <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
               <a href="/tags/QOJ/" rel="tag"># QOJ</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90-dataRandon/" rel="tag"># 数据随机生成 dataRandon</a>
               <a href="/tags/casework-if-else-%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA/" rel="tag"># casework / if-else 分类讨论</a>
               <a href="/tags/%E5%AF%B9%E6%8B%8D-compare-test/" rel="tag"># 对拍 compare test</a>
+              <a href="/tags/%E6%97%8B%E8%BD%AC%E5%8D%A1%E5%A3%B3-rotating-calipers/" rel="tag"># 旋转卡壳 rotating calipers</a>
           </div>
 
         
@@ -1095,7 +1105,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
