@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="vjudge 链接 · Codeforces Gym 原题 · 2025 CCPC 河南省赛 &amp; 全国邀请赛（郑州，黄河科技学院）  题目大意 二维平面上 n 个互不相同的点（1 ≤ n ≤ 6666，坐标 |x|, |y| ≤ 10⁹）。从这 n 个点中有放回地选 3 个点，标记为 A, B, C，最小化点积： AB→⋅AC→&#x3D;(xB−xA)(xC−xA)+(yB−yA)(yC−yA)\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CCPC 河南 2025 L - Astral Decay">
+<meta property="og:url" content="https://znzryb.com/2026/05/16/20260516-cba4c1f6/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="vjudge 链接 · Codeforces Gym 原题 · 2025 CCPC 河南省赛 &amp; 全国邀请赛（郑州，黄河科技学院）  题目大意 二维平面上 n 个互不相同的点（1 ≤ n ≤ 6666，坐标 |x|, |y| ≤ 10⁹）。从这 n 个点中有放回地选 3 个点，标记为 A, B, C，最小化点积： AB→⋅AC→&#x3D;(xB−xA)(xC−xA)+(yB−yA)(yC−yA)\">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.znzryb.com/20260516-cba4c1f6/panel_step_00_f33a8fae.png">
+<meta property="og:image" content="https://media.znzryb.com/20260516-cba4c1f6/panel_step_08_5ea2a713.png">
+<meta property="og:image" content="https://media.znzryb.com/20260516-cba4c1f6/panel_step_20_7c9ea9c3.png">
+<meta property="article:published_time" content="2026-05-15T20:35:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T04:49:55.579Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="casework &#x2F; if-else 分类讨论">
+<meta property="article:tag" content="codeforces">
+<meta property="article:tag" content="geometry 几何&#x2F;计算几何">
+<meta property="article:tag" content="key insight 关键观察 ob">
+<meta property="article:tag" content="two pointers 双指针&#x2F;滑动窗口">
+<meta property="article:tag" content="凸包 convex hull">
+<meta property="article:tag" content="对拍 compare test">
+<meta property="article:tag" content="旋转卡壳 rotating calipers">
+<meta property="article:tag" content="极角排序 Polar Angle Sorting">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.znzryb.com/20260516-cba4c1f6/panel_step_00_f33a8fae.png">
+
+<link rel="canonical" href="https://znzryb.com/2026/05/16/20260516-cba4c1f6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>CCPC 河南 2025 L - Astral Decay | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/16/20260516-cba4c1f6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CCPC 河南 2025 L - Astral Decay
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-05-16 04:35:00 / Modified: 12:49:55" itemprop="dateCreated datePublished" datetime="2026-05-16T04:35:00+08:00">2026-05-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://vjudge.net/problem/Gym-105941L"><strong>vjudge 链接</strong></a> · <a target="_blank" rel="noopener" href="https://codeforces.com/gym/105941/problem/L"><strong>Codeforces Gym 原题</strong></a> · 2025 CCPC 河南省赛 &amp; 全国邀请赛（郑州，黄河科技学院）</p>
+<h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
+<p>二维平面上 n 个<strong>互不相同</strong>的点（1 ≤ n ≤ 6666，坐标 |x|, |y| ≤ 10⁹）。从这 n 个点中<strong>有放回</strong>地选 3 个点，标记为 A, B, C，最小化点积：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover><mo>⋅</mo><mover accent="true"><mrow><mi>A</mi><mi>C</mi></mrow><mo stretchy="true">→</mo></mover><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>B</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>C</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mi>B</mi></msub><mo>−</mo><msub><mi>y</mi><mi>A</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mi>C</mi></msub><mo>−</mo><msub><mi>y</mi><mi>A</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\overrightarrow{AB} \cdot \overrightarrow{AC} = (x_B - x_A)(x_C - x_A) + (y_B - y_A)(y_C - y_A)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>A, B, C 可以选相同的点，所以答案的<strong>下界是 0</strong>（取 A = B = C 任意点都给 0）。</p>
+<h2 id="输入-输出-数据范围"><a class="markdownIt-Anchor" href="#输入-输出-数据范围"></a> 输入 / 输出 / 数据范围</h2>
+<ul>
+<li>
+<p>第 1 行：n（1 ≤ n ≤ 6666）</p>
+</li>
+<li>
+<p>后 n 行：每行 x y（|x|, |y| ≤ 10⁹）</p>
+</li>
+<li>
+<p>输出一行一个整数，最小点积（<strong>可能为负，需要 long long / int128</strong>）</p>
+</li>
+</ul>
+<h2 id="样例-1"><a class="markdownIt-Anchor" href="#样例-1"></a> 样例 1</h2>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">0</span> -<span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">0</span></span><br><span class="line">-<span class="number">3</span> <span class="number">0</span></span><br><span class="line"><span class="number">0</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>输出 <code>-8</code>（最优 A = p5 = (0, -1)（hull 内部点）、B = p3 = (3, 0)、C = p4 = (-3, 0)，dot = 3·(-3) + 1·1 = -8）。</p>
+<h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>凸包 + 双指针的「投影版」：<strong>B、C 都在凸包上</strong>（调整法证），固定 A 后让 B 沿 hull CCW 走、C 用双指针单调跟进。整体 <strong>O(n·h) ≤ O(n²)</strong>。</p>
+<blockquote>
+<p>⚠️ <strong>关键边界（test 44 WA 根因）</strong>：A 在凸包顶点上时，B 的起点必须是 A 的 CCW 后继 <code>A_next</code>，<strong>不能从 hull[0] 起步</strong>——否则方向序断层破坏双指针单调性。光「跳过 B = A」治标不治本。</p>
+</blockquote>
+<h2 id="把最小点积翻译成在某方向上最极端"><a class="markdownIt-Anchor" href="#把最小点积翻译成在某方向上最极端"></a> 把&quot;最小点积&quot;翻译成&quot;在某方向上最极端&quot;</h2>
+<p>固定 A，把点积写成投影形式：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover><mo>⋅</mo><mover accent="true"><mrow><mi>A</mi><mi>C</mi></mrow><mo stretchy="true">→</mo></mover><mo>=</mo><mi mathvariant="normal">∣</mi><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover><mi mathvariant="normal">∣</mi><mo>⋅</mo><msub><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">j</mi></mrow><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover></msub><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>A</mi><mi>C</mi></mrow><mo stretchy="true">→</mo></mover><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\overrightarrow{AB} \cdot \overrightarrow{AC} = |\overrightarrow{AB}| \cdot \mathrm{proj}_{\overrightarrow{AB}}(\overrightarrow{AC})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.45533em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.704261em;vertical-align:-0.498931em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">p</span><span class="mord mathrm">r</span><span class="mord mathrm">o</span><span class="mord mathrm">j</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3448em;margin-right:0.05em;"><span class="pstrut" style="height:2.843731em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord accent mtight"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.38333em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail mtight" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.498931em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中 proj 是 AC 在方向 AB 上的<strong>有向</strong>投影长度（同向为正、反向为负）。要让点积越负越好，就要让 AC 在方向 <code>-AB</code> 上的距离<strong>越远越好</strong>。</p>
+<blockquote>
+<p><strong>关键不变量</strong>：凸集上线性函数的极值在顶点取到。所以最优 C 必然在凸包上；对称地 B 也在凸包上。</p>
+</blockquote>
+<p>但 <strong>A 自己不一定在凸包上！</strong> 样例 1 的最优 A = (0, -1) 就在 hull 内部（题目唯一的内部点）。这是「<strong>必须枚举所有原始点当 A</strong>、不能只在 hull 上枚举 A」的原因——一个非常容易写错的实现细节。</p>
+<h2 id="算法三阶段"><a class="markdownIt-Anchor" href="#算法三阶段"></a> 算法三阶段</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>干什么</th>
+<th>跳过的代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 凸包预处理</td>
+<td>对全部 n 个点跑 Andrew O(n log n)</td>
+<td>B/C 在全集枚举 → O(n³) TLE</td>
+</tr>
+<tr>
+<td>2. 枚举 A</td>
+<td>对<strong>原始</strong>点集（<strong>不</strong>是 hull）每点当 A</td>
+<td>只在 hull 上枚举 A → 漏内部最优 A（样例 1 答案变 -7 而不是 -8）</td>
+</tr>
+<tr>
+<td>3. 双指针扫 (B, C)</td>
+<td>固定 A 后 B 沿 hull CCW 走、C 单调跟进</td>
+<td>二重循环 → O(n·h²) 大数据 TLE</td>
+</tr>
+</tbody>
+</table>
+<p>阶段 2 / 3 的「分裂」是核心理解点：<strong>枚举的是原始点（n 个），扫的是凸包上的点（h 个）</strong>，两者不一样。</p>
+<h2 id="双指针单调性-旋转卡壳的对偶"><a class="markdownIt-Anchor" href="#双指针单调性-旋转卡壳的对偶"></a> 双指针单调性 = 旋转卡壳的对偶</h2>
+<p>固定 A，写出内层「对 B 求 C」函数：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>C</mi><mo>∗</mo></msup><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mo><mi>min</mi><mo>⁡</mo></mo><mrow><mi>C</mi><mo>∈</mo><mi>H</mi></mrow></munder><mtext>  </mtext><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover><mo>⋅</mo><mover accent="true"><mrow><mi>A</mi><mi>C</mi></mrow><mo stretchy="true">→</mo></mover><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mo><mi>min</mi><mo>⁡</mo></mo><mrow><mi>C</mi><mo>∈</mo><mi>H</mi></mrow></munder><mtext>  </mtext><mi mathvariant="normal">∣</mi><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover><mi mathvariant="normal">∣</mi><mo>⋅</mo><msub><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">j</mi></mrow><mover accent="true"><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="true">→</mo></mover></msub><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>A</mi><mi>C</mi></mrow><mo stretchy="true">→</mo></mover><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C^*(B) = \arg\min_{C \in H}\; \overrightarrow{AB} \cdot \overrightarrow{AC} = \arg\min_{C \in H}\; |\overrightarrow{AB}| \cdot \mathrm{proj}_{\overrightarrow{AB}}(\overrightarrow{AC})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.977031em;vertical-align:-0.771701em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-2.355669em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.771701em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.977031em;vertical-align:-0.771701em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-2.355669em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.771701em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.704261em;vertical-align:-0.498931em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">p</span><span class="mord mathrm">r</span><span class="mord mathrm">o</span><span class="mord mathrm">j</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3448em;margin-right:0.05em;"><span class="pstrut" style="height:2.843731em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord accent mtight"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="top:-3.38333em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail mtight" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.498931em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p><code>C*(B)</code> 就是凸包在方向 <code>-AB</code> 上的<strong>支撑点</strong>。</p>
+<blockquote>
+<p><strong>灵魂对偶</strong>：本题就是<strong>旋转卡壳的「投影版」</strong>——卡壳卡的是「到边的距离」，本题卡的是「沿方向的有向投影」，主结构同构。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>结构件</th>
+<th>旋转卡壳（求直径）</th>
+<th>本题（最小点积）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主循环对象</td>
+<td>凸包边 <code>e_i</code></td>
+<td>凸包顶点 B（视作方向 AB）</td>
+</tr>
+<tr>
+<td>跟进对象</td>
+<td>对踵点 <code>C*</code>（离 <code>e_i</code> 最远）</td>
+<td>支撑点 <code>C*</code>（方向 <code>-AB</code> 上最远）</td>
+</tr>
+<tr>
+<td>单调性根源</td>
+<td><code>e_i</code> 法方向沿 H 单调旋转</td>
+<td>AB 方向随 B 沿 H 单调旋转</td>
+</tr>
+<tr>
+<td>判定工具</td>
+<td>cross 比 C 到边距离</td>
+<td>dot 比 C 沿 AB 投影</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a-在凸包上时的边界处理test-44-wa-根因"><a class="markdownIt-Anchor" href="#a-在凸包上时的边界处理test-44-wa-根因"></a> A 在凸包上时的边界处理（test 44 WA 根因）</h2>
+<p>这一节是 ICPC 题解里<strong>最容易写错</strong>的点，也是题解 PDF 一笔带过那句的真意：</p>
+<blockquote>
+<p>如果 A 在凸包上，枚举 B 时就不要枚举 A 了，从 A 的下一个点开始枚举 B，转回来到 A 的上一个点结束枚举。 —— 命题组 sol.pdf</p>
+</blockquote>
+<h3 id="为什么不能光跳过-b-a了事"><a class="markdownIt-Anchor" href="#为什么不能光跳过-b-a了事"></a> 为什么不能&quot;光跳过 B = A&quot;了事</h3>
+<p><code>if (A.id == convex[b].id) continue;</code> 只解决 AB = 0 退化（该轮 dot 全是 0），<strong>没解决方向序断层</strong>。</p>
+<p><strong>真正的死因</strong>：双指针单调性要求「随 B 沿 hull 走，方向 AB 必须单调旋转」，这样 <code>C*</code> 才能跟着单向推进。当 A 在 hull 顶点 <code>h_&#123;i_A&#125;</code> 上时，按 hull 原序 <code>[h_0, h_1, ..., h_&#123;h-1&#125;]</code> 遍历 b：</p>
+<ul>
+<li>
+<p><code>h_0, h_1, ..., h_&#123;i_A - 1&#125;</code> 这一段在「从 A 看的 CCW 极角序」里属<strong>末段</strong></p>
+</li>
+<li>
+<p>真正的 CCW 起点是 <code>h_&#123;i_A + 1&#125;</code>（A 的 next）</p>
+</li>
+</ul>
+<p>代码从 <code>h_0</code> 起扫等于「方向倒着来」，下一步跳到 <code>h_&#123;i_A + 1&#125;</code> 时方向<strong>回退 90° 以上</strong>，<code>C*</code> 单向 <code>c++</code> 跟不上 → <strong>WA</strong>。</p>
+<h3 id="实证反例17-点本会话抓到"><a class="markdownIt-Anchor" href="#实证反例17-点本会话抓到"></a> 实证反例（17 点，本会话抓到）</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">16</span> <span class="number">100</span></span><br><span class="line"><span class="number">104</span> -<span class="number">9</span></span><br><span class="line">-<span class="number">18</span> <span class="number">94</span></span><br><span class="line">-<span class="number">86</span> <span class="number">45</span></span><br><span class="line">-<span class="number">87</span> -<span class="number">47</span></span><br><span class="line"><span class="number">54</span> <span class="number">89</span></span><br><span class="line">-<span class="number">30</span> -<span class="number">94</span></span><br><span class="line">-<span class="number">60</span> -<span class="number">78</span></span><br><span class="line"><span class="number">52</span> -<span class="number">90</span></span><br><span class="line"><span class="number">2</span> -<span class="number">103</span></span><br><span class="line">-<span class="number">98</span> <span class="number">9</span></span><br><span class="line">-<span class="number">97</span> -<span class="number">14</span></span><br><span class="line"><span class="number">96</span> -<span class="number">36</span></span><br><span class="line"><span class="number">74</span> <span class="number">67</span></span><br><span class="line">-<span class="number">61</span> <span class="number">83</span></span><br><span class="line"><span class="number">96</span> <span class="number">31</span></span><br><span class="line"><span class="number">65</span> -<span class="number">72</span></span><br></pre></td></tr></table></figure>
+<p>真最优：A = p11 = (-97, -14)（hull[1]）、B = p6 = (-30, -94)（hull[4]）、C = p14 = (-61, 83)（hull[14]），dot = <strong>-5348</strong>。</p>
+<p>「只 continue 跳过 b=A」的错代码输出 <strong>-5338</strong>，差 10——正是 b = h0 方向 ≈ +92.5° → b = h2 方向 ≈ -73°，方向断层 165° 让 c 跟丢了 c = h14。</p>
+<h3 id="正确修法"><a class="markdownIt-Anchor" href="#正确修法"></a> 正确修法</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找 A 在 hull 上的位置 aPos (-1 = 不在 hull 上)</span></span><br><span class="line"><span class="type">int</span> aPos = <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; H; ++i)</span><br><span class="line">    <span class="keyword">if</span> (A[a].id == convex[i].id) &#123; aPos = i; <span class="keyword">break</span>; &#125;</span><br><span class="line"><span class="type">int</span> bStart = (aPos == <span class="number">-1</span>) ? <span class="number">0</span> : (aPos + <span class="number">1</span>) % H;</span><br><span class="line"><span class="type">int</span> bCnt   = (aPos == <span class="number">-1</span>) ? H : H - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始 c 以 convex[bStart] 为 b 基准 (不是 convex[0]!)</span></span><br><span class="line"><span class="type">int</span> c = bStart;</span><br><span class="line">ll tar = <span class="built_in">dot</span>(A[a], convex[bStart], convex[c]);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; H; ++i) &#123;</span><br><span class="line">    ll lans = <span class="built_in">dot</span>(A[a], convex[bStart], convex[i]);</span><br><span class="line">    <span class="keyword">if</span> (lans &lt; tar) &#123; tar = lans; c = i; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> t = <span class="number">0</span>; t &lt; bCnt; ++t) &#123;</span><br><span class="line">    <span class="type">int</span> b = (bStart + t) % H;</span><br><span class="line">    <span class="keyword">auto</span> check = [&amp;]() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dot</span>(A[a], convex[b], convex[c % H]) &gt;=</span><br><span class="line">               <span class="built_in">dot</span>(A[a], convex[b], convex[(c + <span class="number">1</span>) % H]);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">check</span>()) c++;</span><br><span class="line">    ans = <span class="built_in">min</span>(ans, (ll) <span class="built_in">dot</span>(A[a], convex[b], convex[c % H]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3 个改动：</p>
+<ol>
+<li>
+<p><code>bStart = (aPos + 1) % H</code>：让 b 从真正的 CCW 起点开始</p>
+</li>
+<li>
+<p><code>bCnt = H - 1</code>：走 h-1 步绕回 <code>A_prev</code> 终止（A 自己天然跳过）</p>
+</li>
+<li>
+<p><strong><code>check</code></strong> <strong>用</strong> <strong><code>&gt;=</code></strong> <strong>而不是</strong> <strong><code>&gt;</code></strong>：dot 平台时推到末尾，避免 c 卡在平台前段让下一个 b 跟不上</p>
+</li>
+</ol>
+<h3 id="为什么-hull0-是幸运-case"><a class="markdownIt-Anchor" href="#为什么-hull0-是幸运-case"></a> 「为什么 hull[0] 是幸运 case」</h3>
+<p>如果 A = h0（hull 最左下顶点），那 <code>A_next = h1</code>——代码从 b = h0 起扫，第一轮 b = A 直接被 <code>continue</code> 跳，第二轮 b = h1 恰好就是真正的 CCW 起点，<strong>方向断层不出现</strong>。这就是为什么「只 continue 跳过 b=A」的写法<strong>样例 1 过了</strong>（样例 1 hull 是矩形 + 内部点，所有 hull 顶点对称，A 在内部时根本没断层；A 在 hull 上时恰好都是 hull[0] 的对称 case，运气好）。</p>
+<p>但样例不能覆盖「A 在 hull 上但不是 hull[0]」这种邪恶 case——test 44 就是用这个数据。</p>
+<h2 id="动画与源码"><a class="markdownIt-Anchor" href="#动画与源码"></a> 📎 动画与源码</h2>
+<p>下面 3 张截图（位于「附件」节）来自 <code>astral_decay_demo.html</code> 的关键帧。<strong>HTML 本体在附件节末尾</strong>（zip 包，解压后用浏览器打开 .html = 完整交互演示，含 4 个 mini-demo + 主算法 step-by-step）。</p>
+<h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105941/problem/L"><strong>AC 提交链接（Codeforces Gym 105941）</strong></a> 见 vjudge submission 记录</p>
+<p>完整 .cpp 含 700 行几何模板 + 50 行 Solve()。<strong>完整源码见附件</strong> <strong><code>Astral_Decay.cpp.txt</code></strong>（下载后改回 <code>.cpp</code>）。下面只展开核心 Solve()：</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        展开 Solve() 函数核心（修正后版本）
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll N;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    vector&lt;Point&lt;ll&gt;&gt; <span class="built_in">A</span>(N);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; A[i];</span><br><span class="line">        A[i].id = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> convex = <span class="built_in">make_convex_hull</span>(A, <span class="literal">true</span>, HULL_FULL);</span><br><span class="line">    ll H = <span class="built_in">SZ</span>(convex);</span><br><span class="line">    ll ans = <span class="number">0</span>;  <span class="comment">// A=B=C 给 0, 安全下界</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> a = <span class="number">0</span>; a &lt; N; ++a) &#123;</span><br><span class="line">        <span class="comment">// 找 A[a] 在 hull 上的位置, b 起点设为 A_next</span></span><br><span class="line">        <span class="type">int</span> b = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; H; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[a].id == convex[i].id) &#123;</span><br><span class="line">                b = (i + <span class="number">1</span>) % H;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化 c: 以 convex[b] 为 b 基准找最优 c</span></span><br><span class="line">        <span class="type">int</span> c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            ll tar = <span class="built_in">dot</span>(A[a], convex[b % H], convex[c]);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; H; ++i) &#123;</span><br><span class="line">                ll lans = <span class="built_in">dot</span>(A[a], convex[b % H], convex[i]);</span><br><span class="line">                <span class="keyword">if</span> (lans &lt; tar) &#123; c = i; tar = lans; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 双指针扫 H 步 (A 在 hull 上时第 1 轮 b=A 被 continue 跳, 剩 H-1 轮)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; H; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[a].id == convex[b % H].id) &#123; ++b; <span class="keyword">continue</span>; &#125;</span><br><span class="line">            <span class="keyword">auto</span> check = [&amp;]() &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">dot</span>(A[a], convex[b % H], convex[c % H]) &gt;=</span><br><span class="line">                       <span class="built_in">dot</span>(A[a], convex[b % H], convex[(c + <span class="number">1</span>) % H]);</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">check</span>()) c++;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, (ll) <span class="built_in">dot</span>(A[a], convex[b % H], convex[c % H]));</span><br><span class="line">            ++b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h1 id="心路历程wa-ac"><a class="markdownIt-Anchor" href="#心路历程wa-ac"></a> 心路历程（WA → AC）</h1>
+<p>按真实的 debug 过程列：</p>
+<ol>
+<li>
+<p><strong>第一版按题解写</strong>：枚举 A、b 沿 hull 走 h 步、c 双指针。<strong>样例 1 过，WA on test 44</strong>。</p>
+</li>
+<li>
+<p><strong>加</strong> <strong><code>if (A.id == convex[b].id) continue;</code></strong> <strong>跳过 b = A 退化轮</strong>。<strong>样例 1 仍过，仍 WA on test 44</strong>。</p>
+</li>
+<li>
+<p><strong>cyaron 风格 stress test</strong>：本机 gen 17~30 点全在 hull 上的随机数据（椭圆采点 + 强制 h ≥ 5）+ brute O(n³) 对拍。<strong>第 204 次种子抓到 17 点反例</strong>。</p>
+</li>
+<li>
+<p><strong>手算反例确认根因</strong>：A = p11 在 hull[1]（<strong>不是 hull[0]</strong>！），b 按 hull 顺序走方向不单调（+92.5° → -73° 回退 165°），c 单向推进跟不上。</p>
+</li>
+<li>
+<p><strong>正确修法</strong>：b 起点改 <code>(aPos + 1) % H</code>、走 H-1 步；c 初始扫描以 <code>convex[bStart]</code> 为 b 基准（不再用 <code>convex[0]</code>）；<code>check</code> 改 <code>&gt;=</code>。</p>
+</li>
+<li>
+<p><strong>AC</strong>。</p>
+</li>
+</ol>
+<h2 id="关键-take-away"><a class="markdownIt-Anchor" href="#关键-take-away"></a> 关键 take-away</h2>
+<ul>
+<li>
+<p><strong>「光看样例 AC」≠「算法正确」</strong>——样例 1 的 hull 是对称矩形 + 1 内部点，所有特殊 case（A 在 hull 上非 hull[0]）都不触发；样例 2 是随机 10 点稀疏分布，也不触发。</p>
+</li>
+<li>
+<p><strong>「跳过 b=A」是表面修法，「b 起点改</strong> <strong><code>A_next</code>****」才是治本</strong>——前者样例过但 test 44 仍 WA，后者通过。</p>
+</li>
+<li>
+<p><strong>对拍 gen 要能触发「A 在 hull 顶点上但不是 hull[0]」</strong>：均匀随机点云通常 A 在 hull 上的概率 ≈ h/n 很低；必须强制让 hull 顶点占比 ≥ 50%。本会话用的 gen：椭圆采 h ≥ 5 点 + 调过 phi/asp 让 hull 形状非对称。</p>
+</li>
+<li>
+<p><strong>几何模板里的</strong> <strong><code>gen_convex_polygon</code></strong> 当 N ≤ 2 必死循环（N=1: j=(0+1)%1=i 让 <code>A[i] == A[j]</code> 永真；N=2: k=(0+2)%2=i 让 cross 三点退化恒 0）。这次顺便发现 + 修了（加 N ≤ 2 退化分支撒不重点）。</p>
+</li>
+</ul>
+<h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
+<p><img src="https://media.znzryb.com/20260516-cba4c1f6/panel_step_00_f33a8fae.png" alt="demo 关键帧 1: 初始状态, 5 个点全识别, 凸包未建" /></p>
+<p><img src="https://media.znzryb.com/20260516-cba4c1f6/panel_step_08_5ea2a713.png" alt="demo 关键帧 2: step 8, A=p1 在 hull 顶点, B=h0=p3, C*=h2=p2, 当前 dot=-5, 历史最小 -5" /></p>
+<p><img src="https://media.znzryb.com/20260516-cba4c1f6/panel_step_20_7c9ea9c3.png" alt="demo 关键帧 3: 算法完成, 历史最小收敛到 -8 (最优 A=p4 内部点, B=p2, C=p3)" /></p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/7a32f9af-e2d3-4362-9cac-ca3bef34bb23/astral_decay_demo.html.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46633OXOBMU%2F20260516%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260516T044934Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIErayXmaFK%2B19LgRDTrvoEZV11Y04jMX%2B71ReI%2BjJNajAiEAjGxUAGyivyFCBaeXeQsSggM4pWeSApyeXDXLrxJ5TE0qiAQIhv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDA%2BeQ8bMGq99V2f18yrcA3bI2c7LRvwYYI0yIhjWHP8qwXtVnfAiIfrPVjKdU6lbRimdGZgMS0YVfLooaSAMFn9QsJ8uJLSRuua6RHbjeWFm%2F4ZpzMi2ZpPc58QGDY3lDA5cZJAqJAjWraYfkbSybJp5EZ2h%2BQj%2FshLaiOhImRZriiychqEmPmaZjIWl0emBiLY%2F8WWQvad8ACUvOKAzYbM0L0DgQw7n6gtS38y%2FZg9ZfwXz%2FMRUNCVcttKWMdnFEdFGs5FLbGBcIXrlHN%2F2Xp5KTlU8hm0Qm4f02lNJjRq7B7BWAh%2FM2fFknIDy8EOtkq7SfAxi9EZKiHhqRGIClWC6ZUWpdTXe3fDWZOgxNGOpdCnhMvyw%2FkeDoH8fFs9ZCd43xSrWLPanZYVmvg%2FebCxtmdx%2FCxICwNxC85S7T5gIIB6oJ5E%2BqM5aaTkWoZ8WJCQytnBN7s1wER%2FiIQWJLHiwyzFlQecYJemBpQ4cApccyMm7c2h8Y04%2FeY8iHyoMTQGVSccvJlNxwfBb9hwg6pKTEwdhq%2BSh4DwsWiFgpGxjOlUKfEuQBglbTxzEHhkKKsSTzOLzPeo0Kb6PwRDa4APOteVm5KM2Qnf7i%2BR10dbCiSNa%2BpjRlI3EKkoYmh%2BZmkzvXQi1AOGrzosvMNnln9AGOqUB9gfswoai%2Fpwz72geibwyvqw3NOkSUDQQqZO9k6ru0QVcZGbW%2F%2F5Bm5tCSbkluArJS8ivD%2Fdnh7yE1z%2BX8WQ8l40M7PTKy1zqm4WY015G%2BFTB2FZui0BDXZk7OwQp%2Fc%2BITmlSVO4wAhJ1QsFMwCbk4VlOsk%2B3UIDCySnu3J%2BMLE7mI%2BTLiedrmnMtqe%2F0Fdp6VnM9L4gE5E3K%2BQZcD19gpxe%2BP7Oa&amp;X-Amz-Signature=2571e68bf61641bf799a3a0bfa0ae2b44320c09b88ba631d0d925ea32f952a08&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">astral_decay_demo.html.zip</a></p>
+<p><a target="_blank" rel="noopener" href="https://prod-files-secure.s3.us-west-2.amazonaws.com/991df910-3fbe-4ef6-8683-a51746ed5b66/f5a811e3-364f-478b-b179-470ea4366798/Astral_Decay.cpp.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46633OXOBMU%2F20260516%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260516T044934Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIErayXmaFK%2B19LgRDTrvoEZV11Y04jMX%2B71ReI%2BjJNajAiEAjGxUAGyivyFCBaeXeQsSggM4pWeSApyeXDXLrxJ5TE0qiAQIhv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDA%2BeQ8bMGq99V2f18yrcA3bI2c7LRvwYYI0yIhjWHP8qwXtVnfAiIfrPVjKdU6lbRimdGZgMS0YVfLooaSAMFn9QsJ8uJLSRuua6RHbjeWFm%2F4ZpzMi2ZpPc58QGDY3lDA5cZJAqJAjWraYfkbSybJp5EZ2h%2BQj%2FshLaiOhImRZriiychqEmPmaZjIWl0emBiLY%2F8WWQvad8ACUvOKAzYbM0L0DgQw7n6gtS38y%2FZg9ZfwXz%2FMRUNCVcttKWMdnFEdFGs5FLbGBcIXrlHN%2F2Xp5KTlU8hm0Qm4f02lNJjRq7B7BWAh%2FM2fFknIDy8EOtkq7SfAxi9EZKiHhqRGIClWC6ZUWpdTXe3fDWZOgxNGOpdCnhMvyw%2FkeDoH8fFs9ZCd43xSrWLPanZYVmvg%2FebCxtmdx%2FCxICwNxC85S7T5gIIB6oJ5E%2BqM5aaTkWoZ8WJCQytnBN7s1wER%2FiIQWJLHiwyzFlQecYJemBpQ4cApccyMm7c2h8Y04%2FeY8iHyoMTQGVSccvJlNxwfBb9hwg6pKTEwdhq%2BSh4DwsWiFgpGxjOlUKfEuQBglbTxzEHhkKKsSTzOLzPeo0Kb6PwRDa4APOteVm5KM2Qnf7i%2BR10dbCiSNa%2BpjRlI3EKkoYmh%2BZmkzvXQi1AOGrzosvMNnln9AGOqUB9gfswoai%2Fpwz72geibwyvqw3NOkSUDQQqZO9k6ru0QVcZGbW%2F%2F5Bm5tCSbkluArJS8ivD%2Fdnh7yE1z%2BX8WQ8l40M7PTKy1zqm4WY015G%2BFTB2FZui0BDXZk7OwQp%2Fc%2BITmlSVO4wAhJ1QsFMwCbk4VlOsk%2B3UIDCySnu3J%2BMLE7mI%2BTLiedrmnMtqe%2F0Fdp6VnM9L4gE5E3K%2BQZcD19gpxe%2BP7Oa&amp;X-Amz-Signature=6c1c2aeb9250ee1105a2552b4ecfa2c9cd6b889f5dcf2765b745c5c1bb9250ce&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject">Astral_Decay.cpp.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://media.znzryb.com/20260516-cba4c1f6/CCPC_Henan_2025_sol_ccd60084.pdf">官方题解 PDF (CCPC 河南省赛 2025 全题题解, 命题组 BUAA)</a></p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+              <a href="/tags/geometry-%E5%87%A0%E4%BD%95-%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag"># geometry 几何/计算几何</a>
+              <a href="/tags/two-pointers-%E5%8F%8C%E6%8C%87%E9%92%88-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag"># two pointers 双指针/滑动窗口</a>
+              <a href="/tags/%E5%87%B8%E5%8C%85-convex-hull/" rel="tag"># 凸包 convex hull</a>
+              <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
+              <a href="/tags/casework-if-else-%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA/" rel="tag"># casework / if-else 分类讨论</a>
+              <a href="/tags/%E5%AF%B9%E6%8B%8D-compare-test/" rel="tag"># 对拍 compare test</a>
+              <a href="/tags/%E6%9E%81%E8%A7%92%E6%8E%92%E5%BA%8F-Polar-Angle-Sorting/" rel="tag"># 极角排序 Polar Angle Sorting</a>
+              <a href="/tags/%E6%97%8B%E8%BD%AC%E5%8D%A1%E5%A3%B3-rotating-calipers/" rel="tag"># 旋转卡壳 rotating calipers</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/15/20260515-1236bf24/" rel="prev" title="Gym 105158 D - 距离之比">
+      <i class="fa fa-chevron-left"></i> Gym 105158 D - 距离之比
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA-%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">1.1.</span> <span class="nav-text"> 输入 &#x2F; 输出 &#x2F; 数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B-1"><span class="nav-number">1.2.</span> <span class="nav-text"> 样例 1</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">2.1.</span> <span class="nav-text"> 一句话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%8A%E6%9C%80%E5%B0%8F%E7%82%B9%E7%A7%AF%E7%BF%BB%E8%AF%91%E6%88%90%E5%9C%A8%E6%9F%90%E6%96%B9%E5%90%91%E4%B8%8A%E6%9C%80%E6%9E%81%E7%AB%AF"><span class="nav-number">2.2.</span> <span class="nav-text"> 把&quot;最小点积&quot;翻译成&quot;在某方向上最极端&quot;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B8%89%E9%98%B6%E6%AE%B5"><span class="nav-number">2.3.</span> <span class="nav-text"> 算法三阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%E5%8D%95%E8%B0%83%E6%80%A7-%E6%97%8B%E8%BD%AC%E5%8D%A1%E5%A3%B3%E7%9A%84%E5%AF%B9%E5%81%B6"><span class="nav-number">2.4.</span> <span class="nav-text"> 双指针单调性 &#x3D; 旋转卡壳的对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-%E5%9C%A8%E5%87%B8%E5%8C%85%E4%B8%8A%E6%97%B6%E7%9A%84%E8%BE%B9%E7%95%8C%E5%A4%84%E7%90%86test-44-wa-%E6%A0%B9%E5%9B%A0"><span class="nav-number">2.5.</span> <span class="nav-text"> A 在凸包上时的边界处理（test 44 WA 根因）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E5%85%89%E8%B7%B3%E8%BF%87-b-a%E4%BA%86%E4%BA%8B"><span class="nav-number">2.5.1.</span> <span class="nav-text"> 为什么不能&quot;光跳过 B &#x3D; A&quot;了事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AF%81%E5%8F%8D%E4%BE%8B17-%E7%82%B9%E6%9C%AC%E4%BC%9A%E8%AF%9D%E6%8A%93%E5%88%B0"><span class="nav-number">2.5.2.</span> <span class="nav-text"> 实证反例（17 点，本会话抓到）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E4%BF%AE%E6%B3%95"><span class="nav-number">2.5.3.</span> <span class="nav-text"> 正确修法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-hull0-%E6%98%AF%E5%B9%B8%E8%BF%90-case"><span class="nav-number">2.5.4.</span> <span class="nav-text"> 「为什么 hull[0] 是幸运 case」</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E4%B8%8E%E6%BA%90%E7%A0%81"><span class="nav-number">2.6.</span> <span class="nav-text"> 📎 动画与源码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ac-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwa-ac"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA → AC）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE-take-away"><span class="nav-number">4.1.</span> <span class="nav-text"> 关键 take-away</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text"> 附件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">708</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
