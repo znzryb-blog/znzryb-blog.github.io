@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-05-26 09:06:00 / Modified: 18:00:21" itemprop="dateCreated datePublished" datetime="2026-05-26T09:06:00+08:00">2026-05-26</time>
+              <time title="Created: 2026-05-26 09:06:00 / Modified: 20:00:23" itemprop="dateCreated datePublished" datetime="2026-05-26T09:06:00+08:00">2026-05-26</time>
             </span>
 
           
@@ -232,6 +232,7 @@
       
           <h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
 <p>n 个灯泡，每次选择一个灯泡，它会等概率变成 r/g/b 三种颜色之一。求在最优策略下，让所有灯泡最终同色的最小期望操作次数。</p>
+<!-- Notion block type: table_of_contents -->
 <h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
 <h2 id="状态压缩为什么不会偏小"><a class="markdownIt-Anchor" href="#状态压缩为什么不会偏小"></a> 状态压缩为什么不会偏小</h2>
 <p>这里的状态写成 <code>dp[a][b][c]</code>，其中 a ≥ b ≥ c，只保留三种颜色数量的有序三元组，不再记录哪个数量对应 r/g/b。乍一看，这像是把颜色标签抹掉了，会不会让策略空间变大，从而让期望被算小。</p>
@@ -251,6 +252,72 @@
 <h2 id="反向推导的定位"><a class="markdownIt-Anchor" href="#反向推导的定位"></a> 反向推导的定位</h2>
 <p>期望 DP 的建模仍然是正向的：站在当前状态写 “1 + 后继期望的平均”。按 max(a,b,c) 从大到小求值，只是为了让部分后继状态已经算过；这是实现技巧，不是思考方法本身。</p>
 <p><img src="https://media.znzryb.com/20260526-adba6257/erratic-lights-reverse-view_0fedbd35.png" alt="正向写期望方程，按层倒序求值只是实现细节。" /></p>
+<h2 id="push-pull-与倒序枚举的判断"><a class="markdownIt-Anchor" href="#push-pull-与倒序枚举的判断"></a> push / pull 与倒序枚举的判断</h2>
+<p>push 和 pull 不是写法喜好，而是依赖方向问题。判断标准是：处理到当前状态时，它的值是否已经完整确定；以及当前状态要读取的依赖是否已经算过。</p>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>核心判断</th>
+<th>适合场景</th>
+<th>这题里的结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>push</td>
+<td>处理到 cur 时，dp[cur] 已经完整确定，可以放心把贡献分发给 nxt。</td>
+<td>DAG 拓扑序、前缀 DP、路径计数、概率分布传播。</td>
+<td>排序压缩后有同层和自环，贡献可能推到已经处理过的位置，写起来容易漏。</td>
+</tr>
+<tr>
+<td>pull</td>
+<td>处理到 cur 时，cur 要读取的 dp[nxt] 都已经算好，然后由方程合成 dp[cur]。</td>
+<td>min/max 转移、期望方程、自环移项、同层依赖比较绕的 DP。</td>
+<td>本题期望式天然是 E(cur)=1+average(E(nxt))，自环和同层都能在当前方程里统一处理。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>push：当前 dp[cur] 已经完整确定，把贡献分发给后继。适合 DAG 拓扑序、前缀 DP、路径计数、概率分布传播等场景。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// push: dp[u] 已经确定，向外分发贡献</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> v : nxt[u]) &#123;</span><br><span class="line">    dp[v] += dp[u] * w;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>pull：当前 dp[cur] 要由若干已知状态合成。适合 min/max 转移、期望方程、自环移项、同层依赖方向复杂的场景。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pull: 站在 u，读取已知状态来计算自己</span></span><br><span class="line">dp[u] = init;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> v : <span class="built_in">next</span>(u)) &#123;</span><br><span class="line">    dp[u] = <span class="built_in">combine</span>(dp[u], dp[v]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这题更适合 pull，因为期望式天然是 E(cur) = 1 + average(E(nxt))。如果用 push，必须保证被推到的状态还没处理；但排序后的同层转移会让贡献方向变得麻烦，容易出现“加晚”。pull 则是先看完整当前方程，统计自环，再读取已经算好的后继。</p>
+<p>倒序枚举的判断也不是看心理上从哪里出发，而是看依赖谁：算当前状态时，它依赖的状态必须已经算过。依赖更小下标就正序，依赖更大下标或更接近终点的状态就倒序。</p>
+<table>
+<thead>
+<tr>
+<th>枚举方向</th>
+<th>判断标准</th>
+<th>典型代码</th>
+<th>本题对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正序</td>
+<td>dp[cur] 依赖更小的状态，比如 dp[i-1]、更短前缀、更少物品。</td>
+<td>for (int i = 1; i &lt;= n; ++i)</td>
+<td>如果当前值依赖的是 a 更小 / b 更小的状态，才会正序。</td>
+</tr>
+<tr>
+<td>倒序</td>
+<td>dp[cur] 依赖更大的状态，或者更接近终点的状态，比如 dp[i+1]。</td>
+<td>for (int i = n - 1; i &gt;= 0; --i)</td>
+<td>本题 dp[a][b][c] 依赖 a 更大，或同 a 下 b 更大的后继，所以 a、b 都倒序。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正序：dp[i] 依赖 dp[i - 1]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    dp[i] = <span class="built_in">f</span>(dp[i - <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 倒序：dp[i] 依赖 dp[i + 1]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    dp[i] = <span class="built_in">f</span>(dp[i + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对本题的 c &gt; 0 状态，摸 c 后的非自环后继通常是 (a+1, b, c-1) 或同层的 sort(a, b+1, c-1)，也就是 a 更大，或同 a 下 b 更大。因此求值顺序选 a 倒序、b 倒序，让右边 dp[nxt] 先被算好。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> a = n - <span class="number">1</span>; a &gt;= <span class="number">0</span>; --a) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> b = a; b &gt;= <span class="number">0</span>; --b) &#123;</span><br><span class="line">        <span class="type">int</span> c = n - a - b;</span><br><span class="line">        <span class="comment">// 计算 dp[a][b][c]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一句话：这题是正向建模，反向求值；选择倒序不是因为从终态“反推过程”，而是因为当前状态的期望依赖更接近终态的后继状态。</p>
+</blockquote>
 <h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
 <p>待补。</p>
 <h1 id="心路历程"><a class="markdownIt-Anchor" href="#心路历程"></a> 心路历程</h1>
