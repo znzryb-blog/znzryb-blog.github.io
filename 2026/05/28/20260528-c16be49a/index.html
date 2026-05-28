@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题目大意 给一个长度为 nnn 的非零整数数组 aaa 。一次操作可以选择一个当前为正数的位置 iii ，然后把前缀 1..i1..i1..i 的所有数全部取相反数。 Hard Version 要求输出不超过 nnn 次操作，使最终数组的元素和最大。 数据范围：   1≤t≤1041 \le t \le 10^41≤t≤104   2≤n≤2⋅1052 \le n \le 2 \cdot 10^">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)">
+<meta property="og:url" content="https://znzryb.com/2026/05/28/20260528-c16be49a/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="题目大意 给一个长度为 nnn 的非零整数数组 aaa 。一次操作可以选择一个当前为正数的位置 iii ，然后把前缀 1..i1..i1..i 的所有数全部取相反数。 Hard Version 要求输出不超过 nnn 次操作，使最终数组的元素和最大。 数据范围：   1≤t≤1041 \le t \le 10^41≤t≤104   2≤n≤2⋅1052 \le n \le 2 \cdot 10^">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-27T20:19:00.000Z">
+<meta property="article:modified_time" content="2026-05-28T04:20:37.291Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="Ad-hoc">
+<meta property="article:tag" content="casework &#x2F; if-else 分类讨论">
+<meta property="article:tag" content="codeforces">
+<meta property="article:tag" content="constructive 构造">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="key insight 关键观察 ob">
+<meta property="article:tag" content="思维 thought">
+<meta property="article:tag" content="贪心 greedy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2026/05/28/20260528-c16be49a/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>CF Round 1100 Div12 C2 - We Be Flipping (Hard Version) | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/28/20260528-c16be49a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2026-05-28 04:19:00 / Modified: 12:20:37" itemprop="dateCreated datePublished" datetime="2026-05-28T04:19:00+08:00">2026-05-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
+<p>给一个长度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 的非零整数数组 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">a</span></span></span></span> 。一次操作可以选择一个当前为正数的位置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span> ，然后把前缀 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1..</mn><mi>i</mi></mrow><annotation encoding="application/x-tex">1..i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathnormal">i</span></span></span></span> 的所有数全部取相反数。</p>
+<p>Hard Version 要求输出不超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 次操作，使最终数组的元素和最大。</p>
+<p>数据范围：</p>
+<ul>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">1 \le t \le 10^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>2</mn><mo>⋅</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2 \le n \le 2 \cdot 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup><mo>≤</mo><msub><mi>a</mi><mi>i</mi></msub><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup><mo separator="true">,</mo><msub><mi>a</mi><mi>i</mi></msub><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">-10^9 \le a_i \le 10^9, a_i \ne 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.950078em;vertical-align:-0.13597em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7859700000000001em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+</li>
+<li>
+<p>所有测试的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 之和不超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2 \cdot 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+</ul>
+<p>样例里第三组 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>10</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1,-3,2,-1,10]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mclose">]</span></span></span></span> 可以操作 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo separator="true">,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1,3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span></span></span></span> ，变成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>10</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1,3,-2,-1,10]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mclose">]</span></span></span></span> ，最终和为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn></mrow><annotation encoding="application/x-tex">11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span> 。</p>
+<h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>先把连续同号段压成块，从左到右消掉能稳定处理的正块；最后那个正块要选一个最小正数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> 做收尾，C2 和 C1 的差别其实就在这里：C1 已经会了 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo>+</mo><mo>→</mo><mo>+</mo><mo>−</mo><mo>→</mo><mo>−</mo><mo>−</mo></mrow><annotation encoding="application/x-tex">-+ \rightarrow +- \rightarrow --</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">−</span></span></span></span> ，那 C2 只差最后一瞬间把负号翻回正号。</p>
+<h2 id="从-c1-到-c2-的那个小火花"><a class="markdownIt-Anchor" href="#从-c1-到-c2-的那个小火花"></a> 从 C1 到 C2 的那个小火花</h2>
+<p>C1 的关键感觉是：遇到相邻的异号结构时，前缀翻转并不是单纯“把前面全部翻掉”，它还会让边界附近的符号发生迁移。</p>
+<blockquote>
+<p>核心观察：如果 C1 已经想明白 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo>+</mo><mo>→</mo><mo>+</mo><mo>−</mo><mo>→</mo><mo>−</mo><mo>−</mo></mrow><annotation encoding="application/x-tex">-+ \rightarrow +- \rightarrow --</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">−</span></span></span></span> ，那么 C2 里“正负号的一刹那”也就出来了。最后我们不只是把前面扫成目标形态，还可以在收尾时让一个负号重新变成正号。</p>
+</blockquote>
+<p>具体落到最后一个正块，取这个块里值最小的位置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> 。收尾三步可以看成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// +-+(mnId)</span><br><span class="line">// --+(mnId)</span><br><span class="line">// ++-(mnId)</span><br></pre></td></tr></table></figure>
+<p>也就是说，先借左侧边界把局面推成可控的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mo>−</mo><mo>+</mo></mrow><annotation encoding="application/x-tex">+-+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span></span></span></span> ，再让它变成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo>−</mo><mo>+</mo></mrow><annotation encoding="application/x-tex">--+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span></span></span></span> ，最后点到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> ，把需要留下来的负号翻回正号。这个 “最后补一刀” 是 Hard Version 相比 Easy Version 最容易漏掉的地方。</p>
+<h2 id="为什么要压连续同号块"><a class="markdownIt-Anchor" href="#为什么要压连续同号块"></a> 为什么要压连续同号块</h2>
+<p>同号连续的一整段在前缀翻转下总是一起改变符号，真正发生结构变化的是正负块的交界。所以先把数组压成若干块：</p>
+<ul>
+<li>
+<p>正块：里面全是正数。</p>
+</li>
+<li>
+<p>负块：里面全是负数。</p>
+</li>
+<li>
+<p>相邻块符号一定相反。</p>
+</li>
+</ul>
+<p>这样操作的对象就从单个数变成了“块边界”。普通正块可以用块尾和前一块边界去处理；最后留下来的正块单独处理，因为它决定最大和时要不要牺牲一个正数。</p>
+<h2 id="最后一块怎么选"><a class="markdownIt-Anchor" href="#最后一块怎么选"></a> 最后一块怎么选</h2>
+<p>如果全是负数，没法操作，答案就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 次。如果全是正数，和已经最大，也不用操作。</p>
+<p>否则我们从最后一个正块往左看。对某个正数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> ，它前面已经有一些负数绝对值会被翻成正贡献；如果这些负数的收益足够覆盖牺牲这个正数，就可以把它作为最后收尾的位置。</p>
+<p>代码里用 <code>presum</code> 记录前缀负数绝对值之和，判断形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (A[pos] &lt; negative_sum_before_pos) &#123;</span><br><span class="line">    diff = negative_sum_before_pos - A[pos];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>挑 <code>diff</code> 最大的那个块作为最后一块。直觉上就是：最后牺牲哪个正数最划算，或者说把哪段前缀整理完以后总和最大。</p>
+<h2 id="操作怎么输出"><a class="markdownIt-Anchor" href="#操作怎么输出"></a> 操作怎么输出</h2>
+<p>对最后一块之前的每个正块：</p>
+<ul>
+<li>
+<p>先操作这个正块的块尾。</p>
+</li>
+<li>
+<p>再操作它前一个位置，也就是左侧负块的尾部。</p>
+</li>
+</ul>
+<p>这相当于沿着同号块从左到右做“符号清扫”。</p>
+<p>到了最后一块，找块内最小的正数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> ：</p>
+<ul>
+<li>
+<p>如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> 正好在块首，就直接操作它。</p>
+</li>
+<li>
+<p>否则按刚才那组三步收尾：<code>mnId - 1</code>、<code>block_front - 1</code>、<code>mnId</code>。</p>
+</li>
+</ul>
+<p>这一套操作次数仍然不会超过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> ，因为每个块只贡献常数次操作，而块数不超过元素数。</p>
+<h2 id="这题值得记住的点"><a class="markdownIt-Anchor" href="#这题值得记住的点"></a> 这题值得记住的点</h2>
+<blockquote>
+<p>C2 不是把 C1 推倒重做，而是把 C1 的局部符号变换再多看一眼： <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo>+</mo><mo>→</mo><mo>+</mo><mo>−</mo><mo>→</mo><mo>−</mo><mo>−</mo></mrow><annotation encoding="application/x-tex">-+ \rightarrow +- \rightarrow --</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">−</span></span></span></span> 已经说明边界可以被“搬运”，Hard 版只是要求你在最大和目标下，选一个最划算的收尾点。</p>
+</blockquote>
+<p>这个观察特别适合以后复盘：Easy Version 给的是能不能做，Hard Version 要的是在哪里停最赚。</p>
+<h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2229/submission/376325991">AC 提交链接</a></p>
+<p>源码较长，折叠在下面。</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        展开完整源码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// teamname: Gospel_rock</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: C2. We Be Flipping (Hard Version)</span></span><br><span class="line"><span class="comment"> * URL:     https://codeforces.com/contest/2229/problem/C2</span></span><br><span class="line"><span class="comment"> * Limits:  2000 ms / 256 MB</span></span><br><span class="line"><span class="comment"> * Author:  Gospel_rock</span></span><br><span class="line"><span class="comment"> * My blog: https://znzryb.com/</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Powered by cph-ng (https://github.com/langningchen/cph-ng)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(), vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long)a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed &lt;&lt; setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> 1 &amp;&amp; defined(LOCAL)</span></span><br><span class="line"><span class="comment">// clang-format off</span></span><br><span class="line"><span class="comment">// @formatter:off</span></span><br><span class="line"><span class="keyword">namespace</span> DBG &#123;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span></span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span> = <span class="type">void</span>&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v&lt;T, <span class="type">void_t</span>&lt;<span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">begin</span>()), <span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">end</span>())&gt;&gt; = <span class="literal">true</span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span> </span>&#123; cerr &lt;&lt; x; &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span> </span>&#123; cerr &lt;&lt; (x ? <span class="string">&quot;T&quot;</span> : <span class="string">&quot;F&quot;</span>); &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span> </span>&#123; cerr &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span> &lt;&lt; x &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; <span class="type">int</span> n = v.<span class="built_in">size</span>(); cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (n) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; N; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (N) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> x: s) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(x); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;(&quot;</span>; <span class="built_in">debug</span>(p.first); cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(p.second); cerr &lt;&lt; <span class="string">&quot;)&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[k, v]: m) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(k); cerr &lt;&lt; <span class="string">&quot;: &quot;</span>; <span class="built_in">debug</span>(v); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="type">void</span> _dbg() &#123; cerr &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... A&gt; <span class="type">void</span> _dbg(T x, A... a) &#123; <span class="built_in">debug</span>(x); <span class="keyword">if</span> (<span class="keyword">sizeof</span>...(a)) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; _dbg(a...); &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// clang-format on</span></span><br><span class="line"><span class="comment">// @formatter:on</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) cerr &lt;&lt; <span class="string">&quot;[&quot;</span> &lt;&lt; setw(7) &lt;&lt; #x &lt;&lt; <span class="string">&quot;] = &quot;</span>, DBG::_dbg(x)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr &lt;&lt; <span class="string">&quot;\n---------------------------------------------------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd cerr &lt;&lt; <span class="string">&quot;\n***************************************************\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(...) assert((__VA_ARGS__))</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) 11</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend 45</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(x) 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> i128 = __int128;</span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span> + <span class="number">10</span>, INF = (<span class="number">1ll</span> &lt;&lt; <span class="number">61</span>) - <span class="number">1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>;  <span class="comment">// (ll)1e9+7;</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="comment">// 不用 M_PI: 后者是 POSIX 扩展, glibc &lt;cmath&gt; 严格模式会 undef</span></span><br><span class="line"><span class="type">const</span> <span class="type">long</span> <span class="type">double</span> PI = <span class="built_in">acosl</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT, testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ll N;</span><br><span class="line">	cin &gt;&gt; N;</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">A</span><span class="params">(N)</span></span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="type">bool</span> ok = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">			<span class="keyword">if</span> (A[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				ok = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!ok) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="string">&quot;\n\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">	vector&lt;vector&lt;ll&gt;&gt; block;</span><br><span class="line">	ll lastBt0Id = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">		<span class="keyword">if</span> (block.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">			block.<span class="built_in">push_back</span>(&#123;i&#125;);</span><br><span class="line">			<span class="keyword">if</span> (A[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				lastBt0Id = <span class="built_in">SZ</span>(block) - <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ((A[block.<span class="built_in">back</span>().<span class="built_in">back</span>()] ^ A[i]) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">			block.<span class="built_in">back</span>().<span class="built_in">push_back</span>(i);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			block.<span class="built_in">push_back</span>(&#123;i&#125;);</span><br><span class="line">			<span class="keyword">if</span> (A[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				lastBt0Id = <span class="built_in">SZ</span>(block) - <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">SZ</span>(block) == <span class="number">1</span>) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="string">&quot;\n\n&quot;</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	vector&lt;ll&gt; presum;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		presum.<span class="built_in">resize</span>(N);</span><br><span class="line">		<span class="keyword">if</span> (A[<span class="number">0</span>] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">			presum[<span class="number">0</span>] = <span class="built_in">abs</span>(A[<span class="number">0</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; N; ++i) &#123;</span><br><span class="line">			<span class="keyword">if</span> (A[i] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">				presum[i] = presum[i - <span class="number">1</span>] + <span class="built_in">abs</span>(A[i]);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				presum[i] = presum[i - <span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		ll rec = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">auto</span> get = [&amp;](ll l) -&gt; ll &#123;</span><br><span class="line">			<span class="keyword">if</span> (l - <span class="number">1</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> presum[l - <span class="number">1</span>];</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="type">bool</span> ok = <span class="literal">false</span>;</span><br><span class="line">		ll best = <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = lastBt0Id; i &gt;= <span class="number">0</span>; i -= <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="built_in">dbg</span>(A[block[i].<span class="built_in">back</span>()]);</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="built_in">SZ</span>(block[i]); ++j) &#123;</span><br><span class="line">				<span class="keyword">if</span> (A[block[i][j]] &gt;= <span class="built_in">get</span>(block[i][j])) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					ll diff = <span class="built_in">get</span>(block[i][j]) - A[block[i][j]];</span><br><span class="line">					<span class="built_in">dbg</span>(diff);</span><br><span class="line">					<span class="keyword">if</span> (diff &gt; best) &#123;</span><br><span class="line">						best = diff;</span><br><span class="line">						rec = i;</span><br><span class="line">						ok = <span class="literal">true</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">dbg</span>(best);</span><br><span class="line">		<span class="built_in">dbg</span>(rec);</span><br><span class="line">		<span class="keyword">if</span> (!ok) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="string">&quot;\n\n&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// dbg(rec);</span></span><br><span class="line">		lastBt0Id = rec;</span><br><span class="line">	&#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">	<span class="built_in">dbg</span>(lastBt0Id);</span><br><span class="line">	vector&lt;ll&gt; oper;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= lastBt0Id; ++i) &#123;</span><br><span class="line">		<span class="keyword">auto</span>&amp; p = block[i];</span><br><span class="line">		<span class="keyword">if</span> (A[p.<span class="built_in">front</span>()] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i == lastBt0Id) &#123;</span><br><span class="line">			<span class="comment">// if (SZ(p) == 1) &#123;</span></span><br><span class="line">			<span class="comment">// 	oper.push_back(p.front());</span></span><br><span class="line">			<span class="comment">// 	continue;</span></span><br><span class="line">			<span class="comment">// &#125;</span></span><br><span class="line">			ll mnId = block[i].<span class="built_in">front</span>();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="built_in">SZ</span>(block[i]); ++j) &#123;</span><br><span class="line">				<span class="keyword">if</span> (A[mnId] &gt; A[block[i][j]]) &#123;</span><br><span class="line">					mnId = block[i][j];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (mnId - <span class="number">1</span> == p.<span class="built_in">front</span>() - <span class="number">1</span>) &#123;</span><br><span class="line">				oper.<span class="built_in">push_back</span>(mnId);</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// +-+(mnId)</span></span><br><span class="line">			<span class="keyword">if</span> (mnId - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				oper.<span class="built_in">push_back</span>(mnId - <span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// --+(mnId)</span></span><br><span class="line">			<span class="keyword">if</span> (p.<span class="built_in">front</span>() - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				oper.<span class="built_in">push_back</span>(p.<span class="built_in">front</span>() - <span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// ++-(mnId)</span></span><br><span class="line">			oper.<span class="built_in">push_back</span>(mnId);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			oper.<span class="built_in">push_back</span>(p.<span class="built_in">back</span>());</span><br><span class="line">			<span class="keyword">if</span> (p.<span class="built_in">front</span>() - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				oper.<span class="built_in">push_back</span>(p.<span class="built_in">front</span>() - <span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; <span class="built_in">SZ</span>(oper) &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span>&amp; p : oper) &#123;</span><br><span class="line">		cout &lt;&lt; p + <span class="number">1</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">	cout.<span class="built_in">setf</span>(ios::unitbuf);  <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	cin &gt;&gt; lT;</span><br><span class="line">	<span class="keyword">for</span> (testcase = <span class="number">1</span>; testcase &lt;= lT; ++testcase)</span><br><span class="line">		<span class="built_in">Solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/contest/2229/submission/376325991</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">ll mnId=block[i].front();</span></span><br><span class="line"><span class="comment">			for(int j=0;j&lt;SZ(block[i]);++j)&#123;</span></span><br><span class="line"><span class="comment">				if(A[mnId]&gt;A[block[i][j]])&#123;</span></span><br><span class="line"><span class="comment">					mnId=block[i][j];</span></span><br><span class="line"><span class="comment">				&#125;</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			oper.push_back(mnId);</span></span><br><span class="line"><span class="comment">			if(mnId-1&gt;=0 &amp;&amp; mnId!=p.front())&#123;</span></span><br><span class="line"><span class="comment">				oper.push_back(mnId - 1);</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			if (p.front() - 1 &gt;= 0) &#123;</span></span><br><span class="line"><span class="comment">				oper.push_back(p.front() - 1);</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			oper.push_back(p.back());</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h1 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h1>
+<ul>
+<li>
+<p>这题最关键的不是代码长，而是把 C1 的局部变换真正吃透。只要意识到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo>+</mo><mo>→</mo><mo>+</mo><mo>−</mo><mo>→</mo><mo>−</mo><mo>−</mo></mrow><annotation encoding="application/x-tex">-+ \rightarrow +- \rightarrow --</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">−</span></span></span></span> 还能在最后收尾时把负号翻回正号，Hard 的“最大和”就从玄学变成了选点问题。</p>
+</li>
+<li>
+<p>容易漏的点是最后一块不能随便选块尾，要选块内最小的正数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>n</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mnId</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">d</span></span></span></span> ，否则可能多牺牲了一个本来可以保住的正贡献。</p>
+</li>
+<li>
+<p>另一个坑是全负和全正这两个边界。全负时没有合法操作，全正时已经最大；这两个都应直接输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 。</p>
+</li>
+</ul>
+<h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
+<p>暂无附件。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
+              <a href="/tags/dp/" rel="tag"># dp</a>
+              <a href="/tags/%E6%80%9D%E7%BB%B4-thought/" rel="tag"># 思维 thought</a>
+              <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+              <a href="/tags/constructive-%E6%9E%84%E9%80%A0/" rel="tag"># constructive 构造</a>
+              <a href="/tags/Ad-hoc/" rel="tag"># Ad-hoc</a>
+              <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
+              <a href="/tags/casework-if-else-%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA/" rel="tag"># casework / if-else 分类讨论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/26/20260526-adba6257/" rel="prev" title="Gym 106353 E - Erratic Lights">
+      <i class="fa fa-chevron-left"></i> Gym 106353 E - Erratic Lights
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">2.1.</span> <span class="nav-text"> 一句话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-c1-%E5%88%B0-c2-%E7%9A%84%E9%82%A3%E4%B8%AA%E5%B0%8F%E7%81%AB%E8%8A%B1"><span class="nav-number">2.2.</span> <span class="nav-text"> 从 C1 到 C2 的那个小火花</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8E%8B%E8%BF%9E%E7%BB%AD%E5%90%8C%E5%8F%B7%E5%9D%97"><span class="nav-number">2.3.</span> <span class="nav-text"> 为什么要压连续同号块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E6%80%8E%E4%B9%88%E9%80%89"><span class="nav-number">2.4.</span> <span class="nav-text"> 最后一块怎么选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%80%8E%E4%B9%88%E8%BE%93%E5%87%BA"><span class="nav-number">2.5.</span> <span class="nav-text"> 操作怎么输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E9%A2%98%E5%80%BC%E5%BE%97%E8%AE%B0%E4%BD%8F%E7%9A%84%E7%82%B9"><span class="nav-number">2.6.</span> <span class="nav-text"> 这题值得记住的点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ac-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text"> 附件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">716</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
