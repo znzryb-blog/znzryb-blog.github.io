@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"znzryb.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题目大意  题面 歪歪要追 T 集电视剧。对每一集，电视剧长度为 L 分钟，她预先给出 n 个可能想看的片段，第 i 个片段是闭区间 [l_i, r_i]。 她会从这些片段里选出若干个两两不重叠的片段。注意这里是闭区间，所以 [1, 3] 和 [3, 5] 算重叠，[1, 3] 和 [4, 5] 才不重叠。 同时，男明星会在这一集的 m 个时刻出现，分别是 a_i。歪歪要求每个被选择的片段里，都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 2026 春季联赛 10 D - 歪歪爱追剧">
+<meta property="og:url" content="https://znzryb.com/2026/05/29/20260529-f4f5e499/index.html">
+<meta property="og:site_name" content="Znzryb&#39;s Blog">
+<meta property="og:description" content="题目大意  题面 歪歪要追 T 集电视剧。对每一集，电视剧长度为 L 分钟，她预先给出 n 个可能想看的片段，第 i 个片段是闭区间 [l_i, r_i]。 她会从这些片段里选出若干个两两不重叠的片段。注意这里是闭区间，所以 [1, 3] 和 [3, 5] 算重叠，[1, 3] 和 [4, 5] 才不重叠。 同时，男明星会在这一集的 m 个时刻出现，分别是 a_i。歪歪要求每个被选择的片段里，都">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-29T07:01:00.000Z">
+<meta property="article:modified_time" content="2026-05-29T16:00:30.200Z">
+<meta property="article:author" content="znzryb">
+<meta property="article:tag" content="HDU">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="interval 区间处理">
+<meta property="article:tag" content="key insight 关键观察 ob">
+<meta property="article:tag" content="sort 排序">
+<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="常见错误 bug&#x2F;error">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://znzryb.com/2026/05/29/20260529-f4f5e499/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>HDU 2026 春季联赛 10 D - 歪歪爱追剧 | Znzryb's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYCNZQD6Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1NYCNZQD6Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Znzryb's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/29/20260529-f4f5e499/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HDU 2026 春季联赛 10 D - 歪歪爱追剧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-05-29 15:01:00" itemprop="dateCreated datePublished" datetime="2026-05-29T15:01:00+08:00">2026-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-05-30 00:00:30" itemprop="dateModified" datetime="2026-05-30T00:00:30+08:00">2026-05-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
+<h2 id="题面"><a class="markdownIt-Anchor" href="#题面"></a> 题面</h2>
+<p>歪歪要追 T 集电视剧。对每一集，电视剧长度为 L 分钟，她预先给出 n 个可能想看的片段，第 i 个片段是闭区间 [l_i, r_i]。</p>
+<p>她会从这些片段里选出若干个两两不重叠的片段。注意这里是闭区间，所以 [1, 3] 和 [3, 5] 算重叠，[1, 3] 和 [4, 5] 才不重叠。</p>
+<p>同时，男明星会在这一集的 m 个时刻出现，分别是 a_i。歪歪要求每个被选择的片段里，都至少能看到一次男明星。</p>
+<p>问在这个前提下，一集最多能看多少分钟。</p>
+<h2 id="输入格式"><a class="markdownIt-Anchor" href="#输入格式"></a> 输入格式</h2>
+<p>第一行输入 T。</p>
+<p>每组数据先输入 L, n, m。</p>
+<p>接下来 n 行输入 l_i, r_i。</p>
+<p>最后一行输入 m 个 a_i。</p>
+<h2 id="数据范围"><a class="markdownIt-Anchor" href="#数据范围"></a> 数据范围</h2>
+<ul>
+<li>
+<p>T &lt;= 10</p>
+</li>
+<li>
+<p>L &lt;= 1e9</p>
+</li>
+<li>
+<p>n, m &lt;= 1e5</p>
+</li>
+<li>
+<p>1 &lt;= a_i &lt;= L</p>
+</li>
+<li>
+<p>1 &lt;= l_i &lt;= r_i &lt;= L</p>
+</li>
+</ul>
+<h2 id="样例"><a class="markdownIt-Anchor" href="#样例"></a> 样例</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">10 5 3</span><br><span class="line">1 2</span><br><span class="line">3 3</span><br><span class="line">1 6</span><br><span class="line">4 10</span><br><span class="line">8 10</span><br><span class="line">1 3 10</span><br><span class="line">10 1 5</span><br><span class="line">6 10</span><br><span class="line">1 2 3 4 5</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>先用二分筛掉“不含明星出现时刻”的片段，剩下的问题就是经典的带权区间选择：每个合法区间的权重是长度，按右端点排序后做 DP。</p>
+<h2 id="第一步判断一个片段能不能看"><a class="markdownIt-Anchor" href="#第一步判断一个片段能不能看"></a> 第一步：判断一个片段能不能看</h2>
+<p>把所有明星出现时刻 a_i 排序。对片段 [l, r]，用 <code>lower_bound(a, l)</code> 找到第一个 &gt;= l 的出现时刻。</p>
+<p>如果这个位置存在，并且值 &lt;= r，说明片段里至少出现了一次男明星，这个片段可以进入后面的 DP。</p>
+<p>这个筛选是 O(log m) 的，所以 n 个片段总共 O(n log m)。</p>
+<h2 id="第二步把问题看成带权区间选择"><a class="markdownIt-Anchor" href="#第二步把问题看成带权区间选择"></a> 第二步：把问题看成带权区间选择</h2>
+<p>筛完以后，每个片段都有一个权重：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>w</mi><mo>=</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w = r - l + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>现在要从这些区间里选若干个互不重叠的区间，让权重和最大。</p>
+<blockquote>
+<p>闭区间的边界非常关键：前一个区间的右端点必须严格小于当前区间左端点，也就是 r_prev &lt; l_now。</p>
+</blockquote>
+<p>按右端点从小到大排序。设 <code>dp[i]</code> 表示只考虑前 i 个合法区间时，最多能看的分钟数。</p>
+<p>对当前区间 [l_i, r_i]，有两种选择：</p>
+<ul>
+<li>
+<p>不选它：答案是 <code>dp[i - 1]</code></p>
+</li>
+<li>
+<p>选它：找到最后一个满足 <code>r_j &lt; l_i</code> 的区间 j，答案是 <code>dp[j] + w_i</code></p>
+</li>
+</ul>
+<p>于是转移就是：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo>+</mo><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">dp[i] = max(dp[i - 1], dp[j] + w_i)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>这里 j 可以用 <code>lower_bound(right, l_i) - 1</code> 找到。</p>
+<h2 id="第三步为什么要考虑单独选当前区间"><a class="markdownIt-Anchor" href="#第三步为什么要考虑单独选当前区间"></a> 第三步：为什么要考虑“单独选当前区间”</h2>
+<p>这题最容易挂的地方不是大方向，而是这个小分支。</p>
+<p>如果当前区间前面没有任何能接上的前驱，也就是 <code>lower_bound(right, l_i)</code> 指向开头，它仍然可以单独选。</p>
+<p>所以当前区间的贡献至少应该参与一次比较：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>], lr[i].w);</span><br></pre></td></tr></table></figure>
+<p>然后如果存在前驱，再尝试：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + lr[i].w);</span><br></pre></td></tr></table></figure>
+<p>反例很小：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">100 2 2</span><br><span class="line">1 5</span><br><span class="line">2 100</span><br><span class="line">1 2</span><br></pre></td></tr></table></figure>
+<p>两个区间都合法，但互相重叠。最优应该单独选 [2, 100]，答案是 99。若没有“单独选当前区间”这个分支，就会错误地保留 [1, 5]，输出 5。</p>
+<h2 id="复杂度"><a class="markdownIt-Anchor" href="#复杂度"></a> 复杂度</h2>
+<p>排序明星出现时刻、排序区间，再对每个片段二分一次。</p>
+<p>总复杂度 O((n + m) log n)，空间 O(n + m)。</p>
+<h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
+<p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/contest/view-code?cid=1206&amp;rid=6150">AC 提交链接</a></p>
+<p>源码较长，折叠放在下面。</p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        展开完整源码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// teamname: Gospel_rock</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: 歪歪爱追剧</span></span><br><span class="line"><span class="comment"> * URL:     https://acm.hdu.edu.cn/contest/problem?cid=1206&amp;pid=1004</span></span><br><span class="line"><span class="comment"> * Limits:  2000 ms / 262144 MB</span></span><br><span class="line"><span class="comment"> * Author:  Gospel_rock</span></span><br><span class="line"><span class="comment"> * My blog: https://znzryb.com/</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Powered by cph-ng (https://github.com/langningchen/cph-ng)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(), vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long)a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed &lt;&lt; setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> 1 &amp;&amp; defined(LOCAL)</span></span><br><span class="line"><span class="comment">// clang-format off</span></span><br><span class="line"><span class="comment">// @formatter:off</span></span><br><span class="line"><span class="keyword">namespace</span> DBG &#123;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span></span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span> = <span class="type">void</span>&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v&lt;T, <span class="type">void_t</span>&lt;<span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">begin</span>()), <span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">end</span>())&gt;&gt; = <span class="literal">true</span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span> </span>&#123; cerr &lt;&lt; x; &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span> </span>&#123; cerr &lt;&lt; (x ? <span class="string">&quot;T&quot;</span> : <span class="string">&quot;F&quot;</span>); &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span> </span>&#123; cerr &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span> &lt;&lt; x &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; <span class="type">int</span> n = v.<span class="built_in">size</span>(); cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (n) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; N; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (N) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> x: s) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(x); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;(&quot;</span>; <span class="built_in">debug</span>(p.first); cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(p.second); cerr &lt;&lt; <span class="string">&quot;)&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[k, v]: m) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(k); cerr &lt;&lt; <span class="string">&quot;: &quot;</span>; <span class="built_in">debug</span>(v); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="type">void</span> _dbg() &#123; cerr &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... A&gt; <span class="type">void</span> _dbg(T x, A... a) &#123; <span class="built_in">debug</span>(x); <span class="keyword">if</span> (<span class="keyword">sizeof</span>...(a)) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; _dbg(a...); &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// clang-format on</span></span><br><span class="line"><span class="comment">// @formatter:on</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) cerr &lt;&lt; <span class="string">&quot;[&quot;</span> &lt;&lt; setw(7) &lt;&lt; #x &lt;&lt; <span class="string">&quot;] = &quot;</span>, DBG::_dbg(x)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr &lt;&lt; <span class="string">&quot;\n---------------------------------------------------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd cerr &lt;&lt; <span class="string">&quot;\n***************************************************\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(...) assert((__VA_ARGS__))</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) 11</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend 45</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(x) 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> i128 = __int128;</span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span> + <span class="number">10</span>, INF = (<span class="number">1ll</span> &lt;&lt; <span class="number">61</span>) - <span class="number">1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>;  <span class="comment">// (ll)1e9+7;</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="comment">// 不用 M_PI: 后者是 POSIX 扩展, glibc &lt;cmath&gt; 严格模式会 undef</span></span><br><span class="line"><span class="type">const</span> <span class="type">long</span> <span class="type">double</span> PI = <span class="built_in">acosl</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT, testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">LR</span> &#123;</span><br><span class="line">	ll l, r, w;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> LR&amp; o) <span class="type">const</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (r != o.r) <span class="keyword">return</span> r &lt; o.r;</span><br><span class="line">		<span class="keyword">return</span> l &lt; o.l;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ll L, N, M;</span><br><span class="line">	cin &gt;&gt; L &gt;&gt; N &gt;&gt; M;</span><br><span class="line">	vector&lt;LR&gt; lr;</span><br><span class="line">	lr.<span class="built_in">reserve</span>(N);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">		ll l, r;</span><br><span class="line">		cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">		lr.<span class="built_in">push_back</span>(&#123;l, r, <span class="number">0</span>&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(<span class="built_in">all</span>(lr));</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">A</span><span class="params">(M)</span></span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; M; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; A[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(<span class="built_in">all</span>(A));</span><br><span class="line">	vector&lt;ll&gt; right;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		vector&lt;LR&gt; lrBack;</span><br><span class="line">		lrBack.<span class="built_in">reserve</span>(N);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">			<span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(<span class="built_in">all</span>(A), lr[i].l);</span><br><span class="line">			<span class="keyword">if</span> (it == A.<span class="built_in">end</span>()) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span> (*it &lt;= lr[i].r) &#123;</span><br><span class="line">				lr[i].w = lr[i].r - lr[i].l + <span class="number">1</span>;</span><br><span class="line">				lrBack.<span class="built_in">push_back</span>(lr[i]);</span><br><span class="line">				right.<span class="built_in">push_back</span>(lr[i].r);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">swap</span>(lrBack, lr);</span><br><span class="line">	&#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">	<span class="function">vector&lt;ll&gt; <span class="title">dp</span><span class="params">(SZ(lr))</span></span>;</span><br><span class="line">	<span class="keyword">if</span> (dp.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;0\n&quot;</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[<span class="number">0</span>] = lr[<span class="number">0</span>].w;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; <span class="built_in">SZ</span>(lr); ++i) &#123;</span><br><span class="line">		<span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(<span class="built_in">all</span>(right), lr[i].l);</span><br><span class="line">		dp[i] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>], lr[i].w);</span><br><span class="line">		<span class="keyword">if</span> (it == right.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		it--;</span><br><span class="line">		<span class="type">int</span> j = it - right.<span class="built_in">begin</span>();</span><br><span class="line">		dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + lr[i].w);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dbg</span>(dp);</span><br><span class="line">	cout &lt;&lt; dp.<span class="built_in">back</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">	cout.<span class="built_in">setf</span>(ios::unitbuf);  <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	cin &gt;&gt; lT;</span><br><span class="line">	<span class="keyword">for</span> (testcase = <span class="number">1</span>; testcase &lt;= lT; ++testcase)</span><br><span class="line">		<span class="built_in">Solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://acm.hdu.edu.cn/contest/view-code?cid=1206&amp;rid=6150</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">10 1 5</span></span><br><span class="line"><span class="comment">6 10</span></span><br><span class="line"><span class="comment">1 2 3 4 5</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h1 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h1>
+<ul>
+<li>
+<p>一开始 DP 大方向是对的：合法片段筛选 + 按右端点排序 + 找前驱。</p>
+</li>
+<li>
+<p>坑点出在当前区间没有前驱的时候，代码直接 <code>continue</code>，漏掉了“当前区间单独作为答案”的情况。</p>
+</li>
+<li>
+<p>修法是先执行 <code>dp[i] = max(dp[i - 1], lr[i].w)</code>，再在存在前驱时尝试拼上前驱。</p>
+</li>
+<li>
+<p>这类带权区间 DP 可以记一句话：当前区间要么不选，要么自己开一段，要么接在一个合法前驱后面。</p>
+</li>
+</ul>
+<h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
+<p>暂无额外附件。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dp/" rel="tag"># dp</a>
+              <a href="/tags/HDU/" rel="tag"># HDU</a>
+              <a href="/tags/sort-%E6%8E%92%E5%BA%8F/" rel="tag"># sort 排序</a>
+              <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag"># 二分查找</a>
+              <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
+              <a href="/tags/interval-%E5%8C%BA%E9%97%B4%E5%A4%84%E7%90%86/" rel="tag"># interval 区间处理</a>
+              <a href="/tags/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF-bug-error/" rel="tag"># 常见错误 bug/error</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/29/20260529-de5145aa/" rel="prev" title="近期训练题目一句话总结">
+      <i class="fa fa-chevron-left"></i> 近期训练题目一句话总结
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text"> 题面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text"> 输入格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">1.3.</span> <span class="nav-text"> 数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text"> 样例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">2.1.</span> <span class="nav-text"> 一句话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%89%87%E6%AE%B5%E8%83%BD%E4%B8%8D%E8%83%BD%E7%9C%8B"><span class="nav-number">2.2.</span> <span class="nav-text"> 第一步：判断一个片段能不能看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%8A%8A%E9%97%AE%E9%A2%98%E7%9C%8B%E6%88%90%E5%B8%A6%E6%9D%83%E5%8C%BA%E9%97%B4%E9%80%89%E6%8B%A9"><span class="nav-number">2.3.</span> <span class="nav-text"> 第二步：把问题看成带权区间选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%80%83%E8%99%91%E5%8D%95%E7%8B%AC%E9%80%89%E5%BD%93%E5%89%8D%E5%8C%BA%E9%97%B4"><span class="nav-number">2.4.</span> <span class="nav-text"> 第三步：为什么要考虑“单独选当前区间”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.5.</span> <span class="nav-text"> 复杂度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ac-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text"> 附件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="znzryb"
+      src="/images/znzryb.jpg">
+  <p class="site-author-name" itemprop="name">znzryb</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">718</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">znzryb</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
