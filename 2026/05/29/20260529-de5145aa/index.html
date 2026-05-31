@@ -28,7 +28,7 @@
 <meta property="og:description" content="近期训练题目一句话总结   HDU 2026 春季联赛 10 D - 歪歪爱追剧：筛掉不含明星时刻的区间后做带权区间选择；坑点是没有前驱时也要允许当前区间单独成为答案。   CF 1100 E - Deconstruction Tree ：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。 题解   CF Round 1101 Div2">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-29T07:01:00.000Z">
-<meta property="article:modified_time" content="2026-05-31T12:16:46.804Z">
+<meta property="article:modified_time" content="2026-05-31T12:22:31.421Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="常见错误 bug&#x2F;error">
 <meta property="article:tag" content="算法讲解 tutorial">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-05-31 20:16:46" itemprop="dateModified" datetime="2026-05-31T20:16:46+08:00">2026-05-31</time>
+                <time title="Modified: 2026-05-31 20:22:31" itemprop="dateModified" datetime="2026-05-31T20:22:31+08:00">2026-05-31</time>
               </span>
 
           
@@ -252,7 +252,7 @@
 <p><a href="/2026/05/30/20260530-bcde5d73">CF 1100 E - Deconstruction Tree</a> ：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。<a href="/2026/05/30/20260530-bcde5d73"> 题解</a></p>
 </li>
 <li>
-<p><a href="/2026/05/30/20260530-15188b79">CF Round 1101 Div2 C2 - Seating Arrangement</a>：两个洞见串起来看：一是桌子从空到非空是单向状态变化，所以先拆成 starter / follower；二是 pending-A 和 flex-A 不等价，已坐下的 follower-A 是未来交换支点，升级成 starter 时会吐回原槽并产生新槽，候选池里的 A 没有这个过程价值。</p>
+<p><a href="/2026/05/30/20260530-15188b79">CF Round 1101 Div2 C2 - Seating Arrangement</a>：两个洞见串起来看：一是桌子从空到非空是单向状态变化，所以拆成开桌者 / 跟随者；二是 A 不能待定式分配，因为它只有先作为跟随者进入结构，才会拥有“以后改成开桌者时吐回旧槽位”的中间过程价值。</p>
 </li>
 </ul>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
@@ -275,12 +275,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/05/29/20260529-f4f5e499/" rel="prev" title="HDU 2026 春季联赛 10 D - 歪歪爱追剧">
-      <i class="fa fa-chevron-left"></i> HDU 2026 春季联赛 10 D - 歪歪爱追剧
+    <a href="/2026/05/28/20260528-c16be49a/" rel="prev" title="CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)">
+      <i class="fa fa-chevron-left"></i> CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/05/30/20260530-bcde5d73/" rel="next" title="CF 1100 E - Deconstruction Tree">
-      CF 1100 E - Deconstruction Tree <i class="fa fa-chevron-right"></i>
+    <a href="/2026/05/29/20260529-f4f5e499/" rel="next" title="HDU 2026 春季联赛 10 D - 歪歪爱追剧">
+      HDU 2026 春季联赛 10 D - 歪歪爱追剧 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
