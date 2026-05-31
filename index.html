@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-05-31 15:00:44" itemprop="dateModified" datetime="2026-05-31T15:00:44+08:00">2026-05-31</time>
+                <time title="Modified: 2026-05-31 20:16:46" itemprop="dateModified" datetime="2026-05-31T20:16:46+08:00">2026-05-31</time>
               </span>
 
           
@@ -254,6 +254,8 @@
 <p>目标是在不改变队伍顺序的前提下，最大化最终坐下的人数。</p>
 <p>这页只做赛时代码复盘，不展开完整题解。</p>
 <h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>这页不是完整题解，只记录一个赛时 WA 的方向性错误：对拍发现 <code>I</code> 的直接分配不够优秀之后，应该重做 <code>I</code> 的分配策略，而不是在错误分配后用剩下的 <code>A</code> 做回退回补。</p>
 <h2 id="补充洞见从单向状态变化里拆角色"><a class="markdownIt-Anchor" href="#补充洞见从单向状态变化里拆角色"></a> 补充洞见：从单向状态变化里拆角色</h2>
 <blockquote>
 <p>如果题目里有一个资源状态<strong>只发生一次单向变化</strong>，就尝试按「触发变化的人」和「变化后享受资源的人」拆角色。</p>
@@ -284,8 +286,37 @@
 </table>
 <p>这个抽象的重点不是换名字，而是把「桌子状态」变成「角色资源」：开一张桌本质上是消耗一个 starter 名额，并产生 <code>s-1</code> 个 follower 槽位。于是 <code>A</code> 的特殊性也变清楚了：它不是普通万能牌，而是可以在 starter / follower 两种角色之间延迟定型的弹性资源。</p>
 <p>以后遇到类似结构，可以先问一句：资源有没有「第一次操作改变状态，后续操作享受改变后状态」这种单向过程？如果有，就优先尝试拆成「触发者 / 享受者」两类角色。</p>
-<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
-<p>这页不是完整题解，只记录一个赛时 WA 的方向性错误：对拍发现 <code>I</code> 的直接分配不够优秀之后，应该重做 <code>I</code> 的分配策略，而不是在错误分配后用剩下的 <code>A</code> 做回退回补。</p>
+<h2 id="补充洞见待定候选-vs-已入结构的交换支点"><a class="markdownIt-Anchor" href="#补充洞见待定候选-vs-已入结构的交换支点"></a> 补充洞见：待定候选 vs 已入结构的交换支点</h2>
+<blockquote>
+<p>待定法：候选没有过程价值；反悔法：元素入选后会产生过程价值。</p>
+</blockquote>
+<p>这里真正要分清的，不是“要不要保留 A 的弹性”，而是弹性到底放在哪里。<code>timA</code> 保存的是过去出现过、还没坐下的 A；<code>flexA</code> 保存的是已经作为 follower 坐下、但未来还能升级成 starter 的 A。</p>
+<p>这两个集合不等价。pending-A 只是一个未使用候选；follower-A 已经嵌进当前结构里，变成了以后交换时的支点。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>当前含义</th>
+<th>未来能提供的东西</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pending-A</td>
+<td>只记录“过去出现过一个 A”</td>
+<td>拿出来当 starter 时，只产生 s-1 个 follower 槽</td>
+</tr>
+<tr>
+<td>follower-A</td>
+<td>已经坐下，并且占过一个 follower 槽</td>
+<td>升级成 starter 时，先吐回原来的 1 个槽，再产生 s-1 个新槽，总共多出 s 个 free</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Note</strong>: **所以这题的坑不是“反悔不反悔”，而是反悔粒度：**如果一个元素入选以后会产生过程价值，就不能只把它挂在候选池里；要先让它进入真实结构，再保留身份可交换。</p>
+</blockquote>
+<p>这也是为什么“先不分配 A”会输给“先让 A 当 follower”：前者保留的是一个普通候选，后者保留的是一个已经入结构的交换筹码。后面 E 缺槽时，只有后者能通过“follower-A → starter-A”把占过的槽吐回来。</p>
 <h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2232/submission/376710732"><strong>AC 提交链接</strong></a></p>
 <div class='fold collapsed'>
@@ -614,7 +645,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-05-30 21:59:49" itemprop="dateModified" datetime="2026-05-30T21:59:49+08:00">2026-05-30</time>
+                <time title="Modified: 2026-05-31 20:16:46" itemprop="dateModified" datetime="2026-05-31T20:16:46+08:00">2026-05-31</time>
               </span>
 
           
@@ -634,7 +665,10 @@
 <p><a href="/2026/05/29/20260529-f4f5e499"><strong>HDU 2026 春季联赛 10 D - 歪歪爱追剧</strong></a>：筛掉不含明星时刻的区间后做带权区间选择；坑点是没有前驱时也要允许当前区间单独成为答案。</p>
 </li>
 <li>
-<p>CF 1100 E - Deconstruction Tree：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。<a href="/2026/05/30/20260530-bcde5d73"> 题解</a></p>
+<p><a href="/2026/05/30/20260530-bcde5d73">CF 1100 E - Deconstruction Tree</a> ：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。<a href="/2026/05/30/20260530-bcde5d73"> 题解</a></p>
+</li>
+<li>
+<p><a href="/2026/05/30/20260530-15188b79">CF Round 1101 Div2 C2 - Seating Arrangement</a>：两个洞见串起来看：一是桌子从空到非空是单向状态变化，所以先拆成 starter / follower；二是 pending-A 和 flex-A 不等价，已坐下的 follower-A 是未来交换支点，升级成 starter 时会吐回原槽并产生新槽，候选池里的 A 没有这个过程价值。</p>
 </li>
 </ul>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>

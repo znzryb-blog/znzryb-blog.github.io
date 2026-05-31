@@ -28,7 +28,7 @@
 <meta property="og:description" content="题目大意 有 x 张桌子，每张桌子有 s 个座位。朋友按固定顺序排队进场，Alice 对每个人只能选择安排到某张桌子，或者把他踢出派对；一旦坐下，之后不能移动。 每个人有三种性格：   I：只能坐在当前为空的桌子上。   E：只能坐在当前非空且未坐满的桌子上。   A：可以坐在任意未坐满的桌子上。   目标是在不改变队伍顺序的前提下，最大化最终坐下的人数。 这页只做赛时代码复盘，不展开完整题解">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-30T09:29:00.000Z">
-<meta property="article:modified_time" content="2026-05-31T07:00:44.240Z">
+<meta property="article:modified_time" content="2026-05-31T12:16:46.592Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="Ad-hoc">
 <meta property="article:tag" content="bruteForce（暴力）">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-05-31 15:00:44" itemprop="dateModified" datetime="2026-05-31T15:00:44+08:00">2026-05-31</time>
+                <time title="Modified: 2026-05-31 20:16:46" itemprop="dateModified" datetime="2026-05-31T20:16:46+08:00">2026-05-31</time>
               </span>
 
           
@@ -265,6 +265,8 @@
 <p>目标是在不改变队伍顺序的前提下，最大化最终坐下的人数。</p>
 <p>这页只做赛时代码复盘，不展开完整题解。</p>
 <h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>这页不是完整题解，只记录一个赛时 WA 的方向性错误：对拍发现 <code>I</code> 的直接分配不够优秀之后，应该重做 <code>I</code> 的分配策略，而不是在错误分配后用剩下的 <code>A</code> 做回退回补。</p>
 <h2 id="补充洞见从单向状态变化里拆角色"><a class="markdownIt-Anchor" href="#补充洞见从单向状态变化里拆角色"></a> 补充洞见：从单向状态变化里拆角色</h2>
 <blockquote>
 <p>如果题目里有一个资源状态<strong>只发生一次单向变化</strong>，就尝试按「触发变化的人」和「变化后享受资源的人」拆角色。</p>
@@ -295,8 +297,37 @@
 </table>
 <p>这个抽象的重点不是换名字，而是把「桌子状态」变成「角色资源」：开一张桌本质上是消耗一个 starter 名额，并产生 <code>s-1</code> 个 follower 槽位。于是 <code>A</code> 的特殊性也变清楚了：它不是普通万能牌，而是可以在 starter / follower 两种角色之间延迟定型的弹性资源。</p>
 <p>以后遇到类似结构，可以先问一句：资源有没有「第一次操作改变状态，后续操作享受改变后状态」这种单向过程？如果有，就优先尝试拆成「触发者 / 享受者」两类角色。</p>
-<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
-<p>这页不是完整题解，只记录一个赛时 WA 的方向性错误：对拍发现 <code>I</code> 的直接分配不够优秀之后，应该重做 <code>I</code> 的分配策略，而不是在错误分配后用剩下的 <code>A</code> 做回退回补。</p>
+<h2 id="补充洞见待定候选-vs-已入结构的交换支点"><a class="markdownIt-Anchor" href="#补充洞见待定候选-vs-已入结构的交换支点"></a> 补充洞见：待定候选 vs 已入结构的交换支点</h2>
+<blockquote>
+<p>待定法：候选没有过程价值；反悔法：元素入选后会产生过程价值。</p>
+</blockquote>
+<p>这里真正要分清的，不是“要不要保留 A 的弹性”，而是弹性到底放在哪里。<code>timA</code> 保存的是过去出现过、还没坐下的 A；<code>flexA</code> 保存的是已经作为 follower 坐下、但未来还能升级成 starter 的 A。</p>
+<p>这两个集合不等价。pending-A 只是一个未使用候选；follower-A 已经嵌进当前结构里，变成了以后交换时的支点。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>当前含义</th>
+<th>未来能提供的东西</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pending-A</td>
+<td>只记录“过去出现过一个 A”</td>
+<td>拿出来当 starter 时，只产生 s-1 个 follower 槽</td>
+</tr>
+<tr>
+<td>follower-A</td>
+<td>已经坐下，并且占过一个 follower 槽</td>
+<td>升级成 starter 时，先吐回原来的 1 个槽，再产生 s-1 个新槽，总共多出 s 个 free</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Note</strong>: **所以这题的坑不是“反悔不反悔”，而是反悔粒度：**如果一个元素入选以后会产生过程价值，就不能只把它挂在候选池里；要先让它进入真实结构，再保留身份可交换。</p>
+</blockquote>
+<p>这也是为什么“先不分配 A”会输给“先让 A 当 follower”：前者保留的是一个普通候选，后者保留的是一个已经入结构的交换筹码。后面 E 缺槽时，只有后者能通过“follower-A → starter-A”把占过的槽吐回来。</p>
 <h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2232/submission/376710732"><strong>AC 提交链接</strong></a></p>
 <div class='fold collapsed'>
@@ -440,8 +471,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%B4%AA%E5%BF%83-greedy/" rel="tag"># 贪心 greedy</a>
-              <a href="/tags/codeforces/" rel="tag"># codeforces</a>
               <a href="/tags/%E6%80%9D%E7%BB%B4-thought/" rel="tag"># 思维 thought</a>
+              <a href="/tags/codeforces/" rel="tag"># codeforces</a>
               <a href="/tags/bruteForce%EF%BC%88%E6%9A%B4%E5%8A%9B%EF%BC%89/" rel="tag"># bruteForce（暴力）</a>
               <a href="/tags/Ad-hoc/" rel="tag"># Ad-hoc</a>
               <a href="/tags/key-insight-%E5%85%B3%E9%94%AE%E8%A7%82%E5%AF%9F-ob/" rel="tag"># key insight 关键观察 ob</a>
@@ -516,7 +547,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%B4%9E%E8%A7%81%E4%BB%8E%E5%8D%95%E5%90%91%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%87%8C%E6%8B%86%E8%A7%92%E8%89%B2"><span class="nav-number">2.1.</span> <span class="nav-text"> 补充洞见：从单向状态变化里拆角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">2.2.</span> <span class="nav-text"> 一句话</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ac-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%9B%E6%97%B6%E4%BB%A3%E7%A0%81%E7%9A%84%E9%94%99%E8%AF%AF%E6%96%B9%E5%90%91"><span class="nav-number">4.1.</span> <span class="nav-text"> 赛时代码的错误方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E4%BE%8B%E8%AE%B0%E5%BF%86"><span class="nav-number">4.2.</span> <span class="nav-text"> 反例记忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E8%AF%A5%E8%AE%B0%E4%BD%8F%E7%9A%84%E5%9D%91"><span class="nav-number">4.3.</span> <span class="nav-text"> 这次该记住的坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E9%94%99%E8%AF%AF%E8%B4%AA%E5%BF%83%E8%83%BD%E5%BC%80-starter-%E5%B0%B1%E5%BC%80"><span class="nav-number">4.4.</span> <span class="nav-text"> 另一种错误贪心：能开 starter 就开</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text"> 附件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text"> 题目大意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text"> 思路讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">2.1.</span> <span class="nav-text"> 一句话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%B4%9E%E8%A7%81%E4%BB%8E%E5%8D%95%E5%90%91%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%87%8C%E6%8B%86%E8%A7%92%E8%89%B2"><span class="nav-number">2.2.</span> <span class="nav-text"> 补充洞见：从单向状态变化里拆角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E6%B4%9E%E8%A7%81%E5%BE%85%E5%AE%9A%E5%80%99%E9%80%89-vs-%E5%B7%B2%E5%85%A5%E7%BB%93%E6%9E%84%E7%9A%84%E4%BA%A4%E6%8D%A2%E6%94%AF%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text"> 补充洞见：待定候选 vs 已入结构的交换支点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ac-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text"> AC 代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8Bwatlemle"><span class="nav-number">4.</span> <span class="nav-text"> 心路历程（WA，TLE，MLE……）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%9B%E6%97%B6%E4%BB%A3%E7%A0%81%E7%9A%84%E9%94%99%E8%AF%AF%E6%96%B9%E5%90%91"><span class="nav-number">4.1.</span> <span class="nav-text"> 赛时代码的错误方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E4%BE%8B%E8%AE%B0%E5%BF%86"><span class="nav-number">4.2.</span> <span class="nav-text"> 反例记忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E8%AF%A5%E8%AE%B0%E4%BD%8F%E7%9A%84%E5%9D%91"><span class="nav-number">4.3.</span> <span class="nav-text"> 这次该记住的坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E9%94%99%E8%AF%AF%E8%B4%AA%E5%BF%83%E8%83%BD%E5%BC%80-starter-%E5%B0%B1%E5%BC%80"><span class="nav-number">4.4.</span> <span class="nav-text"> 另一种错误贪心：能开 starter 就开</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text"> 附件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
