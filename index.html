@@ -191,6 +191,253 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/30/20260530-15188b79/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/05/30/20260530-15188b79/" class="post-title-link" itemprop="url">CF Round 1101 Div2 C2 - Seating Arrangement</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-05-30 17:29:00" itemprop="dateCreated datePublished" datetime="2026-05-30T17:29:00+08:00">2026-05-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-05-31 15:00:44" itemprop="dateModified" datetime="2026-05-31T15:00:44+08:00">2026-05-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- Notion block type: table_of_contents -->
+<h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
+<p>有 <code>x</code> 张桌子，每张桌子有 <code>s</code> 个座位。朋友按固定顺序排队进场，Alice 对每个人只能选择安排到某张桌子，或者把他踢出派对；一旦坐下，之后不能移动。</p>
+<p>每个人有三种性格：</p>
+<ul>
+<li>
+<p><code>I</code>：只能坐在当前为空的桌子上。</p>
+</li>
+<li>
+<p><code>E</code>：只能坐在当前非空且未坐满的桌子上。</p>
+</li>
+<li>
+<p><code>A</code>：可以坐在任意未坐满的桌子上。</p>
+</li>
+</ul>
+<p>目标是在不改变队伍顺序的前提下，最大化最终坐下的人数。</p>
+<p>这页只做赛时代码复盘，不展开完整题解。</p>
+<h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
+<h2 id="补充洞见从单向状态变化里拆角色"><a class="markdownIt-Anchor" href="#补充洞见从单向状态变化里拆角色"></a> 补充洞见：从单向状态变化里拆角色</h2>
+<blockquote>
+<p>如果题目里有一个资源状态<strong>只发生一次单向变化</strong>，就尝试按「触发变化的人」和「变化后享受资源的人」拆角色。</p>
+</blockquote>
+<p>这题里，桌子的状态只有一次不可逆变化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">空桌 -&gt; 非空桌</span><br></pre></td></tr></table></figure>
+<p>所以每张桌子天然可以拆成两类位置：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>含义</th>
+<th>能坐的人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>starter</td>
+<td>第一个坐下、把空桌变成非空桌的人</td>
+<td>I / A</td>
+</tr>
+<tr>
+<td>follower</td>
+<td>在桌子已经非空之后坐下的人</td>
+<td>E / A</td>
+</tr>
+</tbody>
+</table>
+<p>这个抽象的重点不是换名字，而是把「桌子状态」变成「角色资源」：开一张桌本质上是消耗一个 starter 名额，并产生 <code>s-1</code> 个 follower 槽位。于是 <code>A</code> 的特殊性也变清楚了：它不是普通万能牌，而是可以在 starter / follower 两种角色之间延迟定型的弹性资源。</p>
+<p>以后遇到类似结构，可以先问一句：资源有没有「第一次操作改变状态，后续操作享受改变后状态」这种单向过程？如果有，就优先尝试拆成「触发者 / 享受者」两类角色。</p>
+<h2 id="一句话"><a class="markdownIt-Anchor" href="#一句话"></a> 一句话</h2>
+<p>这页不是完整题解，只记录一个赛时 WA 的方向性错误：对拍发现 <code>I</code> 的直接分配不够优秀之后，应该重做 <code>I</code> 的分配策略，而不是在错误分配后用剩下的 <code>A</code> 做回退回补。</p>
+<h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2232/submission/376710732"><strong>AC 提交链接</strong></a></p>
+<div class='fold collapsed'>
+    <div class='fold-title'>
+        展开完整 C++ 源码
+    </div>
+    <div class='fold-content'>
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// teamname: Gospel_rock</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Problem: C1. Seating Arrangement (Easy Version)</span></span><br><span class="line"><span class="comment"> * URL:     https://codeforces.com/contest/2232/problem/C1</span></span><br><span class="line"><span class="comment"> * Limits:  2000 ms / 256 MB</span></span><br><span class="line"><span class="comment"> * Author:  Gospel_rock</span></span><br><span class="line"><span class="comment"> * My blog: https://znzryb.com/</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Powered by cph-ng (https://github.com/langningchen/cph-ng)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(vec) vec.begin(), vec.end()</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson(o) (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson(o) (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SZ(a) ((long long)a.size())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fsp(x) fixed &lt;&lt; setprecision(x)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> 1 &amp;&amp; defined(LOCAL)</span></span><br><span class="line"><span class="comment">// clang-format off</span></span><br><span class="line"><span class="comment">// @formatter:off</span></span><br><span class="line"><span class="keyword">namespace</span> DBG &#123;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span></span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span> = <span class="type">void</span>&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="type">bool</span> _has_iter_v&lt;T, <span class="type">void_t</span>&lt;<span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">begin</span>()), <span class="keyword">decltype</span>(<span class="built_in">declval</span>&lt;T&gt;().<span class="built_in">end</span>())&gt;&gt; = <span class="literal">true</span>;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="type">void</span> <span class="title">debug</span><span class="params">(T x)</span> </span>&#123; cerr &lt;&lt; x; &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(<span class="type">bool</span> x)</span> </span>&#123; cerr &lt;&lt; (x ? <span class="string">&quot;T&quot;</span> : <span class="string">&quot;F&quot;</span>); &#125; <span class="function"><span class="type">void</span> <span class="title">debug</span><span class="params">(string x)</span> </span>&#123; cerr &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span> &lt;&lt; x &lt;&lt; <span class="string">&#x27;&quot;&#x27;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; <span class="type">int</span> n = v.<span class="built_in">size</span>(); cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (n) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(array&lt;T, N&gt; v)</span> </span>&#123; <span class="keyword">constexpr</span> <span class="type">bool</span> nested = _has_iter_v&lt;T&gt;; cerr &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; N; i++) &#123; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;,&quot;</span>; cerr &lt;&lt; <span class="string">&quot;\n  &quot;</span>; &#125; <span class="keyword">else</span> &#123; <span class="keyword">if</span> (i) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; &#125; <span class="built_in">debug</span>(v[i]); &#125; <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(nested)</span> </span>&#123; <span class="keyword">if</span> (N) cerr &lt;&lt; <span class="string">&quot;\n&quot;</span>; &#125; cerr &lt;&lt; <span class="string">&quot;]&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(set&lt;T&gt; s)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> x: s) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(x); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(pair&lt;T, U&gt; p)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;(&quot;</span>; <span class="built_in">debug</span>(p.first); cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(p.second); cerr &lt;&lt; <span class="string">&quot;)&quot;</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="type">void</span> <span class="title">debug</span><span class="params">(map&lt;T, U&gt; m)</span> </span>&#123; cerr &lt;&lt; <span class="string">&quot;&#123;&quot;</span>; <span class="type">int</span> f = <span class="number">0</span>; <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[k, v]: m) &#123; <span class="keyword">if</span> (f++) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; <span class="built_in">debug</span>(k); cerr &lt;&lt; <span class="string">&quot;: &quot;</span>; <span class="built_in">debug</span>(v); &#125; cerr &lt;&lt; <span class="string">&quot;&#125;&quot;</span>; &#125;</span><br><span class="line">	<span class="type">void</span> _dbg() &#123; cerr &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... A&gt; <span class="type">void</span> _dbg(T x, A... a) &#123; <span class="built_in">debug</span>(x); <span class="keyword">if</span> (<span class="keyword">sizeof</span>...(a)) cerr &lt;&lt; <span class="string">&quot;, &quot;</span>; _dbg(a...); &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// clang-format on</span></span><br><span class="line"><span class="comment">// @formatter:on</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) cerr &lt;&lt; <span class="string">&quot;[&quot;</span> &lt;&lt; setw(7) &lt;&lt; #x &lt;&lt; <span class="string">&quot;] = &quot;</span>, DBG::_dbg(x)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend cerr &lt;&lt; <span class="string">&quot;\n---------------------------------------------------\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd cerr &lt;&lt; <span class="string">&quot;\n***************************************************\n&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(...) assert((__VA_ARGS__))</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dbg(x...) 11</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cend 45</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cEnd 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> myAssert(x) 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> ull = <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">using</span> DB = <span class="type">double</span>;</span><br><span class="line"><span class="keyword">using</span> i128 = __int128;</span><br><span class="line"><span class="keyword">using</span> CD = complex&lt;<span class="type">double</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll MAXN = (ll)<span class="number">1e6</span> + <span class="number">10</span>, INF = (<span class="number">1ll</span> &lt;&lt; <span class="number">61</span>) - <span class="number">1</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> ll mod = <span class="number">998244353</span>;  <span class="comment">// (ll)1e9+7;</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="comment">// 不用 M_PI: 后者是 POSIX 扩展, glibc &lt;cmath&gt; 严格模式会 undef</span></span><br><span class="line"><span class="type">const</span> <span class="type">long</span> <span class="type">double</span> PI = <span class="built_in">acosl</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line">ll lT, testcase;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ll N, X, S;</span><br><span class="line">	cin &gt;&gt; N &gt;&gt; X &gt;&gt; S;</span><br><span class="line">	string A;</span><br><span class="line">	cin &gt;&gt; A;</span><br><span class="line">	ll follower = <span class="number">0</span>, starter = X;</span><br><span class="line">	ll numA = <span class="number">0</span>;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">		<span class="keyword">if</span> (A[i] == <span class="string">&#x27;E&#x27;</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (follower == <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (numA == <span class="number">0</span>) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (starter == <span class="number">0</span>) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				numA--;</span><br><span class="line">				starter--;</span><br><span class="line">				follower += S - <span class="number">1</span> + <span class="number">1</span>;</span><br><span class="line">				follower--;</span><br><span class="line">				++ans;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				--follower;</span><br><span class="line">				++ans;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[i] == <span class="string">&#x27;I&#x27;</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (starter == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">			starter--;</span><br><span class="line">			follower += S - <span class="number">1</span>;</span><br><span class="line">			++ans;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// if (follower == 0 &amp;&amp; starter == 0) continue;</span></span><br><span class="line">			<span class="keyword">if</span> (follower &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				numA++;</span><br><span class="line">				--follower;</span><br><span class="line">				++ans;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (starter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				starter--;</span><br><span class="line">				follower += S - <span class="number">1</span>;</span><br><span class="line">				++ans;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">	cout.<span class="built_in">setf</span>(ios::unitbuf);  <span class="comment">// 无缓冲流，方便我们调试</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	cin &gt;&gt; lT;</span><br><span class="line">	<span class="keyword">for</span> (testcase = <span class="number">1</span>; testcase &lt;= lT; ++testcase)</span><br><span class="line">		<span class="built_in">Solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AC</span></span><br><span class="line"><span class="comment">https://codeforces.com/contest/2232/submission/376710732</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+</div>
+<h1 id="心路历程watlemle"><a class="markdownIt-Anchor" href="#心路历程watlemle"></a> 心路历程（WA，TLE，MLE……）</h1>
+<h2 id="赛时代码的错误方向"><a class="markdownIt-Anchor" href="#赛时代码的错误方向"></a> 赛时代码的错误方向</h2>
+<p>赛时代码的思路大概是先从左到右扫一遍：<code>I</code> 能坐空桌就直接坐，<code>E</code> 尽量接到已有桌子上，<code>A</code> 暂时存起来；后面再看剩下的 <code>A</code> 能不能把之前没利用好的桌子补起来。</p>
+<p>这个方向的问题是，<code>I</code> 是否占用一张空桌不是一个局部收益。它会改变后面整段 <code>A/E/I</code> 的可行结构。一个早期 <code>I</code> 坐下去，看似马上多了 1，但可能把后面更有价值的“空桌开局”直接堵死。</p>
+<blockquote>
+<p>当对拍发现“I 直接分配不够优秀”时，正确反应应该是重做 <code>I</code> 的选择策略；如果继续沿着旧贪心做回退，本质上是在已经丢掉的状态空间里补洞。</p>
+</blockquote>
+<h2 id="反例记忆"><a class="markdownIt-Anchor" href="#反例记忆"></a> 反例记忆</h2>
+<figure class="highlight plaintext"><figcaption><span>art</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9 2 4</span><br><span class="line">AAIAEIEEI</span><br></pre></td></tr></table></figure>
+<p>一种最优安排是跳过较早的 <code>I</code>：</p>
+<table>
+<thead>
+<tr>
+<th>坐下位置</th>
+<th>字符</th>
+<th>分配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>A</td>
+<td>第一桌第 1 人</td>
+</tr>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>第一桌第 2 人</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>第一桌第 3 人</td>
+</tr>
+<tr>
+<td>4</td>
+<td>E</td>
+<td>第一桌第 4 人</td>
+</tr>
+<tr>
+<td>5</td>
+<td>I</td>
+<td>第二桌第 1 人</td>
+</tr>
+<tr>
+<td>6</td>
+<td>E</td>
+<td>第二桌第 2 人</td>
+</tr>
+<tr>
+<td>7</td>
+<td>E</td>
+<td>第二桌第 3 人</td>
+</tr>
+</tbody>
+</table>
+<p>答案是 7。</p>
+<p>赛时代码会在位置 2 遇到 <code>I</code> 时立刻占掉一张空桌，于是后面再用 <code>A</code> 回补，也已经回不到这个方案了。</p>
+<h2 id="这次该记住的坑"><a class="markdownIt-Anchor" href="#这次该记住的坑"></a> 这次该记住的坑</h2>
+<ul>
+<li>
+<p>对拍其实已经指出：<code>I</code> 直接分配会错。</p>
+</li>
+<li>
+<p>赛时修偏了方向：试图通过后面的 <code>A</code> 回退回补，而不是重新处理 <code>I</code> 的分配。</p>
+</li>
+<li>
+<p>这个问题的本质是状态空间被前面的贪心删掉了；后处理只能在剩余状态里修，修不回被删掉的最优路径。</p>
+</li>
+<li>
+<p>如果对拍暴露的是“某个局部贪心决策本身不成立”，不要先想着给它补丁。先判断这个决策有没有删掉未来可能的状态；如果删掉了，就应该换状态设计。</p>
+</li>
+</ul>
+<h2 id="另一种错误贪心能开-starter-就开"><a class="markdownIt-Anchor" href="#另一种错误贪心能开-starter-就开"></a> 另一种错误贪心：能开 starter 就开</h2>
+<p>这版代码的想法很直接：维护还能开的 <code>starter</code> 数量，以及已经开出来的 <code>follower</code> 槽位。遇到 <code>I</code> 就开 starter，遇到 <code>A</code> 时只要还能开 starter，也优先开 starter。</p>
+<p>关键代码是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ll follower = <span class="number">0</span>, starter = X;</span><br><span class="line">ll ans = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (A[i] == <span class="string">&#x27;E&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (follower == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        --follower;</span><br><span class="line">        ++ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[i] == <span class="string">&#x27;I&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (starter == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        starter--;</span><br><span class="line">        follower += S - <span class="number">1</span>;</span><br><span class="line">        ++ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (follower == <span class="number">0</span> &amp;&amp; starter == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (starter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            starter--;</span><br><span class="line">            follower += S - <span class="number">1</span>;</span><br><span class="line">            ++ans;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (follower &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            --follower;</span><br><span class="line">            ++ans;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个贪心的问题是：它把 <code>A</code> 过早固定成 starter 了。<code>A</code> 明明既可以当 starter，也可以当 follower；如果它先抢掉 starter 名额，后面的 <code>I</code> 就没法坐，因为 <code>I</code> 没有 follower 这个身份可以退。</p>
+<p>一个很小的反例：</p>
+<figure class="highlight plaintext"><figcaption><span>art</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">3 2 2</span><br><span class="line">AAI</span><br></pre></td></tr></table></figure>
+<p>这份代码会这样走：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>字符</th>
+<th>决策</th>
+<th>starter</th>
+<th>follower</th>
+<th>ans</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>A</td>
+<td>优先开 starter</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>A</td>
+<td>继续优先开 starter</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>I</td>
+<td>没有 starter，踢掉</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>但最优是 <code>A</code> 开第一桌，第二个 <code>A</code> 当 follower，最后的 <code>I</code> 再开第二桌，答案是 3。</p>
+<p>所以这里真正要保护的不是“看到能开桌就开桌”，而是 <strong>starter 名额要尽量留给刚性的 <code>I</code>，<code>A</code> 的身份需要延迟决定</strong>。<code>A</code> 坐下以后不应该立刻永久绑定为 starter；它最好能作为一个可反悔的弹性资源，后面根据 <code>E/I</code> 的到来再决定到底补 follower 还是改成 starter。</p>
+<h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
+<p>暂无。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/30/20260530-bcde5d73/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -317,6 +564,79 @@
 </ul>
 <h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
 <p>暂无。后续如果整理成完整 PDF 或动画，可以再补到这里。</p>
+<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/29/20260529-de5145aa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/znzryb.jpg">
+      <meta itemprop="name" content="znzryb">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Znzryb's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/05/29/20260529-de5145aa/" class="post-title-link" itemprop="url">近期训练题目一句话总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-05-29 15:01:00" itemprop="dateCreated datePublished" datetime="2026-05-29T15:01:00+08:00">2026-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-05-30 21:59:49" itemprop="dateModified" datetime="2026-05-30T21:59:49+08:00">2026-05-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="近期训练题目一句话总结"><a class="markdownIt-Anchor" href="#近期训练题目一句话总结"></a> 近期训练题目一句话总结</h1>
+<ul>
+<li>
+<p><a href="/2026/05/29/20260529-f4f5e499"><strong>HDU 2026 春季联赛 10 D - 歪歪爱追剧</strong></a>：筛掉不含明星时刻的区间后做带权区间选择；坑点是没有前驱时也要允许当前区间单独成为答案。</p>
+</li>
+<li>
+<p>CF 1100 E - Deconstruction Tree：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。<a href="/2026/05/30/20260530-bcde5d73"> 题解</a></p>
+</li>
+</ul>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
       
     </div>
@@ -503,79 +823,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/29/20260529-de5145aa/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/05/29/20260529-de5145aa/" class="post-title-link" itemprop="url">近期训练题目一句话总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-05-29 15:01:00" itemprop="dateCreated datePublished" datetime="2026-05-29T15:01:00+08:00">2026-05-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-05-30 21:59:49" itemprop="dateModified" datetime="2026-05-30T21:59:49+08:00">2026-05-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="近期训练题目一句话总结"><a class="markdownIt-Anchor" href="#近期训练题目一句话总结"></a> 近期训练题目一句话总结</h1>
-<ul>
-<li>
-<p><a href="/2026/05/29/20260529-f4f5e499"><strong>HDU 2026 春季联赛 10 D - 歪歪爱追剧</strong></a>：筛掉不含明星时刻的区间后做带权区间选择；坑点是没有前驱时也要允许当前区间单独成为答案。</p>
-</li>
-<li>
-<p>CF 1100 E - Deconstruction Tree：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。<a href="/2026/05/30/20260530-bcde5d73"> 题解</a></p>
-</li>
-</ul>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/28/20260528-c16be49a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -731,165 +978,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://znzryb.com/2026/05/26/20260526-adba6257/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/znzryb.jpg">
-      <meta itemprop="name" content="znzryb">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Znzryb's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/05/26/20260526-adba6257/" class="post-title-link" itemprop="url">Gym 106353 E - Erratic Lights</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2026-05-26 09:06:00 / Modified: 20:00:23" itemprop="dateCreated datePublished" datetime="2026-05-26T09:06:00+08:00">2026-05-26</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意</h1>
-<p>n 个灯泡，每次选择一个灯泡，它会等概率变成 r/g/b 三种颜色之一。求在最优策略下，让所有灯泡最终同色的最小期望操作次数。</p>
-<!-- Notion block type: table_of_contents -->
-<h1 id="思路讲解"><a class="markdownIt-Anchor" href="#思路讲解"></a> 思路讲解</h1>
-<h2 id="状态压缩为什么不会偏小"><a class="markdownIt-Anchor" href="#状态压缩为什么不会偏小"></a> 状态压缩为什么不会偏小</h2>
-<p>这里的状态写成 <code>dp[a][b][c]</code>，其中 a ≥ b ≥ c，只保留三种颜色数量的有序三元组，不再记录哪个数量对应 r/g/b。乍一看，这像是把颜色标签抹掉了，会不会让策略空间变大，从而让期望被算小。</p>
-<blockquote>
-<p>💡 <strong>Note</strong>: 不会。原因是这道题的颜色标签本身完全对称：r/g/b 只是一组三个名字，操作概率、目标条件、代价都不依赖具体颜色名。</p>
-</blockquote>
-<p>换句话说，任意两个状态只要颜色数量的多重集相同，比如 <code>(5,3,2)</code> 对应红多一点，或者绿多一点，它们只是把颜色名字重命名了一下。最优策略也可以跟着颜色重命名，所以期望值必须相同。</p>
-<p>所以排序不是在额外合并“不等价”的状态，而是在把一整类只差颜色命名的等价状态合并。终态也同样忽略颜色：<code>(n,0,0)</code> 表示全红、全绿、全蓝这三个终态的共同代表，它们的期望都为 0。初态和终态都按同一套颜色对称性取商，因此不会影响答案。</p>
-<blockquote>
-<p>真正需要小心的是：排序后做转移时，每次后继状态也必须重新排序；这样才是在等价类之间转移。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> norm = [&amp;](array&lt;<span class="type">int</span>, <span class="number">3</span>&gt; x) &#123;</span><br><span class="line">    <span class="built_in">sort</span>(x.<span class="built_in">begin</span>(), x.<span class="built_in">end</span>(), <span class="built_in">greater</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从当前有序状态转移后，必须再次 norm</span></span><br><span class="line">nxt = <span class="built_in">norm</span>(nxt);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>额外坑：排序压缩后，不能只把“颜色没有变化”当自环；只要转移后的计数重新排序后仍等于当前 (a,b,c)，它就是同一个压缩状态，也要计入自环概率。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cur = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">pos = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b -&gt; a: (2, 0, 0)</span></span><br><span class="line"><span class="comment">// b -&gt; b: (1, 1, 0) self</span></span><br><span class="line"><span class="comment">// b -&gt; c: (1, 0, 1) -&gt; sort -&gt; (1, 1, 0) self</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 所以 self = 2，不能固定乘 3/2；应使用：</span></span><br><span class="line">E = (known + <span class="number">1</span>) / (<span class="number">1</span> - self / <span class="number">3.0</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="反向推导的定位"><a class="markdownIt-Anchor" href="#反向推导的定位"></a> 反向推导的定位</h2>
-<p>期望 DP 的建模仍然是正向的：站在当前状态写 “1 + 后继期望的平均”。按 max(a,b,c) 从大到小求值，只是为了让部分后继状态已经算过；这是实现技巧，不是思考方法本身。</p>
-<p><img src="https://media.znzryb.com/20260526-adba6257/erratic-lights-reverse-view_0fedbd35.png" alt="正向写期望方程，按层倒序求值只是实现细节。" /></p>
-<h2 id="push-pull-与倒序枚举的判断"><a class="markdownIt-Anchor" href="#push-pull-与倒序枚举的判断"></a> push / pull 与倒序枚举的判断</h2>
-<p>push 和 pull 不是写法喜好，而是依赖方向问题。判断标准是：处理到当前状态时，它的值是否已经完整确定；以及当前状态要读取的依赖是否已经算过。</p>
-<table>
-<thead>
-<tr>
-<th>写法</th>
-<th>核心判断</th>
-<th>适合场景</th>
-<th>这题里的结论</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>push</td>
-<td>处理到 cur 时，dp[cur] 已经完整确定，可以放心把贡献分发给 nxt。</td>
-<td>DAG 拓扑序、前缀 DP、路径计数、概率分布传播。</td>
-<td>排序压缩后有同层和自环，贡献可能推到已经处理过的位置，写起来容易漏。</td>
-</tr>
-<tr>
-<td>pull</td>
-<td>处理到 cur 时，cur 要读取的 dp[nxt] 都已经算好，然后由方程合成 dp[cur]。</td>
-<td>min/max 转移、期望方程、自环移项、同层依赖比较绕的 DP。</td>
-<td>本题期望式天然是 E(cur)=1+average(E(nxt))，自环和同层都能在当前方程里统一处理。</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>push：当前 dp[cur] 已经完整确定，把贡献分发给后继。适合 DAG 拓扑序、前缀 DP、路径计数、概率分布传播等场景。</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// push: dp[u] 已经确定，向外分发贡献</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> v : nxt[u]) &#123;</span><br><span class="line">    dp[v] += dp[u] * w;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>pull：当前 dp[cur] 要由若干已知状态合成。适合 min/max 转移、期望方程、自环移项、同层依赖方向复杂的场景。</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pull: 站在 u，读取已知状态来计算自己</span></span><br><span class="line">dp[u] = init;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> v : <span class="built_in">next</span>(u)) &#123;</span><br><span class="line">    dp[u] = <span class="built_in">combine</span>(dp[u], dp[v]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这题更适合 pull，因为期望式天然是 E(cur) = 1 + average(E(nxt))。如果用 push，必须保证被推到的状态还没处理；但排序后的同层转移会让贡献方向变得麻烦，容易出现“加晚”。pull 则是先看完整当前方程，统计自环，再读取已经算好的后继。</p>
-<p>倒序枚举的判断也不是看心理上从哪里出发，而是看依赖谁：算当前状态时，它依赖的状态必须已经算过。依赖更小下标就正序，依赖更大下标或更接近终点的状态就倒序。</p>
-<table>
-<thead>
-<tr>
-<th>枚举方向</th>
-<th>判断标准</th>
-<th>典型代码</th>
-<th>本题对应</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>正序</td>
-<td>dp[cur] 依赖更小的状态，比如 dp[i-1]、更短前缀、更少物品。</td>
-<td>for (int i = 1; i &lt;= n; ++i)</td>
-<td>如果当前值依赖的是 a 更小 / b 更小的状态，才会正序。</td>
-</tr>
-<tr>
-<td>倒序</td>
-<td>dp[cur] 依赖更大的状态，或者更接近终点的状态，比如 dp[i+1]。</td>
-<td>for (int i = n - 1; i &gt;= 0; --i)</td>
-<td>本题 dp[a][b][c] 依赖 a 更大，或同 a 下 b 更大的后继，所以 a、b 都倒序。</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正序：dp[i] 依赖 dp[i - 1]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    dp[i] = <span class="built_in">f</span>(dp[i - <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 倒序：dp[i] 依赖 dp[i + 1]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    dp[i] = <span class="built_in">f</span>(dp[i + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对本题的 c &gt; 0 状态，摸 c 后的非自环后继通常是 (a+1, b, c-1) 或同层的 sort(a, b+1, c-1)，也就是 a 更大，或同 a 下 b 更大。因此求值顺序选 a 倒序、b 倒序，让右边 dp[nxt] 先被算好。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> a = n - <span class="number">1</span>; a &gt;= <span class="number">0</span>; --a) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> b = a; b &gt;= <span class="number">0</span>; --b) &#123;</span><br><span class="line">        <span class="type">int</span> c = n - a - b;</span><br><span class="line">        <span class="comment">// 计算 dp[a][b][c]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>一句话：这题是正向建模，反向求值；选择倒序不是因为从终态“反推过程”，而是因为当前状态的期望依赖更接近终态的后继状态。</p>
-</blockquote>
-<h1 id="ac-代码"><a class="markdownIt-Anchor" href="#ac-代码"></a> AC 代码</h1>
-<p>待补。</p>
-<h1 id="心路历程"><a class="markdownIt-Anchor" href="#心路历程"></a> 心路历程</h1>
-<ul>
-<li>
-<p>一开始容易把“倒序求值”误解成“从终态反推期望”。正确区分是：式子按当前状态正向建，代码按层倒序算。</p>
-</li>
-<li>
-<p>另一个容易卡住的点是排序状态是否会压小答案；本质原因是颜色完全对称，所以这是合法的等价类压缩。</p>
-</li>
-</ul>
-<h1 id="附件"><a class="markdownIt-Anchor" href="#附件"></a> 附件</h1>
-<p>待补 mentor.pdf / 源码附件。</p>
-<link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -961,14 +1049,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">719</span>
+          <span class="site-state-item-count">720</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">208</span>
+        <span class="site-state-item-count">209</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
