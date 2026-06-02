@@ -28,7 +28,7 @@
 <meta property="og:description" content="近期训练题目一句话总结   HDU 2026 春季联赛 10 D - 歪歪爱追剧：筛掉不含明星时刻的区间后做带权区间选择；坑点是没有前驱时也要允许当前区间单独成为答案。   CF 1100 E - Deconstruction Tree ：固定终点看前驱区间，非根转移是 need[y] &lt; x &lt; y；根转移只看第二大的根分支最大值。 题解   CF Round 1101 Div2">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-29T07:01:00.000Z">
-<meta property="article:modified_time" content="2026-06-01T13:23:45.176Z">
+<meta property="article:modified_time" content="2026-06-02T06:42:13.214Z">
 <meta property="article:author" content="znzryb">
 <meta property="article:tag" content="常见错误 bug&#x2F;error">
 <meta property="article:tag" content="算法讲解 tutorial">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-06-01 21:23:45" itemprop="dateModified" datetime="2026-06-01T21:23:45+08:00">2026-06-01</time>
+                <time title="Modified: 2026-06-02 14:42:13" itemprop="dateModified" datetime="2026-06-02T14:42:13+08:00">2026-06-02</time>
               </span>
 
           
@@ -255,7 +255,10 @@
 <p><a href="/2026/05/30/20260530-15188b79">CF Round 1101 Div2 C2 - Seating Arrangement</a>：两个洞见串起来看：一是桌子从空到非空是单向状态变化，所以拆成开桌者 / 跟随者；二是 A <strong>不能待定式分配</strong>，因为其<strong>具有中间过程价值</strong>，因为它只有先作为跟随者进入结构，才会拥有“以后改成开桌者时吐回旧槽位”的<strong>中间过程价值</strong>。</p>
 </li>
 <li>
-<p><a href="/2026/05/31/20260531-1ede7619">金马 5 校 - 奇点蜂测序</a>：区间异或约束先转成前缀点关系 s_l xor s_{r+1}=x，再用带权并查集维护连通块内相对异或；查询时<strong>同块输出差值</strong>，不同块输出 -1。</p>
+<p><a href="/2026/05/31/20260531-1ede7619">金马 5 校 - 奇点蜂测序</a>：区间异或约束先转成前缀点关系 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>l</mi></msub><mo>⊕</mo><msub><mi>s</mi><mrow><mi>r</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">s_l \oplus s_{r+1}=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊕</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>，再用带权并查集维护连通块内相对异或；查询时<strong>同块输出差值</strong>，不同块输出 -1。</p>
+</li>
+<li>
+<p><a href="/2026/06/02/20260602-9859221e">CF Edu 170 D - Attribute Checks</a>：INT 当 dp 下标、STR 靠「已得点数 − INT」反推，把两维属性压成一维；每条检定本质是给一段连续区间 +1，用差分做到 O(1)，只有遇到加点才把差分 partial_sum 摊开、做一次背包式分裂转移再压回；m=5000 这个小界就是在暗示 O(n+m²)。</p>
 </li>
 </ul>
 <link rel="stylesheet" href="/css/folder.css" type="text/css"><script src="/js/folder.js" type="text/javascript" async></script>
@@ -278,12 +281,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/05/29/20260529-f4f5e499/" rel="prev" title="HDU 2026 春季联赛 10 D - 歪歪爱追剧">
-      <i class="fa fa-chevron-left"></i> HDU 2026 春季联赛 10 D - 歪歪爱追剧
+    <a href="/2026/05/28/20260528-c16be49a/" rel="prev" title="CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)">
+      <i class="fa fa-chevron-left"></i> CF Round 1100 Div12 C2 - We Be Flipping (Hard Version)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/05/30/20260530-bcde5d73/" rel="next" title="CF 1100 E - Deconstruction Tree">
-      CF 1100 E - Deconstruction Tree <i class="fa fa-chevron-right"></i>
+    <a href="/2026/05/29/20260529-f4f5e499/" rel="next" title="HDU 2026 春季联赛 10 D - 歪歪爱追剧">
+      HDU 2026 春季联赛 10 D - 歪歪爱追剧 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -359,7 +362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">723</span>
+          <span class="site-state-item-count">725</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
